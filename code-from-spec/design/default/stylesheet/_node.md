@@ -53,8 +53,13 @@ The stylesheet must cover:
 8. **Blog article date** — `main time` (date after h1)
    is block, 0.875em, muted color, margin-bottom 1.5em.
 
-9. **Images** — `margin: 1em auto` (centered within
-   the container).
+9. **Images** — break out of the container and center
+   on the viewport. Use `max-width: 100vw`,
+   `width: auto`, `margin-left: calc(50% - 50vw)`,
+   `margin-right: calc(50% - 50vw)`. Images smaller
+   than the viewport stay at their natural size,
+   centered. Images larger than the viewport are
+   limited to viewport width. No vertical margin.
 
 10. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically

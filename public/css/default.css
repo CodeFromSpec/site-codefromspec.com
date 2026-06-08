@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/default/stylesheet@838Oke-0W5UA4sGAy-E_LAjiNeU */
+/* code-from-spec: ROOT/design/default/stylesheet@mMWwKUcB0pWFmU4eKD95ZE2z8mM */
 
 .container {
   max-width: 720px;
@@ -100,7 +100,10 @@ main time {
 }
 
 img {
-  margin: 1em auto;
+  max-width: 100vw;
+  width: auto;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 @media (max-width: 768px) {

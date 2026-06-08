@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/default/stylesheet@EiySKk3x5097RrwDFW-x2C-VbrE */
+/* code-from-spec: ROOT/design/default/stylesheet@qf7id348gt8Gb3LZEY_SLbeoxiw */
 
 .container {
   max-width: 720px;
@@ -62,8 +62,8 @@ footer nav {
 }
 
 main {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 h1 + p {

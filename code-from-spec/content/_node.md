@@ -1,33 +1,68 @@
 # ROOT/content
 
-Text content for the site. This layer produces
-structured text artifacts — no HTML, no styling.
+Text content for the site. Content files live in
+`content/` at the project root and are written manually
+— they are not auto-generated.
 
 # Public
 
-## Tone
+## Extraction instructions
 
-Technical but accessible. Short sentences. No AI hype,
-no buzzwords. Concrete examples over abstract claims.
-The voice of the Code from Spec rationale document is
-the reference for tone.
+Copy the external content file verbatim. The only
+change is adding the `code-from-spec` field as the
+first field in the YAML frontmatter. The output must
+be identical to the input except for the artifact tag
+in the frontmatter.
 
-## Language
+# Private
 
-English.
+## Content file format
 
-## Author
+Content files are markdown with YAML frontmatter:
 
-Gustavo Silveira Neto — gustavo@codefromspec.com
+```
+---
+title: {page title}
+description: {one-sentence description for meta tag}
+---
 
-## External links
+{markdown content}
+```
 
-- GitHub organization: https://github.com/CodeFromSpec
-- Framework repository: https://github.com/CodeFromSpec/framework
-- MCP tool repository: https://github.com/CodeFromSpec/tool-framework-mcp
+The frontmatter contains page metadata:
 
-## Content format
+- `title` — rendered as `<h1>` and used for `<title>`
+  and `<meta name="description">` by the html layer.
+- `description` — used for `<meta name="description">`.
+- `date` (optional) — rendered as `<time>` by the html
+  layer. Used by blog articles.
 
-Content artifacts use markdown. Headings use `##` for
-sections. The artifact is pure text — no YAML
-frontmatter, no HTML tags.
+The body is pure markdown. No HTML tags, no CSS classes,
+no inline styles. The html layer converts markdown to
+semantic HTML.
+
+Additional frontmatter fields may be present depending
+on the content type (e.g., `date` for blog articles).
+
+Optional metadata fields:
+
+- `image` — path to an image for social sharing
+  (og:image). Relative to the site root
+  (e.g., `/images/og-context-management.png`). Image
+  files live in `public/images/`.
+
+## Markdown conventions
+
+- `#` is not used in the body — the page heading comes
+  from the frontmatter `title` field.
+- `##` for section headings.
+- Normal paragraphs (blank line separated).
+- `- ` for bullet lists.
+- `1. ` for numbered lists.
+- `` `code` `` for inline code.
+- Triple backtick fenced blocks for code blocks.
+- `**bold**` for emphasis.
+- `[text](url)` for links.
+- `![alt](path)` for images. Image files live in
+  `public/images/`. Paths are relative to the site root
+  (e.g., `![Diagram](/images/diagram.png)`).

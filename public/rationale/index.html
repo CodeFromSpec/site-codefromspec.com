@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!-- code-from-spec: ROOT/html/rationale@c3fR2foJwqwC9GDu3rXBDylkpmY -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Why Code from Spec exists — the full rationale for the methodology and how it changes software development.">
+  <meta name="author" content="Gustavo Silveira Neto">
+  <title>Rationale — Code from Spec</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="site-name">Code from Spec</a>
+      <nav>
+        <a href="/rationale">Rationale</a>
+        <a href="/blog">Blog</a>
+        <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main class="rationale">
+    <div class="container">
+      <h1>Rationale</h1>
+
+      <blockquote>
+        <p>Code from Spec is a methodology where code is a generated artifact, not the source of truth. Specifications are the source of truth. To change behavior, you change the specifications and regenerate the code. AI is the enabler, not the point. The disruption is in who participates, how knowledge flows, and where accountability lives.</p>
+      </blockquote>
+
+      <section>
+        <h2>The problem</h2>
+        <p>Software is written by people who hold context in their heads. The engineer receives requirements, translates them into code, and in that translation makes hundreds of decisions that are never recorded. When the engineer leaves, the decisions leave too.</p>
+        <p>Code expresses mechanism, not intent. You can read code and understand what it does. You cannot read it and understand why, what alternatives were considered, or what constraints it silently respects.</p>
+        <p>The industry built compensating mechanisms: comments, wikis, ADRs, onboarding docs. None work at scale because they exist separately from the system. They describe a system that changes independently. They drift. The team stops trusting them. The knowledge returns to people's heads.</p>
+      </section>
+
+      <section>
+        <h2>Why specifications failed before</h2>
+        <p>The 1970s and 1980s produced rigorous methods for capturing domain knowledge before writing code. They failed not because they were wrong but because they were expensive. Maintaining a specification in sync with evolving code required constant manual effort. The spec drifted. The cost exceeded the benefit.</p>
+        <p>The industry responded with agility: shorter cycles, working software over documentation. This was rational. If specifications cannot be kept current, get feedback faster instead.</p>
+        <p>Agile solved the bottleneck by removing the spec. The knowledge became invisible — encoded in code that only the programmer could read.</p>
+      </section>
+
+      <section>
+        <h2>The programmer bottleneck</h2>
+        <p>The industry tried to close the gap between domain knowledge and software from multiple directions. No-code and low-code platforms attempted to let non-programmers build software directly. They succeeded for narrow cases: forms, workflows, dashboards. They failed for anything complex enough to require real engineering judgment: error handling, concurrency, security, integration.</p>
+        <p>The fundamental issue persisted: someone had to translate domain knowledge into something executable. The programmer remained indispensable — expensive to train, scarce in supply, and the sole bridge between what the organization knew and what the software did.</p>
+      </section>
+
+      <section>
+        <h2>AI changes the economics</h2>
+        <p>AI inverts the cost structure. Code generation is cheap. The scarce resource is no longer writing code — it is knowing what to write.</p>
+        <p>When code is generated from spec, synchronization is automatic by construction. The spec does not drift from the code because the code is derived from the spec. The argument that killed formal specification in the 1980s no longer applies.</p>
+      </section>
+
+      <section>
+        <h2>How it works</h2>
+        <p>Specifications are organized as a tree. Each node adds precision to its parent — high-level intent at the root, implementation detail at the leaves. Only leaf nodes generate artifacts.</p>
+        <p>An orchestrator dispatches a generation subagent for each stale artifact. The subagent receives the chain — the ordered set of ancestor constraints, dependency interfaces, external references, and the target node's specification. The chain is the complete context. Nothing outside it is needed.</p>
+      </section>
+
+      <section>
+        <h2>Why it can be trusted</h2>
+        <p>AI is not infallible. The methodology compensates through structure:</p>
+        <ul>
+          <li><strong>Small scope.</strong> Each leaf generates a small, focused piece of code.</li>
+          <li><strong>Complete context.</strong> The subagent reads the full chain. Every constraint from every ancestor is present.</li>
+          <li><strong>Tests as guardrails.</strong> Every leaf has a sibling test node. Tests describe expected behavior, not implementation.</li>
+          <li><strong>Build verification.</strong> Every regeneration ends with build + test.</li>
+        </ul>
+        <p>This is not blind trust. It is a framework that uses AI's strengths while compensating for its weaknesses with structural guardrails.</p>
+      </section>
+
+      <section>
+        <h2>Precision, not documentation</h2>
+        <p>The word "specification" suggests a document. In practice, a spec node is a machine component that must fit precisely with every other part.</p>
+        <p>Precision means: every error has a formal name. Every function name is chosen once and used identically across every layer. Every record field has an explicit type.</p>
+        <p>When a spec says "file unreadable," different agents produce different implementations. When a spec says <code>FileUnreadable</code>, every agent produces <code>ErrFileUnreadable</code>. The difference between prose and formal names is the difference between approximate and exact generation.</p>
+      </section>
+
+      <section>
+        <h2>The real work</h2>
+        <p>Spec authoring is harder and more iterative than it appears. A spec that seems clear to a human may be ambiguous to an agent. The tests fail. The team diagnoses, discovers the ambiguity, adds a constraint, and regenerates.</p>
+        <p>A single leaf may go through ten iterations before the spec reliably produces correct code. This is not failure. It is the methodology working. Each iteration makes the spec more precise and the team's understanding more explicit.</p>
+      </section>
+
+      <section>
+        <h2>Tests as accumulated knowledge</h2>
+        <p>Test nodes describe what to verify, not how to implement. But generated test code often contains knowledge beyond the spec: specific values that triggered a production bug, sequences that exposed a race condition.</p>
+        <p>This knowledge accumulates. Before regenerating a test file, review it for knowledge that lives only in code. Migrate that knowledge to the test spec. Then regenerate.</p>
+      </section>
+
+      <section>
+        <h2>Software as a collaborative product</h2>
+        <p>Code from Spec makes every contributor a direct author — not by making everyone a programmer, but by giving each domain expert a medium they can read and evaluate.</p>
+        <p>A compliance officer contributes regulatory constraints. A product manager contributes business rules. A legal team member contributes contract interpretations. An infosec engineer contributes security constraints. A software engineer contributes technical constraints.</p>
+        <p>Guard nodes at intermediate levels enforce constraints that all descendants must respect. The spec makes quality observable — correctness is no longer invisible, and shortcuts are no longer undetectable.</p>
+      </section>
+
+      <section>
+        <h2>AI as spec co-author</h2>
+        <p>The same AI that generates code helps write specs. In practice, AI is an intellectual collaborator in spec development. It reviews specs, proposes function names and record structures, diagnoses test failures, traces them to specific spec gaps.</p>
+        <p>But AI does not make design decisions. The pattern is consistent: AI proposes, human disposes.</p>
+      </section>
+
+      <section>
+        <h2>The cost of change</h2>
+        <p>Changing a business rule costs the same whether it is day one or year three: update the spec, regenerate the code.</p>
+        <p>Changes cascade widely but mechanically. The blast radius is large in files touched, small in decisions needed.</p>
+      </section>
+
+      <section>
+        <h2>The spec as organizational asset</h2>
+        <p>A spec tree that grows with the system is a complete, versionable representation of organizational knowledge. It is not documentation — documentation drifts. The spec tree is the system; code is its shadow.</p>
+        <p>The asset compounds. The software becomes more correct not because the engineers got better, but because the domain knowledge got more explicit.</p>
+      </section>
+
+      <section>
+        <h2>Auditability</h2>
+        <p>Every generated file carries an artifact tag linking it to the spec that produced it. The chain hash is a fingerprint of everything that contributed to the generation.</p>
+        <p>In regulated environments, this is compliance by construction.</p>
+      </section>
+
+      <section>
+        <h2>Context management</h2>
+        <p>AI agents have finite context windows. The spec tree solves this by construction: each node's chain includes only what it declared. Adding hundreds of nodes does not inflate the context for existing nodes.</p>
+        <p>The total knowledge in the tree is unbounded. The context per generation is bounded and curated.</p>
+      </section>
+
+      <section>
+        <h2>Building trust</h2>
+        <p>Trust in AI-generated code is built through evidence:</p>
+        <ul>
+          <li><strong>Phase 1: Full review.</strong> Humans review specs and generated code. Every regeneration is inspected.</li>
+          <li><strong>Phase 2: Sampling.</strong> Humans review specs thoroughly but examine generated code by sampling.</li>
+          <li><strong>Phase 3: Spec review only.</strong> Humans review specs. Code is verified by tests and CI.</li>
+          <li><strong>Phase 4: Governance gate.</strong> Humans review specs only at the production deployment boundary.</li>
+        </ul>
+        <p>Each transition is earned by evidence. Trust can regress. The phases are a dial to adjust, not a ladder to climb.</p>
+      </section>
+
+      <section>
+        <h2>The endgame</h2>
+        <p>If code is derived from specs, it does not need to be versioned. The logical conclusion: a repository that contains only the spec tree and test specs. The CI pipeline generates code, runs tests, and deploys.</p>
+        <p>This vision is not yet realized. Every step toward it makes the methodology more valuable.</p>
+      </section>
+
+      <section>
+        <h2>The return to engineering</h2>
+        <p>The engineer's job is analysis and design: understanding the domain, structuring the spec tree, placing guard nodes, resolving ambiguities. The agent types. The engineer thinks.</p>
+        <p>The engineer is not hired to write code. The engineer is hired because they solve complex problems.</p>
+      </section>
+
+      <section>
+        <h2>Caveats</h2>
+        <p>AI is the weakest link. The structural guardrails exist because the agent cannot be trusted on its own.</p>
+        <p>The organizational shift is political — the methodology enables it, leadership causes it.</p>
+        <p>Not for everything: prototypes and trivial systems do not benefit. Code from Spec is designed for systems where the cost of getting it wrong exceeds the cost of specifying it precisely.</p>
+        <p>Implicit knowledge is invisible knowledge — if it is not in the spec tree, it will not be followed.</p>
+      </section>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <nav>
+        <a href="/">Home</a>
+        <a href="/rationale">Rationale</a>
+        <a href="/blog">Blog</a>
+        <a href="/license">License</a>
+        <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div class="footer-meta">
+        <span>Contact: <a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
+        <span>Licensed under <a href="/license">CC BY 4.0</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

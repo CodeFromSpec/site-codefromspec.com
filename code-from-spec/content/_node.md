@@ -31,11 +31,12 @@ description: {one-sentence description for meta tag}
 
 The frontmatter contains page metadata:
 
-- `title` — rendered as `<h1>` and used for `<title>`
-  and `<meta name="description">` by the html layer.
+- `title` — used for `<title>` and `<meta>` by the
+  html layer. Not rendered visibly — the author
+  controls visible headings in the body.
 - `description` — used for `<meta name="description">`.
-- `date` (optional) — rendered as `<time>` by the html
-  layer. Used by blog articles.
+- `date` (optional) — metadata for blog articles. The
+  author controls how/whether it appears in the body.
 
 The body is pure markdown. No HTML tags, no CSS classes,
 no inline styles. The html layer converts markdown to
@@ -53,8 +54,7 @@ Optional metadata fields:
 
 ## Markdown conventions
 
-- `#` is not used in the body — the page heading comes
-  from the frontmatter `title` field.
+- `#` for page heading.
 - `##` for section headings.
 - Normal paragraphs (blank line separated).
 - `- ` for bullet lists.

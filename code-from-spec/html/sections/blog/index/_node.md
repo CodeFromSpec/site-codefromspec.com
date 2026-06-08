@@ -16,7 +16,9 @@ from the article list below.
 Generate the blog index page HTML file. Use the HTML
 layout template exactly as prescribed.
 
-The page title (h1) is: "Blog"
+The page content starts with the banner image
+`/images/banner_blog.png` with alt text "Blog",
+followed by the page heading "Blog".
 
 Introduction paragraph: "Notes on building with Code
 from Spec — progress reports, lessons learned,

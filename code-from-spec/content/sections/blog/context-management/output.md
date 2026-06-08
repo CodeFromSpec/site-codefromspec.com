@@ -1,9 +1,13 @@
 ---
-code-from-spec: ROOT/content/sections/blog/context-management@D02MptnSGD4UURAuwzO7q8H-D3s
+code-from-spec: ROOT/content/sections/blog/context-management@OT0TQYdnFAowswef7xwevooF3wc
 title: Context management by construction
 description: How Code from Spec gives AI agents exactly the context they need — no more, no less.
 date: 2026-06-08
 ---
+
+# Context management by construction
+
+June 8, 2026
 
 ## The context problem
 

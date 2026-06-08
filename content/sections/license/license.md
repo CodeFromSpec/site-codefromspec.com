@@ -3,6 +3,10 @@ title: License
 description: License for Code from Spec — Creative Commons Attribution 4.0 International.
 ---
 
+![License](/images/banner_license.png)
+
+# License
+
 Creative Commons Attribution 4.0 International
 
 Copyright © 2026 Gustavo Silveira Neto — gustavo@codefromspec.com

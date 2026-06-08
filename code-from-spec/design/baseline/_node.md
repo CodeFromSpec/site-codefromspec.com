@@ -17,7 +17,7 @@ Define CSS custom properties on `:root` with default
 
 ```
 --color-text: #1a1a1a
---color-bg: #ffffff
+--color-bg: #fefdfe
 --color-accent: #2563eb
 --color-muted: #666666
 --color-border: #e5e5e5

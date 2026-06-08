@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/baseline@EnRYmAH_P3y5ZlX8FFsP9qdbAPg */
+/* code-from-spec: ROOT/design/baseline@kC23xGF0SLWkZl5enhkrfUVafqU */
 
 :root {
   --color-text: #1a1a1a;
@@ -32,7 +32,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 1.5em;
+  margin-top: 1.2em;
   margin-bottom: 0.5em;
   line-height: 1.3;
 }

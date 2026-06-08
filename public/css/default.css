@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/default/stylesheet@qf7id348gt8Gb3LZEY_SLbeoxiw */
+/* code-from-spec: ROOT/design/default/stylesheet@ZbqrYBtL83aa8G2aasFNmLuy02c */
 
 .container {
   max-width: 720px;
@@ -126,7 +126,7 @@ img {
   }
 
   main {
-    padding-top: 24px;
+    padding-top: 10px;
     padding-bottom: 0;
   }
 }

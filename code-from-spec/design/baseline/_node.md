@@ -39,7 +39,7 @@ The stylesheet must cover:
    described above.
 
 3. **Typography** — heading sizes and line-height from
-   the design values. Headings have margin-top 1.5em,
+   the design values. Headings have margin-top 1.2em,
    margin-bottom 0.5em. Paragraphs have margin-top 0,
    margin-bottom 1em.
 

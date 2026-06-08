@@ -62,7 +62,7 @@ The stylesheet must cover:
 10. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically
    (flex-direction column, align flex-start, 12px gap),
-   nav wraps (16px gap), main padding 24px 0.
+   nav wraps (16px gap), main padding 10px 0.
 
 Place the artifact tag as a CSS comment on the first
 line.

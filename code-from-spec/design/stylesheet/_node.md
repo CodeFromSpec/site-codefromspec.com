@@ -42,15 +42,22 @@ The stylesheet must cover:
    4px radius, overflow-x auto. `pre code` resets
    background and padding.
 
-8. **Article list** — `.article-list` is an unstyled
-   `ul`. Each `li` has 2em bottom margin.
-   `.article-title` is a block link, 1.1em bold, accent
-   color. `.article-date` is block, 0.875em, muted
-   color.
+8. **Article list** — `article` elements inside main
+   have 2em bottom margin. `article h2 a` is 1.1em
+   bold, accent color, block display. `article time`
+   is block, 0.875em, muted color.
 
-9. **Rationale page** — `.rationale h2` has margin-top
-   2.5em. `blockquote` uses left border in accent color,
-   4px wide, 8px 16px padding, `#444444` text.
+9. **Subheading** — the first `p` immediately after an
+   `h1` (`h1 + p`) is styled as a subheading: 1.25em,
+   muted color, no bottom margin beyond normal.
+
+10. **Rationale page** — `.rationale h2` has margin-top
+    2.5em. `blockquote` uses left border in accent color,
+    4px wide, 8px 16px padding, `#444444` text.
+
+11. **Blog article** — `main > .container > time` (date
+    after the h1 in an article page) is block, 0.875em,
+    muted color, margin-bottom 1.5em.
 
 10. **Responsive** — at max-width 768px: body font 16px,
     container padding 16px, header stacks vertically

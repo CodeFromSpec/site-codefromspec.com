@@ -1,10 +1,13 @@
-[//]: # (code-from-spec: ROOT/content/landing@vTdiWIZhsro7qYSjODADnUdNhVg)
-
-# Code from Spec
+---
+title: Code from Spec
+description: A methodology where specifications are the source of truth and code is a generated artifact.
+---
 
 A methodology where code is a generated artifact, not the source of truth.
 
 Specifications are organized as a tree. Each node adds precision to its parent. Only leaf nodes generate artifacts. To change behavior, you change the spec and regenerate. You never edit generated code directly.
+
+[View on GitHub](https://github.com/CodeFromSpec/framework)
 
 ## The problem software has always had
 
@@ -56,6 +59,6 @@ See the [framework repository](https://github.com/CodeFromSpec/framework) for fu
 
 ## Learn more
 
-- Read the full rationale → /rationale
-- Browse articles → /blog
-- View on GitHub → [https://github.com/CodeFromSpec/framework](https://github.com/CodeFromSpec/framework)
+- [Read the full rationale](/rationale)
+- [Browse articles](/blog)
+- [View on GitHub](https://github.com/CodeFromSpec/framework)

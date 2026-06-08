@@ -1,31 +1,21 @@
 ---
 depends_on:
   - ROOT/design(HTML layout template)
-input: ARTIFACT/content/landing
+external:
+  - path: content/landing.md
 output: public/index.html
 ---
 
 # ROOT/html/home
 
-Transforms the landing page content into HTML.
+Transforms the landing page content into a complete
+HTML page.
 
 # Agent
 
-Generate the home page HTML file.
+Generate the home page HTML file following the rendering
+process in the inherited context. The content file is
+provided via external.
 
-1. Read the input artifact (landing page content in
-   markdown).
-2. Convert it to HTML following the rendering conventions
-   in the inherited context.
-3. Use the HTML layout template exactly as prescribed.
-4. The hero section (heading + subheading + paragraph +
-   call-to-action link) goes directly in `<main>` without
-   a `<section>` wrapper. Use `<p class="subheading">`
-   for the subheading. The CTA is a `<p>` with an `<a>`
-   to the framework GitHub repository.
-5. Each subsequent section uses `<section>` with an
-   `<h2>`.
-6. The "Who benefits" subsections use `<h3>` inside the
-   parent `<section>`.
-7. The "Getting started" steps use `<ol>`.
-8. The "Learn more" links use `<ul>`.
+Special case for the home page: the `<title>` is just
+"Code from Spec" (no suffix).

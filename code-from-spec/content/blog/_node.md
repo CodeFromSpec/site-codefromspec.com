@@ -5,14 +5,20 @@ lessons learned, roadblocks, and future directions.
 
 # Public
 
-## Article format
+## Article frontmatter
 
-Each article is a leaf node under this directory. The
-artifact is a markdown file with:
+Blog articles include a `date` field in the frontmatter:
 
-- A `## {title}` heading as the first line
-- A date line immediately after: `{YYYY-MM-DD}`
-- A brief description (one sentence)
-- The article body
+```
+---
+title: {article title}
+description: {one-sentence description}
+date: {YYYY-MM-DD}
+---
+```
 
-No articles exist yet.
+## File naming
+
+Article files are named `{YYYYMMDD}_{slug}.md` where
+the date prefix matches the `date` frontmatter field.
+This ensures chronological ordering in the filesystem.

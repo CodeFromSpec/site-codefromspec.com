@@ -1,12 +1,25 @@
+# ROOT/design/default/template
+
+The HTML layout template for the default theme.
+
+# Public
+
+## HTML layout template
+
+Every page is a standalone HTML file. The following
+structure must be reproduced exactly — only the marked
+parts vary.
+
+```html
 <!DOCTYPE html>
-<!-- code-from-spec: ROOT/html/sections/blog/index@-2YaYEcGeAPvlrufIF2UBkSZBaY -->
+<!-- code-from-spec: {artifact-tag} -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Notes on building with Code from Spec — progress reports, lessons learned, roadblocks, and future directions.">
+  <meta name="description" content="{page-specific description}">
   <meta name="author" content="Gustavo Silveira Neto">
-  <title>Blog — Code from Spec</title>
+  <title>{Page Title} — Code from Spec</title>
   <link rel="stylesheet" href="/css/baseline.css">
   <link rel="stylesheet" href="/css/default.css">
 </head>
@@ -23,13 +36,7 @@
   </header>
   <main>
     <div class="container">
-      <h1>Blog</h1>
-      <p>Notes on building with Code from Spec — progress reports, lessons learned, roadblocks, and future directions.</p>
-      <article>
-        <h2><a href="/blog/context-management">Context management by construction</a></h2>
-        <time datetime="2026-06-08">June 08, 2026</time>
-        <p>How Code from Spec gives AI agents exactly the context they need — no more, no less.</p>
-      </article>
+      {page content here}
     </div>
   </main>
   <footer>
@@ -49,3 +56,15 @@
   </footer>
 </body>
 </html>
+```
+
+Variable parts:
+
+- `{artifact-tag}` — the artifact tag, unique per page
+- `{page-specific description}` — meta description
+- `{Page Title}` — use "Code from Spec" alone for the
+  home page; "{Name} — Code from Spec" for others
+- `{page content here}` — the page's main content
+
+Use `rel="noopener"` on external links. Do not add
+`noreferrer`.

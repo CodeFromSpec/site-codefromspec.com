@@ -1,6 +1,6 @@
 ---
 depends_on:
-  - ROOT/design(HTML layout template)
+  - ROOT/design/default/template
 output: public/blog/index.html
 ---
 

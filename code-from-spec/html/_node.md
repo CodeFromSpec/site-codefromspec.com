@@ -11,23 +11,27 @@ generated from a corresponding content file.
 
 1. Parse the content file's YAML frontmatter to extract
    `title`, `description`, and `date` (if present).
-2. Use the HTML layout template from ROOT/design.
-3. Set `<title>` to `{title} — Code from Spec`
-   (except the home page: just `Code from Spec`).
-4. Set `<meta name="description">` to `{description}`.
-5. Inside `<main><div class="container">`, place:
-   a. `<h1>{title}</h1>`
-   b. If `date` is present:
-      `<time datetime="{YYYY-MM-DD}">{Month D, YYYY}</time>`
+2. Start from the HTML layout template received via
+   `depends_on`. Fill the placeholders:
+   - `{artifact-tag}` — the artifact tag for this page.
+   - `{Page Title}` — the `title` from frontmatter.
+     Use the suffix pattern prescribed by the template.
+   - `{page-specific description}` — the `description`
+     from frontmatter.
+   - `{page content here}` — the page heading, optional
+     date, and the converted markdown body (see below).
+3. The page content placed in `{page content here}` is
+   assembled as:
+   a. A visible heading with the `title` from frontmatter.
+   b. If `date` is present, the formatted date
+      (Month D, YYYY).
    c. The markdown body converted to semantic HTML.
-6. The header, footer, and all boilerplate come from the
-   template — do not modify them.
 
 ## Markdown to HTML conversion rules
 
-- `##` headings → `<section>` containing `<h2>` and the
-  section content up to the next `##`. Each `##` starts
-  a new `<section>`.
+- `##` headings → a section containing an `<h2>` and
+  the section content up to the next `##`. Each `##`
+  starts a new section.
 - Paragraphs → `<p>`.
 - `- ` bullet lists → `<ul>` with `<li>`.
 - `1. ` numbered lists → `<ol>` with `<li>`.
@@ -39,6 +43,5 @@ generated from a corresponding content file.
   `target="_blank" rel="noopener"`.
 - `> quote` → `<blockquote><p>`.
 - `![alt](path)` → `<img src="path" alt="alt">`.
-- If the frontmatter contains `image`, add
-  `<meta property="og:image" content="{image}">` to
-  the `<head>`.
+- If the frontmatter contains `image`, add an
+  `og:image` meta tag to the `<head>`.

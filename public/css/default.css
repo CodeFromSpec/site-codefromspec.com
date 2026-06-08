@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/default/stylesheet@pTYSEzyaESOisKGYlcYEly_jp_8 */
+/* code-from-spec: ROOT/design/default/stylesheet@838Oke-0W5UA4sGAy-E_LAjiNeU */
 
 .container {
   max-width: 720px;
@@ -97,6 +97,10 @@ main time {
   font-size: 0.875em;
   color: var(--color-muted);
   margin-bottom: 1.5em;
+}
+
+img {
+  margin: 1em auto;
 }
 
 @media (max-width: 768px) {

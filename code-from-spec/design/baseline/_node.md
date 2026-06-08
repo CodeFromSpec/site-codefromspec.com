@@ -61,7 +61,10 @@ The stylesheet must cover:
 8. **Strong** — font-weight bold (default, just ensure
    it is not overridden).
 
-9. **Responsive** — at max-width 768px: body font 16px,
+9. **Images** — `max-width: 100%`, `height: auto`,
+   `display: block`.
+
+10. **Responsive** — at max-width 768px: body font 16px,
    h1 1.75em, h2 1.35em, h3 1.15em.
 
 Place the artifact tag as a CSS comment on the first

@@ -53,7 +53,10 @@ The stylesheet must cover:
 8. **Blog article date** — `main time` (date after h1)
    is block, 0.875em, muted color, margin-bottom 1.5em.
 
-9. **Responsive** — at max-width 768px: container
+9. **Images** — `margin: 1em auto` (centered within
+   the container).
+
+10. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically
    (flex-direction column, align flex-start, 12px gap),
    nav wraps (16px gap), main padding 24px 0.

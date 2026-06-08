@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/baseline@pqVMOLFid2E1G_WzVI7OK1pH9m8 */
+/* code-from-spec: ROOT/design/baseline@QljtwIIEkZD-QdS3XJ5ZShXsS-I */
 
 :root {
   --color-text: #1a1a1a;
@@ -106,6 +106,12 @@ blockquote p:last-child {
 
 strong {
   font-weight: bold;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 @media (max-width: 768px) {

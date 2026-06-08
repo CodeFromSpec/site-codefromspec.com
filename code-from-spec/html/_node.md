@@ -2,9 +2,8 @@
 
 Transforms content files into final HTML pages using
 the design system — similar to how static site
-generators (Hugo, Jekyll, Astro) work. Each leaf node
-consumes a content file via `external` and produces a
-complete HTML file.
+generators (Hugo, Jekyll, Astro) work. Each page is
+generated from a corresponding content file.
 
 # Public
 

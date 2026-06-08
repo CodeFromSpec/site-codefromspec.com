@@ -1,8 +1,7 @@
 ---
 depends_on:
   - ROOT/design(HTML layout template)
-external:
-  - path: content/sections/blog/20260608_context-management.md
+input: ARTIFACT/content/sections/blog/context-management
 output: public/blog/context-management/index.html
 ---
 
@@ -14,5 +13,5 @@ complete HTML page.
 # Agent
 
 Generate the article HTML page following the rendering
-process in the inherited context. The content file is
-provided via external.
+process described above. The content to transform is
+provided as input.

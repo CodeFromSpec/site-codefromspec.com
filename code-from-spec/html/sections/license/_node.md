@@ -1,8 +1,7 @@
 ---
 depends_on:
   - ROOT/design(HTML layout template)
-external:
-  - path: content/sections/license/license.md
+input: ARTIFACT/content/sections/license
 output: public/license/index.html
 ---
 
@@ -14,5 +13,5 @@ page.
 # Agent
 
 Generate the license page HTML file following the
-rendering process in the inherited context. The content
-file is provided via external.
+rendering process described above. The content to
+transform is provided as input.

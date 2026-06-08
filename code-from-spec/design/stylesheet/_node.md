@@ -9,7 +9,7 @@ The single CSS stylesheet for the site.
 # Agent
 
 Generate a CSS stylesheet using the design values and
-responsive behavior from the inherited context.
+responsive behavior described above.
 
 The stylesheet must cover:
 

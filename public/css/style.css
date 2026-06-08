@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/stylesheet@EMkQdfGAZvNhet9W_65fudhSYw0 */
+/* code-from-spec: ROOT/design/stylesheet@rAA2ceMWW3f3fvF1951WrZyY0Lo */
 
 *,
 *::before,
@@ -60,6 +60,11 @@ p {
   margin-bottom: 1em;
 }
 
+h1 + p {
+  font-size: 1.25em;
+  color: #666666;
+}
+
 header {
   border-bottom: 1px solid #e5e5e5;
   padding: 16px 0;
@@ -98,6 +103,35 @@ header nav a:hover {
 
 main {
   padding: 40px 0;
+}
+
+main article {
+  margin-bottom: 2em;
+}
+
+main article h2 a {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+main article h2 a:hover {
+  text-decoration: underline;
+}
+
+main article time {
+  display: block;
+  font-size: 0.875em;
+  color: #666666;
+}
+
+main > .container > time {
+  display: block;
+  font-size: 0.875em;
+  color: #666666;
+  margin-bottom: 1.5em;
 }
 
 footer {
@@ -164,35 +198,6 @@ pre code {
   padding: 0;
   border-radius: 0;
   font-size: 0.9em;
-}
-
-.article-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.article-list li {
-  margin-bottom: 2em;
-}
-
-.article-list .article-title {
-  display: block;
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #2563eb;
-  text-decoration: none;
-  margin-bottom: 4px;
-}
-
-.article-list .article-title:hover {
-  text-decoration: underline;
-}
-
-.article-list .article-date {
-  display: block;
-  font-size: 0.875em;
-  color: #666666;
 }
 
 .rationale h2 {

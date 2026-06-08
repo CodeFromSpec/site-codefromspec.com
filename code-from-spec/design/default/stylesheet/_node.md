@@ -37,7 +37,7 @@ The stylesheet must cover:
    links have 16px gap, wrap. `.footer-meta` is flex
    with 16px gap, wrap.
 
-4. **Main** — 40px vertical padding.
+4. **Main** — 10px vertical padding.
 
 5. **Subheading** — `h1 + p` styled at 1.25em, muted
    color.

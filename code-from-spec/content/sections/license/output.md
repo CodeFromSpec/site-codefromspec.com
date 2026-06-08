@@ -1,7 +1,7 @@
 ---
+code-from-spec: ROOT/content/sections/license@4CwxK3o93bRGUNOzZv67gdVN-fg
 title: License
 description: License for Code from Spec — Creative Commons Attribution 4.0 International.
-code-from-spec: ROOT/content/sections/license@lDNy2R3L1yxs6OAs3IpALxzf2A8
 ---
 
 Creative Commons Attribution 4.0 International

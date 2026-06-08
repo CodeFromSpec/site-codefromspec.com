@@ -1,7 +1,7 @@
 ---
 title: Code from Spec
 description: A methodology where specifications are the source of truth and code is a generated artifact.
-code-from-spec: ROOT/content/landing@8SWFho9odBgZiO_82zX6TOnc4Gg
+code-from-spec: ROOT/content/landing@cvmIE7prYgUYO19CEQIcjaSvSbA
 ---
 
 A methodology where code is a generated artifact, not the source of truth.

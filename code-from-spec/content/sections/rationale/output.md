@@ -1,7 +1,7 @@
 ---
 title: Rationale
 description: Why Code from Spec exists — the full rationale for the methodology and how it changes software development.
-code-from-spec: ROOT/content/sections/rationale@76GHPAyIsKxJTmpJTa_gJzykBmM
+code-from-spec: ROOT/content/sections/rationale@CLD5p-0AuKX57Y6hQwqZjN5YERI
 ---
 
 > Code from Spec is a methodology where code is a generated artifact, not the source of truth. Specifications are the source of truth. To change behavior, you change the specifications and regenerate the code. AI is the enabler, not the point. The disruption is in who participates, how knowledge flows, and where accountability lives.

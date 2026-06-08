@@ -6,26 +6,15 @@ Text content for the site. Content files live in
 
 # Public
 
-## Tone
+## Extraction instructions
 
-Technical but accessible. Short sentences. No AI hype,
-no buzzwords. Concrete examples over abstract claims.
-The voice of the Code from Spec rationale document is
-the reference for tone.
+Copy the external content file verbatim. The only
+change is adding the `code-from-spec` field as the
+first field in the YAML frontmatter. The output must
+be identical to the input except for the artifact tag
+in the frontmatter.
 
-## Language
-
-English.
-
-## Author
-
-Gustavo Silveira Neto — gustavo@codefromspec.com
-
-## External links
-
-- GitHub organization: https://github.com/CodeFromSpec
-- Framework repository: https://github.com/CodeFromSpec/framework
-- MCP tool repository: https://github.com/CodeFromSpec/tool-framework-mcp
+# Private
 
 ## Content file format
 

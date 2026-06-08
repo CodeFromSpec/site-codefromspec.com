@@ -2,7 +2,7 @@
 title: Context management by construction
 description: How Code from Spec gives AI agents exactly the context they need — no more, no less.
 date: 2026-06-08
-code-from-spec: ROOT/content/sections/blog/context-management@X5PUUfZXETHMpgZeTJg7IQkYg3o
+code-from-spec: ROOT/content/sections/blog/context-management@nzuo_5YDYg7D0GDxbX_fDJpGWHo
 ---
 
 ## The context problem

@@ -55,17 +55,10 @@ To change how the software behaves, you change the spec. To understand why it be
 
 ## Where we are
 
-Code from Spec is in its early days. It may already be used in real projects: for example, this website, or the MCP server that powers the framework itself, they were both built with it. The methodology is on its third version, actively developed and refined through practical experience. Nevertheless, it is still young.
+Code from Spec is in its early days. It may already be used in real projects: for example, this website, or the MCP server that powers the framework itself, were both built with it. The methodology is on its third version, actively developed and refined through practical experience. Nevertheless, it is still young.
 
 Some things are close to stable. The spec tree format — how specifications are structured, how context is assembled for the AI, how staleness is detected — is approaching what could be considered a definitive version. It works, it has been tested through real projects, and the core mechanics are solid.
 
 Other things are still being discovered. We are actively figuring out how to make it practical for someone who truly does not understand software to produce software on their own. Key concepts like layers — how to organize specifications into progressive refinement stages — are still being refined. The tooling today targets Claude Code; the spec format is client-agnostic, but the orchestration assumes Claude Code. Porting to other environments is not a priority at this stage. The focus is on the methodology itself.
 
 The vision is the direction. We are not there yet, and we are honest about the distance. But every iteration brings it closer.
-
-## Get started
-
-- [Getting started guide](https://github.com/CodeFromSpec/framework#getting-started)
-- [Read the full rationale](/rationale)
-- [Browse articles](/blog)
-- [View on GitHub](https://github.com/CodeFromSpec/framework)

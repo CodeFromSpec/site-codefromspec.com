@@ -30,7 +30,7 @@ parts vary.
 <body>
   <header>
     <div class="container">
-      <a href="/" class="site-name"><img src="/images/code_from_spec_logo.png" alt=""> Code from Spec</a>
+      <a href="/" class="site-name"><img src="/images/code_from_spec_logo.png" alt="" class="logo"> Code from Spec</a>
       <nav>
         <a href="/rationale">Rationale</a>
         <a href="/blog">Blog</a>

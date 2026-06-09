@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/landing@ymBKBBa7lMQOdkUz-xNDQ6H-mro
+code-from-spec: ROOT/content/landing@tSUhH22vc_hYhrJ1i8ypAEoNzuA
 title: Code from Spec
 description: A software engineering methodology where specifications are the source of truth and code is a generated artifact.
 ---
@@ -18,13 +18,17 @@ The methodology leverages what AI does well — generating code from precise con
 
 ## The problem
 
-Every organization that builds software is full of people who know what the software should do — compliance officers who know the regulations, accountants who know the rules, product managers who know the users. But they cannot turn that knowledge into software. The only path is through the engineering team: explain what you need and hope the translation is faithful. The gaps surface months later — in a failed audit, a reconciliation that doesn't balance, a regulatory finding.
+Every organization that builds software is full of people who know what the software should do: compliance officers who know the regulations, accountants who know the rules, product managers who know the users. But they cannot turn that knowledge into software. The only path is through the engineering team: explain what you need and hope the translation is faithful. The gaps surface months later, in a failed audit, a reconciliation that doesn't balance, or a regulatory finding.
 
-AI promises to change this. Code generation is now cheap. But generating code was never the hard part — it was the most time-consuming, the one that required the most specialized knowledge, but not the hard part. The hard part is knowing what to build. AI solves construction, not comprehension — and without precise input, it builds the wrong thing just as efficiently as the right one.
+AI promises to change this. Code generation is now cheap. But generating code was never the hard part — it was the most time-consuming, the one that required the most specialized knowledge, but not the hard part. The hard part is knowing what to build. 
+
+AI solves construction, not comprehension — and without precise input, it builds the wrong thing just as efficiently as the right one.
 
 ## The vision
 
-Software is becoming a commodity — like hardware before it. In the 1960s, building anything electronic meant designing your own circuits from scratch — it required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers to produce are commodities. Anyone with a soldering iron and a 3D printer can build hardware that would have required a factory fifty years ago. Of course, the specialized expertise didn't lose its value — it simply moved upstream, into the companies that design the components everyone else uses.
+Software is becoming a commodity, just like hardware before it. 
+
+In the 1960s, building anything electronic meant designing your own circuits from scratch — it required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers to produce are readily available. Anyone with a soldering iron and a 3D printer can build hardware that would have required a factory fifty years ago. Of course, the specialized expertise didn't lose its value — it simply moved upstream, into the companies that design the components everyone else uses.
 
 Software is at the same inflection point. AI is commoditizing code generation — the equivalent of buying components off the shelf. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together. The question is no longer who writes the code — it is how the organization expresses what it needs in a form that reliably becomes software.
 
@@ -40,10 +44,10 @@ A domain expert describes what the software should do — business rules, regula
 
 ```
 code-from-spec/
-├── architecture/
-│   └── backend/        ← technical guardrails
 ├── domain/
 │   └── transfers/      ← business rules
+├── architecture/
+│   └── backend/        ← technical guardrails
 └── implementation/
     └── transfers/      ← generates source code
 ```
@@ -54,11 +58,11 @@ To change how the software behaves, you change the spec. To understand why it be
 
 ## Where we are
 
-Code from Spec is still in its early days. This website was built with it. The methodology is on its third version, actively developed and refined through practical experience — but it is still young.
+Code from Spec is in its early days. It may already be used in real projects: for example, this website, or the MCP server that powers the framework itself, they were both built with it. The methodology is on its third version, actively developed and refined through practical experience — nevertheless, it is still young.
 
-Some things are close to stable. The spec tree format — how specifications are structured, how context is assembled for the AI, how staleness is detected — is approaching what we consider a definitive version. It works, it has been tested through real projects, and the core mechanics are solid.
+Some things are close to stable. The spec tree format — how specifications are structured, how context is assembled for the AI, how staleness is detected — is approaching what could be considered a definitive version. It works, it has been tested through real projects, and the core mechanics are solid.
 
-Other things are still being discovered. We are actively figuring out how to make it practical for someone who truly does not understand software to produce software on their own. Key concepts like layers — how to organize specifications into progressive refinement stages — are still being refined. The tooling today targets Claude Code; the spec format is client-agnostic, but the orchestration assumes Claude Code, and porting to other environments is open for community contributions.
+Other things are still being discovered. We are actively figuring out how to make it practical for someone who truly does not understand software to produce software on their own. Key concepts like layers — how to organize specifications into progressive refinement stages — are still being refined. The tooling today targets Claude Code; the spec format is client-agnostic, but the orchestration assumes Claude Code. Porting to other environments is not a priority at this stage — the focus is on the methodology itself.
 
 The vision is the direction. We are not there yet, and we are honest about the distance. But every iteration brings it closer.
 

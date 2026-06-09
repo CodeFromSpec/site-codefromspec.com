@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/blog/stylesheet@fIwOF_4x6-jfKCzeyP9CIkiGFE4 */
+/* code-from-spec: ROOT/design/article/stylesheet@XinS_Ir_W2iQ9wkojywO9irzhys */
 
 .container {
   max-width: 720px;
@@ -16,8 +16,8 @@ header {
 
 header .container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .site-name {

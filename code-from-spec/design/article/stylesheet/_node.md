@@ -1,10 +1,10 @@
 ---
 depends_on:
-  - ROOT/design/blog/template
-output: public/css/blog.css
+  - ROOT/design/article/template
+output: public/css/article.css
 ---
 
-# ROOT/design/blog/stylesheet
+# ROOT/design/article/stylesheet
 
 Theme stylesheet for blog articles. Works alongside
 baseline.css. Magazine-style layout where images float

@@ -1,6 +1,4 @@
-# ROOT/design/blog/template
-
-The HTML layout template for blog articles.
+# ROOT/design/article/template
 
 # Public
 
@@ -25,7 +23,7 @@ parts vary.
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
   <link rel="stylesheet" href="/css/baseline.css">
-  <link rel="stylesheet" href="/css/blog.css">
+  <link rel="stylesheet" href="/css/article.css">
 </head>
 <body>
   <header>

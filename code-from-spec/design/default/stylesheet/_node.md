@@ -33,11 +33,9 @@ The stylesheet must cover:
 
 3. **Footer** — top border using `var(--color-border)`,
    32px vertical padding, 0.875em font size, muted
-   color. Container is flex column with 8px gap. Nav
-   links have 16px gap, wrap. `.footer-meta` is flex
-   with 16px gap, wrap.
+   color. Container is flex with 16px gap, wrap.
 
-4. **Main** — 10px vertical padding.
+4. **Main** — 20px vertical padding.
 
 5. **Subheading** — `h1 + p` styled at 1.25em, muted
    color.
@@ -62,7 +60,7 @@ The stylesheet must cover:
 10. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically
    (flex-direction column, align flex-start, 12px gap),
-   nav wraps (16px gap), main padding 10px 0.
+   nav wraps (16px gap), main padding 20px 0.
 
 Place the artifact tag as a CSS comment on the first
 line.

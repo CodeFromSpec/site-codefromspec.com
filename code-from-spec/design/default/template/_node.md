@@ -30,6 +30,7 @@ parts vary.
       <nav>
         <a href="/rationale">Rationale</a>
         <a href="/blog">Blog</a>
+        <a href="/license">License</a>
         <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
@@ -41,17 +42,8 @@ parts vary.
   </main>
   <footer>
     <div class="container">
-      <nav>
-        <a href="/">Home</a>
-        <a href="/rationale">Rationale</a>
-        <a href="/blog">Blog</a>
-        <a href="/license">License</a>
-        <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
-      </nav>
-      <div class="footer-meta">
-        <span>Contact: <a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
-        <span>Licensed under <a href="/license">CC BY 4.0</a></span>
-      </div>
+      <span>Contact: <a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
+      <span>Licensed under <a href="/license">CC BY 4.0</a></span>
     </div>
   </footer>
 </body>

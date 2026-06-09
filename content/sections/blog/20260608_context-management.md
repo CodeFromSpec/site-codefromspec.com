@@ -10,6 +10,8 @@ June 8, 2026
 
 ## The context problem
 
+![The context problem](/images/blog/20260608_image_1.png)
+
 AI agents have a finite context window. No matter how large it becomes, a non-trivial system will always contain more knowledge than fits in a single prompt.
 
 In a traditional AI-assisted workflow, the agent reads source files, grep results, and conversation history to assemble context. This is ad hoc and fragile. The agent does not know what it does not know. It reads what it finds, infers what it can, and guesses the rest. Each session starts from scratch — the previous session's understanding is lost.

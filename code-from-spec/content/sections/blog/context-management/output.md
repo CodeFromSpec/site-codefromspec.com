@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/blog/context-management@OT0TQYdnFAowswef7xwevooF3wc
+code-from-spec: ROOT/content/sections/blog/context-management@yIjhiP4d781jal0gYt98VAJegtk
 title: Context management by construction
 description: How Code from Spec gives AI agents exactly the context they need — no more, no less.
 date: 2026-06-08
@@ -10,6 +10,8 @@ date: 2026-06-08
 June 8, 2026
 
 ## The context problem
+
+![The context problem](/images/blog/20260608_image_1.png)
 
 AI agents have a finite context window. No matter how large it becomes, a non-trivial system will always contain more knowledge than fits in a single prompt.
 

@@ -7,7 +7,13 @@ description: A software engineering methodology where specifications are the sou
 
 # Code from Spec
 
-Code from Spec is a software engineering methodology where specifications are the source of truth and code is a generated artifact. It is designed for AI-assisted development at every stage — from writing specifications to generating code, reviewing quality, and enabling non-technical contributors to participate directly. The methodology is built around the practical limitations of AI: it delivers exactly the right context to the agent, minimizes hallucination through structural constraints, and verifies every output mechanically.
+A software engineering methodology for the age of AI.
+
+Code from Spec is a methodology where specifications are the source of truth and code is a generated artifact.
+
+It is designed for AI-assisted development at every stage — from writing specifications to generating code, reviewing quality, and enabling non-technical contributors to participate directly.
+
+The methodology leverages what AI does well — generating code from precise context, synthesizing multiple constraints simultaneously, and assisting anyone in authoring specifications — while addressing its practical limitations — finite context, hallucination, and inconsistency across generations.
 
 ## The problem
 
@@ -23,7 +29,9 @@ Software is at the same inflection point. AI commoditized code generation. The q
 
 Code from Spec answers that question. Specifications are organized as a tree — structured natural language that domain experts can read, write, and review. The engineering team becomes a small, specialized group — like legal or compliance — that defines the structural guardrails and supports the rest of the organization in delivering software directly.
 
-The compliance officer writes the regulatory constraints. The product manager writes the business rules. The accountant writes the reconciliation logic. The engineer defines the technical guardrails — concurrency patterns, error handling, security policies. AI assists everyone and generates the code. No one overwrites anyone else's contribution. The software reflects the entire organization's knowledge, not one team's interpretation of it.
+The compliance officer writes the regulatory constraints. The product manager writes the business rules. The accountant writes the reconciliation logic. The engineer defines the technical guardrails — concurrency patterns, error handling, security policies. AI assists everyone and generates the code.
+
+Every contribution is additive. The compliance officer does not need to understand concurrency. The engineer does not need to understand the regulation. No one overwrites anyone else's work — each contributes what they know, and the system synthesizes code that satisfies all of it. The software reflects the entire organization's knowledge, not one team's interpretation of it.
 
 ## How it works
 
@@ -43,12 +51,7 @@ Each generated file is traceable to the spec that produced it. When a spec chang
 
 ## Get started
 
-1. Install the init skill — copy a prompt into Claude Code to download it.
-2. Run `/cfs-init-repo` to initialize the project.
-3. Run `/cfs-init-session` at the start of each session.
-
-See the [framework repository](https://github.com/CodeFromSpec/framework) for full documentation.
-
+- [Getting started guide](https://github.com/CodeFromSpec/framework#getting-started)
 - [Read the full rationale](/rationale)
 - [Browse articles](/blog)
 - [View on GitHub](https://github.com/CodeFromSpec/framework)

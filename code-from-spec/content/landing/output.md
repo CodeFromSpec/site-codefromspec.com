@@ -1,26 +1,34 @@
 ---
-code-from-spec: ROOT/content/landing@yvSrDnUDQooGeX9daw-U-8bMK70
+code-from-spec: ROOT/content/landing@bFG45kPWIdZ-axogllW9NOW_QRk
 title: Code from Spec
-description: A methodology where specifications are the source of truth and code is a generated artifact.
+description: A software engineering methodology where specifications are the source of truth and code is a generated artifact.
 ---
 
 ![Code from Spec](/images/banner.png)
 
 # Code from Spec
 
-A methodology where code is a generated artifact, not the source of truth.
+Code from Spec is a software engineering methodology where specifications are the source of truth and code is a generated artifact. It is designed for AI-assisted development at every stage — from writing specifications to generating code, reviewing quality, and enabling non-technical contributors to participate directly. The methodology is built around the practical limitations of AI: it delivers exactly the right context to the agent, minimizes hallucination through structural constraints, and verifies every output mechanically.
 
 ## The problem
 
-Software is written by people who hold context in their heads. The engineer receives requirements, translates them into code, and makes hundreds of decisions that are never recorded. When the engineer leaves, the decisions leave too.
+Every organization that builds software has people who know what the software should do — compliance officers who know the regulations, accountants who know the rules, product managers who know the users. But they cannot turn that knowledge into software. The only path is through the engineering team: explain what you need, hope the translation is faithful, discover the gaps months later in a failed audit or a reconciliation that doesn't balance.
 
-Code expresses mechanism, not intent. You can read code and understand what it does. You cannot read it and understand why, what alternatives were considered, or what constraints it silently respects.
+AI promised to change this. Code generation is now cheap. But generating code is not the bottleneck — it never was. The bottleneck is expressing what to build precisely enough that the result is correct. Without structure, AI fills the gaps with reasonable guesses that look right and silently miss the constraints that matter.
 
-The industry built compensating mechanisms: comments, wikis, ADRs, onboarding docs. None work at scale because they exist separately from the system. They drift. The team stops trusting them.
+## The vision
 
-## The solution
+Software is becoming a commodity — like hardware before it. In the 1960s, every company that needed computation designed its own hardware. Today, you buy it. Only those with ultra-specialized needs design their own.
 
-Specifications are the source of truth. They are organized as a tree — high-level intent at the root, implementation detail at the leaves. To change behavior, you change the spec and regenerate the code. You never edit generated code directly.
+Software is at the same inflection point. AI commoditized code generation. The question is no longer who writes the code — it is how the organization expresses what it needs in a form that reliably becomes software.
+
+Code from Spec answers that question. Specifications are organized as a tree — structured natural language that domain experts can read, write, and review. The engineering team becomes a small, specialized group — like legal or compliance — that defines the structural guardrails and supports the rest of the organization in delivering software directly.
+
+The compliance officer writes the regulatory constraints. The product manager writes the business rules. The accountant writes the reconciliation logic. The engineer defines the technical guardrails — concurrency patterns, error handling, security policies. AI assists everyone and generates the code. No one overwrites anyone else's contribution. The software reflects the entire organization's knowledge, not one team's interpretation of it.
+
+## How it works
+
+Specifications are organized as a tree. High-level intent at the root, implementation detail at the leaves. To change behavior, you change the spec and regenerate the code.
 
 ```
 code-from-spec/
@@ -32,15 +40,7 @@ code-from-spec/
     └── transfers/      ← leaf → generates source code
 ```
 
-AI generates the code. The spec does not drift because the code is derived from it. The argument that killed formal specification forty years ago — that maintaining specs in sync with code was too expensive — no longer applies.
-
-## Who benefits
-
-**Engineers** return to what engineering was always supposed to be: analysis, design, resolving ambiguities. The agent types. The engineer thinks.
-
-**Domain experts** — compliance officers, accountants, product managers — contribute directly to the spec tree in structured natural language. The software reflects their knowledge, not an engineer's interpretation of it.
-
-**Organizations** get an auditable, versionable asset. Every decision recorded. Every constraint traceable. Every behavior attributable to a spec node with an author and a version.
+Each generated file is traceable to the spec that produced it. When a spec changes, affected artifacts are detected automatically and regenerated. The spec tree is the source of truth — code is its shadow.
 
 ## Get started
 

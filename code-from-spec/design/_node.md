@@ -36,3 +36,41 @@ Header links:
 Footer (no navigation, just meta):
 - Contact: gustavo@codefromspec.com
 - Licensed under CC BY 4.0 → /license
+
+# Decisions
+
+## Three axes of design
+
+The design is organized along three axes: fonts,
+colors, and layout. These are the primitive dimensions
+that define a theme. Spacing is part of layout, not a
+separate axis.
+
+## Baseline + theme model
+
+A baseline CSS defines element-level styles (reset,
+typography, links, code, images, blockquotes) using
+CSS custom properties for colors. Themes override the
+variables and add layout-specific styles (header,
+footer, container, responsive).
+
+This allows theming by swapping CSS files without
+changing HTML. The baseline is shared; the theme is
+the variable.
+
+## Footer has no navigation
+
+The header already links all pages. Repeating
+navigation in the footer is redundant for a site with
+few pages. The footer shows only contact and license.
+
+Considered: footer with full nav (common web pattern).
+Discarded: redundant for this site's scale.
+
+## Site identity and navigation live here temporarily
+
+Site identity and navigation are not design — they are
+site-level concerns. They belong in ROOT or a dedicated
+intermediate. They are here because ROOT has no
+'Public' section by design choice. This should be
+revisited.

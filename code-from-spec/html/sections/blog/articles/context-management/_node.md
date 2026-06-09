@@ -1,7 +1,7 @@
 ---
 depends_on:
   - ROOT/design/article/template
-input: ARTIFACT/content/sections/blog/context-management
+input: ARTIFACT/content/sections/blog/articles/20260608-context-management
 output: public/blog/context-management/index.html
 ---
 

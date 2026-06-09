@@ -66,3 +66,43 @@ Optional metadata fields:
 - `![alt](path)` for images. Image files live in
   `public/images/`. Paths are relative to the site root
   (e.g., `![Diagram](/images/diagram.png)`).
+
+# Decisions
+
+## Frontmatter is metadata only
+
+The `title` field is used for `<title>` and `<meta>`
+tags. It is not automatically rendered as a visible
+heading. The author controls everything visible in the
+body — including headings, dates, and their order.
+
+Considered: auto-inserting `<h1>` from title and
+`<time>` from date (SSG model). Discarded: prevents
+the author from placing a banner before the title, or
+choosing not to show a heading at all. The author knows
+best what should appear on the page.
+
+## Content is purely semantic
+
+No CSS classes, no ids, no inline styles in content
+files. All styling is the responsibility of the CSS,
+selecting by elements and structure.
+
+Considered: CSS classes in content (e.g.,
+`class="subheading"`, `class="article-date"`).
+Discarded: mixes content with presentation. Changing
+the theme would require editing content files.
+
+## Extraction layer exists for input semantics
+
+Content files are consumed via an extraction layer
+that adds the artifact tag, then the html layer uses
+`input: ARTIFACT/...` to transform them. This exists
+because the framework's `input` field only accepts
+artifact references, not raw files.
+
+Considered: using `external` directly in the html
+layer. Discarded: `external` means context, `input`
+means material to transform. The semantic distinction
+matters — converting markdown to HTML is
+transformation, not contextualization.

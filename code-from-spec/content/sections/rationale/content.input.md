@@ -1,5 +1,4 @@
 ---
-code-from-spec: ROOT/content/sections/rationale@g9cBRsSGU_JxBbLidlegpXoB0Uw
 title: Rationale
 description: Why Code from Spec exists — how AI changes the economics of software, and why specifications are the key to making software a collaborative product.
 ---

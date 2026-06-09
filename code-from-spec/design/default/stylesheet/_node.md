@@ -29,7 +29,9 @@ The stylesheet must cover:
    16px vertical padding. Container uses flexbox: site
    name on the left, nav on the right, vertically
    centered. `.site-name` is bold, text color, no
-   underline on hover. Nav links have 24px gap.
+   underline on hover. `.logo` has height 36px, width
+   auto, display inline, vertical-align middle. Nav
+   links have 24px gap.
 
 3. **Footer** — top border using `var(--color-border)`,
    32px vertical padding, 0.875em font size, muted
@@ -52,11 +54,13 @@ The stylesheet must cover:
 8. **Blog article date** — `main time` (date after h1)
    is block, 0.875em, muted color, margin-bottom 1.5em.
 
-9. **Images** — break out of the container and center
-   on the viewport regardless of size. Use
-   `position: relative`, `left: 50%`,
+9. **Content images** — `main img` breaks out of the
+   container and centers on the viewport regardless of
+   size. Use `position: relative`, `left: 50%`,
    `transform: translateX(-50%)`, `max-width: 100vw`.
-   No vertical margin.
+   No vertical margin. This rule applies only to images
+   inside `main`, not to the header logo or other UI
+   images.
 
 10. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically

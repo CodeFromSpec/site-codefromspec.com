@@ -1,6 +1,6 @@
 ---
 external:
-  - path: content/sections/blog/20260608_context-management.md
+  - path: code-from-spec/content/sections/blog/context-management/content.input.md
 output: code-from-spec/content/sections/blog/context-management/output.md
 ---
 

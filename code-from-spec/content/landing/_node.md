@@ -1,6 +1,6 @@
 ---
 external:
-  - path: content/landing.md
+  - path: code-from-spec/content/landing/content.input.md
 output: code-from-spec/content/landing/output.md
 ---
 

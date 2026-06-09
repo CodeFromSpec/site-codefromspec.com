@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/landing@QKHbHdOc5pejr6eXwvpYzmsLnlM
+code-from-spec: ROOT/content/landing@ymBKBBa7lMQOdkUz-xNDQ6H-mro
 title: Code from Spec
 description: A software engineering methodology where specifications are the source of truth and code is a generated artifact.
 ---
@@ -18,7 +18,7 @@ The methodology leverages what AI does well — generating code from precise con
 
 ## The problem
 
-Every organization that builds software has people who know what the software should do — compliance officers who know the regulations, accountants who know the rules, product managers who know the users. But they cannot turn that knowledge into software. The only path is through the engineering team: explain what you need and hope the translation is faithful. The gaps surface months later — in a failed audit, a reconciliation that doesn't balance, a regulatory finding.
+Every organization that builds software is full of people who know what the software should do — compliance officers who know the regulations, accountants who know the rules, product managers who know the users. But they cannot turn that knowledge into software. The only path is through the engineering team: explain what you need and hope the translation is faithful. The gaps surface months later — in a failed audit, a reconciliation that doesn't balance, a regulatory finding.
 
 AI promises to change this. Code generation is now cheap. But generating code was never the hard part — it was the most time-consuming, the one that required the most specialized knowledge, but not the hard part. The hard part is knowing what to build. AI solves construction, not comprehension — and without precise input, it builds the wrong thing just as efficiently as the right one.
 

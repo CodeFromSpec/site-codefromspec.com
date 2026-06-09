@@ -18,17 +18,13 @@ generated from a corresponding content file.
      Use the suffix pattern prescribed by the template.
    - `{page-specific description}` — the `description`
      from frontmatter.
-   - `{page content here}` — the page heading, optional
-     date, and the converted markdown body (see below).
-3. The page content placed in `{page content here}` is
-   assembled as:
-   a. A visible heading with the `title` from frontmatter.
-   b. If `date` is present, the formatted date
-      (Month D, YYYY).
-   c. The markdown body converted to semantic HTML.
+   - `{page content here}` — the markdown body converted
+     to semantic HTML. Insert verbatim — do not add
+     any elements automatically.
 
 ## Markdown to HTML conversion rules
 
+- `#` heading → `<h1>`.
 - `##` headings → a section containing an `<h2>` and
   the section content up to the next `##`. Each `##`
   starts a new section.

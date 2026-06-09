@@ -30,15 +30,9 @@ Values shared across all themes:
 Header links:
 - Rationale → /rationale
 - Blog → /blog
-- GitHub → https://github.com/CodeFromSpec (external)
-
-Footer links:
-- Home → /
-- Rationale → /rationale
-- Blog → /blog
 - License → /license
 - GitHub → https://github.com/CodeFromSpec (external)
 
-Footer meta:
+Footer (no navigation, just meta):
 - Contact: gustavo@codefromspec.com
 - Licensed under CC BY 4.0 → /license

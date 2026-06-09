@@ -3,6 +3,10 @@ title: Code from Spec
 description: A methodology where specifications are the source of truth and code is a generated artifact.
 ---
 
+![Code from Spec](/images/banner.png)
+
+# Code from Spec
+
 A methodology where code is a generated artifact, not the source of truth.
 
 Specifications are organized as a tree. Each node adds precision to its parent. Only leaf nodes generate artifacts. To change behavior, you change the spec and regenerate. You never edit generated code directly.

@@ -1,6 +1,6 @@
 ---
 depends_on:
-  - ROOT/design/default/template
+  - ROOT/design/article/template
 input: ARTIFACT/content/sections/blog/context-management
 output: public/blog/context-management/index.html
 ---

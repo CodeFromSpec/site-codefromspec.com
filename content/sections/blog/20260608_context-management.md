@@ -4,7 +4,13 @@ description: How Code from Spec gives AI agents exactly the context they need â€
 date: 2026-06-08
 ---
 
+# Context management by construction
+
+June 8, 2026
+
 ## The context problem
+
+![The context problem](/images/blog/20260608_image_1.png)
 
 AI agents have a finite context window. No matter how large it becomes, a non-trivial system will always contain more knowledge than fits in a single prompt.
 

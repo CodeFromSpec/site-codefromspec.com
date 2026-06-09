@@ -33,11 +33,10 @@ The stylesheet must cover:
 
 3. **Footer** — top border using `var(--color-border)`,
    32px vertical padding, 0.875em font size, muted
-   color. Container is flex column with 8px gap. Nav
-   links have 16px gap, wrap. `.footer-meta` is flex
-   with 16px gap, wrap.
+   color. Container is flex with justify-content
+   space-between, wrap.
 
-4. **Main** — 40px vertical padding.
+4. **Main** — 20px vertical padding.
 
 5. **Subheading** — `h1 + p` styled at 1.25em, muted
    color.
@@ -53,10 +52,16 @@ The stylesheet must cover:
 8. **Blog article date** — `main time` (date after h1)
    is block, 0.875em, muted color, margin-bottom 1.5em.
 
-9. **Responsive** — at max-width 768px: container
+9. **Images** — break out of the container and center
+   on the viewport regardless of size. Use
+   `position: relative`, `left: 50%`,
+   `transform: translateX(-50%)`, `max-width: 100vw`.
+   No vertical margin.
+
+10. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically
    (flex-direction column, align flex-start, 12px gap),
-   nav wraps (16px gap), main padding 24px 0.
+   nav wraps (16px gap), main padding 20px 0.
 
 Place the artifact tag as a CSS comment on the first
 line.

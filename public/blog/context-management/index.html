@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- code-from-spec: ROOT/html/sections/blog/articles/context-management@j4W2kUfOrqMsN3VdFHFqyzvTrEk -->
+<!-- code-from-spec: ROOT/html/sections/blog/articles/context-management@q5dotSG9rBSIGEf1t4XIP6LkIf4 -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -7,8 +7,12 @@
   <meta name="description" content="How Code from Spec gives AI agents exactly the context they need — no more, no less.">
   <meta name="author" content="Gustavo Silveira Neto">
   <title>Context management by construction — Code from Spec</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
   <link rel="stylesheet" href="/css/baseline.css">
-  <link rel="stylesheet" href="/css/default.css">
+  <link rel="stylesheet" href="/css/article.css">
 </head>
 <body>
   <header>
@@ -17,6 +21,7 @@
       <nav>
         <a href="/rationale">Rationale</a>
         <a href="/blog">Blog</a>
+        <a href="/license">License</a>
         <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
@@ -24,10 +29,11 @@
   <main>
     <div class="container">
       <h1>Context management by construction</h1>
-      <time datetime="2026-06-08">June 8, 2026</time>
+      <p>June 8, 2026</p>
 
       <section>
         <h2>The context problem</h2>
+        <img src="/images/blog/20260608_image_1.png" alt="The context problem">
         <p>AI agents have a finite context window. No matter how large it becomes, a non-trivial system will always contain more knowledge than fits in a single prompt.</p>
         <p>In a traditional AI-assisted workflow, the agent reads source files, grep results, and conversation history to assemble context. This is ad hoc and fragile. The agent does not know what it does not know. It reads what it finds, infers what it can, and guesses the rest. Each session starts from scratch — the previous session's understanding is lost.</p>
       </section>
@@ -82,17 +88,8 @@
   </main>
   <footer>
     <div class="container">
-      <nav>
-        <a href="/">Home</a>
-        <a href="/rationale">Rationale</a>
-        <a href="/blog">Blog</a>
-        <a href="/license">License</a>
-        <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
-      </nav>
-      <div class="footer-meta">
-        <span>Contact: <a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
-        <span>Licensed under <a href="/license">CC BY 4.0</a></span>
-      </div>
+      <span>Contact: <a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
+      <span>Licensed under <a href="/license">CC BY 4.0</a></span>
     </div>
   </footer>
 </body>

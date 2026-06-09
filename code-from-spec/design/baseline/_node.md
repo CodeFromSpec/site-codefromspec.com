@@ -17,7 +17,7 @@ Define CSS custom properties on `:root` with default
 
 ```
 --color-text: #1a1a1a
---color-bg: #ffffff
+--color-bg: #fefdfe
 --color-accent: #2563eb
 --color-muted: #666666
 --color-border: #e5e5e5
@@ -39,7 +39,7 @@ The stylesheet must cover:
    described above.
 
 3. **Typography** — heading sizes and line-height from
-   the design values. Headings have margin-top 1.5em,
+   the design values. Headings have margin-top 1em,
    margin-bottom 0.5em. Paragraphs have margin-top 0,
    margin-bottom 1em.
 
@@ -61,7 +61,10 @@ The stylesheet must cover:
 8. **Strong** — font-weight bold (default, just ensure
    it is not overridden).
 
-9. **Responsive** — at max-width 768px: body font 16px,
+9. **Images** — `max-width: 100%`, `height: auto`,
+   `display: block`.
+
+10. **Responsive** — at max-width 768px: body font 16px,
    h1 1.75em, h2 1.35em, h3 1.15em.
 
 Place the artifact tag as a CSS comment on the first

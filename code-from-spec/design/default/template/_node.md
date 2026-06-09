@@ -20,6 +20,10 @@ parts vary.
   <meta name="description" content="{page-specific description}">
   <meta name="author" content="Gustavo Silveira Neto">
   <title>{Page Title} — Code from Spec</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
   <link rel="stylesheet" href="/css/baseline.css">
   <link rel="stylesheet" href="/css/default.css">
 </head>
@@ -30,6 +34,7 @@ parts vary.
       <nav>
         <a href="/rationale">Rationale</a>
         <a href="/blog">Blog</a>
+        <a href="/license">License</a>
         <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
@@ -41,17 +46,8 @@ parts vary.
   </main>
   <footer>
     <div class="container">
-      <nav>
-        <a href="/">Home</a>
-        <a href="/rationale">Rationale</a>
-        <a href="/blog">Blog</a>
-        <a href="/license">License</a>
-        <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
-      </nav>
-      <div class="footer-meta">
-        <span>Contact: <a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
-        <span>Licensed under <a href="/license">CC BY 4.0</a></span>
-      </div>
+      <span>Contact: <a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
+      <span>Licensed under <a href="/license">CC BY 4.0</a></span>
     </div>
   </footer>
 </body>

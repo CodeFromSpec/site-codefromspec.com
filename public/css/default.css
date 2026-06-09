@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/default/stylesheet@ZbqrYBtL83aa8G2aasFNmLuy02c */
+/* code-from-spec: ROOT/design/default/stylesheet@Yl3Nk1XLFFWut2LLVaNlQ6YeQI4 */
 
 .container {
   max-width: 720px;
@@ -45,25 +45,13 @@ footer {
 
 footer .container {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-footer nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-meta {
-  display: flex;
   flex-wrap: wrap;
   gap: 16px;
 }
 
 main {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 h1 + p {
@@ -126,7 +114,7 @@ img {
   }
 
   main {
-    padding-top: 10px;
+    padding-top: 20px;
     padding-bottom: 0;
   }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- code-from-spec: ROOT/html/home@oOd1Mz4xTyJ69xv3GKZtsjrs-_w -->
+<!-- code-from-spec: ROOT/html/home@Vn43agDdb6fLcYM2aQaqtN4rkTE -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -34,12 +34,8 @@
 
       <p>A methodology where code is a generated artifact, not the source of truth.</p>
 
-      <p>Specifications are organized as a tree. Each node adds precision to its parent. Only leaf nodes generate artifacts. To change behavior, you change the spec and regenerate. You never edit generated code directly.</p>
-
-      <p><a href="https://github.com/CodeFromSpec/framework" target="_blank" rel="noopener">View on GitHub</a></p>
-
       <section>
-        <h2>The problem software has always had</h2>
+        <h2>The problem</h2>
 
         <p>Software is written by people who hold context in their heads. The engineer receives requirements, translates them into code, and makes hundreds of decisions that are never recorded. When the engineer leaves, the decisions leave too.</p>
 
@@ -49,9 +45,9 @@
       </section>
 
       <section>
-        <h2>How it works</h2>
+        <h2>The solution</h2>
 
-        <p>Specifications are organized as a tree. Each node is a directory containing a <code>_node.md</code> file. Child nodes add precision to their parents — high-level intent at the root, implementation detail at the leaves.</p>
+        <p>Specifications are the source of truth. They are organized as a tree — high-level intent at the root, implementation detail at the leaves. To change behavior, you change the spec and regenerate the code. You never edit generated code directly.</p>
 
         <pre><code>code-from-spec/
 ├── architecture/
@@ -61,43 +57,29 @@
 └── implementation/
     └── transfers/      ← leaf → generates source code</code></pre>
 
-        <p>An orchestrator dispatches a confined subagent for each stale artifact. The subagent receives the chain — the ordered set of ancestor constraints, dependency interfaces, and the target node's specification. The chain is the complete context. Nothing outside it is needed.</p>
-
-        <p>Staleness is detected automatically by comparing hashes. When a spec changes, every affected artifact is flagged for regeneration.</p>
-      </section>
-
-      <section>
-        <h2>Why now — AI changes the economics</h2>
-
-        <p>The 1970s and 1980s produced rigorous methods for capturing domain knowledge before writing code. They failed because maintaining a specification in sync with evolving code was too expensive. The spec drifted. The industry abandoned specifications and embraced agility.</p>
-
-        <p>AI inverts the cost structure. Code generation is cheap. When code is generated from spec, synchronization is automatic — the spec does not drift because the code is derived from it. The argument that killed formal specification forty years ago no longer applies.</p>
+        <p>AI generates the code. The spec does not drift because the code is derived from it. The argument that killed formal specification forty years ago — that maintaining specs in sync with code was too expensive — no longer applies.</p>
       </section>
 
       <section>
         <h2>Who benefits</h2>
 
-        <p><strong>Engineers</strong> return to what engineering was always supposed to be: analysis, design, structuring the spec tree, resolving ambiguities. The agent types. The engineer thinks.</p>
+        <p><strong>Engineers</strong> return to what engineering was always supposed to be: analysis, design, resolving ambiguities. The agent types. The engineer thinks.</p>
 
-        <p><strong>Domain experts</strong> — compliance officers, accountants, product managers — contribute directly to the spec tree. They write what they know in structured natural language. The software reflects their knowledge, not an engineer's interpretation of it.</p>
+        <p><strong>Domain experts</strong> — compliance officers, accountants, product managers — contribute directly to the spec tree in structured natural language. The software reflects their knowledge, not an engineer's interpretation of it.</p>
 
         <p><strong>Organizations</strong> get an auditable, versionable asset. Every decision recorded. Every constraint traceable. Every behavior attributable to a spec node with an author and a version.</p>
       </section>
 
       <section>
-        <h2>Getting started</h2>
+        <h2>Get started</h2>
 
         <ol>
-          <li>Install the init skill — copy a prompt into Claude Code to download the skill.</li>
+          <li>Install the init skill — copy a prompt into Claude Code to download it.</li>
           <li>Run <code>/cfs-init-repo</code> to initialize the project.</li>
           <li>Run <code>/cfs-init-session</code> at the start of each session.</li>
         </ol>
 
         <p>See the <a href="https://github.com/CodeFromSpec/framework" target="_blank" rel="noopener">framework repository</a> for full documentation.</p>
-      </section>
-
-      <section>
-        <h2>Learn more</h2>
 
         <ul>
           <li><a href="/rationale">Read the full rationale</a></li>

@@ -29,7 +29,7 @@ The stylesheet must cover:
    16px vertical padding. Container uses flexbox: site
    name on the left, nav on the right, vertically
    centered. `.site-name` is bold, text color, no
-   underline on hover. `.logo` has height 24px, width
+   underline on hover. `.logo` has height 36px, width
    auto, display inline, vertical-align middle. Nav
    links have 24px gap.
 

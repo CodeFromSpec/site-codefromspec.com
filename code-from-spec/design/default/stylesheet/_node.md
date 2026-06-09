@@ -33,7 +33,8 @@ The stylesheet must cover:
 
 3. **Footer** — top border using `var(--color-border)`,
    32px vertical padding, 0.875em font size, muted
-   color. Container is flex with 16px gap, wrap.
+   color. Container is flex with justify-content
+   space-between, wrap.
 
 4. **Main** — 20px vertical padding.
 

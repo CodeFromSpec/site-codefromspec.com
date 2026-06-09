@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/landing@fKd5I1wTNyog8hGMN_QdBLVyjFo
+code-from-spec: ROOT/content/landing@QKHbHdOc5pejr6eXwvpYzmsLnlM
 title: Code from Spec
 description: A software engineering methodology where specifications are the source of truth and code is a generated artifact.
 ---
@@ -24,29 +24,43 @@ AI promises to change this. Code generation is now cheap. But generating code wa
 
 ## The vision
 
-Software is becoming a commodity — like hardware before it. In the 1960s, building anything electronic meant designing your own circuits from scratch — it required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers are commodities. Anyone with a soldering iron and a 3D printer can build hardware that would have required a factory fifty years ago. The specialized expertise didn't disappear — it moved upstream, into the companies that design the components everyone else uses.
+Software is becoming a commodity — like hardware before it. In the 1960s, building anything electronic meant designing your own circuits from scratch — it required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers to produce are commodities. Anyone with a soldering iron and a 3D printer can build hardware that would have required a factory fifty years ago. Of course, the specialized expertise didn't lose its value — it simply moved upstream, into the companies that design the components everyone else uses.
 
-Software is at the same inflection point. AI commoditized code generation — the equivalent of buying components off the shelf. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together. The question is no longer who writes the code — it is how the organization expresses what it needs in a form that reliably becomes software.
+Software is at the same inflection point. AI is commoditizing code generation — the equivalent of buying components off the shelf. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together. The question is no longer who writes the code — it is how the organization expresses what it needs in a form that reliably becomes software.
 
-Code from Spec answers that question. Specifications are structured natural language that domain experts can read, write, and review. The compliance officer writes the regulatory constraints. The product manager writes the business rules. The accountant writes the reconciliation logic. The software engineering team becomes a small, specialized group — like legal or compliance — that defines the technical guardrails and supports the rest of the organization in delivering software directly. AI assists everyone and generates the code.
+Code from Spec answers that question. Specifications are structured natural language that domain experts can read, write, and review. The compliance officer writes the regulatory constraints. The product manager writes the business rules. The accountant writes the reconciliation logic. The software engineering team becomes a small, specialized group — like legal or compliance — that defines the technical guardrails and supports the rest of the organization in delivering software directly.
+
+AI assists everyone and generates the code.
 
 Every contribution is additive. The compliance officer does not need to understand concurrency. The engineer does not need to understand the regulation. No one overwrites anyone else's work — each contributes what they know, and the system synthesizes code that satisfies all of it. The software reflects the entire organization's knowledge, not one team's interpretation of it.
 
 ## How it works
 
-Specifications are organized as a tree. High-level intent at the root, implementation detail at the leaves. To change behavior, you change the spec and regenerate the code.
+A domain expert describes what the software should do — business rules, regulatory constraints, reconciliation logic — in structured natural language. An engineer defines the technical boundaries — error handling, security policies, performance requirements. Both contributions live in a specification tree, where each level adds precision: high-level intent at the top, implementation detail at the bottom.
 
 ```
 code-from-spec/
 ├── architecture/
-│   └── backend/        ← conventions, constraints
+│   └── backend/        ← technical guardrails
 ├── domain/
 │   └── transfers/      ← business rules
 └── implementation/
-    └── transfers/      ← leaf → generates source code
+    └── transfers/      ← generates source code
 ```
 
-Each generated file is traceable to the spec that produced it. When a spec changes, affected artifacts are detected automatically and regenerated. The spec tree is the source of truth — code is its shadow.
+AI generates code that satisfies every constraint in the tree — from every contributor, at every level. When someone changes a spec, the system detects which code is affected and regenerates it. The spec tree is the source of truth. Code is its shadow.
+
+To change how the software behaves, you change the spec. To understand why it behaves a certain way, you read the spec. To audit who decided what, you check the spec's version history. The code is always derived, always current, always traceable.
+
+## Where we are
+
+Code from Spec is still in its early days. This website was built with it. The methodology is on its third version, actively developed and refined through practical experience — but it is still young.
+
+Some things are close to stable. The spec tree format — how specifications are structured, how context is assembled for the AI, how staleness is detected — is approaching what we consider a definitive version. It works, it has been tested through real projects, and the core mechanics are solid.
+
+Other things are still being discovered. We are actively figuring out how to make it practical for someone who truly does not understand software to produce software on their own. Key concepts like layers — how to organize specifications into progressive refinement stages — are still being refined. The tooling today targets Claude Code; the spec format is client-agnostic, but the orchestration assumes Claude Code, and porting to other environments is open for community contributions.
+
+The vision is the direction. We are not there yet, and we are honest about the distance. But every iteration brings it closer.
 
 ## Get started
 

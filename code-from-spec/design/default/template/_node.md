@@ -46,7 +46,7 @@ parts vary.
   </main>
   <footer>
     <div class="container">
-      <span>Contact: <a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
+      <span><a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
       <span>Licensed under <a href="/license">CC BY 4.0</a></span>
     </div>
   </footer>

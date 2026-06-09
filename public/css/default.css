@@ -1,4 +1,4 @@
-/* code-from-spec: ROOT/design/default/stylesheet@dIpeM64j3ep--uCg00fMnwgLSd0 */
+/* code-from-spec: ROOT/design/default/stylesheet@toMgymi4ZdfXFORBcktzPs4ft_M */
 
 .container {
   max-width: 720px;
@@ -87,7 +87,7 @@ main time {
   margin-bottom: 1.5em;
 }
 
-img {
+main img {
   position: relative;
   left: 50%;
   transform: translateX(-50%);

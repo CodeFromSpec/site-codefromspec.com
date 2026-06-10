@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/rationale@awf1xoqfVAfySLK9q3vM1tm182E
+code-from-spec: ROOT/content/sections/rationale@tEUNh6QROo4SIQNq6Ol73GNDi_A
 title: Rationale
 description: Why Code from Spec exists — how AI changes the economics of software, and why specifications are the key to making software a collaborative product.
 ---
@@ -10,69 +10,59 @@ description: Why Code from Spec exists — how AI changes the economics of softw
 
 > The disruption is not in the coding — it is in who participates, how knowledge flows, and where accountability lives. AI is the enabler, not the goal.
 
-## The promise and the reality
+## The promise
 
-AI promised that anyone can create software. We are not there yet. Without software engineering knowledge, it is not possible to use AI to produce reliable software. That knowledge remains necessary and indispensable. But it should not be a barrier preventing other people in an organization from generating value through software.
+AI put code generation within everyone's reach. The narrative is that anyone can now build software — describe what you want, and the agent writes the code. For simple tasks, this works. For anything that matters to an organization — compliance, finance, operations, security — it doesn't. Not yet.
 
-Today, a non-engineer who asks AI to write code receives something that appears to work. But they have no way to evaluate whether it is correct — whether the error handling is adequate, whether the business logic covers the edge cases, whether the code is secure. They accept what they receive because they have no frame of reference to question it.
+The gap is not in AI's ability to generate code. It is in what happens around the code. A non-engineer who asks AI to build something receives output that appears to work. But they have no way to evaluate whether the error handling is adequate, whether the business logic covers the edge cases, whether the code is secure, whether it will behave correctly under load. They accept what they receive because they have no frame of reference to question it.
 
-Inside organizations, the engineer remains the bottleneck — not because they write code slowly, but because they are the only channel through which domain knowledge becomes software. They absorb domain expertise that others already have. They end up making product decisions that should belong to domain experts. The "democratization of software" has not changed this dynamic. It has only made the translation faster, not better.
+Software engineering knowledge remains necessary to produce reliable software. That is not going to change — even as AI improves, the judgment about architecture, failure modes, and system behavior requires human expertise. But this knowledge should not be a gate that prevents everyone else in the organization from contributing. The compliance officer knows the regulations better than any engineer. The accountant knows the financial rules. The product manager knows the users. Their knowledge should flow directly into the software, not through an engineer's interpretation.
 
-## Why specifications failed before
+## The quality problem nobody talks about
 
-The software engineering community recognized this problem decades ago. Structured analysis, stepwise refinement, formal specifications — the 1970s and 1980s produced rigorous methods for capturing domain knowledge before writing code. The goal was exactly what Code from Spec describes: a structured artifact that expressed intent, could be reviewed by domain experts, and guided implementation.
+Before AI, this was already broken. Agile compensated for the loss of formal specifications with short delivery cycles. When the programmer made a wrong domain decision, the user saw the result quickly and corrected it.
 
-The methods failed not because they were wrong but because they were expensive. Maintaining a specification in sync with evolving code required constant manual effort. The spec drifted. The team stopped trusting it. The cost of maintaining the spec exceeded the cost of fixing the bugs it would have prevented.
+This worked when the end user was the domain expert. It failed for domains where the person who sees the demo is not the person who knows the rules. A product demo shows screens and flows. It does not show that the provisioning calculation uses the wrong cutoff date, or that the settlement logic violates a regulatory constraint. The compliance officer, the accountant, the legal analyst — they are not in the demo. Or if they are, they cannot tell from a demo whether the underlying logic is correct.
 
-The industry responded with agility: shorter cycles, working software over documentation. This was rational. If specifications cannot be kept current, get feedback faster instead. Agile solved the bottleneck by removing the spec. The knowledge became invisible — encoded in code that only the programmer could read.
+This creates a dynamic similar to the market for lemons. When the people who hold domain knowledge cannot evaluate the quality of the implementation, quality degrades. An engineering team that implements the domain rules precisely looks identical — from the stakeholder's perspective — to one that implements them approximately. Both pass the demo. The difference surfaces months later, in a failed audit or a reconciliation that doesn't balance. By then, the cost of correction is orders of magnitude higher.
 
-## The quality problem
+AI did not fix this. It made code generation faster, but the quality problem is upstream of code generation. It lives in the gap between what domain experts know and what the software actually does. Making that gap wider — by letting anyone generate code without the ability to evaluate it — makes the problem worse, not better.
 
-Agile compensated with short cycles. When the programmer made a wrong domain decision, the delivery cycle was short enough that the user saw the result quickly and corrected it. This worked when the end user was the domain expert.
+## Why specifications failed before — and why they won't this time
 
-It worked less well for domains where the person who sees the demo is not the person who knows the rules. A product demo shows screens and flows — it does not show that the provisioning calculation uses the wrong cutoff date, or that the settlement logic violates a regulatory constraint. The compliance officer, the accountant, the legal analyst — they are not in the demo. Or if they are, they cannot tell from a demo whether the underlying logic is correct.
+The software engineering community tried to solve this problem decades ago. Formal specifications in the 1970s and 1980s were exactly the right idea: structured artifacts that expressed intent, could be reviewed by domain experts, and guided implementation.
 
-This creates a dynamic similar to the market for lemons: when the people who hold domain knowledge cannot evaluate the quality of the implementation, quality degrades. An engineering team that implements the domain rules precisely is indistinguishable — from the stakeholder's perspective — from one that implements them approximately. Both pass the demo. The difference surfaces months later, in a failed audit or a reconciliation that doesn't balance.
+They failed because they were expensive. Maintaining a specification in sync with evolving code required constant manual effort. The spec drifted. The team stopped trusting it. Eventually the cost of maintaining the spec exceeded the cost of fixing the bugs it would have prevented. The industry rationally abandoned specifications in favor of agility — shorter cycles, working software over documentation.
 
-The developer who gets edge cases right delivers more slowly. The one who cuts corners delivers faster and receives praise. The quality that matters is invisible in the short term: it manifests only as the absence of problems, which no one notices.
+AI removes the constraint that made specifications impractical. When code is generated from spec, synchronization is automatic — the spec does not drift because the code is derived from it. There is no separate maintenance burden. The economic argument against formal specification no longer holds.
 
-## AI changes the economics
+This is not a marginal improvement. It is the removal of the constraint that made formal specifications impractical for forty years. Code from Spec restores what agile conceded — structured specifications that express intent — without reintroducing the bottleneck that killed them.
 
-AI inverts the cost structure. Code generation is cheap. The scarce resource is no longer writing code — it is knowing what to write.
+## Software is becoming a commodity
 
-When code is generated from spec, synchronization is automatic by construction. The spec does not drift from the code because the code is derived from the spec. The argument that killed formal specification in the 1980s — that maintaining specs was too expensive — no longer applies. This is the removal of the constraint that made formal specifications impractical for forty years.
+In the 1960s, building anything electronic meant designing your own circuits from scratch. It required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers to produce are readily available. Anyone with a soldering iron and a 3D printer can build hardware that would have required a factory fifty years ago. The specialized expertise didn't disappear. It moved upstream, into the companies that design the components everyone else uses.
 
-Code from Spec restores what agile conceded — without reintroducing the bottleneck. The spec tree provides the structured specification that formal methods promised, kept current by construction. The short cycles and feedback loops of agile remain — but now each iteration produces a spec change and a regeneration, not an ad-hoc code change that drifts from an outdated document.
+Software is at the same inflection point. AI is commoditizing code generation — the equivalent of buying components off the shelf. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together.
 
-## Software as commodity
+This changes who needs to be involved and how. Today, large engineering teams exist because someone has to translate every business decision, every compliance requirement, every operational constraint into code. That translation scales linearly: more software means more engineers. Code from Spec breaks this proportionality. The engineering team defines the technical guardrails — architecture, error handling, security, platform constraints — and the rest of the organization contributes domain knowledge directly. The engineer is not hired to write code. The engineer is hired because they solve complex problems. Writing code was the mechanism available to exercise that role — it was never the role itself.
 
-Software is at the same inflection point that hardware reached decades ago. In the 1960s, building anything electronic meant designing your own circuits from scratch. It required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers to produce are readily available. The specialized expertise didn't disappear. It moved upstream, into the companies that design the components everyone else uses.
+## Why this approach works
 
-AI is commoditizing code generation. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together. The question is no longer who writes the code. It is how the organization expresses what it needs in a form that reliably becomes software.
+The premise is simple: if the people who know what the software should do can express that knowledge in a form that AI can reliably turn into correct code, then the engineer no longer needs to be the translator. The engineer becomes the architect of the system that makes this possible.
 
-This changes the economics of software organizations. Today, large engineering teams exist because someone has to translate every business decision, every compliance requirement, every operational constraint into code. That translation is the bottleneck, and it scales linearly: more software means more engineers.
+Code from Spec makes this concrete through several interlocking choices.
 
-Code from Spec breaks this proportionality. The engineering team becomes a small, specialized group — like legal or compliance — that defines the structural guardrails and supports the rest of the organization in delivering software directly. The engineer is not hired to write code. The engineer is hired because they solve complex problems. Writing code was the mechanism available to exercise that role — it was never the role itself. Freed from translation, the engineer does more engineering — not less.
+Specifications are written in structured natural language. Not code, not pseudocode, not diagrams — language that any domain expert can read, evaluate, and contribute to. This is what makes the collaboration real. The compliance officer can read the spec for a regulatory rule and say "this is wrong" before any code is generated. That was never possible when the rule lived in code.
 
-Software budgets shift from production to precision. Hiring changes: the organization needs fewer engineers, but those engineers need deeper judgment. Onboarding changes: a new team member reads the spec tree and understands the system, instead of spending weeks reading code. The spec tree is portable — if a better generation tool appears tomorrow, the specs still work. The investment is in knowledge, not in implementation.
+Specs are the source of truth, not code. Code expresses mechanism — what the software does. Specs express intent — why it does it, what constraints it respects, what alternatives were considered. When the source of truth is code, knowledge that doesn't fit in code gets lost: the rationale behind a decision, the regulation that motivated a rule, the edge case that was deliberately excluded. When the source of truth is specs, all of that lives permanently in the tree.
 
-## Why this approach
+The methodology is designed around AI's actual capabilities and limitations, not an idealized version of AI. Context windows are finite — so the spec tree structures knowledge into chains that deliver exactly the right context for each generation, without inflating as the system grows. Agents hallucinate — so generation is confined: the agent only sees the spec chain, cannot explore the repository, and every output is verified mechanically. Agents are inconsistent across runs — so specs converge toward precision through iteration, leaving less room for interpretation with each cycle.
 
-Code from Spec attacks the problem in multiple dimensions simultaneously.
+Contributions are additive. The compliance officer contributes regulatory constraints. The engineer contributes technical guardrails. Neither overwrites the other. Guard nodes at intermediate levels propagate rules automatically to everything below them — a security policy written once applies to every descendant without anyone having to remember to apply it. Quality becomes observable: the domain expert can review a spec and evaluate whether it is correct before any code exists.
 
-**Specs in natural language.** Specifications are written in structured natural language. This allows anyone with domain knowledge to contribute directly, at the level of abstraction they understand, without learning to program.
+The spec tree lives in git. This matters more than it sounds. PRs, diffs, blame, branch protection — the entire collaboration infrastructure that engineering already uses works unchanged. But now the compliance officer can review the PR that changes a regulatory rule, reading structured natural language instead of code. The accountant can review the PR that changes reconciliation logic. The PR becomes an organizational gate — not just an engineering gate.
 
-**Specs as source of truth.** Code expresses mechanism. Specs express intent, decisions, constraints, rationale. Information that normally gets lost — why a rule exists, what alternatives were discarded, what constraint is being respected — lives permanently in the spec tree.
-
-**Designed for AI.** Code from Spec is not a methodology adapted to use AI. It was built around the capabilities and limitations of AI from the start: context management that scales beyond any context window, confinement that minimizes hallucination, mechanical verification of every output, precision convergence through iteration.
-
-**Additive and verifiable contributions.** No one overwrites anyone else's work. The domain expert contributes rules. The engineer contributes technical constraints. Guard nodes propagate rules automatically to all descendants. The domain expert can review a spec and evaluate whether it is correct before any code is generated. Quality becomes observable.
-
-**Knowledge that accumulates.** The spec tree grows more precise over time. Every bug found, every edge case discovered, every constraint added becomes a permanent part of the spec. The asset is the spec tree, not the code. Changing a rule on day one or year three costs the same.
-
-**Git as collaboration platform.** The spec tree is a directory of markdown files that lives in git. PRs, diffs, blame, branch protection — everything works without special tooling. But what changes is who participates: the diff of a spec is legible to any domain expert. The compliance officer reviews the PR that changes a regulatory rule. The accountant reviews the PR that changes reconciliation logic. The PR becomes an organizational gate, not just an engineering gate.
-
-**The engineer does more engineering.** Freed from translation, the engineer does what the title always implied: analysis, design, constraints, quality. Not less engineering — more.
+And the knowledge compounds. Every bug found adds a constraint to the spec. Every edge case discovered adds a verification. The spec tree grows more precise over time. The investment is in the specs — portable, versionable, independent of any specific AI model or tool. If a better generation engine appears tomorrow, the specs still work. The asset is the knowledge, not the implementation.
 
 ## The endgame
 

@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/landing@CUxgtWjju1rpJiTJ-IB7y0SAH1A
+code-from-spec: ROOT/content/landing@Dy8eJUBm4RyobBcZPzFcGZDsm0Q
 title: Code from Spec
 description: A software engineering methodology where specifications are the source of truth and code is a generated artifact.
 ---
@@ -30,7 +30,7 @@ In the 1960s, building anything electronic meant designing your own circuits fro
 
 Software is at the same inflection point. AI is commoditizing code generation, the equivalent of buying components off the shelf. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together. The question is no longer who writes the code. It is how the organization expresses what it needs in a form that reliably becomes software.
 
-Code from Spec answers that question. Specifications are structured natural language that domain experts can read, write, and review. The compliance officer writes the regulatory constraints. The product manager writes the business rules. The accountant writes the reconciliation logic. The software engineering team becomes a small, specialized group — like legal or compliance — that defines the technical guardrails and supports the rest of the organization in delivering software directly.
+Code from Spec answers that question. Specifications are structured natural language that domain experts can read, write, and review. In this model, the compliance officer writes the regulatory constraints. The product manager writes the business rules. The accountant writes the reconciliation logic. The software engineering team is a specialized group that defines the technical guardrails and designs the system through which everyone else's knowledge becomes software.
 
 AI assists everyone and generates the code.
 
@@ -52,7 +52,7 @@ code-from-spec/
 
 AI generates code that satisfies every constraint in the tree, from every contributor, at every level. When someone changes a spec, the system detects which code is affected and regenerates it. The spec tree is the source of truth. Code is its shadow.
 
-To change how the software behaves, you change the spec. To understand why it behaves a certain way, you read the spec. To audit who decided what, you check the spec's version history. The code is always derived, always current, always traceable.
+To change how the software behaves, you change the spec. To understand what the software is supposed to do, you read the spec. The code is always derived from it.
 
 ## Where we are
 

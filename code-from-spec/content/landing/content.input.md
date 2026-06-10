@@ -19,7 +19,7 @@ The methodology leverages what AI does well: generating code from precise contex
 
 Every organization that builds software is full of people who know what the software should do: compliance officers who know the regulations, accountants who know the rules, product managers who know the users. But they cannot turn that knowledge into software. The only path is through the engineering team: explain what you need and hope the translation is faithful. The gaps surface months later, in a failed audit, a reconciliation that doesn't balance, or a regulatory finding.
 
-AI promises to close this gap, as code generation is now within everyone's reach. But making software is more than generating code. It requires turning implicit knowledge into precise specifications, reconciling constraints from different domains, handling edge cases that no single person anticipates, building for the technical platform where the software will run, and verifying that the result actually does what was intended. Code generation is the easy part. Everything around it is the hard part.
+AI promises to close this gap, as code generation is now within everyone's reach. But making software is more than generating code. It requires turning implicit knowledge into precise specifications, reconciling constraints from multiple domains, and building for a technical platform that no single person fully understands. Code generation is the easy part. Everything around it is the hard part.
 
 ## The vision
 
@@ -33,7 +33,7 @@ Code from Spec answers that question. Specifications are structured natural lang
 
 AI assists everyone and generates the code.
 
-Every contribution is additive. The compliance officer does not need to understand concurrency. The engineer does not need to understand the regulation. No one overwrites anyone else's work. Each contributes what they know, and the system synthesizes code that satisfies all of it. The software reflects the entire organization's knowledge, not one team's interpretation of it.
+Every contribution is additive. No one overwrites anyone else's work. The software reflects the entire organization's knowledge, not one team's individual interpretation of it.
 
 ## How it works
 
@@ -55,10 +55,12 @@ To change how the software behaves, you change the spec. To understand why it be
 
 ## Where we are
 
-Code from Spec is in its early days. It may already be used in real projects: for example, this website, or the MCP server that powers the framework itself, were both built with it. The methodology is on its third version, actively developed and refined through practical experience. Nevertheless, it is still young.
+Code from Spec is in its early days. It is already being used in real projects: for example, this website, or the MCP server that powers the framework itself, were both built with it. The methodology is on its third version, actively developed and refined through practical experience. Nevertheless, it is still young.
 
 Some things are close to stable. The spec tree format — how specifications are structured, how context is assembled for the AI, how staleness is detected — is approaching what could be considered a definitive version. It works, it has been tested through real projects, and the core mechanics are solid.
 
-Other things are still being discovered. We are actively figuring out how to make it practical for someone who truly does not understand software to produce software on their own. Key concepts like layers — how to organize specifications into progressive refinement stages — are still being refined. The tooling today targets Claude Code; the spec format is client-agnostic, but the orchestration assumes Claude Code. Porting to other environments is not a priority at this stage. The focus is on the methodology itself.
+Other things are still being discovered. We are actively figuring out how to make it practical for someone who truly does not understand software to produce software on their own. Key organizational concepts are still being refined. The tooling today targets Claude Code; the spec format is client-agnostic, but the orchestration assumes Claude Code. Porting to other environments is not a priority at this stage. The focus is on the methodology itself.
 
 The vision is the direction. We are not there yet, and we are honest about the distance. But every iteration brings it closer.
+
+[Explore the framework on GitHub](https://github.com/CodeFromSpec/framework)

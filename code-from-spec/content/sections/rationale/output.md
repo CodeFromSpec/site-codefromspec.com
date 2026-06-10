@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/rationale@bkkeuo1y4DMi-W2pkbo0jtXI2xQ
+code-from-spec: ROOT/content/sections/rationale@twlWIB0qThdzsFAWmXZIONHG3t0
 title: Rationale
 description: Why Code from Spec exists — how AI changes the economics of software, and why specifications are the key to making software a collaborative product.
 ---
@@ -26,11 +26,13 @@ The reason is economic, not technical. In every industry, the natural incentive 
 
 Software engineering operates almost entirely without this forcing function. The consequences of poor software are usually delayed, diluted, and invisible until they become catastrophic. Without external pressure, the cheapest process wins. And the cheapest process is to code and fix — write something, test it, patch it, iterate. The result is that software development, despite carrying "engineering" in its name, is closer to craft than to engineering. Knowledge is tacit, quality depends on individual skill, and the process is largely ad-hoc. This is not a failure of discipline. It is a rational response to economic incentives.
 
-AI changes the economics. Generating code from a specification is now fast and cheap. Maintaining the specification itself is cheaper too — AI assists in authoring, reviewing, and identifying gaps. When code is derived from spec, the spec does not drift because it is the source, not a separate document to maintain. The most expensive aspects of formal specifications — writing them, keeping them current — are drastically reduced. For the first time, rigor and speed point in the same direction.
+These misaligned incentives also shape who thrives in the profession. The developer who spends time validating with domain experts, getting edge cases right, handling errors precisely — delivers more slowly. The one who cuts corners delivers faster and receives praise. When no one outside engineering can evaluate the quality of the implementation, both look the same. The difference surfaces months later, in a failed audit or a silent data corruption. Over time, this selects for the wrong skills. Professionals who optimize for speed are promoted. Those who invest in rigor are penalized. The overall quality of the profession degrades — not because competent people don't exist, but because the competence that matters is not the competence the system rewards.
+
+AI changes the economics. Generating code from a specification is now fast and cheap. Maintaining the specification itself is cheaper too — AI assists in authoring, reviewing, and identifying gaps. When code is derived from spec, the spec does not drift because it is the source, not a separate document to maintain. The most expensive aspects of formal specifications — writing them, keeping them current — are drastically reduced. And when specs are legible to domain experts, quality becomes observable. The careful developer is visibly different from the careless one, because the spec makes the difference legible to the people who know the domain. For the first time, rigor and speed point in the same direction — and the incentives realign.
 
 ## What changes in the organization
 
-As AI makes code generation cheaper, a hidden cost becomes visible: the engineering team is the only path through which domain knowledge becomes software. Every business decision, every compliance requirement, every operational constraint has to pass through engineers who must first understand the domain, then implement it, then maintain it. This scales badly — more software means more engineers — and the quality of the result depends on how well the engineer understood a domain that is not theirs.
+As AI makes code generation cheaper, a deeper problem becomes visible: the engineering team is the only path through which domain knowledge becomes software. Every business decision, every compliance requirement, every operational constraint has to pass through engineers who must first understand the domain, then implement it, then maintain it. This scales badly — more software means more engineers — and the quality of the result depends on how well the engineering team understood a domain that is not theirs.
 
 This is also a question of power. In many organizations, software is the most valuable asset the company produces. The team that controls the only channel through which that asset is created holds disproportionate influence — over priorities, timelines, and ultimately over what the product becomes. When no one else can evaluate the work, estimates go unchallenged, technical decisions become unchallengeable, and the business leader becomes dependent on the engineering team's interpretation of what is possible, what is expensive, and what is urgent.
 
@@ -44,7 +46,7 @@ Software engineering knowledge remains necessary to produce reliable software. T
 
 ## Why this approach works
 
-The premise is simple: if the people who know what the software should do can express that knowledge in a form that AI can reliably turn into correct code, then the engineer no longer needs to be the translator. The engineer becomes the architect of the system that makes this possible.
+The premise is simple: if the people who know what the software should do can express that knowledge in a form that AI can reliably turn into correct code, then the engineering team is no longer the only path to software. Their role becomes designing the system that makes this possible.
 
 Code from Spec makes this concrete through several interlocking choices.
 
@@ -54,15 +56,15 @@ Specs are the source of truth, not code. Code expresses mechanism — what the s
 
 The methodology is designed around AI's actual capabilities and limitations, not an idealized version of AI. Context windows are finite — so the spec tree structures knowledge into chains that deliver exactly the right context for each generation, without inflating as the system grows. Agents hallucinate — so generation is confined: the agent only sees the spec chain, cannot explore the repository, and every output is verified mechanically. Agents are inconsistent across runs — so specs converge toward precision through iteration, leaving less room for interpretation with each cycle.
 
-Contributions are additive. The compliance officer contributes regulatory constraints. The engineer contributes technical guardrails. Neither overwrites the other. Guard nodes at intermediate levels propagate rules automatically to everything below them — a security policy written once applies to every descendant without anyone having to remember to apply it. Quality becomes observable: the domain expert can review a spec and evaluate whether it is correct before any code exists.
+Contributions are additive. The compliance officer contributes regulatory constraints. The engineer contributes technical guardrails. Neither overwrites the other. Technical constraints defined by the engineering team propagate automatically to every part of the system they govern — a security policy written once applies everywhere, without anyone having to remember to apply it. Quality becomes observable: the domain expert can review a spec and evaluate whether it is correct before any code exists.
 
 The spec tree lives in git. This matters more than it sounds. PRs, diffs, blame, branch protection — the entire collaboration infrastructure that engineering already uses works unchanged. But now the compliance officer can review the PR that changes a regulatory rule, reading structured natural language instead of code. The accountant can review the PR that changes reconciliation logic. The PR becomes an organizational gate — not just an engineering gate.
 
 And the knowledge compounds. Every bug found adds a constraint to the spec. Every edge case discovered adds a verification. The spec tree grows more precise over time. The investment is in the specs — portable, versionable, independent of any specific AI model or tool. If a better generation engine appears tomorrow, the specs still work. The asset is the knowledge, not the implementation.
 
-But specifying is not automatically rigorous. A bad spec produces bad code — with more confidence, which is worse. The rigor comes from the structure around the spec: guard nodes that propagate constraints, reviews by domain experts who can evaluate correctness, mechanical verification of every output, and an engineering team that designs the guardrails.
+But specifying is not automatically rigorous. A bad spec produces bad code — with more confidence, which is worse. The rigor comes from the structure around the spec: technical constraints that propagate automatically, reviews by domain experts who can evaluate correctness, mechanical verification of every output, and an engineering team that designs the guardrails.
 
-Rigor can also be incremental. An early-stage product can start with a minimal spec tree — few constraints, fast iteration. If the product proves its value, guard nodes, tests, security constraints, and compliance rules can be added at any point. The cost of adding rigor is the same on day one or year three — it is always a spec change and a regeneration. There is no legacy code to refactor. No accumulated technical debt to pay down. The decision to invest in quality does not have to be made before the product has proven it deserves the investment.
+Rigor can also be incremental. An early-stage product can start with a minimal spec tree — few constraints, fast iteration. If the product proves its value, technical guardrails, tests, security constraints, and compliance rules can be added at any point. The cost of adding rigor is the same on day one or year three — it is always a spec change and a regeneration. There is no legacy code to refactor. No accumulated technical debt to pay down. The decision to invest in quality does not have to be made before the product has proven it deserves the investment.
 
 ## The endgame
 

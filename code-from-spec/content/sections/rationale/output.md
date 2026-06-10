@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/rationale@twlWIB0qThdzsFAWmXZIONHG3t0
+code-from-spec: ROOT/content/sections/rationale@V4RRSaBUzzubzBpU6ASYMEf8vXc
 title: Rationale
 description: Why Code from Spec exists — how AI changes the economics of software, and why specifications are the key to making software a collaborative product.
 ---
@@ -52,19 +52,15 @@ Code from Spec makes this concrete through several interlocking choices.
 
 Specifications are written in structured natural language. Not code, not pseudocode, not diagrams — language that any domain expert can read, evaluate, and contribute to. This is what makes the collaboration real. The compliance officer can read the spec for a regulatory rule and say "this is wrong" before any code is generated. That was never possible when the rule lived in code.
 
+Contributions are additive. The compliance officer contributes regulatory constraints. The engineer contributes technical guardrails. Neither overwrites the other. Technical constraints defined by the engineering team propagate automatically to every part of the system they govern — a security policy written once applies everywhere, without anyone having to remember to apply it. Quality becomes observable: the domain expert can review a spec and evaluate whether it is correct before any code exists.
+
 Specs are the source of truth, not code. Code expresses mechanism — what the software does. Specs express intent — why it does it, what constraints it respects, what alternatives were considered. When the source of truth is code, knowledge that doesn't fit in code gets lost: the rationale behind a decision, the regulation that motivated a rule, the edge case that was deliberately excluded. When the source of truth is specs, all of that lives permanently in the tree.
 
 The methodology is designed around AI's actual capabilities and limitations, not an idealized version of AI. Context windows are finite — so the spec tree structures knowledge into chains that deliver exactly the right context for each generation, without inflating as the system grows. Agents hallucinate — so generation is confined: the agent only sees the spec chain, cannot explore the repository, and every output is verified mechanically. Agents are inconsistent across runs — so specs converge toward precision through iteration, leaving less room for interpretation with each cycle.
 
-Contributions are additive. The compliance officer contributes regulatory constraints. The engineer contributes technical guardrails. Neither overwrites the other. Technical constraints defined by the engineering team propagate automatically to every part of the system they govern — a security policy written once applies everywhere, without anyone having to remember to apply it. Quality becomes observable: the domain expert can review a spec and evaluate whether it is correct before any code exists.
-
 The spec tree lives in git. This matters more than it sounds. PRs, diffs, blame, branch protection — the entire collaboration infrastructure that engineering already uses works unchanged. But now the compliance officer can review the PR that changes a regulatory rule, reading structured natural language instead of code. The accountant can review the PR that changes reconciliation logic. The PR becomes an organizational gate — not just an engineering gate.
 
 And the knowledge compounds. Every bug found adds a constraint to the spec. Every edge case discovered adds a verification. The spec tree grows more precise over time. The investment is in the specs — portable, versionable, independent of any specific AI model or tool. If a better generation engine appears tomorrow, the specs still work. The asset is the knowledge, not the implementation.
-
-But specifying is not automatically rigorous. A bad spec produces bad code — with more confidence, which is worse. The rigor comes from the structure around the spec: technical constraints that propagate automatically, reviews by domain experts who can evaluate correctness, mechanical verification of every output, and an engineering team that designs the guardrails.
-
-Rigor can also be incremental. An early-stage product can start with a minimal spec tree — few constraints, fast iteration. If the product proves its value, technical guardrails, tests, security constraints, and compliance rules can be added at any point. The cost of adding rigor is the same on day one or year three — it is always a spec change and a regeneration. There is no legacy code to refactor. No accumulated technical debt to pay down. The decision to invest in quality does not have to be made before the product has proven it deserves the investment.
 
 ## The endgame
 

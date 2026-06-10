@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/rationale@tEUNh6QROo4SIQNq6Ol73GNDi_A
+code-from-spec: ROOT/content/sections/rationale@n2asRLkGyd9YuVruXYluZh6_AFM
 title: Rationale
 description: Why Code from Spec exists — how AI changes the economics of software, and why specifications are the key to making software a collaborative product.
 ---
@@ -12,39 +12,29 @@ description: Why Code from Spec exists — how AI changes the economics of softw
 
 ## The promise
 
-AI put code generation within everyone's reach. The narrative is that anyone can now build software — describe what you want, and the agent writes the code. For simple tasks, this works. For anything that matters to an organization — compliance, finance, operations, security — it doesn't. Not yet.
+AI put code generation within everyone's reach. The narrative is that anyone can now build software — describe what you want, and the agent writes the code. For simple tasks, this might work. For anything that matters to an organization — compliance, finance, operations, security — it doesn't. Not yet.
 
-The gap is not in AI's ability to generate code. It is in what happens around the code. A non-engineer who asks AI to build something receives output that appears to work. But they have no way to evaluate whether the error handling is adequate, whether the business logic covers the edge cases, whether the code is secure, whether it will behave correctly under load. They accept what they receive because they have no frame of reference to question it.
+A non-engineer who asks AI to build something receives output that appears to work. But they have no way to evaluate whether the error handling is adequate, whether the business logic covers the edge cases, whether the code is secure, whether it will behave correctly under load. They accept what they receive because they lack the expertise to question it.
+
+## Specifications have been tried before
+
+The idea of capturing domain knowledge in structured artifacts before writing code is not new. Formal methods in the 1970s and 1980s — structured analysis, Z notation, VDM, stepwise refinement — pursued exactly this goal. In safety-critical domains like aviation and medical devices, they succeeded and are still required today.
+
+They never gained mainstream adoption. The reasons were multiple: maintaining a specification in sync with evolving code required constant manual effort and the spec inevitably drifted. The methods demanded specialized skills that most engineers didn't have. They were poorly suited to iterative development. For most organizations, the cost of maintaining the spec exceeded the cost of fixing the bugs it would have prevented.
+
+The industry moved toward agility — shorter cycles, working software over comprehensive documentation, continuous collaboration. This was a rational response. Agile didn't eliminate specification entirely — user stories, acceptance criteria, and definitions of done are forms of specification. But it reduced upfront formal specification in favor of fast feedback. The tradeoff was that much of the domain knowledge that would have been in a formal spec ended up encoded implicitly in code, recoverable only by the people who wrote it.
+
+AI changes this equation. When code is generated from spec, the synchronization problem disappears — the spec does not drift because the code is derived from it. There is no separate maintenance burden. The economic argument against formal specification, which held for forty years, no longer applies. Code from Spec builds on this: structured specifications that express intent, kept current by construction, without the maintenance cost that made them impractical before.
+
+## What changes in the organization
+
+AI is commoditizing code generation. But code generation was never the real cost. The real cost is the translation: every business decision, every compliance requirement, every operational constraint has to pass through the engineering team before it becomes software. That translation scales linearly — more software means more engineers.
+
+Code from Spec breaks this proportionality. The engineering team defines the technical guardrails — architecture, error handling, security, platform constraints — and the rest of the organization contributes domain knowledge directly. The engineer stops being the translator and starts being the architect of the system that makes translation unnecessary.
+
+This is not a demotion of engineering. It is the opposite. The engineer freed from translation does more engineering — analysis, design, constraints, quality, failure mode reasoning. The title finally matches the practice. The engineer is not hired to write code. The engineer is hired because they solve complex problems. Writing code was the mechanism available — it was never the role itself.
 
 Software engineering knowledge remains necessary to produce reliable software. That is not going to change — even as AI improves, the judgment about architecture, failure modes, and system behavior requires human expertise. But this knowledge should not be a gate that prevents everyone else in the organization from contributing. The compliance officer knows the regulations better than any engineer. The accountant knows the financial rules. The product manager knows the users. Their knowledge should flow directly into the software, not through an engineer's interpretation.
-
-## The quality problem nobody talks about
-
-Before AI, this was already broken. Agile compensated for the loss of formal specifications with short delivery cycles. When the programmer made a wrong domain decision, the user saw the result quickly and corrected it.
-
-This worked when the end user was the domain expert. It failed for domains where the person who sees the demo is not the person who knows the rules. A product demo shows screens and flows. It does not show that the provisioning calculation uses the wrong cutoff date, or that the settlement logic violates a regulatory constraint. The compliance officer, the accountant, the legal analyst — they are not in the demo. Or if they are, they cannot tell from a demo whether the underlying logic is correct.
-
-This creates a dynamic similar to the market for lemons. When the people who hold domain knowledge cannot evaluate the quality of the implementation, quality degrades. An engineering team that implements the domain rules precisely looks identical — from the stakeholder's perspective — to one that implements them approximately. Both pass the demo. The difference surfaces months later, in a failed audit or a reconciliation that doesn't balance. By then, the cost of correction is orders of magnitude higher.
-
-AI did not fix this. It made code generation faster, but the quality problem is upstream of code generation. It lives in the gap between what domain experts know and what the software actually does. Making that gap wider — by letting anyone generate code without the ability to evaluate it — makes the problem worse, not better.
-
-## Why specifications failed before — and why they won't this time
-
-The software engineering community tried to solve this problem decades ago. Formal specifications in the 1970s and 1980s were exactly the right idea: structured artifacts that expressed intent, could be reviewed by domain experts, and guided implementation.
-
-They failed because they were expensive. Maintaining a specification in sync with evolving code required constant manual effort. The spec drifted. The team stopped trusting it. Eventually the cost of maintaining the spec exceeded the cost of fixing the bugs it would have prevented. The industry rationally abandoned specifications in favor of agility — shorter cycles, working software over documentation.
-
-AI removes the constraint that made specifications impractical. When code is generated from spec, synchronization is automatic — the spec does not drift because the code is derived from it. There is no separate maintenance burden. The economic argument against formal specification no longer holds.
-
-This is not a marginal improvement. It is the removal of the constraint that made formal specifications impractical for forty years. Code from Spec restores what agile conceded — structured specifications that express intent — without reintroducing the bottleneck that killed them.
-
-## Software is becoming a commodity
-
-In the 1960s, building anything electronic meant designing your own circuits from scratch. It required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers to produce are readily available. Anyone with a soldering iron and a 3D printer can build hardware that would have required a factory fifty years ago. The specialized expertise didn't disappear. It moved upstream, into the companies that design the components everyone else uses.
-
-Software is at the same inflection point. AI is commoditizing code generation — the equivalent of buying components off the shelf. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together.
-
-This changes who needs to be involved and how. Today, large engineering teams exist because someone has to translate every business decision, every compliance requirement, every operational constraint into code. That translation scales linearly: more software means more engineers. Code from Spec breaks this proportionality. The engineering team defines the technical guardrails — architecture, error handling, security, platform constraints — and the rest of the organization contributes domain knowledge directly. The engineer is not hired to write code. The engineer is hired because they solve complex problems. Writing code was the mechanism available to exercise that role — it was never the role itself.
 
 ## Why this approach works
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- code-from-spec: ROOT/html/sections/rationale@IvJCN-qnPhpBDn_WrDsowW5Jxok -->
+<!-- code-from-spec: ROOT/html/sections/rationale@2AVhGocHzivKy0CEvPEaCK_eAAU -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -32,20 +32,14 @@
 
       <h1>Rationale</h1>
 
-      <blockquote><p>The disruption is not in the coding — it is in who participates, how knowledge flows, and where accountability lives. AI is the enabler, not the point.</p></blockquote>
+      <blockquote><p>The disruption is not in the coding — it is in who participates, how knowledge flows, and where accountability lives. AI is the enabler, not the goal.</p></blockquote>
 
       <section>
-        <h2>The problem software has always had</h2>
+        <h2>The problem</h2>
         <p>Software is written by people who hold context in their heads. The engineer receives requirements, translates them into code, and in that translation makes hundreds of small decisions that are never recorded anywhere. When the engineer leaves, the decisions leave too. What remains is code that works — until it doesn't — and that nobody fully understands anymore.</p>
-        <p>Code is not a good medium for expressing intent. It expresses mechanism. You can read code and understand what it does; you cannot read it and understand why it does that, what alternatives were considered, or what constraints it is silently respecting.</p>
-        <p>The industry built compensating mechanisms: comments, wikis, ADRs, runbooks, onboarding docs. None of them work at scale because they are separate from the system. They describe a system that exists independently. As the system changes, they drift. Eventually they describe a system that no longer exists, and the team stops trusting them. The knowledge returns to people's heads, and the cycle repeats.</p>
-      </section>
-
-      <section>
-        <h2>The translation problem</h2>
+        <p>Code is not a good medium for expressing intent. It expresses mechanism. You can read code and understand what it does; you cannot read it and understand why it does that, what alternatives were considered, or what constraints it is silently respecting. The industry built compensating mechanisms: comments, wikis, ADRs, runbooks, onboarding docs. None of them work at scale because they are separate from the system. They drift. The team stops trusting them. The knowledge returns to people's heads.</p>
         <p>Every organization that builds software has two kinds of knowledge: domain knowledge and technical knowledge. Domain knowledge lives in the people who understand the business — compliance officers who know the regulations, legal teams who know the contracts, accountants who know the financial rules, product managers who know the user needs. Technical knowledge lives in the engineers who know how to build systems.</p>
-        <p>Traditionally, the engineer was the only author of software. They received domain knowledge as requirements — documents, meetings, conversations — and translated it into code. This translation was lossy. Every handoff lost information. Every interpretation introduced error. The more intermediaries between the domain expert and the code, the more the implementation drifted from the original intent.</p>
-        <p>The result was systems that worked technically but implemented the domain approximately. Compliance rules that were almost right. Business logic that handled the common case but missed the edge case that the domain expert knew about but never thought to mention because they assumed the engineer would understand.</p>
+        <p>The engineer was the only author of software. They received domain knowledge as requirements — documents, meetings, conversations — and translated it into code. This translation was lossy. Every handoff lost information. Every interpretation introduced error. The result was systems that worked technically but implemented the domain approximately. Compliance rules that were almost right. Business logic that handled the common case but missed the edge case that the domain expert knew about but never thought to mention.</p>
       </section>
 
       <section>
@@ -81,9 +75,11 @@
 
       <section>
         <h2>Software as commodity</h2>
-        <p>Software is at the same inflection point that hardware reached decades ago. In the 1960s, every company that needed computation designed its own hardware. Today, hardware is commodity — you buy it. Only those with ultra-specialized needs design their own.</p>
-        <p>AI commoditized code generation. The question is no longer who writes the code — it is how the organization expresses what it needs in a form that reliably becomes software.</p>
-        <p>Code from Spec answers that question. The engineering team becomes a small, specialized group — like legal or compliance — that defines the structural guardrails and supports the rest of the organization in delivering software directly. The engineer is not hired to write code. The engineer is hired because they are intelligent people who solve complex problems. Writing code was the mechanism available to exercise that role — it was never the role itself.</p>
+        <p>Software is at the same inflection point that hardware reached decades ago. In the 1960s, building anything electronic meant designing your own circuits from scratch. It required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers to produce are readily available. Anyone with a soldering iron and a 3D printer can build hardware that would have required a factory fifty years ago. The specialized expertise didn't disappear. It moved upstream, into the companies that design the components everyone else uses.</p>
+        <p>AI is commoditizing code generation. The equivalent of buying components off the shelf. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together. The question is no longer who writes the code. It is how the organization expresses what it needs in a form that reliably becomes software.</p>
+        <p>This changes the economics of software organizations. Today, large engineering teams exist because someone has to translate every business decision, every compliance requirement, every operational constraint into code. That translation is the bottleneck, and it scales linearly: more software means more engineers.</p>
+        <p>Code from Spec breaks this proportionality. The engineering team becomes a small, specialized group — like legal or compliance — that defines the structural guardrails and supports the rest of the organization in delivering software directly. The engineer is not hired to write code. The engineer is hired because they solve complex problems. Writing code was the mechanism available to exercise that role — it was never the role itself.</p>
+        <p>The implications are profound. Software budgets shift from production to precision — from paying people to write code to investing in the quality of specifications. Hiring changes: the organization needs fewer engineers, but those engineers need deeper judgment about architecture, constraints, and failure modes. Onboarding changes: a new team member reads the spec tree and understands the system, instead of spending weeks reading code and asking colleagues. Vendor dependency changes: the spec tree is portable. If a better generation tool appears tomorrow, the specs still work. The investment is in knowledge, not in implementation.</p>
       </section>
 
       <section>
@@ -160,31 +156,11 @@
       </section>
 
       <section>
-        <h2>Building trust</h2>
-        <p>Adopting Code from Spec does not mean immediately trusting AI-generated code. Trust is built through evidence, not optimism.</p>
-        <ul>
-          <li><strong>Phase 1: Full review.</strong> Humans review specs and generated code. Every regeneration is inspected. Specs are tightened based on what the agent gets wrong.</li>
-          <li><strong>Phase 2: Sampling.</strong> Humans review specs thoroughly but examine generated code by sampling. Tests and CI provide confidence. Focus shifts to new or complex leaves.</li>
-          <li><strong>Phase 3: Spec review only.</strong> Humans review specs. Code is verified by tests and CI. Humans examine code only when tests fail or for critical operations.</li>
-          <li><strong>Phase 4: Governance gate.</strong> Humans review specs only at the production deployment boundary. Everything else is automated. Guard nodes protect. Tests verify.</li>
-        </ul>
-        <p>Each phase transition is earned by evidence: fewer agent errors, more comprehensive tests, tighter specs. Trust can also regress. A serious bug in production caused by generated code can — and should — make the team return to a previous phase. The phases are a dial to adjust, not a ladder to climb.</p>
-      </section>
-
-      <section>
         <h2>The endgame</h2>
         <p>If code is derived from specs, it does not need to be versioned. It is a build artifact — like a compiled binary, generated from source and reproducible from it.</p>
         <p>Today, repositories contain both specs and generated code. This is a transitional state. It exists because the methodology is young, trust is still being built, and teams need to inspect the generated output.</p>
         <p>The logical conclusion is a repository that contains only the spec tree, test specs, and external dependencies. The CI pipeline receives the specs, dispatches agents to generate the code, runs the tests, and deploys. Code is ephemeral — generated, verified, and discarded.</p>
         <p>Imagine the workflow: a compliance officer updates a regulatory constraint. A product manager adds a business rule. An engineer refines a concurrency pattern. Each commits to the spec tree. The pipeline generates the code, runs the tests, and deploys. No one wrote code. No one reviewed code. No one merged code. The entire team worked in specs — the artifact they all understand — and the software took care of itself.</p>
-      </section>
-
-      <section>
-        <h2>Caveats</h2>
-        <p><strong>AI is the weakest link.</strong> Agents hallucinate, ignore instructions, and rationalize skipping rules. The structural guardrails exist precisely because the agent cannot be trusted on its own. Trust the framework, not the agent.</p>
-        <p><strong>The organizational shift is political.</strong> The methodology enables domain experts to contribute directly. It does not cause them to. The cause is leadership, training, and sustained cultural investment. Teams that adopt Code from Spec expecting the organizational benefits to emerge automatically will be disappointed.</p>
-        <p><strong>Not for everything.</strong> Prototypes, throwaway code, and trivial systems do not benefit. Code from Spec is designed for systems where the cost of getting it wrong exceeds the cost of specifying it precisely.</p>
-        <p><strong>Implicit knowledge is invisible knowledge.</strong> Every pattern, convention, or technique that should be followed must be explicit in the spec tree. If it is not written down, it will not be followed consistently. This is the methodology's core cost — and its core value: knowledge written once is knowledge that will never be lost.</p>
       </section>
     </div>
   </main>

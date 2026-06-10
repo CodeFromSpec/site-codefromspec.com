@@ -1,9 +1,0 @@
----
-depends_on:
-  - ROOT/design/article/template
-input: ARTIFACT/content/sections/blog/articles/20260608-context-management
-output: public/blog/context-management/index.html
----
-
-# ROOT/html/sections/blog/articles/context-management
-

@@ -51,7 +51,7 @@ The stylesheet must cover:
    block display. `article time` is block, 0.875em,
    muted color.
 
-8. **Blog article date** — `main time` (date after h1)
+8. **Article date** — `main time` (date after h1)
    is block, 0.875em, muted color, margin-bottom 1.5em.
 
 9. **Content images** — `main img` breaks out of the

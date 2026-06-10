@@ -29,7 +29,7 @@ Values shared across all themes:
 
 Header links:
 - Rationale → /rationale
-- Blog → /blog
+- Articles → /articles
 - License → /license
 - GitHub → https://github.com/CodeFromSpec (external)
 

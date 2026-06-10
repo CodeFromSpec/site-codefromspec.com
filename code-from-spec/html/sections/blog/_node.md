@@ -1,1 +1,0 @@
-# ROOT/html/sections/blog

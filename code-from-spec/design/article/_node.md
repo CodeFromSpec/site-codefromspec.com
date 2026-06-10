@@ -7,7 +7,7 @@ text instead of breaking out of the container.
 
 ## Separate theme for articles
 
-Blog articles need images that float alongside text
+Articles need images that float alongside text
 (magazine style), not the full-bleed behavior of the
 default theme. A separate theme allows each html node
 to choose its layout via `depends_on`.

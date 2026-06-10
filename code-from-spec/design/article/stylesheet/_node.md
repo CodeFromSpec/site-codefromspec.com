@@ -6,7 +6,7 @@ output: public/css/article.css
 
 # ROOT/design/article/stylesheet
 
-Theme stylesheet for blog articles. Works alongside
+Theme stylesheet for articles. Works alongside
 baseline.css. Magazine-style layout where images float
 alongside text.
 
@@ -14,7 +14,7 @@ alongside text.
 
 Generate a theme CSS stylesheet. This file is loaded
 after baseline.css and adds layout-specific styles for
-the blog theme.
+the article theme.
 
 Since this theme uses the base color defaults, do not
 redefine CSS custom properties.

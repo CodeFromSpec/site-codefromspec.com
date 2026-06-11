@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- code-from-spec: ROOT/html/sections/articles/articles/context-management@nXFDY11QFgng6aJy3UVz88bVE1Q -->
+<!-- code-from-spec: ROOT/html/sections/articles/articles/context-management@Ba4VUTTPOKDwwLSTPFk2JyipK0U -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="How Code from Spec gives AI agents exactly the context they need — no more, no less.">
+  <meta name="description" content="The industry builds machinery to assemble context for AI agents. Code from Spec gets it as a byproduct of structure.">
   <meta name="author" content="Gustavo Silveira Neto">
   <title>Context management by construction — Code from Spec</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
@@ -21,7 +21,6 @@
       <nav>
         <a href="/rationale">Rationale</a>
         <a href="/articles">Articles</a>
-        <a href="/license">License</a>
         <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
@@ -33,8 +32,8 @@
 <section>
   <h2>The context problem</h2>
   <img src="/images/articles/20260608_image_1.png" alt="The context problem">
-  <p>AI agents have a finite context window. No matter how large it becomes, a non-trivial system will always contain more knowledge than fits in a single prompt.</p>
-  <p>In a traditional AI-assisted workflow, the agent reads source files, grep results, and conversation history to assemble context. This is ad hoc and fragile. The agent does not know what it does not know. It reads what it finds, infers what it can, and guesses the rest. Each session starts from scratch — the previous session's understanding is lost.</p>
+  <p>AI agents have a finite context window. No matter how large it becomes, a non-trivial system will always contain more knowledge than fits in a single prompt. The practical question is not whether the agent can hold the entire system in context — it cannot — but how the right context reaches the agent at the right time.</p>
+  <p>In a traditional AI-assisted workflow, the agent assembles context for itself: it reads source files, greps for symbols, scrolls through conversation history. This is ad hoc and fragile. The agent does not know what it does not know. It reads what it finds, infers what it can, and guesses the rest.</p>
 </section>
 <section>
   <h2>Code is a poor context source</h2>
@@ -42,40 +41,32 @@
   <p>The agent reconstructs these things by reading more code, which provides more mechanism and less intent. Context assembled from code is voluminous but shallow.</p>
 </section>
 <section>
-  <h2>The chain: precise context by construction</h2>
-  <p>The spec tree inverts this. Every node is a unit of explicit context — intent, constraints, decisions, interfaces. The <code>depends_on</code> mechanism is simultaneously a dependency declaration (for staleness tracking) and a context declaration (for generation).</p>
-  <p>When a generation subagent receives a chain, it receives exactly the context it needs: the ancestors' constraints, the dependencies' interfaces, the external references, the target's spec. Nothing more, nothing less.</p>
-  <p>A typical chain for a leaf node is 3,000–5,000 tokens. A project with 40 packages might have 50,000+ lines of code. The chain for any single package is under 200 lines of spec. The ratio is roughly 10:1 — for the same information quality, the chain costs an order of magnitude fewer tokens.</p>
-  <p>The author of a spec node does not think about "what context will the agent need." They declare dependencies because the node genuinely depends on them. The context assembly follows automatically. As the tree grows, adding hundreds of new nodes does not inflate the context for existing nodes — each node's chain includes only what it declared.</p>
+  <h2>Retrieval guesses. Structure guarantees.</h2>
+  <p>The industry's answer to the context problem is machinery: retrieval-augmented generation, memory systems, embeddings, context compaction. All of it shares one assumption — that relevance must be discovered at runtime. Some algorithm looks at the task, searches the available knowledge, and assembles what it predicts the agent will need. When the prediction is good, the agent gets useful context. When it is not, the agent gets noise, or silence, and cannot tell the difference.</p>
+  <p>Code from Spec has no context machinery at all — and that is the point. The spec tree is organized so that context follows from structure. Every node inherits the public content of its ancestors: the constraints that govern a leaf are, by definition, the path from the root to it. Everything else a node needs, it declares — <code>depends_on</code> is simultaneously a dependency declaration for staleness tracking and a context declaration for generation. One field, two meanings, no drift between them.</p>
+  <p>The consequence is a different kind of confidence. Context assembled by retrieval is probable: the algorithm found what looked relevant. Context assembled from the tree is guaranteed: every constraint that applies to the target is present because the structure puts it there, not because a search ranked it highly. The agent reading a chain does not hedge against unknown requirements somewhere in the repository. If it is not in the chain, it does not govern this artifact.</p>
+</section>
+<section>
+  <h2>Nobody designs the context</h2>
+  <p>The author of a spec node never thinks about "what context will the agent need." They place the node where it belongs in the tree, and they declare the dependencies the node genuinely has. The context assembly follows automatically — the chain is computed from the structure, the same way for every node, every time.</p>
+  <p>This is why the approach scales. As the tree grows, adding new nodes does not inflate the context for existing ones: each node's chain contains its ancestors and its declarations, nothing else. The total knowledge in the tree is unbounded. The context per generation is bounded and curated. The tree can represent more than any context window can hold, while every individual generation receives exactly what it needs.</p>
   <p>This is context management by construction, not by effort.</p>
 </section>
 <section>
-  <h2>Context that accumulates across sessions</h2>
-  <p>In a traditional workflow, a productive four-hour session with an AI produces code changes and maybe some comments. The next session starts over — the agent reads the code and tries to reconstruct what happened. The context from the previous session is gone.</p>
-  <p>In Code from Spec, a productive session produces spec changes. Those changes are the context. The next session — with the same agent or a different one — picks up the spec tree as it stands. Every decision made in every previous session is present in the tree, structured and accessible.</p>
-  <p>The spec tree can represent more knowledge than any single context window can hold, while still providing each agent invocation with precisely the context it needs. The total knowledge in the tree is unbounded. The context per generation is bounded and curated.</p>
+  <h2>Rules reach leaves that do not exist yet</h2>
+  <p>Inheritance does more than trim context — it distributes it across time.</p>
+  <p>A guard node is an intermediate node whose public content prescribes concrete rules for everything below it: which library to use and how to import it, how to handle errors, what conventions tests must follow. Written once, the rule appears in the chain of every descendant — including descendants created long after the rule was written. A new component added today inherits constraints recorded months ago, by someone who may have since left the team. The tree does not care when a leaf was added. It enforces the same rules on all of them.</p>
+  <p>The alternative is what every team without this structure does: repeat the conventions in every prompt, hope the agent infers them from existing code, or rediscover them through failures. A rule that lives in an ancestor node is written once and obeyed everywhere, forever.</p>
 </section>
 <section>
-  <h2>Guard nodes amortize rule costs</h2>
-  <p>A guard node is an intermediate node whose public content prescribes concrete rules that all descendants inherit. From a token perspective, guard nodes are remarkably efficient.</p>
-  <p>A single rule — like "import the error library without alias" — is perhaps 20 tokens in the ancestor node. It propagates to every leaf in the subtree. In a project with 60 leaf nodes under that ancestor, the rule costs 20 tokens per generation (it appears once in each chain) but prevents an error that would cost thousands of tokens to diagnose and fix per occurrence.</p>
-  <p>Without the guard node, the rule would need to be repeated in each leaf's spec — 60 × 20 = 1,200 tokens of redundant specification, plus the maintenance burden of keeping 60 copies in sync. With inheritance, 20 tokens in one place does the work of 1,200.</p>
-  <p>More importantly, guard nodes prevent the expensive failure mode: a subagent generates incorrect code, tests fail, a human diagnoses the issue, fixes the spec, regenerates. Each iteration of this cycle costs 15,000–30,000 subagent tokens. A 20-token rule that prevents the failure across 60 nodes saves potentially 900,000–1,800,000 tokens in avoided rework.</p>
+  <h2>Context accumulates across sessions</h2>
+  <p>In a traditional workflow, a productive session with an AI produces code changes and maybe some comments. The next session starts over — the agent reads the code and tries to reconstruct what happened. The understanding built in the previous session is gone.</p>
+  <p>In Code from Spec, a productive session produces spec changes. Those changes are the context. The next session — with the same agent or a different one — picks up the spec tree as it stands. Every decision made in every previous session is present in the tree, structured and accessible. Context does not evaporate between sessions; it compounds across them, across contributors, across time.</p>
 </section>
 <section>
-  <h2>The economics</h2>
-  <p>Confinement — the rule that generation subagents can only read the chain and write the declared output — is usually discussed as a correctness mechanism. But it is equally a cost mechanism:</p>
-  <ul>
-    <li>No exploration tokens. The agent does not spend tokens reading files to figure out what to do. The chain tells it.</li>
-    <li>No false starts. The agent does not generate code based on incorrect assumptions assembled from repository exploration, then need to regenerate.</li>
-    <li>Predictable cost. Each generation costs roughly <code>chain_tokens + output_tokens</code>. Both are bounded by the spec size, which is known in advance.</li>
-  </ul>
-  <p>In a traditional "read the repo and implement" workflow, the agent might read 20,000 tokens of code before writing 500 lines. With confinement, it reads 4,000 tokens of spec and writes the same 500 lines. The reading cost is 5x lower, and the output quality is higher because the context is intent, not mechanism.</p>
-</section>
-<section>
-  <h2>The cheapest path is the most correct path</h2>
-  <p>Each design decision in the framework — confinement, inheritance, chain assembly — serves both correctness and cost. They are not in tension.</p>
-  <p>Context management is not a feature of Code from Spec. It is a consequence of the spec tree's structure. Build the tree right, and context takes care of itself.</p>
+  <h2>The other half</h2>
+  <p>Curated context only means something if it is the only context. The same framework that assembles the chain also confines the generation agent to it: the agent reads the chain, writes the declared output, and touches nothing else. That restriction — why it exists and what it buys — is the subject of its own article, on confinement.</p>
+  <p>Together they form one design: the tree decides what the agent sees, and the framework ensures it sees nothing else. Context management is not a feature of Code from Spec. It is a consequence of the spec tree's structure. Build the tree right, and context takes care of itself.</p>
 </section>
     </div>
   </main>

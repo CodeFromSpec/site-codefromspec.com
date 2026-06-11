@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- code-from-spec: ROOT/html/sections/articles/articles/confinement@f6Tm952Ck-lWdEFGMnb1fx_31rA -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Why Code from Spec's generation agents see only the spec chain — and why taking context away from an AI makes its output trustworthy.">
+  <meta name="author" content="Gustavo Silveira Neto">
+  <title>Confinement — Code from Spec</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <link rel="stylesheet" href="/css/baseline.css">
+  <link rel="stylesheet" href="/css/article.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="site-name"><img src="/images/code_from_spec_logo.png" alt="" class="logo"> Code from Spec</a>
+      <nav>
+        <a href="/rationale">Rationale</a>
+        <a href="/articles">Articles</a>
+        <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <h1>Confinement</h1>
+<p>June 10, 2026</p>
+<section>
+  <h2>What confinement is</h2>
+  <img src="/images/articles/20260610_image_1.png" alt="What confinement is">
+  <p>In Code from Spec, the agent that generates an artifact does not see the project. It receives the spec chain — the inherited constraints of every ancestor node, the declared dependencies, the referenced external files, the target's own spec — and it writes one declared output file. That is the entire interaction. It does not browse the repository, read neighboring code, or fetch documentation. If the chain is not enough to generate the artifact, the correct output is not code — it is a report of exactly what is missing.</p>
+  <p>This sounds like a limitation. It is the most important design decision in the methodology.</p>
+  <p>Confinement makes generation a function: the output is determined by the chain and nothing else. This is what gives the framework's other guarantees their meaning. Staleness detection compares a hash of the chain against the hash recorded in the artifact — a comparison that only proves something because nothing outside the chain influences the result. Remove confinement, and the hash still computes, but it no longer tells the truth.</p>
+</section>
+<section>
+  <h2>The third option</h2>
+  <p>To see why confinement matters, watch what an unconfined agent does when a spec is ambiguous.</p>
+  <p>It compensates. It reads other source files to see how similar problems were solved. It looks at tests for patterns. It explores the repository for context. This feels productive — the agent is gathering information, being diligent. But the information it gathers may be wrong, outdated, or irrelevant, and the agent has no way to know which. It builds a mental model from fragments and generates code that satisfies the model instead of the spec. The output looks sophisticated. It is subtly wrong in ways that are hard to detect, because the errors trace back to context nobody chose to provide.</p>
+  <p>A confined agent facing the same ambiguity has exactly two options: make its best judgment from the chain it has, or report that the spec is insufficient. Both are useful. The first produces code that tests can evaluate; the second produces a finding that improves the spec. What confinement removes is the third option — inventing context that looks like research. That option is the dangerous one, precisely because it looks like the most diligent one.</p>
+  <p>This is not a hypothetical failure mode. During the development of the framework's own tooling, the working convention was that every Go component gets three spec nodes: interface, implementation, test. The convention had been agreed in conversation — but it was not yet written into a node that new specs would inherit. The next time nodes were created, the agent skipped the interface nodes. Not as a decision; it simply was not in its chain. The lesson generalizes: an agent's compliance is only as good as its chain. Tell it once in conversation, and it might comply. Put the rule in the chain, and it complies every time.</p>
+</section>
+<section>
+  <h2>Ambiguity becomes signal</h2>
+  <p>An unconfined agent hides spec problems. It papers over gaps with inference — and the gap stays invisible until it surfaces as a bug nobody can trace. A confined agent does the opposite: it converts spec problems into evidence.</p>
+  <p>Two incidents from real sessions show the shape of this.</p>
+  <p>A project's tests needed to change the working directory before creating temporary files, so that project-relative paths would resolve correctly. The tests in one subtree had this pattern in their chain, inherited from an ancestor node. The tests in another subtree did not. The first group passed. The second group failed — every single test, with the same error. The failure pattern pointed directly at the missing context: the fix was not to regenerate, but to add the pattern to the common ancestor. After that, every test generation followed it.</p>
+  <p>In another case, a spec said to match file patterns but not which function to use. Go has two: one is platform-dependent, the other is not. The agent picked one; it was wrong on Windows. The diagnosis ended with three words added to the spec — and the problem was solved permanently, for every future generation, by any agent.</p>
+  <p>This is the property worth noticing: under confinement, failures are not random. Each one traces to a specific place where the chain was silent or ambiguous. Fixing the spec closes the gap forever. A team that regenerates everything from scratch and watches what fails is running a diagnostic on its own specifications — and confinement is what makes the diagnostic readable.</p>
+  <p>The same property shows up in the economics. A confined generation costs roughly the chain plus the output — both bounded by the spec, both known in advance. There are no exploration tokens, and no false starts built on context the agent assembled wrong. The cheapest path and the most correct path are the same path.</p>
+</section>
+<section>
+  <h2>Autonomy in the right place</h2>
+  <p>Confinement is not a statement of distrust in AI. The orchestrator — the agent that decides what is stale, assembles the work, dispatches generations, and verifies results — remains free and capable. Code from Spec removes autonomy from exactly one place: the moment where spec becomes artifact. Autonomy stays where judgment lives. Confinement applies where fidelity matters more than initiative.</p>
+  <p>This mirrors the methodology's organizational design. A guard node protects a domain expert from the dimensions they cannot evaluate: the product manager who adds an endpoint cannot accidentally bypass the security policy, because the policy sits above them in the tree. Confinement protects the generation step in the same way: the agent cannot drift from the contributors' intent, because the chain is the only channel through which intent reaches it.</p>
+  <p>That single channel is what makes distributed authorship hold. The compliance officer's rule governs the generated code only if the agent cannot learn a different behavior somewhere else. In one real session, code merged in from another service imported a shared error library under an alias — a violation of the target project's constraint, written once in a guard node. The generation agent corrected it without being asked. The subagent followed the chain, not the existing code. Confinement does not only block invention; it enforces the rules that are actually in force, even against code that disagrees.</p>
+</section>
+<section>
+  <h2>Trust the framework, not the agent</h2>
+  <p>Agents make mistakes. They hallucinate, they misread, they pick the wrong function from two reasonable candidates. A methodology that depends on AI generation has to start from that fact, not hope around it.</p>
+  <p>Confinement is what makes the mistakes survivable. A confined agent's errors are bounded: they originate in the chain, which means they are reproducible, diagnosable, and fixable at the source — once, permanently. An unconfined agent's errors are unbounded: they originate in whatever it happened to read, a context nobody chose, nobody reviewed, and nobody can reconstruct. Bounded errors are caught by tests and closed by spec fixes. Unbounded errors are investigated by archaeology.</p>
+  <p>Confinement is design, not dogma — and the proof is its one deliberate exception. When an artifact is regenerated, the agent receives the existing file alongside the chain, so it can produce a minimal diff instead of a full rewrite. The exception is carefully fenced: the existing artifact does not participate in the chain hash, and when an agent anchors on a bug in the old code, the remedy is to delete the file and regenerate from the chain alone. Even what enters through this door is curated — generated artifacts carry no comments, because a comment is a narrative the agent will treat as a second source of truth, competing with the spec it is supposed to follow.</p>
+  <p>The conclusion is the methodology's quiet inversion of the industry's current instinct. The prevailing direction is to hand agents more tools, more access, more autonomy, and to trust that capability scales into reliability. Code from Spec trusts something else: structure. You do not trust the agent. You trust the chain that feeds it, the tests that check it, and the hash that says whether its work is current. Confinement is what makes that trust rational — because everything the agent did, it did from inputs you wrote, reviewed, and versioned.</p>
+</section>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <span><a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
+      <span>Licensed under <a href="/license">CC BY 4.0</a></span>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/articles/articles/20260610-confinement@eXfc_jJBmgIM0G7POOCan4uuWDY
+code-from-spec: ROOT/content/sections/articles/articles/20260610-confinement@rmDB1k_aJt7Bp9v1tX-sN3Vv9oI
 title: Confinement
 description: Why Code from Spec's generation agents see only the spec chain — and why taking context away from an AI makes its output trustworthy.
 date: 2026-06-10
@@ -10,6 +10,8 @@ date: 2026-06-10
 June 10, 2026
 
 ## What confinement is
+
+![What confinement is](/images/articles/20260610_image_1.png)
 
 In Code from Spec, the agent that generates an artifact does not see the project. It receives the spec chain — the inherited constraints of every ancestor node, the declared dependencies, the referenced external files, the target's own spec — and it writes one declared output file. That is the entire interaction. It does not browse the repository, read neighboring code, or fetch documentation. If the chain is not enough to generate the artifact, the correct output is not code — it is a report of exactly what is missing.
 

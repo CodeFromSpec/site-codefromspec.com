@@ -38,7 +38,7 @@ In another case, a spec said to match file patterns but not which function to us
 
 This is the property worth noticing: under confinement, failures are not random. Each one traces to a specific place where the chain was silent or ambiguous. Fixing the spec closes the gap forever. A team that regenerates everything from scratch and watches what fails is running a diagnostic on its own specifications — and confinement is what makes the diagnostic readable.
 
-The same property shows up in the economics. A confined generation costs roughly the chain plus the output — both bounded by the spec, both known in advance. There are no exploration tokens, no false starts built on misread context. A typical chain is 3,000–5,000 tokens where repository exploration would burn 20,000 to assemble a shallower picture. The cheapest path and the most correct path are the same path.
+The same property shows up in the economics. A confined generation costs roughly the chain plus the output — both bounded by the spec, both known in advance. There are no exploration tokens, and no false starts built on context the agent assembled wrong. The cheapest path and the most correct path are the same path.
 
 ## Autonomy in the right place
 

@@ -30,7 +30,6 @@ Values shared across all themes:
 Header links:
 - Rationale → /rationale
 - Articles → /articles
-- License → /license
 - GitHub → https://github.com/CodeFromSpec (external)
 
 Footer (no navigation, just meta):

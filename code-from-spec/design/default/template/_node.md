@@ -34,7 +34,6 @@ parts vary.
       <nav>
         <a href="/rationale">Rationale</a>
         <a href="/articles">Articles</a>
-        <a href="/license">License</a>
         <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>

@@ -1,7 +1,7 @@
 ---
 depends_on:
   - SPEC/design/default/template
-input: ARTIFACT/content/sections/rationale
+input: EXTERNAL/code-from-spec/html/sections/rationale/content.md
 output: public/rationale/index.html
 ---
 

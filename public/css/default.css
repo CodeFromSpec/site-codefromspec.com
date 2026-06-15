@@ -16,8 +16,8 @@ header {
 
 header .container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .site-name {
@@ -121,5 +121,7 @@ main img {
   main {
     padding-top: 20px;
     padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }

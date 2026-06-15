@@ -1,7 +1,7 @@
 ---
 depends_on:
   - SPEC/design/default/template
-input: ARTIFACT/content/landing
+input: EXTERNAL/code-from-spec/html/home/content.md
 output: public/index.html
 ---
 

@@ -1,7 +1,7 @@
 ---
 depends_on:
   - SPEC/design/default/template
-input: ARTIFACT/content/sections/articles/index
+input: EXTERNAL/code-from-spec/html/sections/articles/index/content.md
 output: public/articles/index.html
 ---
 

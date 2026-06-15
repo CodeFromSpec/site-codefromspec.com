@@ -1,7 +1,7 @@
 ---
 depends_on:
   - SPEC/design/article/template
-input: ARTIFACT/content/sections/articles/articles/20260610-confinement
+input: EXTERNAL/code-from-spec/html/sections/articles/articles/confinement/content.md
 output: public/articles/confinement/index.html
 ---
 

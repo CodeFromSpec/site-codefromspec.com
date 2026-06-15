@@ -1,7 +1,7 @@
 ---
 depends_on:
   - SPEC/design/default/template
-input: ARTIFACT/content/sections/license
+input: EXTERNAL/code-from-spec/html/sections/license/content.md
 output: public/license/index.html
 ---
 

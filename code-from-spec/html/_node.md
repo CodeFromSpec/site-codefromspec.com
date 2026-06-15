@@ -1,4 +1,4 @@
-# ROOT/html
+# SPEC/html
 
 Transforms content files into final HTML pages using
 the design system — similar to how static site
@@ -42,7 +42,9 @@ generated from a corresponding content file.
 - If the frontmatter contains `image`, add an
   `og:image` meta tag to the `<head>`.
 
-# Decisions
+# Private
+
+## Decisions
 
 ## Rendering process does not assume template structure
 

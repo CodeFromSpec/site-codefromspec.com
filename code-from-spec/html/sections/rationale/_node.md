@@ -1,11 +1,11 @@
 ---
 depends_on:
-  - ROOT/design/default/template
+  - SPEC/design/default/template
 input: ARTIFACT/content/sections/rationale
 output: public/rationale/index.html
 ---
 
-# ROOT/html/sections/rationale
+# SPEC/html/sections/rationale
 
 # Agent
 

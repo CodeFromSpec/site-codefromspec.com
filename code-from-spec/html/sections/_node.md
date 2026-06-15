@@ -1,1 +1,1 @@
-# ROOT/html/sections
+# SPEC/html/sections

@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/articles/articles/20260610-confinement@rmDB1k_aJt7Bp9v1tX-sN3Vv9oI
+code-from-spec: SPEC/content/sections/articles/articles/20260610-confinement@qSOG6VDxDdRz8H8CtrUHruADmEE
 title: Confinement
 description: Why Code from Spec's generation agents see only the spec chain — and why taking context away from an AI makes its output trustworthy.
 date: 2026-06-10

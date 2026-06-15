@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/articles/articles/20260608-context-management@rmvooy-Ot2HX9cKYTV9EAWSuyZw
+code-from-spec: SPEC/content/sections/articles/articles/20260608-context-management@wXnnKa91RveQve4YJ_5IO1iIvoQ
 title: Context management by construction
 description: The industry builds machinery to assemble context for AI agents. Code from Spec gets it as a byproduct of structure.
 date: 2026-06-08

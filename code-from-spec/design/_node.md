@@ -1,4 +1,4 @@
-# ROOT/design
+# SPEC/design
 
 Visual design for the site.
 
@@ -36,7 +36,9 @@ Footer (no navigation, just meta):
 - Contact: gustavo@codefromspec.com
 - Licensed under CC BY 4.0 → /license
 
-# Decisions
+# Private
+
+## Decisions
 
 ## Three axes of design
 
@@ -69,7 +71,7 @@ Discarded: redundant for this site's scale.
 ## Site identity and navigation live here temporarily
 
 Site identity and navigation are not design — they are
-site-level concerns. They belong in ROOT or a dedicated
-intermediate. They are here because ROOT has no
+site-level concerns. They belong in SPEC or a dedicated
+intermediate. They are here because SPEC has no
 'Public' section by design choice. This should be
 revisited.

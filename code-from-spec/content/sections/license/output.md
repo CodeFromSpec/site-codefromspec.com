@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/license@Yr7344Xjf_5NzW5Kko2WyJlQBvo
+code-from-spec: SPEC/content/sections/license@PFS7rDRB9AIjGbjJl_gUW10fNtg
 title: License
 description: License for Code from Spec — Creative Commons Attribution 4.0 International.
 ---

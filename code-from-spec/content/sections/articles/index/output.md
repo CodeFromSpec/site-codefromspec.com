@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/sections/articles/index@Qrv1Vk2Pf6RjBXY4CXwbb-L9qg8
+code-from-spec: SPEC/content/sections/articles/index@djzRWrJS8NovpQOR2PIlQ705apA
 title: Articles
 description: Notes on building with Code from Spec — progress reports, lessons learned, roadblocks, and future directions.
 ---

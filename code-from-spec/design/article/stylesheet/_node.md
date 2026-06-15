@@ -1,10 +1,10 @@
 ---
 depends_on:
-  - ROOT/design/article/template
+  - SPEC/design/article/template
 output: public/css/article.css
 ---
 
-# ROOT/design/article/stylesheet
+# SPEC/design/article/stylesheet
 
 Theme stylesheet for articles. Works alongside
 baseline.css. Magazine-style layout where images float

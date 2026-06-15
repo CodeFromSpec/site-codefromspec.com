@@ -1,5 +1,5 @@
 ---
-code-from-spec: ROOT/content/landing@Dy8eJUBm4RyobBcZPzFcGZDsm0Q
+code-from-spec: SPEC/content/landing@kcMbmAXUAU26V87eoefF68n1evE
 title: Code from Spec
 description: A software engineering methodology where specifications are the source of truth and code is a generated artifact.
 ---

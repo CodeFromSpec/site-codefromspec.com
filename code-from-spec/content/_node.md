@@ -1,4 +1,4 @@
-# ROOT/content
+# SPEC/content
 
 Text content for the site. Content files live in
 `content/` at the project root and are written manually
@@ -67,7 +67,7 @@ Optional metadata fields:
   `public/images/`. Paths are relative to the site root
   (e.g., `![Diagram](/images/diagram.png)`).
 
-# Decisions
+## Decisions
 
 ## Frontmatter is metadata only
 

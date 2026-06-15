@@ -1,7 +1,7 @@
 ---
-external:
-  - path: code-from-spec/content/landing/content.input.md
+depends_on:
+  - EXTERNAL/code-from-spec/content/landing/content.input.md
 output: code-from-spec/content/landing/output.md
 ---
 
-# ROOT/content/landing
+# SPEC/content/landing

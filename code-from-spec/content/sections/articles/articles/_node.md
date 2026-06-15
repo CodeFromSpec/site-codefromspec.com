@@ -1,1 +1,1 @@
-# ROOT/content/sections/articles/articles
+# SPEC/content/sections/articles/articles

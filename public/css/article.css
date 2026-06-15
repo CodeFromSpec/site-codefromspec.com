@@ -2,19 +2,22 @@
 
 .container {
   max-width: 720px;
-  margin: 0 auto;
-  padding: 0 24px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 header {
   border-bottom: 1px solid var(--color-border);
-  padding: 16px 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 header .container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .site-name {
@@ -41,7 +44,8 @@ header nav {
 
 footer {
   border-top: 1px solid var(--color-border);
-  padding: 32px 0;
+  padding-top: 32px;
+  padding-bottom: 32px;
   font-size: 0.875em;
   color: var(--color-muted);
 }
@@ -53,7 +57,8 @@ footer .container {
 }
 
 main {
-  padding: 20px 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 main img {
@@ -83,7 +88,8 @@ h1 + p + p {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 16px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   header .container {
@@ -98,7 +104,10 @@ h1 + p + p {
   }
 
   main {
-    padding: 20px 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   main img {

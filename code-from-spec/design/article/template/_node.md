@@ -1,4 +1,4 @@
-# ROOT/design/article/template
+# SPEC/design/article/template
 
 # Public
 

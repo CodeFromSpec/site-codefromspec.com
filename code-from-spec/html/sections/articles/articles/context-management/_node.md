@@ -1,8 +1,8 @@
 ---
 depends_on:
-  - ROOT/design/article/template
-input: ARTIFACT/content/sections/articles/articles/20260608-context-management
+  - SPEC/design/article/template
+input: EXTERNAL/code-from-spec/html/sections/articles/articles/context-management/content.md
 output: public/articles/context-management/index.html
 ---
 
-# ROOT/html/sections/articles/articles/context-management
+# SPEC/html/sections/articles/articles/context-management

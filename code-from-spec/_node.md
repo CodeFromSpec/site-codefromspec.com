@@ -1,4 +1,4 @@
-# ROOT
+# SPEC
 
 The Code from Spec project website — codefromspec.com.
 
@@ -7,7 +7,9 @@ build step) that presents the Code from Spec methodology
 to a technical audience that includes engineering managers
 and domain experts, not only programmers.
 
-# Decisions
+# Private
+
+## Decisions
 
 ## Architecture: three layers
 

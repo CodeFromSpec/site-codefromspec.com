@@ -1,8 +1,8 @@
 ---
 depends_on:
-  - ROOT/design/default/template
-input: ARTIFACT/content/sections/articles/index
+  - SPEC/design/default/template
+input: EXTERNAL/code-from-spec/html/sections/articles/index/content.md
 output: public/articles/index.html
 ---
 
-# ROOT/html/sections/articles/index
+# SPEC/html/sections/articles/index

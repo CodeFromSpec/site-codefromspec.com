@@ -2,7 +2,7 @@
 output: public/css/baseline.css
 ---
 
-# ROOT/design/baseline
+# SPEC/design/baseline
 
 The base stylesheet shared by all themes. Defines
 reset, typography, and element styles using CSS custom

@@ -1,10 +1,10 @@
 ---
 depends_on:
-  - ROOT/design/default/template
+  - SPEC/design/default/template
 output: public/css/default.css
 ---
 
-# ROOT/design/default/stylesheet
+# SPEC/design/default/stylesheet
 
 Theme stylesheet for the default (light) theme. Works
 alongside base.css. Defines layout and structure —

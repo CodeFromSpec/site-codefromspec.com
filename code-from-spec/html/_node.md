@@ -1,4 +1,4 @@
-# ROOT/html
+# SPEC/html
 
 Transforms content files into final HTML pages using
 the design system — similar to how static site
@@ -42,7 +42,45 @@ generated from a corresponding content file.
 - If the frontmatter contains `image`, add an
   `og:image` meta tag to the `<head>`.
 
-# Decisions
+# Private
+
+## Content file format
+
+Content files are markdown with YAML frontmatter:
+
+```
+---
+title: {page title}
+description: {one-sentence description for meta tag}
+---
+
+{markdown content}
+```
+
+The frontmatter contains page metadata:
+
+- `title` — used for `<title>` and `<meta>` by the
+  html layer. Not rendered visibly — the author
+  controls visible headings in the body.
+- `description` — used for `<meta name="description">`.
+- `date` (optional) — metadata for articles. The
+  author controls how/whether it appears in the body.
+
+The body is pure markdown. No HTML tags, no CSS classes,
+no inline styles. The html layer converts markdown to
+semantic HTML.
+
+Additional frontmatter fields may be present depending
+on the content type (e.g., `date` for articles).
+
+Optional metadata fields:
+
+- `image` — path to an image for social sharing
+  (og:image). Relative to the site root
+  (e.g., `/images/og-context-management.png`). Image
+  files live in `public/images/`.
+
+## Decisions
 
 ## Rendering process does not assume template structure
 
@@ -69,3 +107,14 @@ Considered: auto-inserting `<h1>` from title and
 `<time>` from date before the body. Discarded: the
 author wanted a banner image before the title, which
 auto-insertion prevented.
+
+## Content is purely semantic
+
+No CSS classes, no ids, no inline styles in content
+files. All styling is the responsibility of the CSS,
+selecting by elements and structure.
+
+Considered: CSS classes in content (e.g.,
+`class="subheading"`, `class="article-date"`).
+Discarded: mixes content with presentation. Changing
+the theme would require editing content files.

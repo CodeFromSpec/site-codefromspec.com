@@ -1,9 +1,9 @@
 ---
 depends_on:
-  - ROOT/design/default/template
-input: ARTIFACT/content/sections/license
+  - SPEC/design/default/template
+input: EXTERNAL/code-from-spec/html/sections/license/content.md
 output: public/license/index.html
 ---
 
-# ROOT/html/sections/license
+# SPEC/html/sections/license
 

@@ -1,1 +1,0 @@
-# ROOT/content/sections/articles

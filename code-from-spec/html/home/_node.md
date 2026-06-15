@@ -1,8 +1,8 @@
 ---
 depends_on:
-  - ROOT/design/default/template
-input: ARTIFACT/content/landing
+  - SPEC/design/default/template
+input: EXTERNAL/code-from-spec/html/home/content.md
 output: public/index.html
 ---
 
-# ROOT/html/home
+# SPEC/html/home

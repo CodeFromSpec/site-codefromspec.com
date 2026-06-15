@@ -1,4 +1,4 @@
-# ROOT/design/default/template
+# SPEC/design/default/template
 
 The HTML layout template for the default theme.
 

@@ -42,9 +42,9 @@ The second is positional. In the current chain assembly, the existing artifact c
 
 The third may be the most important. Every spec has ambiguities — small gaps where the spec does not prescribe a specific choice and the agent must use judgment. When the existing artifact is present, those ambiguities are already resolved: the previous generation made a choice, and the code embodies it. The agent does not need to decide — the decision is already there. This looks like good behavior: the agent is using available evidence to resolve uncertainty. The problem is that the previous decision may have been made under a different spec, or may have been wrong to begin with. The old code does not just anchor the agent on old behavior — it silently eliminates the ambiguity that would have forced the agent to re-read the spec and make a fresh judgment.
 
-## Why it is hard to detect
+## Why anchoring is hard to detect
 
-The generation prompt says: "use the existing artifact as a starting point, make only the changes needed." The intention is stability. In practice, "only the changes needed" becomes "change as little as possible." When anchoring occurs, the spec change is not applied, but the artifact tag hash is updated. The staleness detection system reports "up to date." The code compiles. Many tests pass. The change is simply absent.
+When the instruction is to use the existing artifact as a starting point and change only what is needed, the intention is stability. In practice, "only the changes needed" becomes "change as little as possible." When anchoring occurs, the spec change is not applied, but the artifact tag hash is updated. The staleness detection system reports "up to date." The code compiles. Many tests pass. The change is simply absent.
 
 This matters because one of the goals of spec-driven generation is to not have to read the generated code. The spec defines behavior, the agent generates code, tests validate the result. This model depends on failures being detectable — and silent non-changes are the hardest failures to detect.
 
@@ -54,7 +54,7 @@ Generation with an existing artifact may produce code that silently preserves ol
 
 ## Two kinds of failure
 
-The examples above share a pattern: the spec changed, the agent did not follow. But not all generation failures look like this. There is a second kind — where the spec is correct and the agent simply generates wrong code. A wrong function call, a misread interface, a subtle logic error. The spec is unambiguous; the agent made a mistake.
+The failures described above share a pattern: the spec changed, the agent did not follow. But not all generation failures look like this. There is a second kind — where the spec is correct and the agent simply generates wrong code. A wrong function call, a misread interface, a subtle logic error. The spec is unambiguous; the agent made a mistake.
 
 These two kinds of failure call for different responses.
 
@@ -63,6 +63,8 @@ When the spec is the problem — ambiguous, incomplete, or contradictory — the
 When the agent is the problem — the spec is clear but the output is wrong — regenerating from scratch may produce the same error again, or a different one. The agent has no memory of what went wrong. Here, the standard AI-assisted development loop is the right tool: show the agent the existing code, provide a directional signal (the compilation error, the failing test, a description of what is wrong), and let it fix the specific problem. The signal is not part of the spec chain and will not survive the next regeneration — but it does not need to. It is correcting the agent's interpretation, not the spec's intent.
 
 This distinction matters because it changes what "regenerate" means. It is not a single operation with a single mode. It is two operations that look similar but have different goals: one recovers from spec drift, the other recovers from agent error.
+
+There is a related practice that is unusual in traditional engineering but may be necessary in spec-driven generation: negative requirements. When the agent resolves an ambiguity in the wrong direction, regenerating from scratch may produce the same result — the ambiguity is still there, and the agent may make the same choice again. Specifying what the code should *not* do closes the door explicitly. It is not enough to say "use approach A" when the spec is otherwise silent on the alternative; sometimes you must say "do not use approach B." These negative specifications feel redundant to a human reader, but they eliminate an entire class of ambiguity that the agent would otherwise resolve by coin flip — or by anchoring on whatever the previous generation chose.
 
 ## The tradeoff
 
@@ -78,8 +80,4 @@ The harder question is how to choose between them for a given regeneration. If w
 
 ## Where we are
 
-We do not have a definitive answer. What we have is a clearer framing of the problem.
-
-Generation from scratch eliminates anchoring but discards the incremental loop that makes AI-assisted development effective — and prevents the codebase from accumulating the stability that would eventually make human review unnecessary. Generation with the existing artifact preserves that loop but opens the door to silent failures that are hard to detect and hard to debug. Each mode is the right choice for a different kind of failure, and the harder question is how to distinguish between them at the moment of regeneration.
-
-What we are exploring is whether these two modes can coexist, and how to choose between them reliably. That question is still open.
+We do not have a definitive answer. What we have is a clearer framing of the problem, and a question that is still open: whether these two modes can coexist, and how to choose between them reliably.

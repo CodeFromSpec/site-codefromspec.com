@@ -9,5 +9,6 @@ description: Notes on building with Code from Spec — progress reports, lessons
 
 Notes on building with Code from Spec — progress reports, lessons learned, roadblocks, and future directions.
 
+- [Anchoring on old code](/articles/anchoring-on-old-code) — June 16, 2026 — When regenerating code from specs, should the agent see its previous output? On the tension between codebase stability and silent anchoring.
 - [Confinement](/articles/confinement) — June 10, 2026 — Why Code from Spec's generation agents see only the spec chain — and why taking context away from an AI makes its output trustworthy.
 - [Context management by construction](/articles/context-management) — June 8, 2026 — How Code from Spec gives AI agents exactly the context they need — no more, no less.

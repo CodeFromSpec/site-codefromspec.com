@@ -15,11 +15,10 @@ insights about the framework came directly from this exercise.
 
 The site uses three layers, inspired by static site generators:
 
-- **content/** — markdown files with frontmatter, written manually
 - **design/** — visual design (baseline CSS, themes with templates and stylesheets)
 - **html/** — transforms content into HTML using design templates
 
-Content files live alongside their spec nodes in the `code-from-spec/` tree.
+Content files (markdown with frontmatter) live alongside their spec nodes in the `code-from-spec/` tree.
 Generated HTML is output to `public/`, which is the deploy directory.
 
 ## Pages
@@ -29,6 +28,8 @@ Generated HTML is output to `public/`, which is the deploy directory.
 | `/` | Landing page — overview of the methodology |
 | `/rationale` | Full rationale — why Code from Spec exists |
 | `/articles` | Article index |
+| `/articles/anchoring-on-old-code` | Article: Anchoring on old code |
+| `/articles/confinement` | Article: Confinement |
 | `/articles/context-management` | Article: Context management by construction |
 | `/license` | CC BY 4.0 license |
 

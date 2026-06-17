@@ -15,11 +15,10 @@ insights about the framework came directly from this exercise.
 
 The site uses three layers, inspired by static site generators:
 
-- **content/** — markdown files with frontmatter, written manually
 - **design/** — visual design (baseline CSS, themes with templates and stylesheets)
 - **html/** — transforms content into HTML using design templates
 
-Content files live alongside their spec nodes in the `code-from-spec/` tree.
+Content files (markdown with frontmatter) live alongside their spec nodes in the `code-from-spec/` tree.
 Generated HTML is output to `public/`, which is the deploy directory.
 
 ## Pages

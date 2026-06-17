@@ -4,7 +4,7 @@ description: When regenerating code from specs, should the agent see its previou
 date: 2026-06-16
 ---
 
-# Anchoring on Old Code
+# Anchoring on old code
 
 June 16, 2026
 
@@ -24,7 +24,7 @@ There are real benefits to showing the agent its previous output.
 
 The first is stability. The agent compares the spec against the existing code and changes only what the spec requires. Helper function names, variable naming style, code organization — all remain stable between generations. Diffs are small and reflect only the spec change. When only the artifact tag hash needs updating (an upstream change cascaded but the spec for this node did not change), the agent recognizes there is nothing to change and produces the same file with a new hash. This is the common case in cascade-only regenerations, and it works well. Small diffs also make human review practical — most teams are not yet ready to trust AI-generated code without reading it, and reviewing a targeted change is fundamentally different from re-reading an entire file.
 
-The second is continuous improvement. When the agent sees its previous output, each generation can improve on the last — better naming, simpler structure, small optimizations — without rewriting everything. This is the incremental loop that defines AI-assisted development today: start from the current state, make it better. Removing the existing artifact means every generation starts from zero, with no memory of what worked before.
+The second is continuous improvement. When the agent sees its previous output, each generation can improve on the last — better naming, simpler structure, small optimizations, bug fixes — without rewriting everything. This is the incremental loop that defines AI-assisted development today: start from the current state, make it better. Removing the existing artifact means every generation starts from zero, with no memory of what worked before.
 
 The third is codebase maturity. Code that has been running in production accumulates value that is not captured in the spec: it has survived real traffic, edge cases, and operational incidents. Every line that remains unchanged is a line that does not need to be re-tested, re-reviewed, or re-validated. Regenerating from scratch discards that accumulated confidence and reopens the entire surface area for new bugs — even if the new code is correct with respect to the spec, it has no operational history.
 
@@ -38,13 +38,13 @@ The exact mechanism is unclear, but three hypotheses fit what we observe.
 
 The first is inverted reasoning. The generation prompt tells the agent that the spec chain is authoritative and the existing artifact is a starting point. But the agent may reverse the direction of analysis: instead of reading the spec and generating code, it reads the existing code and checks whether the spec contradicts it. The code becomes the premise; the spec becomes the delta. This inversion produces correct results when the spec has not changed — which is the common case — but fails silently when the spec has changed and the agent, reasoning from the code, does not notice the difference.
 
-The second is positional. In the current chain assembly, the existing artifact comes after the spec chain — it is the last thing the agent sees before generating. Recency bias in language models is well documented: content that appears later in the context tends to carry more weight. The spec defines intent, but the code closes the context. If the order were reversed — existing artifact first, spec chain last — the spec would be the most recent signal, and the agent might give it more weight. This hypothesis is interesting because, unlike the other two, it suggests a concrete and testable mitigation that does not change the methodology — only the order of presentation.
+The second is positional. In the current chain assembly, the existing artifact comes after the spec chain — it is the last thing the agent sees before generating. Recency bias in language models is well documented: content that appears later in the context tends to carry more weight. More than that, language models learn from conversations, and conversations have a direction — what comes later corrects, refines, or supersedes what came before. When the code appears after the spec, the model may interpret it not as the object to be rewritten, but as the most recent resolution of the conversation. The spec defines intent, but the code has the last word. If the order were reversed — existing artifact first, spec chain last — the spec would be the most recent signal, and the agent might give it more weight. This hypothesis is interesting because, unlike the other two, it suggests a concrete and testable mitigation that does not change the methodology — only the order of presentation.
 
 The third may be the most important. Every spec has ambiguities — small gaps where the spec does not prescribe a specific choice and the agent must use judgment. When the existing artifact is present, those ambiguities are already resolved: the previous generation made a choice, and the code embodies it. The agent does not need to decide — the decision is already there. This looks like good behavior: the agent is using available evidence to resolve uncertainty. The problem is that the previous decision may have been made under a different spec, or may have been wrong to begin with. The old code does not just anchor the agent on old behavior — it silently eliminates the ambiguity that would have forced the agent to re-read the spec and make a fresh judgment.
 
-## Why anchoring is hard to detect
+## Anchoring is hard to detect
 
-When the instruction is to use the existing artifact as a starting point and change only what is needed, the intention is stability. In practice, "only the changes needed" becomes "change as little as possible." When anchoring occurs, the spec change is not applied, but the artifact tag hash is updated. The staleness detection system reports "up to date." The code compiles. Many tests pass. The change is simply absent.
+When the instruction is to use the existing artifact as a starting point and change only what is needed, the intention is stability. In practice, "only the changes needed" may become "change as little as possible." When anchoring occurs, the spec change is not applied, but the artifact tag hash is updated. The staleness detection system reports "up to date." The code compiles. Many tests pass. The change is simply absent.
 
 This matters because one of the goals of spec-driven generation is to not have to read the generated code. The spec defines behavior, the agent generates code, tests validate the result. This model depends on failures being detectable — and silent non-changes are the hardest failures to detect.
 
@@ -52,32 +52,18 @@ Compare the two failure modes. Generation from scratch may produce code that div
 
 Generation with an existing artifact may produce code that silently preserves old behavior. When anchoring happens, the agent does not misunderstand the spec — it never processes the change. Debugging "implemented wrong" means following the logic until it diverges. Debugging "did not implement" means first discovering that the change is absent — which requires the exact right test. And if the test was also generated from a spec that anchored on old patterns, even the test may not catch it.
 
-## Two kinds of failure
+## Why we want to keep the existing artifact
 
-The failures described above share a pattern: the spec changed, the agent did not follow. But not all generation failures look like this. There is a second kind — where the spec is correct and the agent simply generates wrong code. A wrong function call, a misread interface, a subtle logic error. The spec is unambiguous; the agent made a mistake.
+Generation from scratch would eliminate anchoring entirely. But it would also give up everything described in "What goes well": stability, continuous improvement, codebase maturity, and the accumulated confidence that eventually makes human review unnecessary. These are not conveniences — they are structural requirements of a methodology that treats code as a derived artifact. If every generation produces different code, someone has to read it every time. The codebase never matures. The goal of not having to review generated code becomes unreachable.
 
-These two kinds of failure call for different responses.
+There is another reason. Not all generation failures are anchoring failures. Sometimes the spec is correct and the agent simply generates wrong code — a wrong function call, a misread interface, a subtle logic error. Regenerating from scratch may produce the same error again, or a different one; the agent has no memory of what went wrong. But regenerating with the existing artifact plus a directional signal — the compilation error, the failing test, a description of what is wrong — lets the agent converge toward the correct output. Each iteration gets closer. This is the standard AI-assisted development loop, and it only works if the agent can see what it produced last time.
 
-When the spec is the problem — ambiguous, incomplete, or contradictory — the fix is to improve the spec and regenerate from scratch. The existing code carries the old spec's assumptions; keeping it in context risks anchoring the agent on exactly the behavior that needs to change. This is the failure mode described in the previous sections, and generation from scratch eliminates it.
-
-When the agent is the problem — the spec is clear but the output is wrong — regenerating from scratch may produce the same error again, or a different one. The agent has no memory of what went wrong. Here, the standard AI-assisted development loop is the right tool: show the agent the existing code, provide a directional signal (the compilation error, the failing test, a description of what is wrong), and let it fix the specific problem. The signal is not part of the spec chain and will not survive the next regeneration — but it does not need to. It is correcting the agent's interpretation, not the spec's intent.
-
-This distinction matters because it changes what "regenerate" means. It is not a single operation with a single mode. It is two operations that look similar but have different goals: one recovers from spec drift, the other recovers from agent error.
-
-There is a related practice that is unusual in traditional engineering but may be necessary in spec-driven generation: negative requirements. When the agent resolves an ambiguity in the wrong direction, regenerating from scratch may produce the same result — the ambiguity is still there, and the agent may make the same choice again. Specifying what the code should *not* do closes the door explicitly. It is not enough to say "use approach A" when the spec is otherwise silent on the alternative; sometimes you must say "do not use approach B." These negative specifications feel redundant to a human reader, but they eliminate an entire class of ambiguity that the agent would otherwise resolve by coin flip — or by anchoring on whatever the previous generation chose.
-
-## The tradeoff
-
-The question is not "should the agent see the existing artifact — yes or no." It is "what should the default be, and when should we deviate."
-
-Generation from scratch eliminates anchoring. The agent cannot preserve old behavior if it never sees old code. But it gives up the incremental loop: no continuous improvement, no stability between generations, no memory of what worked. Every generation is independent — correct with respect to the spec, but potentially different in structure, naming, and organization. Diffs are noisier. Decisions that the spec does not describe — a performance optimization, a platform workaround — are lost.
-
-There is a deeper cost. One of the goals of spec-driven generation is to not have to read the generated code — the spec defines behavior, tests validate it, and the code is a derived artifact that does not require human review. But that goal depends on confidence, and confidence depends on stability. Code that does not change unless the spec changes accumulates trust over time: each generation that produces the same output is evidence that the process works. Code that changes on every generation, even if always correct, never accumulates that trust. Someone has to read it every time. Generation from scratch does not just produce noisier diffs — it structurally prevents the codebase from reaching a state where reading the generated code becomes unnecessary.
-
-Generation with the existing artifact preserves the incremental loop but opens the door to silent anchoring. The agent may ignore spec changes in favor of existing code, and the failure is invisible to automated checks. The benefit is real — stability, smaller diffs, the ability to improve over time — but the cost is a class of failures that are hard to detect and hard to debug.
-
-The harder question is how to choose between them for a given regeneration. If we could reliably distinguish spec errors from agent errors before regenerating, the strategy would be clear: from scratch when the spec changed, incremental with feedback when the agent failed. In practice, that distinction is not always obvious at the moment of regeneration.
+Generation from scratch has no convergence mechanism. It is a fresh roll of the dice every time. Generation with the existing artifact, given the right feedback, converges.
 
 ## Where we are
 
-We do not have a definitive answer. What we have is a clearer framing of the problem, and a question that is still open: whether these two modes can coexist, and how to choose between them reliably.
+The ideal is to generate with the existing artifact and eliminate anchoring. The benefits of keeping the artifact in context are clear; the challenge is making it safe.
+
+This points to a set of problems worth solving: how to make the agent reliably prioritize the spec over the existing code; whether changing the order of presentation — spec after code, not before — reduces anchoring; how to provide the agent with an explicit delta of what changed in the spec, so it does not have to discover the difference on its own; and when the spec itself is the source of ambiguity, how to use negative requirements — specifying what the code should *not* do — to close doors that the agent would otherwise leave open or resolve by anchoring on the previous generation.
+
+These are open problems. But the direction is clear: we do not want to choose between stability and correctness. We want both.

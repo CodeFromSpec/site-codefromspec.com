@@ -29,6 +29,8 @@ Generated HTML is output to `public/`, which is the deploy directory.
 | `/` | Landing page — overview of the methodology |
 | `/rationale` | Full rationale — why Code from Spec exists |
 | `/articles` | Article index |
+| `/articles/anchoring-on-old-code` | Article: Anchoring on old code |
+| `/articles/confinement` | Article: Confinement |
 | `/articles/context-management` | Article: Context management by construction |
 | `/license` | CC BY 4.0 license |
 

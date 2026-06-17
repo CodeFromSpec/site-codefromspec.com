@@ -64,6 +64,6 @@ Generation from scratch has no convergence mechanism. It is a fresh roll of the 
 
 The ideal is to generate with the existing artifact and eliminate anchoring. The benefits of keeping the artifact in context are clear; the challenge is making it safe.
 
-This points to a set of problems worth solving: how to make the agent reliably prioritize the spec over the existing code; whether changing the order of presentation — spec after code, not before — reduces anchoring; how to provide the agent with an explicit delta of what changed in the spec, so it does not have to discover the difference on its own; and when the spec itself is the source of ambiguity, how to use negative requirements — specifying what the code should *not* do — to close doors that the agent would otherwise leave open or resolve by anchoring on the previous generation.
+This points to a set of problems worth solving: how to make the agent reliably prioritize the spec over the existing code; whether changing the order of presentation — spec after code, not before — reduces anchoring; and how to provide the agent with an explicit delta of what changed in the spec, so it does not have to discover the difference on its own.
 
 These are open problems. But the direction is clear: we do not want to choose between stability and correctness. We want both.

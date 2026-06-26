@@ -1,162 +1,104 @@
 # The Last Word
 
-A language model does not weigh its context as a flat set of
-facts to be reconciled. It reads a sequence, and in a
-sequence, later revises earlier. This is what the model
-learned from. The text it was trained on is full of sequences
-where the end supersedes the beginning: conversations where a
-later turn overrides an earlier one, a final draft that
-replaces the ones before it, an argument that builds to the
-claim that governs the rest. When you place something last,
-you are giving it the last word.
+In [Anchoring on old code](https://codefromspec.com/articles/anchoring-on-old-code)
+we described a failure in regeneration: when the spec changes
+but the previously generated artifact is in context, the agent
+sometimes preserves the old code and never processes the
+change. The artifact tag updates, the build passes, staleness
+reports clean, and the behavior never moved. We left three
+problems open — making the agent prioritize the spec over the
+code, whether reordering the context helps, and giving the
+agent an explicit delta of what changed. This is what we built
+against them.
 
-So the order in which you present things to a model is not
-layout. It is an argument about authority. Two blocks of
-context that contradict each other are not equal just because
-they are both present; the one that comes later wins.
-Most of the time we arrange context without thinking about
-this, and most of the time it does not bite us — until two
-parts of the context are meant to disagree, and one is meant
-to win.
+## The mechanism the fix relies on
 
-We ran into this directly, in the part of Code from Spec
-where it matters most.
+A language model has no persistent memory of a generation. To
+produce each token it reads the whole context from the start,
+predicts the next token, appends it, and reads again. Nothing
+is weighted by importance on its own; what a position gets is
+determined by where it sits in the sequence the model rereads.
 
-## You already rely on this
+And position is not neutral. The data a model is trained on is
+full of sequences where the end supersedes the beginning — the
+reply after the question, the correction after the draft.
+Instruction tuning sharpens this further: an assistant is only
+useful if it acts on the most recent thing said, not the one
+before it. Coding models, tuned around the generate–correct–
+regenerate loop, lean on it hardest. The later a statement
+sits, the more the model treats it as the current one.
 
-You do not have to take the training-data argument on faith,
-because you have felt this work in the most ordinary way
-there is. Every session of writing code with an AI assistant
-runs on it.
+This is the lever. The anchoring failure was, in part, a
+consequence of ignoring it: in the old chain assembly the
+existing artifact came *after* the spec, so the model read the
+code as the most recent — and therefore operative — word on
+what the artifact should be. The order worked against the spec.
 
-You generate some code. You read it, and you say: no, handle
-the empty case; rename that; this should return an error, not
-nil. The correction comes after the code. It is appended to
-the context, at the end, and the agent reprocesses the whole
-thing on the next turn — the original request, the code it
-produced, and then your correction. The correction wins, and
-nobody finds that surprising. It came last.
+## Reordering the context
 
-The agent has no special slot for "the current instruction";
-it is just the latest entry in a context the agent rereads
-from the top every time. It governs because of where it sits.
-You correct by speaking last.
+The context is now assembled in temporal order: the previous
+spec, then the artifact it produced, then the current spec.
+The current spec is last, so the model reads it as the revision
+of everything before it. This is the positional mitigation the
+earlier article flagged as the one testable fix that does not
+change the methodology — only the order of presentation. The
+existing artifact still appears, preserving the stability and
+maturity that motivated keeping it; it simply no longer holds
+the last position, and so no longer gets the last word.
 
-And the coding tools sharpen it further. An agentic coding
-assistant lives in exactly this loop — generate, get
-corrected, adjust; run the test, read the failure, fix; open
-the file, edit, reread — where the most recent turn is the one
-that counts. These models are built and tuned around that
-loop, which means the convention that the latest word governs
-is not just inherited from general text; it is the behavior
-the tool is shaped to reward. We are not depending on a
-fragile emergent tendency. We are depending on the thing a
-coding model is most reliably good at.
+## Before and after, not a diff
 
-This is the same mechanism we need for regeneration. The only
-difference is who arranges the order. In a chat session, time
-arranges it for you — your correction comes after the code
-because you wrote it after the code. In regeneration there is
-no conversation laying things down in sequence; the framework
-assembles the context itself. So the ordering that a chat
-gets for free, regeneration has to get on purpose.
+To address what the earlier article called the most important
+hypothesis — that the existing artifact silently resolves the
+ambiguities a fresh reading would surface — the agent receives
+both the previous spec and the current one, and identifies the
+change by reading them. We considered computing a diff and
+rendering it, but a model already compares two versions of a
+text by reading them; the comparison is the thing it does in
+every iterative session. A rendered diff would add a notation
+to decode for no gain.
 
-## Where it bit us
+Two properties keep this from being naive:
 
-In this methodology, code is generated from a specification.
-When the spec changes, the code is regenerated. To keep the
-regenerated code from drifting needlessly — different names,
-reshuffled structure, churn with no meaning — we show the
-agent the code it produced last time, as a reference to stay
-close to.
+- **The previous spec is filtered.** Only positions that
+  changed or were removed carry their old content; unchanged
+  positions are not repeated. Each position in the current
+  spec is tagged with a `disposition` — `unchanged`,
+  `changed`, or `added` — computed from a content-hash
+  comparison. This is the explicit delta the earlier article
+  asked for, in minimal form: it states *which* positions
+  moved without rendering *how*.
 
-That reference is also a trap. The old code is concrete,
-plausible, already-working. The new spec is prose — longer to
-read, and describing a change that may be small and easy to
-miss. When the two sit in front of the agent and disagree,
-the old code tends to win. The agent checks whether the code
-still roughly satisfies the spec instead of regenerating from
-the spec, and a real change slips through. The spec moved;
-the code did not; nothing flags it.
+- **The current spec is authoritative on its own.** It is
+  delivered in full. The before-and-after locates the change;
+  it is not the source of truth. If the agent compares the two
+  poorly, it still generates from the complete current spec,
+  because that spec is present and last. The order carries the
+  authority; the comparison only sharpens focus.
 
-We had been giving the old code the last word. It came after
-the spec in the context, and so — by the same convention that
-makes a closing speaker persuasive — it read as the most
-recent, most authoritative statement about what the code
-should be. We were arranging the context against ourselves.
+This is the one place the methodology leans on the model's
+reading rather than on confinement, tests, or hashes — and it
+is bounded: a missed comparison degrades to generating from
+the current spec without the benefit of focus, not to
+generating against the wrong spec.
 
-## What we built
+## What is unresolved
 
-So we arrange the order on purpose, the way a chat session
-arranges it by accident. We lay the context out as a story in
-time. First the spec as it was at the last generation. Then
-the code that spec produced. Then the spec as it is now. The
-agent reads the old rules, reads the code that embodied them,
-and then reads the new rules — which arrive last, and
-therefore read as the correction to everything above, exactly
-as your "no, handle the empty case" reads as the correction to
-the code before it. We are not handing the agent a computed
-diff to apply. We are letting it do the thing it already does
-well: read a sequence and notice that the ending revises the
-beginning. Showing it both the before and the after, in that
-order, lets it see what changed without anyone having to
-compute the change for it — and it leaves the current spec
-where the model's own habits will treat it as the last word.
+We have not run enough regenerations to confirm the design
+holds. Two failure modes are worth watching, with opposite
+remedies:
 
-The mechanics underneath are modest: the framework keeps what
-the spec said last time, shows only the parts that actually
-moved, and labels each part with whether it changed, was
-added, or was removed. But the mechanics are not the point.
-The point is that we stopped fighting how the model reads and
-started arranging the context to match it. The spec is
-authoritative, so the spec goes last.
+- **Anchoring** — the agent still preserves old behavior the
+  spec has changed. The remedy is a stronger change signal: a
+  finer, within-position delta on top of the disposition.
 
-## Why it is safe to lean on
+- **Dilution** — a large previous spec ahead of the current
+  one draws attention away from it. The remedy is the
+  opposite: less prior content, the disposition without the
+  old text.
 
-There is a tension here worth being honest about. Elsewhere
-this methodology is built on *not* trusting the agent's
-judgment — on confinement, on tests, on hashes, precisely
-because the model misreads and invents. Leaning on the
-model's reading to notice what changed seems to cut against
-that.
-
-It does not, because of where the weight rests. The current
-spec is delivered in full and is authoritative on its own. If
-the agent reads the before-and-after well, it sees exactly
-what moved. If it reads them poorly, it still generates from
-the current spec, because the current spec is right there,
-complete, and last. The comparison is a lens, not a
-foundation. We are not trusting the model's reading to be
-correct; we are arranging things so that the spec wins even
-when the reading is imperfect. The order does the work, and
-the order cannot misread.
-
-## The smaller principle
-
-There is a habit underneath this that is worth naming. The
-reflex of an engineer faced with "the agent should notice
-what changed" is to build something: compute a diff, render
-it in some notation, hand it over. We almost did. What we did
-instead was notice that the model already compares two
-versions by reading them, the way it already keeps the latest
-statement as the operative one — and that the job was not to
-build a mechanism but to stop working against one that was
-already there.
-
-Order is the cheapest tool in the box and the easiest to
-overlook, because it feels like formatting. It is not. For a
-reader who treats sequence as meaning — which is what a
-language model is — the order of the context is a claim about
-what matters most. Put the thing that should govern where the
-model already looks for the thing that governs: last.
-
-We do not yet know how far this carries. We have not run
-enough regenerations to say whether the order alone keeps the
-agent anchored on the spec rather than the old code, or
-whether a large body of prior context placed ahead of the
-spec dilutes it instead. Those are opposite failures with
-opposite fixes, and watching which one appears, if either
-does, is how the idea earns its place. But the principle
-under it is not in doubt, because it is not really about this
-framework. It is about how the thing reads. Whatever you put
-last, you have given the last word — so choose it on purpose.
+Because the remedies pull in opposite directions, the modes
+have to be told apart before either is applied. The principle
+underneath is not in question: the model reads its context in
+order, and treats what comes last as current. So the spec goes
+last, on purpose.

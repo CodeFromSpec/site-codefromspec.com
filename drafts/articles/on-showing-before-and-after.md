@@ -184,13 +184,19 @@ unchanged majority drowning the changed few, and a second full
 copy of the spec competing for attention with the authoritative
 one.
 
-So we show only what moved. The previous block lists every
-current position, but carries content for just the ones that
-changed or were removed; the rest are present in name only. And
-every position is tagged with what happened to it — unchanged,
-changed, added, or removed — a label the tooling computes by
+So we show only what moved. Every position in the current spec
+is tagged with what happened to it since the last generation —
+unchanged, changed, or added — a label the tooling computes by
 comparing content hashes, without reading or interpreting
-anything.
+anything. That tag travels on the current spec, where the agent
+generates from, so the signal sits in the block it already has
+to read. The previous block then carries nothing but the old
+content of the positions that actually moved: the ones that
+changed, and the ones that were removed. Positions that did not
+change leave no trace in the previous block at all — their
+"unchanged" tag on the current spec already says everything
+there is to say about them. The before is not a second copy of
+the spec; it is only the old text of what is no longer current.
 
 That tag is the directional signal we set out to build, reached
 from the other side. The delta-aware design wanted to tell the
@@ -302,8 +308,9 @@ they have to be told apart, because the fix for one is not the
 fix for the other. Anchoring asks for a stronger signal about
 what changed — which is where the finer, within-position delta
 would return. Dilution asks for less old material still —
-carrying the disposition without the old content, or dropping the
-name-only stubs. The remedies pull in opposite directions, which
-is why the failures have to be told apart before either is
-applied. Watching which one appears, if either does, is how this
-design earns its place or gets revised.
+carrying the disposition on the current spec without delivering
+the old content at all, leaving the agent to work from the
+current spec and the change labels alone. The remedies pull in
+opposite directions, which is why the failures have to be told
+apart before either is applied. Watching which one appears, if
+either does, is how this design earns its place or gets revised.

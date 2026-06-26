@@ -1,35 +1,23 @@
 # The Last Word
 
-In a debate, the speaker who goes last has an advantage that
-has nothing to do with being right. They get to frame what
-came before — to cast the earlier arguments as the things
-their own argument now answers. Order is leverage. Whoever
-speaks last speaks over everyone else.
+A language model does not weigh its context as a flat set of
+facts to be reconciled. It reads a sequence, and in a
+sequence, later revises earlier. This is what the model
+learned from. The text it was trained on is full of sequences
+where the end supersedes the beginning: conversations where a
+later turn overrides an earlier one, a final draft that
+replaces the ones before it, an argument that builds to the
+claim that governs the rest. When you place something last,
+you are giving it the last word.
 
-A language model reads its context the same way. It does not
-weigh a prompt as a flat set of facts to be reconciled; it
-reads a sequence, and in a sequence, later revises earlier.
-This is not a quirk to be corrected — it is what the model
-learned from. The text it was trained on is full of
-sequences where the end supersedes the beginning:
-conversations where a later turn overrides an earlier one, a
-final draft that replaces the ones before it, an argument
-that builds to the claim that governs the rest. The model
-absorbed the convention that the most recent statement on a
-subject is usually the operative one. When you place
-something last, you are not just putting it at the bottom.
-You are giving it the last word.
-
-This means the order in which you present things to a model
-is not layout. It is an argument about authority. Two blocks
-of context that contradict each other are not equal just
-because they are both present; the one that comes later wins
-the room, the way the closing speaker does. Most of the time
-we arrange context without thinking about this, and most of
-the time it does not bite us. But when two parts of the
-context genuinely disagree — when one is meant to override
-the other — the order stops being cosmetic and becomes the
-thing that decides which one the model follows.
+So the order in which you present things to a model is not
+layout. It is an argument about authority. Two blocks of
+context that contradict each other are not equal just because
+they are both present; the one that comes later wins.
+Most of the time we arrange context without thinking about
+this, and most of the time it does not bite us — until two
+parts of the context are meant to disagree, and one is meant
+to win.
 
 We ran into this directly, in the part of Code from Spec
 where it matters most.
@@ -47,18 +35,12 @@ nil. The correction comes after the code. It is appended to
 the context, at the end, and the agent reprocesses the whole
 thing on the next turn — the original request, the code it
 produced, and then your correction. The correction wins, and
-nobody finds that surprising. Of course it wins. It came
-last. It is the most recent thing said about what the code
-should be.
+nobody finds that surprising. It came last.
 
-Notice what is actually doing the work there. It is not that
-the agent has some special slot for "the current
-instruction." The current instruction is just the latest
-entry in a context the agent rereads from the top every time.
-It governs because of where it sits — at the end — not
-because it is marked as special. The whole practice of
-iterating with an AI depends on this and never names it: you
-correct by speaking last.
+The agent has no special slot for "the current instruction";
+it is just the latest entry in a context the agent rereads
+from the top every time. It governs because of where it sits.
+You correct by speaking last.
 
 And the coding tools sharpen it further. An agentic coding
 assistant lives in exactly this loop — generate, get

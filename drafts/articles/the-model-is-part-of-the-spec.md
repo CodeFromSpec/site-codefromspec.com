@@ -76,7 +76,7 @@ and instead the model were swapped. A second model might pick the
 portable function by default — and the artifact would silently become
 correct, with no spec change at all. Or it might pick differently in a
 node that had worked for months, and an artifact that was correct
-would silently need attention. The written spec is identical in both
+would suddenly need attention. The written spec is identical in both
 cases. What changed is the unwritten half.
 
 This is the precise sense in which **the model is part of the
@@ -105,19 +105,19 @@ closed. Over a project's life the written half grows and the unwritten
 half shrinks — never to zero, but toward the core of shared competence
 no spec should have to state.
 
-And it does not mean a swap is a catastrophe. Here we move from what we
-have seen to what we expect, and we offer it as intuition, not
-evidence. A swap reopens part of the convergence — but only *part*: the
-subset where two models' unwritten halves disagree. It does not return
-the spec to zero. A spec that converged against one model is genuinely
-more complete than an empty one, and a swap costs the delta between two
-models, not the whole investment. A more capable successor tends to
-*infer more* of the same spec, not less, so the reopened disagreements
-are, on balance, fewer than those that came before. This is the
-ordinary shape of an engineering dependency: you pin your compiler,
-and upgrading it is an event with a diff, done deliberately, not never.
-The model is a dependency of exactly that kind — the first in the
-history of software that arrives already knowing how to program.
+And it does not mean a swap is a catastrophe. A swap reopens part of
+the convergence — but only *part*: the subset where two models'
+unwritten halves disagree. It does not return the spec to zero. A spec
+that converged against one model is genuinely more complete than an
+empty one, and a swap costs the delta between two models, not the whole
+investment. A more capable successor tends to *infer more* of the same
+spec, not less, so the reopened disagreements are, we suspect, fewer
+than those that came before — though that last step is intuition, not
+something we have measured. The rest is the ordinary shape of an
+engineering dependency: you pin your compiler, and upgrading it is an
+event with a diff, done deliberately, not never. The model is a
+dependency of exactly that kind — the first in the history of software
+that arrives already knowing how to program.
 
 The one point we hold with confidence is the one that follows from
 confinement rather than optimism. When a swapped model's unwritten half

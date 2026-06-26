@@ -13,7 +13,7 @@ This is not a quirk to be corrected — it is what the model
 learned from. The text it was trained on is full of
 sequences where the end supersedes the beginning:
 conversations where a later turn overrides an earlier one, a
-document whose final draft replaces its draft, an argument
+final draft that replaces the ones before it, an argument
 that builds to the claim that governs the rest. The model
 absorbed the convention that the most recent statement on a
 subject is usually the operative one. When you place
@@ -33,6 +33,51 @@ thing that decides which one the model follows.
 
 We ran into this directly, in the part of Code from Spec
 where it matters most.
+
+## You already rely on this
+
+You do not have to take the training-data argument on faith,
+because you have felt this work in the most ordinary way
+there is. Every session of writing code with an AI assistant
+runs on it.
+
+You generate some code. You read it, and you say: no, handle
+the empty case; rename that; this should return an error, not
+nil. The correction comes after the code. It is appended to
+the context, at the end, and the agent reprocesses the whole
+thing on the next turn — the original request, the code it
+produced, and then your correction. The correction wins, and
+nobody finds that surprising. Of course it wins. It came
+last. It is the most recent thing said about what the code
+should be.
+
+Notice what is actually doing the work there. It is not that
+the agent has some special slot for "the current
+instruction." The current instruction is just the latest
+entry in a context the agent rereads from the top every time.
+It governs because of where it sits — at the end — not
+because it is marked as special. The whole practice of
+iterating with an AI depends on this and never names it: you
+correct by speaking last.
+
+And the coding tools sharpen it further. An agentic coding
+assistant lives in exactly this loop — generate, get
+corrected, adjust; run the test, read the failure, fix; open
+the file, edit, reread — where the most recent turn is the one
+that counts. These models are built and tuned around that
+loop, which means the convention that the latest word governs
+is not just inherited from general text; it is the behavior
+the tool is shaped to reward. We are not depending on a
+fragile emergent tendency. We are depending on the thing a
+coding model is most reliably good at.
+
+This is the same mechanism we need for regeneration. The only
+difference is who arranges the order. In a chat session, time
+arranges it for you — your correction comes after the code
+because you wrote it after the code. In regeneration there is
+no conversation laying things down in sequence; the framework
+assembles the context itself. So the ordering that a chat
+gets for free, regeneration has to get on purpose.
 
 ## Where it bit us
 
@@ -60,23 +105,21 @@ should be. We were arranging the context against ourselves.
 
 ## What we built
 
-The fix follows directly from the insight: if the last thing
-the model reads is what it treats as authoritative, then the
-authoritative thing has to come last.
-
-So we order the context as a story in time. First the spec as
-it was at the last generation. Then the code that spec
-produced. Then the spec as it is now. The agent reads the old
-rules, reads the code that embodied them, and then reads the
-new rules — which arrive last, and therefore read as the
-correction to everything above. We are not handing the agent
-a computed diff to apply. We are letting it do the thing it
-already does well: read a sequence and notice that the ending
-revises the beginning. Showing it both the before and the
-after, in that order, lets it see what changed without anyone
-having to compute the change for it — and it leaves the
-current spec where the model's own habits will treat it as
-the last word.
+So we arrange the order on purpose, the way a chat session
+arranges it by accident. We lay the context out as a story in
+time. First the spec as it was at the last generation. Then
+the code that spec produced. Then the spec as it is now. The
+agent reads the old rules, reads the code that embodied them,
+and then reads the new rules — which arrive last, and
+therefore read as the correction to everything above, exactly
+as your "no, handle the empty case" reads as the correction to
+the code before it. We are not handing the agent a computed
+diff to apply. We are letting it do the thing it already does
+well: read a sequence and notice that the ending revises the
+beginning. Showing it both the before and the after, in that
+order, lets it see what changed without anyone having to
+compute the change for it — and it leaves the current spec
+where the model's own habits will treat it as the last word.
 
 The mechanics underneath are modest: the framework keeps what
 the spec said last time, shows only the parts that actually

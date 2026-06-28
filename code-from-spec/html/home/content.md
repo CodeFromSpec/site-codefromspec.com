@@ -23,13 +23,13 @@ A node inherits the public content of every ancestor, automatically. A constrain
 
 Specifications are structured natural language — readable and reviewable by anyone who knows the domain, not only by programmers. A compliance officer can read a regulatory constraint in the spec and say "this is wrong" before any code is generated.
 
-They live in git, reviewed in pull requests, diffed, and blamed, with the same machinery a team already uses for code.
+Specs live in git, reviewed in pull requests, diffed, and blamed, with the same machinery a team already uses for code.
 
 ## Confinement
 
 The agent that generates a file sees only that node's chain — the inherited constraints, the declared dependencies, the node's own specification — and writes one declared output file. It does not browse the repository, read neighboring code, or fetch anything else. If the chain is not enough to generate the artifact, the correct output is not code. It is a report of exactly what is missing.
 
-Confinement is enforced by the tooling, not requested of the agent. An unconfined agent facing an ambiguous spec compensates: it reads other files, infers patterns, and builds output that satisfies a model it assembled from context nobody chose. The result looks diligent and is subtly wrong in ways that are hard to trace. A confined agent has two options instead — generate from what it has, or report the gap. The third option, inventing context that looks like research, is the one confinement removes.
+Confinement is enforced by the tooling, not requested of the agent. An unconfined agent facing an ambiguous spec compensates: it reads other files, infers patterns, and builds output that satisfies a model it assembled from context nobody chose. The result looks diligent but is subtly wrong in ways that are hard to trace. A confined agent has two options instead — generate from what it has, or report the gap. The third option, inventing context that looks like research, is the one confinement removes.
 
 ## Staleness, by hash
 

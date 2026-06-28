@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- code-from-spec: SPEC/html/home@k1XFsDNl9rk1uYbGPiZ8ImlGJiU -->
+<!-- code-from-spec: SPEC/html/home@VWeV4nPOViFGpBJIiQ2Rlp2dQz8 -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -38,12 +38,12 @@
 <p>Specifications are organized as a tree of nodes. Each node is a directory with a <code>_node.md</code> file, and its position in the filesystem is its position in the hierarchy. High-level intent sits at the root; implementation detail sits at the leaves. Only leaf nodes generate artifacts.</p>
 <p>A node inherits the public content of every ancestor, automatically. A constraint written once at an ancestor node — an error-handling rule, a convention, a type — governs every leaf beneath it, including leaves added months later. What a node needs from elsewhere in the tree, it declares. The context for any generation is the path from the root to the node plus what the node declares — not searched for, not guessed. The structure decides what the agent sees.</p>
 <p>Specifications are structured natural language — readable and reviewable by anyone who knows the domain, not only by programmers. A compliance officer can read a regulatory constraint in the spec and say "this is wrong" before any code is generated.</p>
-<p>They live in git, reviewed in pull requests, diffed, and blamed, with the same machinery a team already uses for code.</p>
+<p>Specs live in git, reviewed in pull requests, diffed, and blamed, with the same machinery a team already uses for code.</p>
 </section>
 <section>
 <h2>Confinement</h2>
 <p>The agent that generates a file sees only that node's chain — the inherited constraints, the declared dependencies, the node's own specification — and writes one declared output file. It does not browse the repository, read neighboring code, or fetch anything else. If the chain is not enough to generate the artifact, the correct output is not code. It is a report of exactly what is missing.</p>
-<p>Confinement is enforced by the tooling, not requested of the agent. An unconfined agent facing an ambiguous spec compensates: it reads other files, infers patterns, and builds output that satisfies a model it assembled from context nobody chose. The result looks diligent and is subtly wrong in ways that are hard to trace. A confined agent has two options instead — generate from what it has, or report the gap. The third option, inventing context that looks like research, is the one confinement removes.</p>
+<p>Confinement is enforced by the tooling, not requested of the agent. An unconfined agent facing an ambiguous spec compensates: it reads other files, infers patterns, and builds output that satisfies a model it assembled from context nobody chose. The result looks diligent but is subtly wrong in ways that are hard to trace. A confined agent has two options instead — generate from what it has, or report the gap. The third option, inventing context that looks like research, is the one confinement removes.</p>
 </section>
 <section>
 <h2>Staleness, by hash</h2>

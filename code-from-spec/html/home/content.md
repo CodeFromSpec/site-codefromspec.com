@@ -9,58 +9,42 @@ description: A software engineering methodology where specifications are the sou
 
 A software engineering methodology for the age of AI.
 
-Code from Spec is a methodology where specifications are the source of truth and code is a generated artifact.
+**Specifications are the source of truth, and code is a generated artifact.**
 
-It is designed for AI-assisted development at every stage — from writing specifications to generating code, reviewing quality, and enabling non-technical contributors to participate directly.
+You write specifications. An agent generates the code from them. When a specification changes, the tooling detects which code is now stale, and that code is regenerated. The specification is the thing you author, review, and version; the code is its output.
 
-The methodology leverages what AI does well: generating code from precise context, synthesizing multiple constraints simultaneously, and assisting anyone in authoring specifications. It also addresses the practical limitations of AI: finite context, hallucination, and inconsistency across generations.
+The generated code is downstream of a specification tree and stays there, enforced rather than hoped for. The rest follows from how that enforcement works.
 
-## The problem
+## The specification tree
 
-Every organization that builds software is full of people who know what the software should do: compliance officers who know the regulations, accountants who know the rules, product managers who know the users. But they cannot turn that knowledge into software. The only path is through the engineering team: explain what you need and hope the translation is faithful. The gaps surface months later, in a failed audit, a reconciliation that doesn't balance, or a regulatory finding.
+Specifications are organized as a tree of nodes. Each node is a directory with a `_node.md` file, and its position in the filesystem is its position in the hierarchy. High-level intent sits at the root; implementation detail sits at the leaves. Only leaf nodes generate artifacts.
 
-AI promises to close this gap, as code generation is now within everyone's reach. But making software is more than generating code. It requires turning implicit knowledge into precise specifications, reconciling constraints from multiple domains, and building for a technical platform that no single person fully understands. Code generation is the easy part. Everything around it is the hard part.
+A node inherits the public content of every ancestor, automatically. A constraint written once at an ancestor node — an error-handling rule, a convention, a type — governs every leaf beneath it, including leaves added months later. What a node needs from elsewhere in the tree, it declares. The context for any generation is the path from the root to the node plus what the node declares — not searched for, not guessed. The structure decides what the agent sees.
 
-## The vision
+Specifications are structured natural language — readable and reviewable by anyone who knows the domain, not only by programmers. A compliance officer can read a regulatory constraint in the spec and say "this is wrong" before any code is generated.
 
-Software is becoming a commodity, just like hardware before it.
+They live in git, reviewed in pull requests, diffed, and blamed, with the same machinery a team already uses for code.
 
-In the 1960s, building anything electronic meant designing your own circuits from scratch. It required specialized engineers, custom fabrication, and years of development. Today, you buy a USB controller off the shelf, pick a microcontroller from a catalog, snap a gyroscope onto a board. The components that once demanded teams of engineers to produce are readily available. Anyone with a soldering iron and a 3D printer can build hardware that would have required a factory fifty years ago. Of course, the specialized expertise didn't lose its value. It simply moved upstream, into the companies that design the components everyone else uses.
+## Confinement
 
-Software is at the same inflection point. AI is commoditizing code generation, the equivalent of buying components off the shelf. But just as building hardware from commodity parts still requires knowing which components to use, how they integrate, and what constraints they must respect, building software still requires knowing what to build and how the pieces fit together. The question is no longer who writes the code. It is how the organization expresses what it needs in a form that reliably becomes software.
+The agent that generates a file sees only that node's chain — the inherited constraints, the declared dependencies, the node's own specification — and writes one declared output file. It does not browse the repository, read neighboring code, or fetch anything else. If the chain is not enough to generate the artifact, the correct output is not code. It is a report of exactly what is missing.
 
-Code from Spec answers that question. Specifications are structured natural language that domain experts can read, write, and review. In this model, the compliance officer writes the regulatory constraints. The product manager writes the business rules. The accountant writes the reconciliation logic. The software engineering team is a specialized group that defines the technical guardrails and designs the system through which everyone else's knowledge becomes software.
+Confinement is enforced by the tooling, not requested of the agent. An unconfined agent facing an ambiguous spec compensates: it reads other files, infers patterns, and builds output that satisfies a model it assembled from context nobody chose. The result looks diligent and is subtly wrong in ways that are hard to trace. A confined agent has two options instead — generate from what it has, or report the gap. The third option, inventing context that looks like research, is the one confinement removes.
 
-AI assists everyone and generates the code.
+## Staleness, by hash
 
-Every contribution is additive. No one overwrites anyone else's work. The software reflects the entire organization's knowledge, not one team's individual interpretation of it.
+Each generated artifact records the hash of the chain that produced it. Change a specification, and the hash of every artifact that inherited or depended on it no longer matches. Those artifacts are stale, and stale is the signal to regenerate. The bookkeeping lives in a single manifest; generated files carry no framework metadata and no comments, so a regeneration that produces identical code produces no diff at all.
 
-## How it works
+The hash answers one question: was this artifact produced from this specification. Whether the code is correct is a separate question, for a separate layer.
 
-A domain expert describes what the software should do: business rules, regulatory constraints, reconciliation logic, in structured natural language. An engineer defines the technical boundaries: error handling, security policies, performance requirements. Both contributions live in a specification tree, where each level adds precision: high-level intent at the top, implementation detail at the bottom.
+## Verification
 
-```
-code-from-spec/
-├── domain/
-│   └── transfers/      ← business rules
-├── architecture/
-│   └── backend/        ← technical guardrails
-└── implementation/
-    └── transfers/      ← generates source code
-```
-
-AI generates code that satisfies every constraint in the tree, from every contributor, at every level. When someone changes a spec, the system detects which code is affected and regenerates it. The spec tree is the source of truth. Code is its shadow.
-
-To change how the software behaves, you change the spec. To understand what the software is supposed to do, you read the spec. The code is always derived from it.
+An agent can hallucinate, omit a required step, misread an unambiguous spec, or preserve old behavior the spec has changed — and the code will compile and the manifest will read clean. Tests catch these. Tests are specifications too: authored, reviewed, and versioned alongside the rest, expressed as behavior — given this scenario, this expected result. The hash checks where the code came from; the tests check what it does. The methodology assumes an imperfect agent, because that is the agent that exists.
 
 ## Where we are
 
-Code from Spec is in its early days. It is already being used in real projects: for example, this website, or the MCP server that powers the framework itself, were both built with it. The methodology is on its third version, actively developed and refined through practical experience. Nevertheless, it is still young.
+Code from Spec is on its fifth version, developed and refined through real projects. The spec tree format — how specifications are structured, how context is assembled, how staleness is detected — is approaching a definitive form. The core mechanics are being tested in practice.
 
-Some things are close to stable. The spec tree format — how specifications are structured, how context is assembled for the AI, how staleness is detected — is approaching what could be considered a definitive version. It works, it has been tested through real projects, and the core mechanics are solid.
-
-Other things are still being discovered. We are actively figuring out how to make it practical for someone who truly does not understand software to produce software on their own. Key organizational concepts are still being refined. The tooling today targets Claude Code; the spec format is client-agnostic, but the orchestration assumes Claude Code. Porting to other environments is not a priority at this stage. The focus is on the methodology itself.
-
-The vision is the direction. We are not there yet, and we are honest about the distance. But every iteration brings it closer.
+Open problems remain. Natural language is ambiguous; the working answer is convergence, with test specs anchoring meaning mechanically — whether it converges fast enough for complex domains is unproven. Generation is non-deterministic; the guarantees are about behavior, verified by tests, not about the generated code itself. Authorship by someone with no software background is a direction, not a current capability. The tooling targets Claude Code; the spec format is client-agnostic, the orchestration is not.
 
 [Explore the framework on GitHub](https://github.com/CodeFromSpec/framework)

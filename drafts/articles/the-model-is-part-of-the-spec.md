@@ -1,221 +1,233 @@
-# The model is part of the spec
+# The Model Is Part of the Spec
 
-## The question
+Consider what the spec does *not* say. It does not explain how to
+write a `for` loop, define the syntax of the language, or say
+what a hash map is. The spec for a payment handler does not teach
+the agent to program, any more than a memo teaches a colleague to
+read. We assume all of it. The entire methodology rests on the
+assumption that the executor already knows how to turn intent
+into working code.
 
-When you generate code from a specification, where does the
-specification end?
+So the specification has two halves. One is written, versioned,
+and reviewed: the spec tree. The other is unwritten — everything
+we never had to say because the executor already knew it. The
+second half is invisible, and load-bearing. Remove it and nothing
+generates.
 
-The obvious answer is: at the edge of the spec tree. Everything the
-agent needs is in the chain — the inherited constraints, the declared
-dependencies, the target node's own text. If it is not in the chain,
-it does not govern the artifact. That is the whole premise of
-confinement, and it is true.
+This is not unusual. Every specification in history assumed a
+competent reader. A blueprint assumes someone who can read a
+blueprint; a recipe assumes someone who can cook. Assuming
+competence in the executor is what makes a spec shorter than the
+thing it specifies. What is new is the kind of competence
+assumed, and — the part the first telling of this idea missed —
+that the unwritten half is not one thing. It is two, and the
+difference between them is the difference between a delegation
+that is safe and one that is not.
 
-But it is not complete. Consider what the spec does *not* say. It does
-not explain how to write a `for` loop, define the syntax of the
-language, or say what a hash map is. The spec for a payment handler
-does not teach the agent to program, any more than a memo teaches a
-colleague to read. We assume all of it. The entire methodology rests
-on the assumption that the agent already knows how to turn intent into
-working code in a real language.
+## The unwritten half is not one executor
 
-So the specification has two halves. One is written, versioned, and
-reviewed: the spec tree. The other is unwritten, and lives in the
-weights of the model — everything we never had to say because the
-agent already knew it. The second half is invisible, and load-bearing.
-Remove it and nothing generates.
+When the spec omits something, the gap is filled. The question
+the original framing glossed is: filled *by what*. There is more
+than one executor standing behind a generated artifact, and they
+do not behave alike.
 
-This is not a flaw to engineer away. It is the foundation. The reason
-AI code generation is worth doing at all is precisely that we *don't*
-have to specify how to program. The unwritten half is the leverage.
-The question is not how to eliminate it — it is what follows from
-accepting that it exists.
+One is the model. When a node says "validate the transfer amount
+is positive" and never mentions that integers compare with `>`,
+the model supplies the comparison. This is the **stochastic
+unwritten half**: filled from training, varying with the model
+and, at the margin, with the run. It resolves ambiguity the way a
+competent programmer reading a terse spec does — usually well,
+never guaranteed identical twice.
 
-## Hidden dependencies
+But there are other executors, and they are different in kind.
+When a column is declared `BIGINT` holding centavos, the
+constraint that money is an integer is not supplied by the model
+— it is enforced by the database, the same way on every
+generation, regardless of which model ran. When `CHECK(amount >
+0)` sits on the table, "amount must be positive" is filled by
+Postgres, deterministically, whether or not the agent thought of
+it. When a strong type makes an illegal state unrepresentable,
+the compiler fills the gap before any model is consulted. This is
+the **deterministic unwritten half**: also absent from the spec
+prose, also assumed, but supplied by an executor that does not
+vary, does not hallucinate, and does not depend on which weights
+are loaded.
 
-Every node declares its dependencies: `depends_on`, `input`, the
-inheritance path to the root. Those are the dependencies we can see.
-There is another kind the framework cannot name.
+Both halves are unwritten. Both are delegations. But a delegation
+to the deterministic half is safe in a way a delegation to the
+stochastic half is not — because the deterministic executor gives
+the same answer forever, and the stochastic one gives an answer
+that was correct this time. Almost everything that makes the
+unwritten half feel dangerous is about the stochastic part. The
+deterministic part is not a risk to manage; it is leverage to
+reach for.
 
-When an agent generates a correct artifact from an underspecified
-node, the gap between what the spec said and what the code needed was
-filled by the model. That fill is a dependency — the artifact relies
-on it as surely as on any `depends_on` entry — but it appears in no
-frontmatter, contributes to no chain hash, and triggers no staleness.
-Its provider is not another node. It is the model's training.
+## Every omission is a delegation — to the model by default
 
-Most of the time this is what we want. A node that says "validate the
-transfer amount is positive" need not specify that integers can be
-compared with `>`. The model supplies that, correctly, every time, and
-the spec stays readable. The hidden dependency is the compression that
-lets a spec be intent instead of code.
+Here is the fact that reorganizes the rest. Silence does not go
+nowhere. Every meaning the spec leaves unspecified flows
+somewhere, and unless you have arranged otherwise, it flows to
+the model. The model is the **default sink** for unspecified
+meaning. It is where a silence ends up when you did not write it
+down, did not give it a type, and did not pin it with a test.
 
-It only becomes visible when it fails to be satisfied. And the
-cleanest way to make it fail is to change the thing that was
-satisfying it.
+Most of the time this default is exactly right. A node that says
+"validate the amount is positive" should not have to specify
+integer comparison; letting that silence flow to the model is
+what keeps the spec readable as intent instead of code. The
+hidden dependency is the compression that lets a spec be a memo
+rather than a transcript. The default sink is a feature for every
+silence that falls inside shared competence.
 
-## Changing the model exposes them
+It is a hazard for every silence that does not. A case from the
+framework's own development: a spec said to match file patterns
+but not which standard-library function to use. The language
+offered two — one platform-dependent, one not. The agent picked
+the platform-dependent one. The code was correct on one machine
+and wrong on another. The fix was three words added to the spec.
 
-A real case from the framework's own development. A spec said to match
-file patterns, but not which standard-library function to use. The
-language offered two — one platform-dependent, one not. The agent
-picked the platform-dependent one. The code was correct on the machine
-it was generated on and wrong elsewhere.
+The usual lesson drawn from this is "make the delegation
+explicit — move it from the unwritten half to the written half."
+That is one move, and often not the best one. The deeper lesson
+is about routing. That silence had flowed to the default sink,
+and the default sink resolved it with a coin-flip the author
+never knew was being tossed. The fix was to **divert the silence
+away from the stochastic sink** — and prose is only one of the
+places you can divert it to. You can write it down, so a
+competent-but-stochastic reader is told the answer instead of
+guessing it. You can give it a type, so a deterministic executor
+settles it and the model never gets a vote. You can pin it with a
+test, so that if the stochastic reader guesses wrong the failure
+is loud instead of silent. The platform-function case took the
+prose route because the choice was a one-line convention. A money
+representation takes the type route, because `int64` centavos
+removes the question from the model's reach entirely. A date
+format carried in a `TEXT` column — where no type is watching —
+can only take the prose-plus-test route, because nothing
+deterministic will catch it.
 
-The fix was three words added to the spec, prescribing the portable
-function. The incident is usually told as a lesson about diagnosis:
-trace the failure, fix the spec, the fix is permanent. But look at it
-from the other direction. Before those three words, the choice of
-function was a hidden dependency — the spec delegated it to the model's
-judgment, and that judgment was wrong on one axis. The spec did not
-change to *add* a requirement. It changed to *move* one from the
-unwritten half to the written half.
+So the engineering is not "eliminate the unwritten half." It is
+**managing the default sink**: knowing which silences are safe to
+let flow to the model, and diverting the rest to whichever sink
+can hold them without stochastic variance. The unwritten half
+does not shrink to zero and should not. It shrinks to the core of
+shared competence — and what leaves it does not all go to prose.
+The fidelity-critical part goes to types and tests, where the
+model's variance cannot reach it.
 
-Now run the thought experiment. Suppose the spec had never been fixed,
-and instead the model were swapped. A second model might pick the
-portable function by default — and the artifact would silently become
-correct, with no spec change at all. Or it might pick differently in a
-node that had worked for months, and an artifact that was correct
-would suddenly need attention. The written spec is identical in both
-cases. What changed is the unwritten half.
+## You version only one of the two halves
 
-This is the precise sense in which **the model is part of the
-specification.** Not a tool that reads it — a component of it. The
-artifact is a function of the chain *and* the model, and we have been
-writing down only one argument.
+Now the consequence that the staleness machinery cannot see.
 
-## What a swap actually costs
+The chain hash is computed over the written half. It is a precise,
+honest record of one thing: that this artifact was produced from
+this spec content. It says nothing about the unwritten half,
+because the unwritten half has no text to hash. And the stochastic
+unwritten half — the model — is a real input to the artifact. The
+artifact is a function of the chain *and* the model, and the hash
+versions only the first argument.
 
-It would be easy to read this as a confession of fragility, so it is
-worth being exact about what follows.
+This means the boundary between the two halves is exactly where
+reproducibility ends. Hold the written spec fixed and change the
+model, and the artifact can change — a function chosen
+differently, an ambiguity resolved the other way, an edge case
+handled or dropped. The written spec is byte-for-byte identical.
+The staleness system reports clean. Nothing is stale, because by
+the only definition the manifest knows, nothing changed. And yet
+the behavior moved, because the half of the specification that
+lives in the weights moved.
 
-It does not mean the spec is worthless without the model. Every
-specification in history assumed a competent reader: a blueprint
-assumes someone who can read a blueprint, a recipe someone who can
-cook. Assuming competence in the executor is what makes a spec shorter
-than the thing it specifies.
+State it plainly: **upgrading the model is a silent spec change
+across every node at once, invisible to staleness.** It is the
+largest possible edit to the specification — every artifact's
+unwritten half, rewritten simultaneously — and it leaves no diff,
+triggers no regeneration, and produces no hash mismatch. The
+machinery built to tell you when to regenerate is structurally
+blind to it, because that machinery watches the written half and
+the change happened in the other one.
 
-It does not mean generation is unrepeatable. Today the subagent pins
-the model and the effort level — the immediate reason is token cost,
-but the same pin serves repeatability. A fixed model is a fixed
-unwritten half: the hidden dependencies hold still, and the spec
-converges against them like it converges against everything else. Each
-failure exposes a gap, each fix closes it, and closed gaps stay
-closed. Over a project's life the written half grows and the unwritten
-half shrinks — never to zero, but toward the core of shared competence
-no spec should have to state.
+The model is part of the specification. Not a tool that reads it —
+a component of it. And it is the component you do not version,
+cannot diff, and will not be warned about when it changes. The
+only thing standing between a model upgrade and a silent
+regression is the part of the system that checks the artifact's
+behavior rather than its provenance: the tests. This is why "the
+model is part of the spec" and "tests are the immune system" are
+not two observations. They are one. Because half the spec is
+unhashed and can change under you, behavioral verification is not
+a safety net you add for tidiness — it is the only sensor pointed
+at the half of the specification the hash cannot see.
 
-And it does not mean a swap is a catastrophe. A swap reopens part of
-the convergence — but only *part*: the subset where two models'
-unwritten halves disagree. It does not return the spec to zero. A spec
-that converged against one model is genuinely more complete than an
-empty one, and a swap costs the delta between two models, not the whole
-investment. A more capable successor tends to *infer more* of the same
-spec, not less, so the reopened disagreements are, we suspect, fewer
-than those that came before — though that last step is intuition, not
-something we have measured. The rest is the ordinary shape of an
-engineering dependency: you pin your compiler, and upgrading it is an
-event with a diff, done deliberately, not never. The model is a
-dependency of exactly that kind — the first in the history of software
-that arrives already knowing how to program.
+## Why natural language works — and why it is a dial, not a switch
 
-The one point we hold with confidence is the one that follows from
-confinement rather than optimism. When a swapped model's unwritten half
-disagrees with the spec, a confined agent cannot paper over the gap
-with invented context — it has none to invent. It generates from the
-chain, and where the chain leaned on a hidden dependency the new model
-does not supply, the artifact fails a test. The disagreement surfaces
-as a red test pointing at a specific node, not as a subtle wrongness
-found in production months later. Confinement does not prevent the
-coupling. It changes the *register* of its failures from silent to
-noisy — and noisy is survivable.
+Specification-driven development is old, and for most of its
+history it meant formal notation — Z, VDM, structured analysis.
+The notation was not chosen for beauty. It was chosen because the
+executor was not intelligent. A compiler fills in nothing;
+everything had to be formalized, exhaustively, with no gap left
+for judgment because there was no judgment on the other end.
+Natural language was disqualified for the very reason it is
+natural: it is ambiguous, and a dumb executor cannot resolve
+ambiguity.
 
-## Why natural language works at all
+The objection was correct against the executor it assumed. It is
+no longer the executor we have. The model resolves ambiguity, and
+resolves it the way a competent programmer reading a terse spec
+always has. The formalism existed to eliminate something that now
+has someone to handle it. Choosing natural language *is* choosing
+to couple to the model — to route silences to the stochastic
+sink. The prose a domain expert can review is bought with the
+executor-independence the notation had. That coupling is the
+price of participation, and it is real.
 
-There is a larger claim hiding in all of this, and it is the reason the
-methodology can be what it is.
+But the original framing presented this as a binary — formal
+notation, executor-independent and excluding; or prose, coupled
+and participable; pick one. The practice is not binary. The
+coupling is a dial, and you set it per decision. You couple to
+the model exactly as much as you choose prose over types. A real
+service occupies the middle deliberately: prose specifications,
+readable by the domain, sitting on a foundation of strong types
+and schema constraints. The participation-critical truth — the
+business rules a compliance officer must be able to read — stays
+in prose, fully coupled, because legibility is the point there.
+The fidelity-critical truth — money is an integer, this transfer
+cannot be to its own source, this identifier is unique — is
+pushed into types and constraints, where the coupling to the
+model is bought back down to zero, because a deterministic
+executor now holds that truth and the model's variance cannot
+touch it.
 
-Specification-driven development is old, and for most of its history it
-meant formal notation — Z, VDM, structured analysis. The notation was
-not chosen for beauty. It was chosen because the executor was not
-intelligent. A compiler fills in nothing; everything had to be told,
-formalized, exhaustively, with no gap left for judgment because there
-was no judgment on the other end. Natural language was disqualified for
-the very reason it is natural: it is ambiguous, and a dumb executor
-cannot resolve ambiguity. Precision had to be infinite and
-self-contained, and only mathematics offered that.
+This is the craft the notation-versus-prose binary hides.
+Formalism put *all* the precision in the written half and leaned
+on no intelligent executor: expensive, excluding, but stable.
+Pure prose puts the fidelity-critical precision in the stochastic
+sink along with everything else: cheap, reviewable, coupled. The
+working position is neither. It is to route each silence to the
+sink that fits it — shared competence to the model, business
+meaning to prose, invariants to types, the rest to tests — so that
+the spec stays legible where legibility matters and stays coupled
+to the model only where coupling is cheap to bear.
 
-The objection was correct against the executor it assumed. It is no
-longer the executor we have. The model resolves ambiguity — and
-resolves it the way a competent programmer reading a terse spec always
-has. The residual ambiguity of natural language and the ambiguity a
-human engineer was always trusted to settle become the same ambiguity,
-with the same kind of resolver on the far side. The formalism existed
-to eliminate something that now has someone to handle it. The spec no
-longer has to carry infinite, self-contained precision, because it is
-not working alone. It carries the half a competent reader cannot
-supply, and delegates the rest.
+## What convergence is converging
 
-This is the same fact as "the model is part of the spec," seen from the
-other side — and it is what lets the spec be prose. Formal notation put
-*all* the precision in the written half and leaned on no intelligent
-executor: expensive to write, excluding to read, but portable and
-stable — a Z schema means the same to any reader who can parse Z.
-Natural language puts part of the precision in the unwritten half and
-leans on the model: cheap, reviewable by the compliance officer,
-participable — and coupled to the model, the very debt this article
-names. You do not get both. The prose a domain expert can review is
-bought with the executor-independence the notation had. Choosing
-natural language *is* choosing to couple to the model; they are one
-decision, not two. The coupling is not an accident the methodology
-tolerates. It is the price of participation, paid knowingly.
+In the Rationale we named natural-language ambiguity as an open
+problem and offered convergence as the working answer. This is
+what convergence converges: not the spec toward completeness, but
+each silence toward its right sink.
 
-None of this makes formal notation obsolete. It is a trade, not a
-victory. Where an external force pays the cost of rigor and stability
-outweighs participation — aviation, medical devices — exhaustive formal
-precision and its independence from any executor are still the right
-tools. What changed is not that natural language won. It is that AI
-reopened it as a viable option across the territory where the economics
-had always ruled it out.
+Every failure that traces to a hidden dependency is a silence
+that flowed to the default sink and should not have. Each fix
+reroutes it — to prose where a convention belongs in writing, to
+a type where an invariant belongs in the schema, to a test where
+a behavior needs a sensor. Over a project's life the stochastic
+unwritten half shrinks, not to nothing, but to the core of shared
+competence no spec should have to state — and what leaves it is
+distributed across substrates, not piled into prose. The
+information that defines the system is conserved; you do not make
+it smaller by specifying well. You only move it out of the one
+sink that resolves it differently each time, into the sinks that
+hold it still.
 
-## Where this leaves us
-
-If the model is part of the spec, the boundary between the written and
-unwritten halves is a choice — even when we make it by default. Every
-time we leave something unsaid, we delegate it to the model: sometimes
-wisely, because it is shared competence, and sometimes by accident,
-because we did not notice we were relying on one model's particular
-judgment. Maturing a spec is, in large part, moving the *accidental*
-delegations into the written half while leaving the *deliberate* ones
-where they belong. The skill is telling them apart.
-
-It also redraws a line. "Client-agnostic format, specific
-orchestration" sounds like a claim about tooling — the spec files port,
-the orchestration assumes one client. But the deeper boundary is not
-about tooling. The format is portable; the content's reliance on a
-model is not, at least not perfectly. The line between what ports and
-what does not runs straight through the spec, separating its two
-halves. Naming it does not move it — but it tells you what you are
-actually carrying to a new model, and what to expect to re-converge
-when you get there.
-
-One last way to see the whole shape. AI generating code is a signal
-with noise: the model knows how to program, and most of what it
-produces is the signal we want, but it also drifts, picks wrong
-defaults, resolves an ambiguity differently than we would have. The
-methodology is the apparatus that extracts the signal — not by
-pretending the source is clean, but by being built around the fact
-that it is not. The spec is our model of what the signal should be. The
-tests are the measurements that correct the estimate. Confinement keeps
-unmodeled noise out. Convergence is the apparatus settling over time.
-
-The metaphor has one edge worth keeping sharp, because it is this
-article's argument. A filter does not cancel a bias by averaging more
-readings — a consistent wrong default is not noise that repetition
-removes, which is exactly why regenerating against it only reproduces
-it. When the measurement reveals a systematic drift, you do not take
-more samples. You update the model. Maturing a spec is that update: the
-unwritten half is our estimate of what the executor supplies, and every
-failure that traces back to it corrects the estimate. Swapping the
-model changes the source. The apparatus is how we re-converge on the
-signal when it does.
+The model is part of the spec. The discipline is to decide, for
+each thing the spec does not say, whether that is a delegation you
+meant to make.

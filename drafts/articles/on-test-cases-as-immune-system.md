@@ -1,265 +1,270 @@
-# On Test Cases as Immune System
+# On Test Cases as an Immune System
 
-## The last line
+## The net that was always there
 
-In spec-driven code generation, the spec defines what
-the software should do. The agent generates code from
-the spec. Confinement ensures the agent sees only the
-chain. Staleness detection tells you when to
-regenerate. Context management ensures the right
-constraints reach the right generation.
+In spec-driven generation, the spec defines what the software
+should do, the agent generates code from it, confinement keeps
+the agent on the chain, staleness detection says when to
+regenerate. All of this can be correct, and the generated code
+can still be wrong. Tests are what catch that.
 
-All of this can be perfect, and the generated code
-can still be wrong.
+That much is the usual claim, and it is true. But stated this
+way it makes tests sound like a new requirement the methodology
+introduces — a last line of defense bolted on because the agent
+is untrustworthy. That framing is backwards, and getting it
+right is the whole point of this article.
 
-The spec may be ambiguous in a way nobody noticed. The
-agent may interpret an unambiguous spec incorrectly.
-The agent may implement nine out of ten steps and
-silently omit the tenth. The agent may "fix" something
-that was correct, because a general rule in the chain
-contradicted a specific exception it didn't
-understand.
+Tests were never the *last* line. They were always the
+*second*. In ordinary development there are two nets under every
+behavior, not one. The first is the author's judgment, set into
+the code itself: the defensive check added after a 2 a.m.
+incident, the deliberate ordering that respects a lock nobody
+documented, the edge case handled because the author had been
+burned by it before. None of that is in any spec. It lives in
+the code because the person who wrote the code put it there, and
+it protects every behavior it touches whether or not a test
+exercises that behavior. The second net is the test suite, which
+catches what the author got wrong.
 
-Test cases are what catch these failures. They are the
-immune system of the methodology — not the first line
-of defense, but the last one, and the one that matters
-most when everything else fails silently.
+Spec-driven generation does not add a net. It removes the first
+one. The author is human; the executor is the model; and the
+model deposits no judgment into the code, because the code is
+only whatever the chain produced this time. Every behavior that
+the author's instinct used to protect for free is now protected
+by exactly one thing, or by nothing. The test was the second net
+yesterday. Today it is the only net, and so it has to hold the
+entire weight that two nets used to share.
 
-## What tests protect against
+This is why "the cost of a missing test is higher here" is too
+weak. The honest statement is harder: **you were always this
+dependent on tests. The author's judgment was quietly paying
+part of the bill, and the methodology has stopped the subsidy.**
+A team with mediocre tests and good developers shipped reliable
+software for decades and credited the tests, or the luck, or the
+process. They were being subsidized by judgment encarnado in
+code they never had to write down. Generation removes the payer
+and presents the invoice. Nothing about the bill is new. Only
+the payer is gone.
 
-In traditional development, tests verify that the
-developer's code does what the developer intended.
-Developer and author are the same person. The test
-catches mistakes in execution.
+## Two kinds of immunity
 
-In spec-driven generation, the author is human and
-the executor is an AI agent. The test catches a
-different class of failure: the gap between what the
-spec says and what the agent produced. This gap has
-several shapes.
+Calling tests an immune system is the right metaphor, but the
+usual telling uses only half of it. A real immune system has two
+arms, and the methodology has both.
 
-**Hallucination.** The agent invents behavior not in
-the spec. A function gains a parameter conversion the
-spec never asked for. A validation rule appears that
-was never specified. A "helpful" optimization changes
-semantics. Without a test that exercises the expected
-behavior, the hallucination ships as a feature.
+**Innate immunity** is the part you are born with. Barriers and
+generic responders, always on, present by construction, costing
+no per-threat effort. They do not learn and do not need to: they
+catch broad classes of harm the moment it appears. In a generated
+codebase this is the type system, the schema constraints, and the
+compiler. A `CHECK(amount > 0)` rejects a zero-value transfer in
+the database, deterministically, on every generation, with no
+test authored and no model consulted. A `UNIQUE` index enforces
+idempotency whether or not the agent remembered it. A strong type
+makes an entire category of mistake unexpressible before any test
+runs. Money stored as `int64` centavos cannot silently become a
+float. None of this depends on the model. It is fast, generic,
+and free, and it is the same on every regeneration because it is
+not generated — it is the ground the generation stands on.
 
-**Omission.** The agent skips something the spec
-explicitly requires. A status transition is missing. A
-field is not populated. An error path is not handled.
-The code compiles, the happy path works, and the
-omitted behavior is invisible until a specific test
-case exercises it.
+**Adaptive immunity** is the part that must be trained. It learns
+a specific pathogen, builds a specific response, and remembers
+it. It is slow to acquire and has to be paid for one antigen at a
+time, but it reaches what the innate system cannot. This is the
+test spec. It is authored for a specific behavior — "a request
+with amount zero returns an invalid request error," "a paid
+boleto's timestamp carries the Brasil offset" — and it catches
+the specific thing the type system and the schema let through.
 
-**Misinterpretation.** The spec says one thing; the
-agent understands another. A date format is validated
-as YYYYMMDD when the contract is DD-MM-YYYY. A
-cooldown parameter is passed as a string concatenation
-when the SQL expects integer arithmetic. The agent's
-interpretation is internally consistent — it just
-doesn't match what the spec meant.
+The two arms divide the surface of the system between them, and
+the division is precise: **adaptive immunity is mandatory exactly
+where innate immunity is silent.** Where the truth lives in an
+executable type, the innate system holds it and no test is
+strictly required to keep it true. Where the truth lives in a
+string with a convention in a comment — a `TEXT` column annotated
+`-- DD-MM-YYYY`, a date format named in prose three nodes up the
+chain — the innate system sees nothing, because to the database
+it is just text and to the compiler it is just a string. There,
+the test spec is the *only* antibody. If it is not written,
+nothing stands.
 
-**Anchoring.** The agent sees a previous generation
-and preserves its behavior instead of implementing
-the spec change. The spec was updated; the code was
-not. The artifact tag hash is current; the behavior is
-stale. Only a test that verifies the new behavior
-catches the silent non-change.
+This gives the coverage question a concrete shape. The surface
+that adaptive immunity must cover is not "everything." It is the
+weak-type seams: every place where a real type was not available
+or not used, and a convention carries meaning the executors
+cannot enforce. Count those seams and you have counted where a
+test case is load-bearing rather than merely nice. That count is
+finite, locatable, and auditable — and it is the honest measure
+of how much test discipline a given system actually demands.
 
-Each of these failures is silent. The code compiles.
-The artifact tag says "up to date." The staleness
-system reports clean. The failure only surfaces when a
-test exercises the specific behavior that went wrong.
+## What adaptive immunity is for
 
-## Test specs are specs
+The failures the test spec exists to catch all share one
+property: under generation, they are silent. The code compiles,
+the manifest reads up to date, the staleness system reports
+clean. Each is the gap between what the spec meant and what the
+agent produced.
 
-In Code from Spec, test cases are not afterthoughts
-written by developers after the code works. They are
-specs — authored before or alongside the
-implementation spec, reviewed in PRs, versioned in
-git. A test spec defines what the implementation must
-satisfy, in the same structured natural language as
-every other spec.
+**Hallucination** — the agent invents behavior the spec never
+asked for. A validation appears, a parameter gains a conversion,
+a "helpful" optimization changes semantics. Without a test that
+pins the expected behavior, the invention ships as a feature.
 
-This means test cases carry the same authority as
-implementation specs. When a test fails, the question
-is not "is the test wrong?" — it is "does the spec
-describe the correct behavior?" If yes, the
-implementation must change. If no, the spec must
-change. The test is never silently deleted or
-commented out to make the build green.
+**Omission** — the agent skips something the spec requires. A
+status transition is missing, a field goes unpopulated, an error
+path is absent. The happy path works; the omission is invisible
+until a case exercises it.
 
-This also means test cases are a form of
-documentation that domain experts can review. A
-compliance officer may not be able to evaluate
-generated code, but they can review a test spec
-that says "a request with amount zero returns an
-invalid request error" and confirm whether that is
-the correct business rule.
+**Misinterpretation** — the spec says one thing and the agent
+understands another. A date validated in the wrong format, an
+amount handled as a string where integer arithmetic was meant.
+The agent's reading is internally consistent. It simply is not
+what the spec meant.
 
-## What we have observed
+**Anchoring** — the agent sees the previous generation and
+preserves its behavior instead of applying the spec change. The
+spec moved; the code did not; the hash updated anyway. Only a
+test that asserts the new behavior catches the silent non-change.
 
-Across sessions working with Code from Spec on
-production services, test cases have consistently
-caught generation errors that no other mechanism
-would have surfaced:
+These are adaptive-immunity targets specifically because the
+innate system cannot see them. A type cannot tell that the
+business rule was supposed to change. A constraint cannot tell
+that the agent invented a validation. For these, the antibody has
+to be authored, because the threat is defined at the level of
+meaning, and meaning is exactly what the deterministic layers do
+not check.
 
-- A subagent added input validation for a date field,
-  requiring a format that contradicted the existing
-  API contract. The existing tests used the correct
-  format and failed immediately, revealing that the
-  subagent had "fixed" something that was already
-  correct — turning a valid contract into a breaking
-  change.
+## A passing test only means something if the test is independent
 
-- A subagent generated stub functions in a test file
-  with incorrect type signatures — using a generic
-  interface type where a concrete type was required,
-  and adding parameters that the real function did
-  not accept. The test build failed before any test
-  ran.
+Here is the part the comfortable version of this argument skips,
+and it is the part that decides whether the immune system works
+at all.
 
-- A subagent classified void operations as operations
-  that return data, generating code that referenced
-  response fields that didn't exist on the response
-  struct. The build caught it, but only because the
-  test file exercised the types.
+In ordinary development, a test means something because a human
+wrote it. The developer wrote the code, and a *different* act of
+judgment — sometimes a different person — wrote the test, and the
+agreement between them is evidence precisely because the two came
+from independent sources. The test is a second opinion.
 
-- A subagent used a pointer-to-pointer where the test
-  expected a plain pointer for round-trip comparison.
-  The `reflect.DeepEqual` failure pointed directly at
-  the type mismatch — a subtle error that would have
-  been invisible without the comparison test.
+In spec-driven generation, the implementation and the test are
+both derived from the same spec tree, by the same model, through
+the same confined process. If they agree, that is not
+automatically a second opinion. It can be the same opinion
+rendered twice. When a spec is silent on some point, the model
+resolves the silence — and it may resolve it the same wrong way
+in the implementation and in the test, because the same priors
+are doing the resolving on both sides. The implementation does
+the wrong thing; the test asserts the wrong thing; they match;
+the suite is green; the behavior is wrong. The manifest will call
+this up to date, and it will be telling the truth — the code did
+come from this chain. Currency is not correctness, and a green
+suite of correlated tests is not verification.
 
-- A subagent's test used random identifiers in webhook
-  payloads instead of the deterministic format the
-  implementation expected. The implementation correctly
-  rejected them, and the test failure revealed that the
-  test spec didn't specify the identifier format
-  explicitly.
+So the adaptive immune system has a precondition the innate one
+does not: **the test spec must be a genuinely independent
+articulation of intent, not a restatement of the implementation
+spec.** The way to earn that independence is to write acceptance
+criteria as their own account of correct behavior — input and
+expected output, in the domain's terms — rather than as a
+paraphrase of the implementation's mechanism. A test that says
+"insert this row, expect this field populated with these values"
+is independent of the implementation's three SQL queries and two
+maps. A test that merely re-narrates those queries is not; it
+will agree with the implementation by sharing its mistakes.
 
-- A subagent treated a terminal state as blocking all
-  updates, but the spec defined one operation type that
-  should always apply regardless of terminal state. The
-  test expected the state to change; the implementation
-  refused. The contradiction between test spec and
-  implementation spec was surfaced by the failure.
-
-In every case, the test was the signal. Not the build
-(most of these compiled). Not the spec review (the
-specs looked correct at first read). Not the
-subagent's assumptions report (it reported the
-ambiguity but resolved it incorrectly). The test was
-what turned a silent failure into a loud one.
+Confinement helps here, and it is worth being precise about how
+much. Generating the implementation and the test in separate
+confined passes, each blind to the other, makes them two
+independent readings of the intent rather than one reading copied
+twice. That buys real independence — but only as much as the
+specs themselves provide. And the one deliberate exception to
+confinement spends some of it: the moment the agent is shown the
+existing code to keep a diff small, a channel for correlation
+opens. The strength of verification is therefore highest exactly
+where the operational conveniences are weakest, and a team that
+wants the immune system to mean something has to spend on
+acceptance criteria that say what correct *is*, independently of
+how the code achieves it. That spending is not a tax the
+methodology adds. It is the irreducible cost of a second opinion,
+which is the only thing that ever made a test worth trusting.
 
 ## Tests discover spec gaps
 
-When a test fails after regeneration, the instinct is
-to fix the code. In spec-driven generation, the
-discipline is different: trace the failure back to
-the spec.
+When a test fails after regeneration, the instinct is to fix the
+code. The discipline is the opposite: trace the failure to the
+spec. Every failure has one of three roots — the spec is
+ambiguous and the agent read it one way, the spec is incomplete
+and the agent lacked something, or the spec is clear and the
+agent erred anyway. The first two are fixed in the spec; the
+third is regenerated, and if it recurs, made explicit in the
+node's instructions. In all three the spec ends up more precise,
+and a more precise spec moves a delegation out of the model's
+weights and into the written half where it can be reviewed. The
+test failure is not a bug to patch. It is a question the spec had
+left unanswered, now forced into the open.
 
-Every test failure has one of three root causes:
+This is the convergence loop, and it has a direction. Each
+closure shrinks the unwritten half of the spec — the part
+silently delegated to the model — and grows the written half,
+toward the core of shared competence no spec should have to
+state. The tests are the engine that drives it, because they are
+what turn a silent delegation into a loud failure with an
+address.
 
-1. **The spec is ambiguous.** The agent interpreted it
-   differently than intended. Fix the spec to be
-   unambiguous.
+## Coverage that survives
 
-2. **The spec is incomplete.** The agent didn't have
-   enough information. Add the missing context to the
-   spec or its dependencies.
+Because the code does not persist across regenerations and the
+author's judgment is not in it, the adaptive immune system is the
+institutional memory. That has two consequences teams routinely
+get wrong.
 
-3. **The agent made an error despite a clear spec.**
-   Regenerate. If the error recurs, add a more
-   explicit instruction to the spec's Agent section.
+A fix must go into the spec and the test spec, never into the
+generated code. A patch in the artifact survives until the next
+regeneration; a rule in the spec survives every regeneration.
+When a production incident reveals an edge case, the impulse to
+add a defensive line to the code is the wrong reflex — that line
+will be overwritten. The edge case has to be captured where it
+will inform every future generation, which means the spec and a
+test that pins it.
 
-In all three cases, the spec improves. The test
-failure is not a bug to fix — it is a spec gap to
-close. Each closure makes the spec more precise, and
-more precise specs produce more reliable generations.
+And when specs are refactored — nodes moved, modules merged — the
+test cases must migrate with the logic they verify. A behavior
+that had an antibody in the old structure and lacks one in the
+new structure is a regression waiting for the next generation to
+introduce. The rule is mechanical: when logic moves, its tests
+move; when modules merge, their tests merge; the count of
+behavioral assertions after a refactor is at least the count
+before. Adaptive immunity is acquired memory, and acquired memory
+that is dropped in a reorganization is immunity lost.
 
-This is the convergence loop: generate, test, fail,
-investigate, fix spec, regenerate, pass. Each
-iteration leaves the spec tree better than it found
-it. The tests are the engine that drives convergence.
+## Not a proof, and sharper than usual
 
-## The cost of a missing test
+A passing suite means every tested behavior is correct under the
+tested conditions. It says nothing about untested behavior — and
+under generation this gap is sharper than in hand-written code,
+because the untested behavior is not merely unverified, it is
+re-decided on every regeneration by a process with no memory of
+what worked last time. In hand-written code an untested behavior
+at least has one stable implementation that someone reasoned
+about once. In generated code it has whatever this generation
+chose.
 
-When a test case exists and catches a generation
-error, the cost is small: investigate, fix the spec,
-regenerate.
+The response is the standard of safety-critical software, applied
+for a reason that is structural rather than institutional. In
+safety-critical work the distrust of the author is a policy. Here
+it is a fact about the executor: the agent has no memory, no
+accumulated instinct, and no stake in the outcome. The innate
+immune system — types, schema, compiler — covers what it can for
+free. Everything past it is the adaptive system's to cover, one
+authored antibody per behavior that matters, with the coverage
+target set not by lines of code but by the weak-type seams where
+nothing else is watching.
 
-When a test case doesn't exist, the generation error
-ships. It may surface in production as a bug, in an
-audit as a compliance gap, or never at all — lurking
-as a latent defect until conditions align.
-
-The cost of a missing test case in spec-driven
-generation is higher than in traditional development.
-In traditional development, the same developer who
-wrote the code also wrote the tests, and they share
-an understanding of intent. If a test is missing, the
-developer's judgment is still embedded in the code.
-
-In spec-driven generation, there is no developer
-judgment in the code. The code is whatever the agent
-produced from the chain. If the test doesn't verify
-a behavior, nothing does. The spec says what should
-happen; the test verifies that it did. Without the
-test, the spec is an aspiration.
-
-## Preserving test cases
-
-When refactoring specs — moving nodes, merging
-modules, restructuring the tree — test cases must
-migrate with the logic they verify. A test case that
-existed in the old structure and doesn't exist in the
-new structure is a regression waiting to happen.
-
-This is not hypothetical. In a session where two
-processing jobs were unified into a shared module,
-the test cases from both jobs needed to migrate to
-the new module's test spec. If any had been dropped,
-the unified module would have had less coverage than
-the two it replaced — and any generation error in the
-uncovered area would have gone undetected.
-
-The rule is simple: when logic moves, its test cases
-move with it. When modules merge, their test cases
-merge. The number of test cases after a refactor must
-be at least the number before. Test cases are not
-implementation details — they are behavioral
-contracts that survive structural changes.
-
-## Not a proof
-
-Tests are not a proof of correctness. They verify
-specific behaviors under specific conditions. A
-passing test suite means every tested behavior is
-correct. It says nothing about untested behavior.
-
-In spec-driven generation, this limitation is sharper
-than usual. Each regeneration may produce code that
-handles untested edge cases differently. A test suite
-that covers the happy path and three error cases
-leaves everything else to the agent's judgment — and
-the agent's judgment is not guaranteed to be the same
-across generations.
-
-The practical response is coverage discipline: every
-behavior that matters must have a test case in a test
-spec. Not code coverage — behavioral coverage. The
-question is not "does every line execute?" but "does
-every behavior the spec prescribes have a test that
-verifies it?"
-
-This is the same standard applied to safety-critical
-software — and for the same reason. When the author
-of the code cannot be trusted to catch their own
-mistakes, verification must be external and
-systematic. The difference is that in safety-critical
-software, the distrust is institutional. In
-spec-driven generation, it is structural: the agent
-has no memory, no judgment, and no accountability.
-The tests have all three.
+This is the same fact seen from two sides. The methodology did
+not invent a need for tests. It removed the author's judgment
+that used to let teams under-test and not notice, and in doing so
+it made visible how much of every system's reliability was
+always riding on a second opinion that, in too many codebases,
+was never actually written down. The immune system was always the
+thing keeping the software alive. Generation is simply the first
+executor honest enough to admit it cannot survive without one.

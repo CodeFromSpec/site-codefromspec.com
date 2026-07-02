@@ -1,4 +1,4 @@
-/* code-from-spec: SPEC/design/article/stylesheet@3P5fRrr0BPhC6PRx8UYyI6n5wyM */
+/* code-from-spec: SPEC/design/journal/stylesheet */
 
 .container {
   max-width: 720px;
@@ -16,8 +16,8 @@ header {
 
 header .container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .site-name {
@@ -80,7 +80,7 @@ h1 + p {
 }
 
 main time,
-h1 + p + p {
+main h1 + p + p {
   font-size: 0.875em;
   color: var(--color-muted);
   margin-bottom: 1.5em;

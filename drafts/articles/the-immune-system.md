@@ -1,4 +1,4 @@
-# On Test Cases as an Immune System
+# The immune system
 
 ## The net that was always there
 
@@ -56,8 +56,10 @@ arms, and the methodology has both.
 generic responders, always on, present by construction, costing
 no per-threat effort. They do not learn and do not need to: they
 catch broad classes of harm the moment it appears. In a generated
-codebase this is the type system, the schema constraints, and the
-compiler. A `CHECK(amount > 0)` rejects a zero-value transfer in
+codebase this is the type system, the schema constraints, the
+compiler — and the linters and static analyzers beside them,
+catching unchecked errors and suspicious patterns with no
+per-behavior effort. A `CHECK(amount > 0)` rejects a zero-value transfer in
 the database, deterministically, on every generation, with no
 test authored and no model consulted. A `UNIQUE` index enforces
 idempotency whether or not the agent remembered it. A strong type
@@ -121,10 +123,13 @@ amount handled as a string where integer arithmetic was meant.
 The agent's reading is internally consistent. It simply is not
 what the spec meant.
 
-**Anchoring** — the agent sees the previous generation and
-preserves its behavior instead of applying the spec change. The
-spec moved; the code did not; the hash updated anyway. Only a
-test that asserts the new behavior catches the silent non-change.
+**[Anchoring](/articles/anchoring-on-old-code)** — the agent sees
+the previous generation and preserves its behavior instead of
+applying the spec change. The spec moved; the code did not; the
+hash updated anyway. [Telling the agent what
+changed](/articles/telling-the-agent-what-changed) makes this
+rarer; only a test that asserts the new behavior proves it did
+not happen.
 
 These are adaptive-immunity targets specifically because the
 innate system cannot see them. A type cannot tell that the
@@ -172,21 +177,33 @@ is independent of the implementation's three SQL queries and two
 maps. A test that merely re-narrates those queries is not; it
 will agree with the implementation by sharing its mistakes.
 
-Confinement helps here, and it is worth being precise about how
-much. Generating the implementation and the test in separate
-confined passes, each blind to the other, makes them two
-independent readings of the intent rather than one reading copied
-twice. That buys real independence — but only as much as the
-specs themselves provide. And the one deliberate exception to
-confinement spends some of it: the moment the agent is shown the
-existing code to keep a diff small, a channel for correlation
-opens. The strength of verification is therefore highest exactly
-where the operational conveniences are weakest, and a team that
-wants the immune system to mean something has to spend on
-acceptance criteria that say what correct *is*, independently of
-how the code achieves it. That spending is not a tax the
-methodology adds. It is the irreducible cost of a second opinion,
-which is the only thing that ever made a test worth trusting.
+The structure does more than help here — it closes the channel
+outright. In the spec tree, the section of a node where the
+implementation mechanism lives is not inheritable and not
+importable: no other node can see it. A test node depends on the
+implementation's public contract and receives exactly that — the
+interface, never the how — and the implementation's generated
+source is not in the test's chain either. The agent generating a
+test could not peek at the implementation if it tried. The
+blindness is not requested of it; it is what the chain contains.
+Two confined passes, each structurally blind to the other, produce
+two independent readings of the same intent. And regeneration
+preserves this: each agent is shown its own previous output, never
+the other artifact, so the channel stays closed across
+regenerations too. The conventions that keep all of this in place
+are documented in the framework's
+[TESTING.md](https://github.com/CodeFromSpec/framework/blob/main/docs/TESTING.md).
+
+What structure cannot supply is the content half of independence.
+Two blind readings are only as independent as the texts they read:
+if the test spec is a paraphrase of the implementation spec's
+mechanism, the two agents will converge on the same mistake with
+no channel between them needed. So a team that wants the immune
+system to mean something still has to spend on acceptance criteria
+that say what correct *is*, independently of how the code achieves
+it. That spending is not a tax the methodology adds. It is the
+irreducible cost of a second opinion, which is the only thing that
+ever made a test worth trusting.
 
 ## Tests discover spec gaps
 
@@ -241,13 +258,14 @@ that is dropped in a reorganization is immunity lost.
 
 A passing suite means every tested behavior is correct under the
 tested conditions. It says nothing about untested behavior — and
-under generation this gap is sharper than in hand-written code,
-because the untested behavior is not merely unverified, it is
-re-decided on every regeneration by a process with no memory of
-what worked last time. In hand-written code an untested behavior
-at least has one stable implementation that someone reasoned
-about once. In generated code it has whatever this generation
-chose.
+under generation this gap is sharper than in hand-written code.
+Untested behavior is held in place by nothing but the
+[stability of the artifact](/articles/many-worlds): regenerate
+minimally and it persists as unexamined luck; regenerate from
+scratch and it is re-decided by a process with no memory of what
+worked last time. In hand-written code an untested behavior at
+least has one stable implementation that someone reasoned about
+once. In generated code it has whatever the last roll chose.
 
 The response is the standard of safety-critical software, applied
 for a reason that is structural rather than institutional. In

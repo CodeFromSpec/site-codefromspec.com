@@ -1,2 +1,4 @@
-/code-from-spec/_tools/
+/code-from-spec/.tools/
+/code-from-spec/.cache/
+/code-from-spec/.manifest.lock
 .idea/

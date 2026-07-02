@@ -1,4 +1,4 @@
-# SPEC
+# SPEC/architecture
 
 The Code from Spec project website — codefromspec.com.
 

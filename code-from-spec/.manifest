@@ -1,0 +1,12 @@
+code-from-spec: v5
+ARTIFACT/design/article/stylesheet;path:public/css/article.css;checksum:eOpo8MDoAhcT6BrcY6AxUyeT9GQ;chain:W2fxJlvw_wQYZw9imhKpn6WDK5o
+ARTIFACT/design/baseline;path:public/css/baseline.css;checksum:xQYecCohRxaItF-2gyWRsmSwIBw;chain:XaMzNgOSP9YjAnD9K4zEFvcsLKI
+ARTIFACT/design/default/stylesheet;path:public/css/default.css;checksum:qMitBPGfLqGAcyK3Ks3ZLUJLXg0;chain:rqCCrT-NxGlhyA3x9g-gha6wmg0
+ARTIFACT/html/home;path:public/index.html;checksum:FdTAPfrBU4ktiIHqdN-HLM_ty3Q;chain:MGRYscw7qpUbGzIT4JftcdcMrmI
+ARTIFACT/html/sections/articles/articles/anchoring-on-old-code;path:public/articles/anchoring-on-old-code/index.html;checksum:izZhKGtdlAMUggcpo3qsFpiyDhI;chain:s9pk6F_VtJRtp5KKQUihX4Se3Ac
+ARTIFACT/html/sections/articles/articles/confinement;path:public/articles/confinement/index.html;checksum:BcnIFuvKBC7VBZL-HCnh_PSWVzU;chain:CUiCzT24R7vxSLbhYlv8z31F6uk
+ARTIFACT/html/sections/articles/articles/context-management;path:public/articles/context-management/index.html;checksum:z998YGCRHVlMPzyleGeii_xWIRI;chain:q-yqll1-j_woUAJoVpDttZxHeNg
+ARTIFACT/html/sections/articles/articles/telling-the-agent-what-changed;path:public/articles/telling-the-agent-what-changed/index.html;checksum:HdcMTWA1nsU2fvLcFbeMJtJkNes;chain:3qP8zjikSVdKy0MqOdvLiob3JkE
+ARTIFACT/html/sections/articles/index;path:public/articles/index.html;checksum:p3CuhkY2MqJsDheNrz829zymtZU;chain:8rl-xk2C0TAtCX0Dt9_0VyeMAyM
+ARTIFACT/html/sections/license;path:public/license/index.html;checksum:-NzPmy3tOoVU3RG3OCu5UsJy_O4;chain:Zn_9U89Xjb8XbbAoJZTYE__X4xE
+ARTIFACT/html/sections/rationale;path:public/rationale/index.html;checksum:muJHXRqlFB0yrBWRyDZO7kEpc0k;chain:wbwNAF2gJQFiIJphoBE6eggfp-I

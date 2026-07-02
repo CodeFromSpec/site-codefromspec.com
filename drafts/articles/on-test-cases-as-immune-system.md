@@ -41,7 +41,7 @@ dependent on tests. The author's judgment was quietly paying
 part of the bill, and the methodology has stopped the subsidy.**
 A team with mediocre tests and good developers shipped reliable
 software for decades and credited the tests, or the luck, or the
-process. They were being subsidized by judgment encarnado in
+process. They were being subsidized by judgment embodied in
 code they never had to write down. Generation removes the payer
 and presents the invoice. Nothing about the bill is new. Only
 the payer is gone.
@@ -62,7 +62,7 @@ the database, deterministically, on every generation, with no
 test authored and no model consulted. A `UNIQUE` index enforces
 idempotency whether or not the agent remembered it. A strong type
 makes an entire category of mistake unexpressible before any test
-runs. Money stored as `int64` centavos cannot silently become a
+runs. Money stored as `int64` cents cannot silently become a
 float. None of this depends on the model. It is fast, generic,
 and free, and it is the same on every regeneration because it is
 not generated — it is the ground the generation stands on.

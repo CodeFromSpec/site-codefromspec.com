@@ -2,8 +2,7 @@
 
 A software engineering methodology for the age of AI.
 
-**Specifications are the source of truth, and code is a generated
-artifact.**
+**Specifications are the source of truth; code materializes it.**
 
 You write specifications. An agent generates the code from them.
 When a specification changes, the tooling detects which code is now
@@ -28,19 +27,18 @@ A leaf node, in its entirety, can be this small:
 
 ```markdown
 ---
-depends_on:
-  - SPEC/integrations/database(interface)
 output: internal/fees/calculation.go
 ---
 # SPEC/payments/fees/calculation
 
 # Public
 ## Interface
-`func CalculateFee(amount int64, account AccountKind) (int64, error)`
+`func CalculateFee(amount int64, isPremium bool) (int64, error)`
 
 # Agent
 Fees are computed in integer cents — no floating point.
-Premium accounts pay half the standard rate, rounded down.
+The standard fee is 2% of the amount, rounded down;
+premium accounts pay half.
 Reject non-positive amounts with a validation error.
 ```
 

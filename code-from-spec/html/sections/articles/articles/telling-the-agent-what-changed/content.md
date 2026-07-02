@@ -4,13 +4,13 @@ description: "The fix for anchoring: a cache, a hash comparison, and a one-word 
 date: 2026-07-01
 ---
 
-![Telling the agent what changed](/images/articles/20260701_image_1.png)
-
 # Telling the agent what changed
 
 July 1, 2026
 
 ## Three open problems
+
+![Three open problems](/images/articles/20260701_image_1.png)
 
 In [Anchoring on old code](/articles/anchoring-on-old-code) we
 described a failure in regeneration. When the spec changes but the

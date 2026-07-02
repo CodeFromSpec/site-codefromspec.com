@@ -27,11 +27,11 @@
   </header>
   <main>
     <div class="container">
-      <img src="/images/articles/20260701_image_1.png" alt="Telling the agent what changed">
-<h1>Telling the agent what changed</h1>
+      <h1>Telling the agent what changed</h1>
 <p>July 1, 2026</p>
 <section>
   <h2>Three open problems</h2>
+  <img src="/images/articles/20260701_image_1.png" alt="Three open problems">
   <p>In <a href="/articles/anchoring-on-old-code">Anchoring on old code</a> we described a failure in regeneration. When the spec changes but the previously generated artifact is in the agent's context, the agent sometimes preserves the old code and never processes the change. The manifest updates, the build passes, staleness reports clean — and the behavior never moved. The spec moved; the code did not.</p>
   <p>That article closed with three problems worth solving: how to make the agent reliably prioritize the spec over the existing code; whether changing the order of presentation — code first, spec last — reduces anchoring; and how to give the agent an explicit delta of what changed in the spec, so it does not have to discover the difference on its own.</p>
   <p>We built against all three. This is a report on what happened — including the part where our favorite hypothesis produced nothing.</p>

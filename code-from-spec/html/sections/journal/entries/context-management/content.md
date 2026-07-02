@@ -10,7 +10,7 @@ June 8, 2026
 
 ## The context problem
 
-![The context problem](/images/articles/20260608_image_1.png)
+![The context problem](/images/journal/20260608_image_1.png)
 
 AI agents have a finite context window. No matter how large it becomes, a non-trivial system will always contain more knowledge than fits in a single prompt. The practical question is not whether the agent can hold the entire system in context — it cannot — but how the right context reaches the agent at the right time.
 

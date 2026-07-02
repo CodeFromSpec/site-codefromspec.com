@@ -63,7 +63,7 @@ The frontmatter contains page metadata:
   html layer. Not rendered visibly — the author
   controls visible headings in the body.
 - `description` — used for `<meta name="description">`.
-- `date` (optional) — metadata for articles. The
+- `date` (optional) — metadata for journal entries. The
   author controls how/whether it appears in the body.
 
 The body is pure markdown. No HTML tags, no CSS classes,
@@ -71,7 +71,7 @@ no inline styles. The html layer converts markdown to
 semantic HTML.
 
 Additional frontmatter fields may be present depending
-on the content type (e.g., `date` for articles).
+on the content type (e.g., `date` for journal entries).
 
 Optional metadata fields:
 

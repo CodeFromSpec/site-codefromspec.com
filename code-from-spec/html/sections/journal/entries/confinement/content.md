@@ -10,7 +10,7 @@ June 10, 2026
 
 ## What confinement is
 
-![What confinement is](/images/articles/20260610_image_1.png)
+![What confinement is](/images/journal/20260610_image_1.png)
 
 In Code from Spec, the agent that generates an artifact does not see the project. It receives the spec chain — the inherited constraints of every ancestor node, the declared dependencies, the referenced external files, the target's own spec — and it writes one declared output file. That is the entire interaction. It does not browse the repository, read neighboring code, or fetch documentation. If the chain is not enough to generate the artifact, the correct output is not code — it is a report of exactly what is missing.
 

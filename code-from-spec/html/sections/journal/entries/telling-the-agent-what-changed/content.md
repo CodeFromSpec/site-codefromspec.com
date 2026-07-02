@@ -10,9 +10,9 @@ July 1, 2026
 
 ## Three open problems
 
-![Three open problems](/images/articles/20260701_image_1.png)
+![Three open problems](/images/journal/20260701_image_1.png)
 
-In [Anchoring on old code](/articles/anchoring-on-old-code) we
+In [Anchoring on old code](/journal/anchoring-on-old-code) we
 described a failure in regeneration. When the spec changes but the
 previously generated artifact is in the agent's context, the agent
 sometimes preserves the old code and never processes the change.

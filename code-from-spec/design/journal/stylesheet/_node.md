@@ -1,12 +1,12 @@
 ---
 depends_on:
-  - SPEC/design/article/template
-output: public/css/article.css
+  - SPEC/design/journal/template
+output: public/css/journal.css
 ---
 
-# SPEC/design/article/stylesheet
+# SPEC/design/journal/stylesheet
 
-Theme stylesheet for articles. Works alongside
+Theme stylesheet for the journal. Works alongside
 baseline.css. Magazine-style layout where images float
 alongside text.
 
@@ -14,7 +14,7 @@ alongside text.
 
 Generate a theme CSS stylesheet. This file is loaded
 after baseline.css and adds layout-specific styles for
-the article theme.
+the journal theme.
 
 Since this theme uses the base color defaults, do not
 redefine CSS custom properties.
@@ -54,7 +54,7 @@ The stylesheet must cover:
 7. **Subheading** — `h1 + p` styled at 1.25em, muted
    color.
 
-8. **Article date** — `main time`, `main p` immediately
+8. **Entry date** — `main time`, `main p` immediately
    after `h1 + p` (or after `h1` if no subheading):
    0.875em, muted color, margin-bottom 1.5em.
 

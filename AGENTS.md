@@ -1,55 +1,55 @@
 # AGENTS.md
 
-## Publishing an article
+## Publishing a journal entry
 
-Articles live under `code-from-spec/html/sections/articles/articles/`.
-Each article is a leaf node with a `content.md` alongside its `_node.md`.
+Journal entries live under `code-from-spec/html/sections/journal/entries/`.
+Each entry is a leaf node with a `content.md` alongside its `_node.md`.
 
 ### Steps
 
 1. Create the node directory under
-   `code-from-spec/html/sections/articles/articles/<slug>/`.
+   `code-from-spec/html/sections/journal/entries/<slug>/`.
 
-2. Create `_node.md` following the pattern of existing articles:
+2. Create `_node.md` following the pattern of existing entries:
 
    ```yaml
    ---
    depends_on:
-     - SPEC/design/article/template
-   input: EXTERNAL/code-from-spec/html/sections/articles/articles/<slug>/content.md
-   output: public/articles/<slug>/index.html
+     - SPEC/design/journal/template
+   input: EXTERNAL/code-from-spec/html/sections/journal/entries/<slug>/content.md
+   output: public/journal/<slug>/index.html
    ---
 
-   # SPEC/html/sections/articles/articles/<slug>
+   # SPEC/html/sections/journal/entries/<slug>
    ```
 
 3. Create `content.md` with frontmatter and body:
 
    ```markdown
    ---
-   title: <Article title>
-   description: "<One-line summary for meta and article index>"
+   title: <Entry title>
+   description: "<One-line summary for meta and journal index>"
    date: <YYYY-MM-DD>
    ---
 
-   ![<Article title>](/images/articles/<image-file>)
+   ![<Entry title>](/images/journal/<image-file>)
 
-   # <Article title>
+   # <Entry title>
 
    <Month Day, Year>
 
    <body>
    ```
 
-4. Add the article to the index at
-   `code-from-spec/html/sections/articles/index/content.md`.
+4. Add the entry to the index at
+   `code-from-spec/html/sections/journal/index/content.md`.
    Insert in chronological order (newest first). Format:
 
    ```
-   - [Title](/articles/<slug>) — <Month Day, Year> — <description>
+   - [Title](/journal/<slug>) — <Month Day, Year> — <description>
    ```
 
 5. Run `/cfs-status` to confirm staleness. Expect at least
-   the new article (missing) and the index (stale).
+   the new entry (missing) and the index (stale).
 
 6. Generate with `/cfs-generate`.

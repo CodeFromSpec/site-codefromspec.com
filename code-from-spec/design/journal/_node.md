@@ -1,4 +1,4 @@
-# SPEC/design/article
+# SPEC/design/journal
 
 Magazine-style layout where images float alongside
 text instead of breaking out of the container.
@@ -7,9 +7,9 @@ text instead of breaking out of the container.
 
 ## Decisions
 
-## Separate theme for articles
+## Separate theme for the journal
 
-Articles need images that float alongside text
+Journal entries need images that float alongside text
 (magazine style), not the full-bleed behavior of the
 default theme. A separate theme allows each html node
 to choose its layout via `depends_on`.

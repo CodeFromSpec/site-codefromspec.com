@@ -1,4 +1,4 @@
-# SPEC/design/article/template
+# SPEC/design/journal/template
 
 # Public
 
@@ -23,7 +23,7 @@ parts vary.
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
   <link rel="stylesheet" href="/css/baseline.css">
-  <link rel="stylesheet" href="/css/article.css">
+  <link rel="stylesheet" href="/css/journal.css">
 </head>
 <body>
   <header>
@@ -31,7 +31,7 @@ parts vary.
       <a href="/" class="site-name"><img src="/images/code_from_spec_logo.png" alt="" class="logo"> Code from Spec</a>
       <nav>
         <a href="/rationale">Rationale</a>
-        <a href="/articles">Articles</a>
+        <a href="/journal">Journal</a>
         <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>

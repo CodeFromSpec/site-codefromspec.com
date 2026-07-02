@@ -40,7 +40,7 @@ competent programmer reading a terse spec does — usually well,
 never guaranteed identical twice.
 
 But there are other executors, and they are different in kind.
-When a column is declared `BIGINT` holding centavos, the
+When a column is declared `BIGINT` holding cents, the
 constraint that money is an integer is not supplied by the model
 — it is enforced by the database, the same way on every
 generation, regardless of which model ran. When `CHECK(amount >
@@ -100,7 +100,7 @@ settles it and the model never gets a vote. You can pin it with a
 test, so that if the stochastic reader guesses wrong the failure
 is loud instead of silent. The platform-function case took the
 prose route because the choice was a one-line convention. A money
-representation takes the type route, because `int64` centavos
+representation takes the type route, because `int64` cents
 removes the question from the model's reach entirely. A date
 format carried in a `TEXT` column — where no type is watching —
 can only take the prose-plus-test route, because nothing

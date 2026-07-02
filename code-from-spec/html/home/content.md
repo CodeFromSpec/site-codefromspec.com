@@ -112,8 +112,18 @@ and the code will compile and the manifest will read clean. Tests
 catch these. Tests are specifications too: authored, reviewed, and
 versioned alongside the rest, expressed as behavior — given this
 scenario, this expected result. The hash checks where the code came
-from; the tests check what it does. The methodology assumes an
-imperfect agent, because that is the agent that exists.
+from; the tests check what it does.
+
+A green suite is evidence only if the tests are an independent
+opinion — a generated implementation and a generated test could
+otherwise share the same misreading and agree on it. The structure
+prevents that: a test spec is its own account of expected behavior,
+and the agent that generates a test sees the component's public
+contract, never its implementation — the format keeps every node's
+internals invisible to the rest of the tree. Implementation and
+test become two independent readings of the same intent. The
+methodology assumes an imperfect agent, because that is the agent
+that exists.
 
 ## Where we are
 

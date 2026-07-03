@@ -1,6 +1,4 @@
-# SPEC/design/default/template
-
-The HTML layout template for the default theme.
+# SPEC/design/journal/template
 
 # Public
 
@@ -25,7 +23,7 @@ parts vary.
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
   <link rel="stylesheet" href="/css/baseline.css">
-  <link rel="stylesheet" href="/css/default.css">
+  <link rel="stylesheet" href="/css/journal.css">
 </head>
 <body>
   <header>
@@ -57,8 +55,7 @@ Variable parts:
 
 - `{artifact-tag}` — the artifact tag, unique per page
 - `{page-specific description}` — meta description
-- `{Page Title}` — use "Code from Spec" alone for the
-  home page; "{Name} — Code from Spec" for others
+- `{Page Title}` — "{Name} — Code from Spec"
 - `{page content here}` — the page's main content
 
 Use `rel="noopener"` on external links. Do not add

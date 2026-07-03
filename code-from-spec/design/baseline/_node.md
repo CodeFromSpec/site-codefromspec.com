@@ -55,8 +55,11 @@ The stylesheet must cover:
    styling. li has margin-bottom 0.25em.
 
 7. **Blockquote** — left border 4px in accent color,
-   8px 16px padding, blockquote-text color. Last p
-   inside blockquote has no bottom margin.
+   8px 16px padding, blockquote-text color, margin-top 0,
+   margin-bottom 1em (so it doesn't collide with the
+   element that follows). Last p inside blockquote has
+   no bottom margin (the blockquote's own margin-bottom
+   provides the spacing instead).
 
 8. **Strong** — font-weight bold (default, just ensure
    it is not overridden).

@@ -160,7 +160,7 @@ status, which fee applies to which kind of account.
 
 The change is that the expert contributes to the
 artifact itself, instead of to an intermediary's
-understanding of what she meant. The compliance
+understanding of what the artifact should be. The compliance
 officer still does not touch the constraint that makes
 her rule safe under concurrent execution; that is
 enforced around her rather than expected of her — the

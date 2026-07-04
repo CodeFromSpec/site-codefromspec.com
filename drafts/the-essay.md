@@ -71,10 +71,9 @@ since no description of useful size closes every degree of freedom — and the g
 priors favored. Most such resolutions are harmless: the behaviors compatible with the silence mostly overlap with
 what the stakeholders would have accepted, had anyone thought to ask. A bug, on this reading, is the case where the
 coin landed on the side nobody wanted: the sample is fully conforming to everything the description said, and still
-wrong, because the description never said enough to rule the outcome out. This is the same mechanism as luck that
-can run out on a re-roll — a bug is what that luck running out looks like from the inside, the first time it happens.
+wrong, because the description never said enough to rule the outcome out.
 
-The distinction changes the fix. Nonconformance is repaired by extending the oracle to catch the violation
+The distinction determines the fix. Nonconformance is repaired by extending the oracle to catch the violation
 mechanically, or simply by generating again against the same description, since the description was never the
 problem. Underspecification is repaired by narrowing the description along the dimension the incident just revealed
 — and, in the same motion, teaching the oracle to check it, so the fix holds even after the code that currently
@@ -84,7 +83,7 @@ the correction durable across a resample instead of true only of the current poi
 
 This also sharpens what **ratifying** means as an operation. It is not merely recording a decision after the
 fact. It is retroactively narrowing the region a description defines, to exclude a point a sample just proved was
-reachable and unwanted — intent, discovered in arrears, folded back into the description that was supposed to
+reachable and unwanted — intent folded back into the description that was supposed to
 have contained it from the start.
 
 ## Part II — Why nothing is ever finished

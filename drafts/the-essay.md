@@ -91,22 +91,20 @@ have contained it from the start.
 
 ### The dimensions that do and do not matter
 
-Before going further it is worth stating plainly a fact the rest of this essay leans on constantly. The space of
+The space of
 programs has far more dimensions than intuition expects, and displacement along most of them does not correlate
 with behavior at all — a renamed variable, two independent statements reordered, one standard-library function
 swapped for an equivalent one: each a real move in the space and a null move in what the program does. A small
 number of other dimensions behave the opposite way: flip a comparison operator, shift a loop bound by one, swap
 two arguments of the same type, and a single-token edit lands the artifact in a different region of the space
 entirely. Textual distance — the only distance cheap enough to compute — tracks neither kind of dimension:
-it overstates the move for most of them and misses it completely for the few that matter. "Basin" and "landscape,"
-used freely from here on, are borrowed from continuous optimization and used loosely; nothing in this model computes
-a gradient in the sense an optimizer would recognize.
+it overstates the move for most of them and misses it completely for the few that matter.
 
 A second fact belongs next to the first, because it is easy to conflate the two. A dimension can be free with
 respect to the region a description defines — it never changes which programs count as conforming — while
 remaining expensive with respect to everything else worth counting as a cost: the price a human pays to confirm a
 candidate, the price a future editor pays to aim correctly at what still needs deciding, the price of a local move
-accidentally landing on a dimension that does matter. Naming is exactly this kind of dimension. Phil Karlton's
+accidentally touching a dimension that does matter. Naming is exactly this kind of dimension. Phil Karlton's
 list of the two hard problems in computer science — cache invalidation and naming things — puts naming next
 to a genuinely hard correctness problem, which is strange if naming only ever mattered for behavior. It plainly
 does not only matter for behavior: it never touches the region a description defines, and it constantly touches
@@ -128,8 +126,8 @@ and becomes another load-bearing dimension wearing a disguise.
 Push the model to a limit case, exactly to see what it assumes without saying so: grant a perfect oracle — no blind
 spot, deciding any sample against true intent, for free. The space of programs does not shrink because the oracle
 got better. Even restricted to strings over a finite alphabet it stays infinite — countably so, an enumerable
-infinity with no continuum and no native metric, not the richer kind of infinite the borrowed language of "basin"
-and "landscape" later in this essay might suggest — so the set of points that fail intent stays infinite too. No
+infinity with no continuum and no native metric, not the richer kind of infinite the spatial language of "neighborhood"
+and "terrain" later in this essay might suggest — so the set of points that fail intent stays infinite too. No
 finite description can pre-empt an infinite defect surface — enumerating every way a program could go wrong would
 make the description as long as the space it describes, which is the same wall that gives a description room for
 silence in the first place.

@@ -3,10 +3,10 @@ ARTIFACT/design/baseline;path:public/css/baseline.css;checksum:ydmHzducyUbWcXP4P
 ARTIFACT/design/default/stylesheet;path:public/css/default.css;checksum:qMitBPGfLqGAcyK3Ks3ZLUJLXg0;chain:t_q31H-Rdhn-5hr7HpIZ-MCsmMQ
 ARTIFACT/design/journal/stylesheet;path:public/css/journal.css;checksum:2nX_MFCEDos4ISWpeR1EC1gbLfU;chain:oEBxEswFIY-ZxuBZQ1ZJzTDKk-o
 ARTIFACT/html/home;path:public/index.html;checksum:ujaUZpPzSEizhVuavEyAAPI-Xo4;chain:Bsc-mG4VLRT4x4ov-mRcJTyeloA
-ARTIFACT/html/sections/journal/entries/anchoring-on-old-code;path:public/journal/anchoring-on-old-code/index.html;checksum:3a7jzY99do8ADf4W9PydElTqSh4;chain:L1DCvrUGKChUzRDQEnrZ9R8_K6Y
-ARTIFACT/html/sections/journal/entries/confinement;path:public/journal/confinement/index.html;checksum:1q9MnoKn5BSzBOsB3e0XwZDfS8k;chain:wm7Z_j3zkq9w6KzItIQWGSs2cxM
+ARTIFACT/html/sections/journal/entries/anchoring-on-old-code;path:public/journal/anchoring-on-old-code/index.html;checksum:dCtjB9-yTtjlQ3AmV-OIsGZwgSM;chain:y-6FAdNNfRqPjCKmvMkwmEv-PQk
+ARTIFACT/html/sections/journal/entries/confinement;path:public/journal/confinement/index.html;checksum:aSNUTfBszeVBRXMkklooOnBIiFk;chain:zlocQKraGALAQToI4J5tyXH-dSE
 ARTIFACT/html/sections/journal/entries/context-management;path:public/journal/context-management/index.html;checksum:iuU1rKXQLCq_ZPJnhYP8pVf92dE;chain:xUSdf-R--GHw4BTu1o4ZHCGxqck
-ARTIFACT/html/sections/journal/entries/telling-the-agent-what-changed;path:public/journal/telling-the-agent-what-changed/index.html;checksum:1FUp6z6nH0Yy5r0w4aRtYRXD8vU;chain:rgndwAGAeivlUzZ9uspkVAFZTBU
+ARTIFACT/html/sections/journal/entries/telling-the-agent-what-changed;path:public/journal/telling-the-agent-what-changed/index.html;checksum:cynF4K0KPeuGtLpnEuypmf35aIo;chain:OzNPTYJ9FlFZ53IOs5vPxTDqy-o
 ARTIFACT/html/sections/journal/index;path:public/journal/index.html;checksum:8lG23Ku478H5tCTNKzhOvC6_yOU;chain:LgwAx7WFSpZGs_K7s4Ffs4aiYFo
 ARTIFACT/html/sections/license;path:public/license/index.html;checksum:ratqqUSRQjOGN3slnp1twshXGpQ;chain:FJY3du7z6gbf-SMieCNs-Dq3N7s
-ARTIFACT/html/sections/rationale;path:public/rationale/index.html;checksum:nc0dG3bKeAZm9HFiIk8M3NGdHqo;chain:uWBINB4hcxyPiSA8xbKBHCecMoY
+ARTIFACT/html/sections/rationale;path:public/rationale/index.html;checksum:IxIX1FAZj57kPpuyinDrUwVQTXQ;chain:Gb8lDGs_9z-7iLZJ7XUtBvE4T-Y

@@ -12,7 +12,7 @@ July 1, 2026
 
 ![Three open problems](/images/journal/20260701_image_1.png)
 
-In [Anchoring on old code](/journal/anchoring-on-old-code) we
+In [Anchoring on old code](/journal/anchoring-on-old-code) I
 described a failure in regeneration. When the spec changes but the
 previously generated artifact is in the agent's context, the agent
 sometimes preserves the old code and never processes the change.
@@ -26,10 +26,10 @@ whether changing the order of presentation — code first, spec last
 what changed in the spec, so it does not have to discover the
 difference on its own.
 
-We built against all three. This is a report on what happened —
-including the part where our favorite hypothesis produced nothing.
+I built against all three. This is a report on what happened —
+including the part where my favorite hypothesis produced nothing.
 
-## What we built
+## What I built
 
 The mechanism rests on a cache. Whenever the tooling assembles a
 spec chain, it records the content of every position — each
@@ -42,7 +42,8 @@ With it, the tooling can compare the chain that produced the last
 generation against the chain that exists now, position by position,
 by hash. No interpretation, no rendering, no diff notation — just:
 same hash or different hash. Each position in the current spec is
-tagged with a **disposition**: `unchanged`, `changed`, or `added`.
+tagged with a **disposition**: `unchanged`, `changed`, `added`, or
+`removed`.
 Positions that changed or were removed additionally deliver their
 old content, in blocks that precede the current spec.
 
@@ -90,12 +91,12 @@ after. Everything marked `unchanged` can be read as settled.
 
 ## The accidental experiment
 
-The first real test was accidental, and it gave us both arms of a
-comparison we could not have designed better.
+The first real test was accidental, and it gave me both sides of a
+comparison I could not have designed better.
 
-While building the cache itself, we changed a test spec. The spec
+While building the cache itself, I changed a test spec. The spec
 said the tool's output should start with `chain_hash:` followed by
-27 characters; we changed it to say the output should start with
+27 characters; I changed it to say the output should start with
 `<chain>`. Two words different, in a spec that runs several pages
 when delivered in the chain.
 
@@ -106,10 +107,10 @@ and no disposition. It compared them, concluded "no changes
 required," and wrote the file unchanged. This is the anchoring
 failure from the earlier article, reproduced exactly — and note
 that the context was already in the reordered form, existing
-artifact before the current spec. The remedy was also the one we
+artifact before the current spec. The remedy was also the one I
 had documented: delete the artifact and regenerate from scratch.
 
-Later in the same session, the cache came online. We reversed the
+Later in the same session, the cache came online. I reversed the
 spec change, ran a generation to populate the cache, then reversed
 it again. Same two-word change, same model, same subagent
 configuration, same existing artifact.
@@ -121,7 +122,7 @@ correct result.
 
 ## The deliberate one
 
-With the cache operational, we ran a test designed in advance, on
+With the cache operational, I ran a test designed in advance, on
 the same tool — the regeneration whose chain appears condensed
 above. The change: `dump_chain` used to write to a single file at
 the project root, overwriting it on every call. The spec now says
@@ -182,7 +183,7 @@ anchored exactly as before. Whatever weight recency carries, it was
 not enough to make the agent notice two words in several pages. The
 problem is evidently not that simple.
 
-We keep the temporal order anyway, for a different reason: it is
+I keep the temporal order anyway, for a different reason: it is
 the arrangement under which the rest of the design makes sense. The
 current spec is delivered complete and last, so it is authoritative
 on its own — if the agent reads the comparison poorly, it still
@@ -193,14 +194,14 @@ not the fix. The fix was the signal.
 
 ## The cheap half of the delta
 
-The explicit delta was the third open problem, and we almost built
+The explicit delta was the third open problem, and I almost built
 it the expensive way: compute a diff of each changed position and
 render it for the agent. That design broke down on two questions.
 The first was format: unified diff reads cleanly for code and lies
 about prose — a one-word change shows up as a whole line leaving
-and re-entering; word-level diff does the opposite; our specs are
+and re-entering; word-level diff does the opposite; the specs are
 both, sometimes in a single section. The second was fluency, and
-there we had worse than no evidence. We had once wanted
+there I had worse than no evidence. I had once wanted
 `write_file` to accept a diff instead of the whole file, and the
 model could not produce unified diffs reliably. Generating is not
 reading, but it was a poor omen for building the framework around
@@ -214,68 +215,25 @@ the pair. That is comparison by reading: no notation, just two
 statements and the noticing. The bet was that this skill might be
 sufficient.
 
-So we split the delta in half. Saying *which* positions changed is
+So I split the delta in half. Saying *which* positions changed is
 a hash comparison — mechanical, exhaustive, impossible to get
 wrong. Showing *how* a position changed is rendering — expensive,
-fragile, format-dependent. We built the first half and let reading
+fragile, format-dependent. I built the first half and let reading
 do the second: the disposition says where to look, the old content
 of what moved says what was there before, and the agent finds the
 difference the way it finds a contradiction in a conversation.
 
-The experiments mark the boundary of that bet with some precision.
-Reading failed when the search space was the whole spec — two
-words lost in several pages, compared against a whole file. It
-worked when the search space was one position marked `changed`,
-read against its previous content. The model's reading is reliable
-at the scale the disposition reduces the problem to. The cheap
-signal is what shrinks the haystack until reading is enough.
-
-On these first tests it was. The difference between missing a
-two-word change and applying it was not a better model, a better
-prompt, or a better ordering. It was a one-word attribute computed
-from two hashes.
-
-## What we do not know yet
+## What I do not know yet
 
 Since the experiments above, disposition-guided regeneration has
-run in several real projects — on the order of ten regenerations
-across different codebases — and behaved correctly in every one.
-That is a consistent early record, and it is why we are writing
-this up. It is still not systematic measurement: no controlled
-comparison, no counting of failure rates, no variation of models.
-We want to be precise about the difference.
+run several times, across different real-world codebases, and it
+has behaved correctly every time.
+That is a consistent early record — however, it is still n of 1:
+all of this is empirical, not rigorous.
 
-There are also scenarios the record does not yet cover. The
-changed-dependency cases we have seen resolved to "no change
-required" — we have not yet watched a change to an inherited
-constraint force real changes through the code, where the agent
-must trace implications rather than update an assertion. And we
-have not tested large changes that touch many positions, where the
-`previous_*` blocks grow — that is where the dilution risk lives:
-old content, delivered ahead of the current spec, competing with
-it for attention.
-
-And one dependency deserves naming: the disposition tells the
-agent where to look, but noticing what changed within a position,
-and tracing what it implies for the code, is still the model's
-work. How well this holds depends on the capability of the model
-in use, and will move — in either direction — as models change.
-This is something to watch over time, with caution. But watching
-it so far has been the good kind of watching, and we are
-enthusiastic.
-
-The two failure modes to watch pull in opposite directions.
-If anchoring persists, the remedy is a stronger signal — the finer,
-within-position delta we deferred. If dilution appears, the remedy
-is less prior content — the disposition tags without the old text
-at all. Because the remedies conflict, the failures have to be told
-apart before either is applied.
-
-What we can say is narrower, and worth saying anyway. The remedy
-for anchoring used to be destructive: delete the artifact and
-regenerate from scratch, discarding the stability that keeping the
-artifact was meant to buy. Now there is a remedy that keeps the
-artifact and catches the change — at the cost of a gitignored cache
-and a hash comparison. Every regeneration so far has pointed the
-same way: we did not have to choose between stability and
-correctness.
+The disposition tells the agent where to look, but noticing what
+changed within a position, and tracing what it implies for the
+code, is still the model's work. How well this holds depends on
+the capability of the model in use, and will move — in either
+direction — as models change. This is something to watch over
+time, with caution.

@@ -28,8 +28,7 @@ review. A description does not have to be versioned to count; it only has to con
 — any process that, given a description and a context, produces a program: a distribution over the space,
 sampled once per invocation. Even before any description narrows it, that distribution is nowhere near uniform
 — training already concentrates almost all of its probability mass on a vanishingly small, highly conventional
-corner of an otherwise limitless space. Aiming narrows an already-narrow thing further. It does not carve order
-out of true uniformity, because there was never any uniformity to carve it out of. There is an **oracle** — the
+corner of an otherwise limitless space. There is an **oracle** — the
 partial procedure that decides membership in the region, on whichever dimensions it happens to cover. And there
 is the **artifact** — the point you actually have, carrying whatever evidence of survival it has accumulated:
 tests it has passed, traffic it has served, incidents it has not caused.
@@ -37,7 +36,9 @@ tests it has passed, traffic it has served, incidents it has not caused.
 Two of these roles are easy to conflate, and the conflation causes real damage downstream. The description's job is
 **aiming**: it conditions the distribution the generator samples from, shifting probability mass toward the region
 it describes. Aiming is statistical, not geometric — a good description makes landing outside the region unlikely,
-not impossible, and the generator remains free to miss on any single draw. The oracle's job is **confirming**, and
+not impossible, and the generator remains free to miss on any single draw. Aiming narrows an already-narrow thing
+further — it does not carve order out of true uniformity, because, as already noted, there was never any
+uniformity to carve it out of. The oracle's job is **confirming**, and
 confirming is bounded rather than statistical: it decides membership by checking specific properties, on whichever
 dimensions someone built it to check. Passing every check an oracle can run is not the same proposition as belonging
 to the region the description actually defines — it is the narrower claim of belonging to the intersection the

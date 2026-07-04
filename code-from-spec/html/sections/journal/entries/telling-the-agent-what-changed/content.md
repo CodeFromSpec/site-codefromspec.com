@@ -42,7 +42,8 @@ With it, the tooling can compare the chain that produced the last
 generation against the chain that exists now, position by position,
 by hash. No interpretation, no rendering, no diff notation — just:
 same hash or different hash. Each position in the current spec is
-tagged with a **disposition**: `unchanged`, `changed`, or `added`.
+tagged with a **disposition**: `unchanged`, `changed`, `added`, or
+`removed`.
 Positions that changed or were removed additionally deliver their
 old content, in blocks that precede the current spec.
 
@@ -90,7 +91,7 @@ after. Everything marked `unchanged` can be read as settled.
 
 ## The accidental experiment
 
-The first real test was accidental, and it gave me both arms of a
+The first real test was accidental, and it gave me both sides of a
 comparison I could not have designed better.
 
 While building the cache itself, I changed a test spec. The spec
@@ -222,60 +223,17 @@ do the second: the disposition says where to look, the old content
 of what moved says what was there before, and the agent finds the
 difference the way it finds a contradiction in a conversation.
 
-The experiments mark the boundary of that bet with some precision.
-Reading failed when the search space was the whole spec — two
-words lost in several pages, compared against a whole file. It
-worked when the search space was one position marked `changed`,
-read against its previous content. The model's reading is reliable
-at the scale the disposition reduces the problem to. The cheap
-signal is what shrinks the haystack until reading is enough.
-
-On these first tests it was. The difference between missing a
-two-word change and applying it was not a better model, a better
-prompt, or a better ordering. It was a one-word attribute computed
-from two hashes.
-
 ## What I do not know yet
 
 Since the experiments above, disposition-guided regeneration has
-run in several real projects — on the order of ten regenerations
-across different codebases — and behaved correctly in every one.
-That is a consistent early record, and it is why I am writing
-this up. It is still not systematic measurement: no controlled
-comparison, no counting of failure rates, no variation of models.
-I want to be precise about the difference.
+run several times, across different real-world codebases, and it
+has behaved correctly every time.
+That is a consistent early record — however, it is still n of 1:
+all of this is empirical, not rigorous.
 
-There are also scenarios the record does not yet cover. The
-changed-dependency cases I have seen resolved to "no change
-required" — I have not yet watched a change to an inherited
-constraint force real changes through the code, where the agent
-must trace implications rather than update an assertion. And I
-have not tested large changes that touch many positions, where the
-`previous_*` blocks grow — that is where the dilution risk lives:
-old content, delivered ahead of the current spec, competing with
-it for attention.
-
-And one dependency deserves naming: the disposition tells the
-agent where to look, but noticing what changed within a position,
-and tracing what it implies for the code, is still the model's
-work. How well this holds depends on the capability of the model
-in use, and will move — in either direction — as models change.
-This is something to watch over time, with caution. But watching
-it so far has been the good kind of watching, and I am
-enthusiastic.
-
-The two failure modes to watch pull in opposite directions.
-If anchoring persists, the remedy is a stronger signal — the finer,
-within-position delta I deferred. If dilution appears, the remedy
-is less prior content — the disposition tags without the old text
-at all. Because the remedies conflict, the failures have to be told
-apart before either is applied.
-
-What I can say is narrower, and worth saying anyway. The remedy
-for anchoring used to be destructive: delete the artifact and
-regenerate from scratch, discarding the stability that keeping the
-artifact was meant to buy. Now there is a remedy that keeps the
-artifact and catches the change — at the cost of a gitignored cache
-and a hash comparison. Every regeneration so far has pointed the
-same way: I did not have to choose between stability and
-correctness.
+The disposition tells the agent where to look, but noticing what
+changed within a position, and tracing what it implies for the
+code, is still the model's work. How well this holds depends on
+the capability of the model in use, and will move — in either
+direction — as models change. This is something to watch over
+time, with caution.

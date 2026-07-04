@@ -1,160 +1,200 @@
 # Journal seed — Is the compiler cheating?
 
-Question: during regeneration, is it legitimate to feed
-the generation subagent compiler errors or test failures
-from its own output? Or does that violate "generate from
-the chain only"?
+Question: during regeneration, is it legitimate to feed the
+generation subagent compiler errors or test failures from its own
+output? Or does that violate "generate from the chain only"?
 
-## Position (revised under the search framing)
+## Position, restated through the model
 
-- **Compiler errors: yes.** A compiler error is the
-  deterministic verdict of the toolchain over that exact
-  code. It carries no intent — it cannot tell the agent
-  *what to build*, only that what it built does not hold
-  together. Feeding it back is cleaning sampler noise,
-  not importing unauthored context. (Gaming mode to guard
-  against even here: satisfying the verdict by
-  amputation — deleting the offending functionality.)
-- **Test failures: legitimate as a signal category, but
-  only after triage.** Original position ("tests are a
-  different kind of object") was refuted by the search
-  framing: the test spec is a region description too
-  (extensional), so a test failure IS a verdict, same
-  category as the compiler's. What survives is the triage
-  gate, on two grounds the category argument does not
-  dissolve:
-    1. **The verdict is ambiguous.** With two authored
-       descriptions of the region, a failure means either
-       "point outside region" (descriptions agree; agent
-       erred) or "the two descriptions disagree at this
-       point" (spec ambiguous/incomplete, or test wrong).
-       Auto-repair in the second case moves the point into
-       the *intersection* and silently consumes the
-       disagreement — which is the convergence loop's food.
-       Compiler verdicts have no such ambiguity: the
-       toolchain is not an authored description and cannot
-       disagree about intent. A test failure is a collision
-       between two authored artifacts, and those must reach
-       a human.
-    2. **Goodhart.** Pins-as-repair-targets invite passing
-       the pins without the rule between them: hardcoded
-       expected values, special-cased scenarios,
-       amputation. Legitimate repair is projection onto the
-       intersection — failure output + the full prose
-       chain — never pin-chasing.
-- **Accounting corollary:** a green obtained after the
-  agent saw the failing assertion is weaker evidence than
-  a first-pass green at that pin — conformity, not
-  independent concordance. Mark repaired greens;
-  first-pass rate remains the spec-quality metric.
-- **Policy:** failure → triage (the disambiguation) → if
-  "descriptions agree, point is out": retry with failure
-  output + full chain, bounded, counted.
+The confusion dissolves once the compiler is named for what it
+already is elsewhere on this site: an oracle, not a description.
+Confinement exists to control **aim** — which sources of intent are
+allowed to condition what the generator produces. A compiler error
+carries zero intent. It is a **confirm** signal: a verdict, on one
+narrow dimension (shape), about a sample that was already generated
+from the chain. Feeding it back does not add a competing
+description. It adds information about where the existing
+description was already violated.
 
-## The case against (taken seriously)
+- **Compiler errors: always safe to feed back.** A language's
+  grammar and type rules are a closed, wholesale, pre-paid oracle,
+  argued at length under "The type system as a pre-paid oracle" —
+  authored once by the language's designers, not by this project,
+  and never independently re-authored by anyone this project could
+  disagree with. That closure has a sharp consequence: a compiler
+  verdict can never be ambiguous. There is no second, independently
+  authored account of the language's grammar for the compiler's
+  verdict to conflict with — the compiler *is* the grammar,
+  executable. Every compiler failure is therefore unambiguous
+  nonconformance in the sense "What a bug is" already gave the term:
+  the shape dimension was already fully spoken for by the choice of
+  language, and the sample missed it. Feeding the verdict back and
+  retrying is not consulting a new source of intent. It is
+  re-sampling with the cheapest possible directional signal against
+  a dimension that was never in question. (Gaming mode to guard
+  against even here: satisfying the verdict by amputation — deleting
+  the offending functionality instead of fixing it.)
+- **Test failures: the same signal category, minus the closure.** A
+  test is not a closed, wholesale oracle — it is authored retail, by
+  a person or an agent, independently of the implementation,
+  precisely so it can catch what the implementation gets wrong. That
+  same independence is what makes a test failure genuinely ambiguous
+  in a way a compiler failure structurally cannot be: either the
+  sample violated something the spec and the test agree on
+  (nonconformance — safe to feed back, same as a compiler error), or
+  the test and the spec disagree with each other at this point
+  (underspecification, or a wrong test — the exact fork "Test, spec,
+  or both" already names). Auto-repairing the second case without a
+  human in the loop does not fix a bug. It moves the sample into
+  whatever intersection of the two authored descriptions happens to
+  satisfy both, and silently consumes a disagreement that should
+  have become a spec fix. That is not "cheating" in the sense the
+  question originally worried about — it is a **ratification
+  failure**: a discovery that should have been written into the
+  description or the test, discarded instead into an artifact nobody
+  will re-derive.
 
-- Prompt additions "bypass the chain, are not versioned,
-  do not participate in the hash" — a compile error is
-  all of those.
-- The manifest would subtly lie: the artifact came from
-  (chain + N feedback rounds), not from the chain alone.
-- Deepest risk: an agent that self-corrects can hide the
-  spec's insufficiency. The ambiguity that caused the
-  error never reaches a human, never becomes a spec fix.
-  Convergence stalls, permanently subsidized by invisible
-  iteration. (The "subsidy" argument from The immune
-  system, reincarnated: the retry loop as the new silent
-  payer.)
+## The line, derived rather than borrowed
 
-## The case for
+The earlier framing reached for an immune-system metaphor — innate
+versus adaptive — to justify treating compiler feedback differently
+from test feedback. The model already gives a sharper,
+non-metaphorical reason: a compiler is a **closed oracle**, authored
+once, wholesale, with no independent second author who could
+disagree with it. A test is an **open oracle**, authored retail,
+independently, precisely so it *can* disagree — with the
+implementation, and sometimes, when something has gone wrong
+upstream, with the spec itself. Closed oracles cannot produce an
+ambiguous verdict, because nothing else claims to speak for the
+region they check. Open oracles can, because two independently
+authored accounts of the same intent are exactly the material a real
+disagreement is made of.
 
-1. **Verdict vs. intent.** Confinement exists to exclude
-   unauthored *sources of intent* (neighboring files,
-   CLAUDE.md, the web) — things that compete with the
-   spec over *what to build*. Compiler output is a
-   mechanical function of (artifact, toolchain). It is a
-   verdict about *what happened*, and cannot contaminate
-   the what.
-2. **The category already exists in the chain.**
-   `<existing_artifact>` and the `previous_*` blocks are
-   machine-produced, unauthored, unhashed context,
-   delivered with explicit authority semantics ("history —
-   not so you can preserve it"). Build verdicts fit the
-   same category: context that informs but does not
-   govern.
-3. **Filter vs. redefinition (via Collapsing).** The spec
-   defines a space of conforming programs. The compiler
-   does not move that space — it filters samples.
-   Error-guided retry is search *within* the space.
-   Reading a neighboring file *redefines* the space with
-   constraints nobody wrote. That is the difference.
-4. **Via Many worlds:** retry *without* the error is the
-   coin re-flip ("do it again but better," to a memoryless
-   executor). The disposition mechanism already
-   consecrated the principle: cheap directional signal is
-   what makes retry rational. A compiler error is the
-   cheapest directional signal there is.
+- **Closed oracles (compiler, linter, exhaustiveness checker):**
+  feedback automatic and legitimate. Deterministic, intent-free,
+  unambiguous. Bounded retries, always counted.
+- **Open oracles (behavioral tests):** failure escalates to triage
+  first. Only after the fork resolves to "spec and test agree, the
+  agent erred anyway" does feeding the failure back become a
+  same-category retry rather than a silent ratification failure.
+  (Open question: is even this too permissive? Stricter position:
+  test results never reach the agent directly; only spec fixes
+  reach it, and the agent never sees its own prior failure.)
 
-## The line
+## The case against, and what it is actually afraid of
 
-Form vs. meaning — and it coincides with innate vs.
-adaptive immunity:
+The strongest version of the objection is not about the compiler at
+all — it is about **visibility**. An agent that silently
+self-corrects against a closed oracle is fine; an agent that
+silently self-corrects against an *open* one can hide the spec's
+insufficiency forever. The ambiguity that caused the failure never
+reaches a human, never becomes a ratified fix, and the artifact
+converges on something that merely survived the retry loop rather
+than something the description actually specifies. This is the same
+failure "Many worlds" already named from a different angle:
+everything ratified survives a resample; everything that only ever
+passed by the luck of an unlogged retry is exactly the kind of luck
+that does not.
 
-- **Form (compiler, linter, type checker):** feedback
-  automatic and legitimate. Deterministic, intent-free.
-  Bounded retries (2–3), always counted.
-- **Meaning (behavioral tests):** failure escalates to
-  triage first. Only after the verdict "spec is clear,
-  agent erred anyway" is a retry with the failure output
-  in context legitimate — and superior to a blind
-  re-flip. (Open question: is even this too permissive?
-  Stricter position: test results never reach the agent;
-  only spec fixes do.)
+## The case for, in the model's own terms
+
+1. **Verdict versus aim.** Confinement excludes unauthored sources
+   of *aim* — neighboring files, unrelated context, anything that
+   could compete with the spec over what to build. A compiler's
+   output is a mechanical function of (artifact, toolchain). It
+   never says what to build. It says only what happened, which is
+   confirm, not aim, and confinement was never a rule about confirm.
+2. **The category already exists in the chain.** The existing
+   artifact and the `previous_*` blocks documented under "Telling
+   the agent what changed" are already machine-produced, unhashed
+   context delivered with explicit, subordinate authority — history
+   to inform, not to govern. A build verdict is the same category of
+   thing: informative, never authoritative.
+3. **Filter, not redefinition — aiming and confirming again.** The
+   description defines a region; feeding back a compiler verdict
+   does not move that region, because the compiler was never part of
+   aiming it in the first place — it only ever confirms membership.
+   Reading an unauthorized neighboring file would redefine the
+   region with constraints nobody wrote, which is exactly the
+   aim-contamination confinement exists to prevent. A verdict cannot
+   contaminate a channel it never had access to.
+4. **A cheap directional signal beats a coin re-flip.** "Many
+   worlds" already named the alternative for what it is: resampling
+   without the failure in context is asking a memoryless executor to
+   "do it again but better," which is not even a long shot — the
+   same distribution, sampled again, as likely to fail the same way
+   as it ever was. A compiler error is the cheapest directional
+   signal available, closer in kind to the disposition mechanism's
+   cheap, mechanical delta than to a blind re-roll.
 
 ## The thesis that dissolves "cheating"
 
-Feedback is not cheating; **uncounted feedback is.** The
-claim at risk is "the spec is sufficient to produce the
-artifact." Five feedback rounds mean the spec was not
-sufficient in one shot — hiding the rounds hides the
-insufficiency. So: do not forbid the signal; **meter
-it**. First-pass success rate (compiles and passes with
-zero feedback) becomes *the* mechanical metric of spec
-quality. Retries are permitted throughput; a rising retry
-count on a node is the alarm that its spec precision is
-in debt. Free byproduct: the project's first mechanical
-KPI of convergence.
+Feedback is not cheating. **Unmetered feedback is** — and only where
+the oracle is open enough to disagree with the spec in the first
+place. The claim genuinely at risk is "the description was
+sufficient to produce this artifact." A retry against a closed
+oracle never puts that claim at risk, because the closed oracle was
+never part of what the description had to get right — the shape
+dimension was already fully specified by the choice of language,
+argued under "The type system as a pre-paid oracle." A retry against
+an open oracle does put the claim at risk, which is exactly why it
+needs the fork triage before it is allowed to happen silently.
 
-## Design notes
+Metering turns this into the mechanical measurement "Where the
+crossover sits" and "Diminishing returns on aim" already wanted a
+number for and never had one: first-pass compile rate is a direct,
+cheap estimate of how much of the shape dimension's probability mass
+the generator is missing on the first sample, before any retry loop
+absorbs it. A rising retry count on a node is not noise to be
+smoothed away. It is the alarm this page has been arguing all along
+should exist — that some dimension's aim is in debt, and debt on a
+dimension a closed oracle cannot fix by itself is debt only a spec
+change can pay down.
 
-- Feedback arrives as a **new subagent dispatch** with
-  the verdict as an explicit block (e.g.
-  `<build_verdict>`), preserving "every generation is a
-  function of declared inputs." Not as conversation
-  accumulating in one agent's context — that is the line
-  between a guided sampler and an agent debugging (i.e.
-  ordinary agentic coding).
-- Retry counts recorded per node (manifest or cache) and
-  reported per session.
-- Admission the feedback makes visible: the toolchain was
-  always an implicit dependency of generation ("the
-  artifact must compile under *this* compiler"). The
-  feedback loop surfaces it; that is gain, not loss.
+## Design notes, reframed
+
+- Feedback arrives as a **new, bounded dispatch** with the verdict
+  as an explicit, declared input — not as conversation accumulating
+  in one agent's context. This is confinement's own requirement,
+  restated for a retry: every generation is a function of declared
+  inputs, and a verdict fed back has to be one of them, not a side
+  effect of letting an agent keep talking to itself. The alternative
+  is not "cheating" either, but it stops being a guided sampler and
+  becomes ordinary agentic debugging — a different, unconfined
+  activity this methodology deliberately does not do.
+- This retry loop is worth naming as its own operation, distinct
+  from the four already given under "The primitives": not a fresh,
+  independent sample, not a permanent local move against a persisted
+  artifact, and not a ratification into the description or the
+  oracle. It is a **bounded, ephemeral resample** — scoped to one
+  generation event, guided by a closed oracle's verdict, that leaves
+  no trace in the versioned half of anything once the event
+  concludes — cheap precisely because it never touches aim.
+- What the loop makes visible was always true and previously
+  invisible: the toolchain was always an implicit dependency of
+  every generation, "the artifact must compile under this compiler,"
+  present in every chain whether or not anyone wrote it down.
+  Surfacing it is a gain, not a leak.
+- Retry counts recorded per node and reported per session — the raw
+  material for the first-pass-rate metric above.
 
 ## Connections
 
-- The immune system: innate/adaptive division; the
-  subsidy argument.
-- Many worlds: memoryless re-flip; directional signal.
-- Collapsing the wave function: space vs. sample; filter
-  vs. redefinition.
-- Telling the agent what changed: precedent for cheap
-  mechanical signals shrinking the haystack.
-- BEST_PRACTICES "Diagnose before regenerating": the
-  existing rule that test failures go to triage.
+- "The type system as a pre-paid oracle": why a compiler's verdict
+  can never be ambiguous.
+- "What a bug is": nonconformance versus underspecification, the
+  same fork this page's triage gate depends on.
+- "Test, spec, or both": what a test failure's ambiguity actually
+  forks into, and why only one branch is safe to auto-repair.
+- "Many worlds": the memoryless re-flip; why a directional signal is
+  not the same risk as a blind resample.
+- "The primitives": the four operations this page adds a fifth,
+  bounded one to.
+- "Telling the agent what changed": precedent for cheap, mechanical,
+  unhashed signals narrowing a search without contaminating aim.
 
 ## Candidate titles
 
 - Is the compiler cheating?
-- The verdict and the intent
-- Feedback is not cheating; uncounted feedback is
+- Closed oracles, open oracles
+- Feedback is not cheating; unmetered feedback is

@@ -28,7 +28,8 @@ review. A description does not have to be versioned to count; it only has to con
 — any process that, given a description and a context, produces a program: a distribution over the space,
 sampled once per invocation. Even before any description narrows it, that distribution is nowhere near uniform
 — training already concentrates almost all of its probability mass on a vanishingly small, highly conventional
-corner of an otherwise limitless space. There is an **oracle** — the
+corner of an otherwise limitless space, because the training objective rewards predicting what a corpus of
+real code already made likely, and that corpus was never uniform over the space to begin with. There is an **oracle** — the
 partial procedure that decides membership in the region, on whichever dimensions it happens to cover. And there
 is the **artifact** — the point you actually have, carrying whatever evidence of survival it has accumulated:
 tests it has passed, traffic it has served, incidents it has not caused.
@@ -90,7 +91,7 @@ have contained it from the start.
 
 ### The dimensions that do and do not matter
 
-Before going further it is worth stating plainly a fact the rest of this page leans on constantly. The space of
+Before going further it is worth stating plainly a fact the rest of this essay leans on constantly. The space of
 programs has far more dimensions than intuition expects, and displacement along most of them does not correlate
 with behavior at all — a renamed variable, two independent statements reordered, one standard-library function
 swapped for an equivalent one: each a real move in the space and a null move in what the program does. A small
@@ -128,7 +129,7 @@ Push the model to a limit case, exactly to see what it assumes without saying so
 spot, deciding any sample against true intent, for free. The space of programs does not shrink because the oracle
 got better. Even restricted to strings over a finite alphabet it stays infinite — countably so, an enumerable
 infinity with no continuum and no native metric, not the richer kind of infinite the borrowed language of "basin"
-and "landscape" later in this page might suggest — so the set of points that fail intent stays infinite too. No
+and "landscape" later in this essay might suggest — so the set of points that fail intent stays infinite too. No
 finite description can pre-empt an infinite defect surface — enumerating every way a program could go wrong would
 make the description as long as the space it describes, which is the same wall that gives a description room for
 silence in the first place.
@@ -389,7 +390,7 @@ on, not in the description. Call it **environmental drift**, to keep the vocabul
 intent-drift moves the target; environmental drift moves the ground the artifact stands on, with no stakeholder
 and no discovery event behind it, purely a function of time acting on everything the artifact depends on but does
 not itself define. A codebase that is never touched is not, contrary to an assumption running quietly through most
-of this page's economics, a codebase whose region-membership is stable. It may simply be a codebase whose decay is
+of this essay's economics, a codebase whose region-membership is stable. It may simply be a codebase whose decay is
 not yet visible, for the same reason a dormant bug is not yet visible: nobody has run the query that would reveal it.
 
 ### Why refactors hurt
@@ -503,7 +504,7 @@ discipline likes to admit. This page has a checklist for when composition is cle
 of how region-membership of the parts combines into region-membership of the whole when it is not — the place
 most real, integration-level defects actually live, and the place where treating a component as a smaller instance
 of the same structure has the least to say. None of this is a reason to distrust decomposition. It is the reason
-decomposition is a design decision with a real answer, not a free assumption, and an admission that this page's
+decomposition is a design decision with a real answer, not a free assumption, and an admission that this essay's
 account of it stops short of the hardest part.
 
 ### The cost of generality
@@ -604,9 +605,9 @@ is deforming the landscape around it.
 A historical correction belongs here, because the term itself has drifted from what coined it. Ward Cunningham's
 original 1992 use of "technical debt" was not about sloppy code — he said explicitly it was not — it was about
 the gap between the current code and a better understanding of the problem, discovered only by building the first
-version. That is drift, in this page's vocabulary, not the rising local-gradient cost the term is popularly used for
+version. That is drift, in this essay's vocabulary, not the rising local-gradient cost the term is popularly used for
 today. The popular meaning drifted from Cunningham's own coinage over three decades of independent, uncoordinated
-use — an instance of the phenomenon this page keeps describing, a shared description eroding under enough use
+use — an instance of the phenomenon this essay keeps describing, a shared description eroding under enough use
 nobody centrally enforced, close to a maxim discussed just below applied to terminology instead of to an API.
 
 None of the above proceeds from formalized premises; the cost structure behind it has been described, not
@@ -655,7 +656,7 @@ nobody has found yet fails every caller at once instead of failing independently
 ### What the field already knew
 
 The claim that programming is discovery, that requirements move, and that deciding what to build is the hard part
-is not new to this page or to the AI era. Several of the field's most-cited voices already argued versions of it,
+is not new to this essay or to the AI era. Several of the field's most-cited voices already argued versions of it,
 independently, decades before a model could generate a line of code.
 
 **Fred Brooks**, in "No Silver Bullet" (1986), split software's difficulty into essential complexity — irreducible,
@@ -672,10 +673,10 @@ Brooks had already drawn the practical conclusion a decade earlier, in "The Myth
 one away; you will, anyhow" — a direct precedent for exploration being cheapest at birth, advocated even under
 the old regime where generation was maximally expensive. He revised this view later, favoring incremental growth
 over wholesale replacement in the twentieth-anniversary retrospective — moving, in his own words, toward exactly
-the tension this page has held throughout between resampling and patching, without ever fully resolving it either.
+the tension this essay has held throughout between resampling and patching, without ever fully resolving it either.
 
 **Jack Reeves**, in "What Is Software Design?" (1992), argued that source code is the actual design document and
-compiling is manufacturing — a claim usually read as provocative, but one this page already arrives at independently:
+compiling is manufacturing — a claim usually read as provocative, but one this essay already arrives at independently:
 the artifact is the record of resolved decisions, closer to design than to the description that permitted many designs.
 
 **The Agile Manifesto** (2001) and Kent Beck's Extreme Programming made the discovery problem into an institutional
@@ -774,29 +775,29 @@ forced by the loss of something that used to come free.
 
 The second is sharper, and "externalize the tacit half" does not fully answer it. Naur's theory was never only a
 list of constraints; it was an understanding of why the system is shaped the way it is, rich enough to navigate
-a situation nobody has hit yet. What actually gets externalized by the mechanism this page describes — a clause
+a situation nobody has hit yet. What actually gets externalized by the mechanism this essay describes — a clause
 narrowing the description, a test pinning the case — is narrower than that: durable protection against one specific,
 already-discovered failure mode, not the narrative understanding that would help with the next one nobody has found
 yet. A spec clause says what must hold. It does not, by itself, carry why, any more than the artifact does. The
 category that would carry why — a rationale record, a design note, an explanation of a tradeoff — is exactly
-the kind of description this page has already argued is economically doomed to drift out of sync with what it
+the kind of description this essay has already argued is economically doomed to drift out of sync with what it
 describes, for the same reasons formal specifications and CASE-tool models drifted before it.
 
-There is a repair available, and this page already has the mechanism for it without having drawn the conclusion. A
+There is a repair available, and this essay already has the mechanism for it without having drawn the conclusion. A
 description that is not consumed by generation or verification has no force holding it to the artifact —
 that was the diagnosis given earlier for why documentation rots. What it implies: put the rationale where the
 generator actually reads it, inside the same spec tree a generation is produced from, not in a separate document no
 tooling ever opens. A rationale note living there is not exempt from going stale. It is no longer exempt from the
 consequence of going stale, either — a rationale that no longer matches why a constraint exists will eventually
-produce a generation that contradicts it, which is the same discovery loop this page has relied on throughout,
+produce a generation that contradicts it, which is the same discovery loop this essay has relied on throughout,
 now pointed at the reasons instead of only at the requirements. This does not rescue theory-building in general;
 a rationale kept for humans only, that no generator's chain ever includes, is exactly as doomed as before. It does
 mean the doom is not automatic. It is a choice about what the generator is allowed to ignore.
 
-There is a third instability worth naming while the second is still in view, because it undercuts this page's
+There is a third instability worth naming while the second is still in view, because it undercuts this essay's
 own machinery rather than someone else's. Every probability-weighted argument since the primitives — a rule's
 power, a spec's crossover point, which silences are safe to leave alone — was defined against "the generator's
-own distribution." That distribution belongs to whichever generator happens to be running, and this page has just
+own distribution." That distribution belongs to whichever generator happens to be running, and this essay has just
 spent a full section arguing that generator is unversioned and can change on a provider's schedule, without a line
 of any description changing. When it changes, every one of those valuations silently reprices: a rule that excluded
 the common failures of one model may guard against something rare under the next, a silence that was safe may stop
@@ -815,7 +816,7 @@ against two different models and comparing which clauses each would have violate
 holds, the crossover argument survives a swap exactly where it matters most — the front of the curve, before
 diminishing returns has bitten — and only the long tail, already the least reliable part of the accounting, gets
 fully re-priced. If it does not hold, the instability is worse than named here, not better, and every crossover
-and diminishing-returns curve in this page should be read with a permanent asterisk: valid for a stated generator,
+and diminishing-returns curve in this essay should be read with a permanent asterisk: valid for a stated generator,
 not guaranteed to survive its retirement.
 
 ### The type system as a pre-paid oracle
@@ -843,7 +844,7 @@ version of the false positive every partial oracle can produce. This tracks the 
 already given: a system whose intent is still being discovered benefits from a larger, more permissive space; a
 system with a long life ahead of it, high fan-in, or high stakes collects more value from prepaid coverage than it
 loses to the narrower space. The choice of language is the earliest and longest-lived instance of the exact trade
-this page has been describing throughout — how much oracle coverage to buy, and when — made before there is
+this essay has been describing throughout — how much oracle coverage to buy, and when — made before there is
 even a project to make it for.
 
 The boundary this section draws between shape and behavior is not fixed by nature, and language design has spent
@@ -874,7 +875,7 @@ deliberately independent, and that same independence means its failure can mean 
 implementation violated something the spec and the test agree on, or the test and the spec disagree with each other,
 and the implementation is caught in the middle. Call this an **open oracle** — not a different kind of thing from
 a closed one, but one recently or thinly enough ratified that disagreement with its own governing description is
-still a live possibility. Closed and open are two ends of the same gradient this page has been calling maturity
+still a live possibility. Closed and open are two ends of the same gradient this essay has been calling maturity
 throughout, applied to the oracle instead of to the artifact it checks.
 
 This gives a practical rule, and it scales with the gradient rather than switching on a category: feeding an oracle's
@@ -948,7 +949,7 @@ What a competent executor actually contributes is a higher hit rate — a prior 
 rather than spread uniformly over the space, so that most silences resolve into something workable on the first
 sample. But a higher hit rate is not certainty, and nothing about it tells you, for any specific resolved silence,
 whether this one landed on the right side. That answer becomes available only through the mechanism described
-throughout this page: the incident that surfaces a bad resolution, the fix that gets ratified into a test or
+throughout this essay: the incident that surfaces a bad resolution, the fix that gets ratified into a test or
 a narrower clause, and the slow accumulation of maturity. A short spec is not safe because competence resolves
 its silences correctly. It is safe because competence keeps the volume of wrong resolutions low enough that the
 discovery-and-ratification loop can afford to catch the rest — a claim about a rate and a cost, not a claim
@@ -997,7 +998,7 @@ It is worth naming, tentatively, what a cheap and competent generator does to th
 be the one case AI genuinely changes rather than merely accelerates. A model's competence is a property of training,
 not of a living community — it does not retire, does not need replacing, and does not care how few humans still
 read the language fluently. If a model can generate and verify code in a scarce language as competently as it
-can in a common one, the generator-extinction trigger for migration weakens in a way none of this page's other
+can in a common one, the generator-extinction trigger for migration weakens in a way none of this essay's other
 arguments do, because the scarcity it responds to was always about people. This is speculative: it depends on a
 model's competence in a given language actually holding up, which nothing here has tested.
 
@@ -1019,7 +1020,7 @@ constraining its behavior.
 
 **Aim tests at the load-bearing dimensions on purpose.** Boundary values, error paths, concurrent access, resource
 exhaustion — the traditional targets of boundary-value analysis and equivalence partitioning — are exactly the
-small set of dimensions that carry outsized sensitivity, named by a different vocabulary decades before this page
+small set of dimensions that carry outsized sensitivity, named by a different vocabulary decades before this essay
 existed. Spreading effort uniformly across the rest of the surface is not thoroughness. It is diminishing returns,
 paid at full price.
 
@@ -1127,7 +1128,7 @@ different crossover.
 is a record that due diligence happened — an accountability signal, not a confirm operation. This function
 survives perfectly intact even after the other three have collapsed to ritual, because it is cheap to produce and
 slow to audit. Evaluate reviewers on throughput — reviews closed per day, the fast, visible proxy — and the
-same problem Goodhart's law names elsewhere in this page shows up again, one level up the stack: the reviewer who
+same problem Goodhart's law names elsewhere in this essay shows up again, one level up the stack: the reviewer who
 reads carefully and catches less-visible defects looks, on the only signal available, slower than one who approves
 quickly and rarely blocks anything, and the incentive tilts toward exactly the rubber-stamping that keeps the
 paperwork intact while the technical function it was named for quietly stops happening.
@@ -1194,7 +1195,7 @@ code's age or its aesthetics.
 
 Joel Spolsky's observation that reading code is harder than writing it, offered as the reason programmers reliably
 underrate code they did not write, has a precise mechanism here rather than remaining a psychological aside —
-though it is worth saying plainly that the underlying cause is cognitive, not something this page discovered;
+though it is worth saying plainly that the underlying cause is cognitive, not something this essay discovered;
 the model only gives it a specific, checkable shape.
 
 Writing happens with the tacit half of the pair live and present, the record of which ambiguities were resolved
@@ -1234,7 +1235,7 @@ the rational response to cheaper writing is not proportionally more human readin
 is shifting as much of the newly enlarged confirmation burden as the crossover justifies onto oracles that do not
 pay the reading tax at all, and reserving the reading itself for exactly the residue that only a human was ever
 going to be able to resolve. It is also, incidentally, a way to make quality legible faster than a slow evaluation
-cycle otherwise would — a consequence with its own economics that this page will not chase further here.
+cycle otherwise would — a consequence with its own economics that this essay will not chase further here.
 
 ## Part IX — Scope and limits
 
@@ -1251,11 +1252,11 @@ somewhere, removed a wall they thought was decorative and found out otherwise. B
 a disaster identifies a failure mode nobody wrote down — a discovery ratified into the description, governing
 every future project the moment it is codified. The skeleton does not strain. It transfers.
 
-What does not transfer is a set of parameter values this page has been treating as background. Generation cost,
+What does not transfer is a set of parameter values this essay has been treating as background. Generation cost,
 in physical engineering, is not one number — it is two, radically apart. Revising a drawing is cheap, cheaper
 every year as simulation improves; pouring the foundation is not, and nothing about better tooling makes concrete
 less permanent once it sets. Software collapsed design and artifact into nearly the same act — compiling is not
-pouring concrete — and this page's whole story about AI is the story of that already-cheap act getting cheaper
+pouring concrete — and this essay's whole story about AI is the story of that already-cheap act getting cheaper
 still. Physical engineering never had that collapse available to it, because the expensive step is gated by matter,
 not by information processing. It lives permanently in the corner the old doctrines named for pre-AI software
 — resampling is not merely expensive, it is architecturally irreversible — except more so, without the exit
@@ -1268,7 +1269,7 @@ codified, mandatory, externally enforced body of standards this discipline is kn
 — the same mechanism named earlier for aviation and medical devices, applied by default to an entire field.
 
 There is a further reason those codes are mandatory rather than merely available. A building code is a ratified
-discovery, and the discovery was frequently paid for in the currency this page has tried hardest to avoid needing
+discovery, and the discovery was frequently paid for in the currency this essay has tried hardest to avoid needing
 — a collapse, a fire, a death. A shared component's defect set is discovered once and closed for everyone who
 uses it, where re-deriving it independently pays the discovery cost again for no new benefit. Civil and electrical
 engineering do not leave that choice to each engineer's private economics. They make reuse of the ratified rule
@@ -1277,7 +1278,7 @@ someone already paid to identify. Not Invented Here syndrome is the same bet, ma
 
 And the dimensionality is not the same order of magnitude. A structure's behavior is governed by physics that,
 for a well-posed problem, converges on a narrow band of adequate solutions — the genuine residual freedom
-this page has argued is unavoidable is real in civil engineering but far smaller, because geometry and material
+this essay has argued is unavoidable is real in civil engineering but far smaller, because geometry and material
 properties do a great deal of the narrowing before any engineer writes a word. This is also why a comprehensive,
 industry-wide body of codified rules is affordable for a building and has never once been affordable for software:
 a lower-dimensional space reaches the point where a rule has covered most of what is worth covering at a cost a
@@ -1290,12 +1291,12 @@ own version of this is discussed above, under environmental drift.
 The claim that physical engineering never had, and never will have, cheap generation deserves the same adversarial
 pressure applied to everything else here, and it does not survive unmarked. Mass manufacturing is the counter-example:
 once a mold or a production line exists, stamping out another unit is nearly free, and has been for over a century. It
-does not qualify, but the reason sharpens rather than rescues the earlier claim: this page's generator was never
+does not qualify, but the reason sharpens rather than rescues the earlier claim: this essay's generator was never
 defined as cheap to run again — it was defined as cheap to run again into a fresh, independently resolved
 point. Manufacturing's cheap repetition is the opposite: the entire purpose of tooling is to suppress variance
 between units, to reproduce one already-validated design identically. It is a cheap confirm-and-repeat operation
 on a point already chosen, not a cheap resample across a region still being explored. Mass production was never
-in the market this page describes, because it was never sampling.
+in the market this essay describes, because it was never sampling.
 
 A closer counter-example does not resolve as cleanly. Generative design — topology optimization and similar
 algorithms that produce many structurally different candidate parts against the same constraints — paired with
@@ -1315,7 +1316,7 @@ was waiting for the same two things software was: a cheap way to sample many can
 The honest conclusion is narrower than either instinct on its own. The primitives do not appear to be specific to
 software — they look like a general account of engineering under an imperfect executor and a partial specification,
 and civil and electrical engineering are a different, more extreme, more permanent point in the same parameter
-space this page has been mapping for software's transition. What is specific to software, and newly to AI, is
+space this essay has been mapping for software's transition. What is specific to software, and newly to AI, is
 not the structure. It is a historically unusual combination of parameter values — collapsing generation cost,
 unusually high dimensionality, and stakes that range from trivial to extreme within a single field — that no
 other engineering discipline has had reason to experience all at once.
@@ -1325,7 +1326,7 @@ other engineering discipline has had reason to experience all at once.
 A lens that never risks being wrong is not earning the confidence its own vocabulary projects, so it is worth
 stating a prediction plainly instead of only conceding, in general terms, that none of this produces a number.
 
-The cleanest version is a controlled one, and it is runnable in exactly the setting this page cares about: take one
+The cleanest version is a controlled one, and it is runnable in exactly the setting this essay cares about: take one
 team and one codebase, and randomize which components, when a similarly sized change is needed, get one of three
 treatments — patched locally against the existing description, re-specified and then patched, or re-specified
 and then fully regenerated — holding domain, stakes, and codebase age fixed by construction instead of hoping
@@ -1334,7 +1335,7 @@ re-specifying and resampling, and a result favoring regeneration could belong en
 more careful description, which would help a patched component just as much. Comparing all three isolates what
 resampling itself buys once re-specification is held constant. If regenerated components do not then show more
 regressions of previously fixed behavior and fewer long-tenured bugs than the other two arms over a comparable
-period, that is evidence against the account this page gives for why a stable artifact matures, not a maxim it
+period, that is evidence against the account this essay gives for why a stable artifact matures, not a maxim it
 has not gotten around to translating yet. Even this design keeps confounds worth naming: components are rarely
 comparable enough across arms for domain and stakes to wash out by randomization alone, and a single team learns
 across its own arms, so a lesson picked up while re-specifying one component can leak into how the same team
@@ -1359,14 +1360,14 @@ it has no opinion about the region it was never built to see.
 Four more gaps are worth naming rather than discovering by ambush. This page has been single-agent throughout —
 one generator, one description, one oracle — and says nothing about the coordination cost of many people or many
 agents sampling into the same region at once, which is arguably where most real organizational cost actually lives,
-and which is not a new problem needing new machinery so much as an old one this page has not pointed at itself:
+and which is not a new problem needing new machinery so much as an old one this essay has not pointed at itself:
 parallel samples into the same region hit the identical shared-mutable-state failure "When the boundary is real"
 already described for a single generator's local moves, just with the collisions happening between agents instead
 of between edits. It has also treated intent as one latent object, incompletely known but at least singular;
 real projects hold several stakeholders' intents at once, which can conflict outright, and a region defined by
 their intersection can be empty rather than merely large — a failure mode the section on residual freedom never
 covers, because it only ever argued the region was too big, never that it could vanish. "Region" itself borrows a
-crispness this page has not earned: membership is often not a fact with a yes-or-no answer, especially on exactly
+crispness this essay has not earned: membership is often not a fact with a yes-or-no answer, especially on exactly
 the dimensions — naming, structure — that the section on code review already named as the ones only a human
 currently judges, which makes "the oracle decides membership" a convenient fiction there rather than a description
 of what is actually happening. And debugging — the loop of forming a hypothesis about what is wrong, testing it,
@@ -1395,12 +1396,12 @@ to switch generators, to bring in a new team — is real options reasoning. And 
 reuse's honest cost is portfolio theory in miniature: concentrating a bet correlates its failures, diversifying
 it does not remove the failures but decorrelates them.
 
-None of this was imported for decoration. Each branch earns its keep by producing a claim this page would not
+None of this was imported for decoration. Each branch earns its keep by producing a claim this essay would not
 have reached without it. The risk runs in the same direction as the physics metaphors above, and deserves the
-same discipline. Real economics comes with assumptions this page has not checked — rational actors, competitive
+same discipline. Real economics comes with assumptions this essay has not checked — rational actors, competitive
 markets, prices that actually clear — and borrowing a result without borrowing the conditions that produce it
 is how a genuinely explanatory analogy quietly turns into decoration wearing a more impressive name. The honest
-use of each branch here has been structural, not computational. Where this page has done that, the economics
+use of each branch here has been structural, not computational. Where this essay has done that, the economics
 is load-bearing. Where a future reader finds a section using economic language to sound rigorous rather than to
 make a checkable claim, that is the same test the battlefield assumption already had to survive, run again on a
 different vocabulary.

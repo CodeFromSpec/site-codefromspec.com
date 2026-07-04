@@ -102,20 +102,21 @@ model-plus-settings as part of the versioned toolchain, and
 disposability comes back.
 
 The move fails before it starts, because pinning does not produce a
-function. A pinned model is still a sampler. On average it behaves
-predictably; in the detail — which reading of an ambiguous
-sentence, which of two reasonable decompositions, which handling of
-the case the spec never mentioned — it varies between runs, same
-model, same settings, same spec. The variation is not a
-configuration error to be tuned away. It is what the thing is.
-Determinism was never on the table, and a toolchain that cannot
-reproduce its own output cannot carry the branch information for
-you.
+function you control. Even granting the most generous case — a
+fixed checkpoint, zero temperature, deterministic infrastructure —
+it is not yours to pin. What serves under a model name runs on
+infrastructure you do not control and can change on the provider's
+schedule, not yours; the names themselves retire. A compiler you
+can vendor and build from source in ten years; a hosted model you
+cannot vendor at all.
 
-And even if it could, it is not yours to pin. What serves under a
-model name can change on the provider's schedule, not yours, and
-the names themselves retire. A compiler you can vendor and build
-from source in ten years; a hosted model you cannot vendor at all.
+And even bit-for-bit reproducibility would not buy back what you
+need. It would let you reproduce the artifact you already have — it
+would not give you a way to reproduce the branch after the spec
+changes. The moment the spec moves, you need a *new* generation, and
+that generation is a fresh sample regardless of how faithfully the
+old one could be replayed. Determinism of the toolchain, even where
+achievable, answers a question nobody is asking.
 
 The accounting is simple: the information of which branch you are
 on has to live somewhere, and the generator cannot hold it — not

@@ -35,8 +35,9 @@ program. And that collection has two properties worth money.
 
 It only shrinks. Each failure that surfaces — a failing test, a
 production incident — identifies one member of the set. The fix
-goes into the spec and a test pins it; the artifact is regenerated
-minimally, the correction applied, everything else preserved. One
+goes into the spec and a test pins it; the artifact is
+[regenerated minimally](/articles/telling-the-agent-what-changed),
+the correction applied, everything else preserved. One
 bug leaves the set and cannot return. Run this loop for months and
 the artifact converges: not toward perfection, but toward a program
 whose remaining defects are the ones your environment has never

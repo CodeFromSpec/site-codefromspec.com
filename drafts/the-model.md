@@ -160,6 +160,29 @@ acceptable.* Technical debt — the local gradient's cost rising over time — i
 what it looks like when this assumption starts to fail. As long as
 it holds, staying and fighting is the right call.
 
+That confidence deserves a caveat before it hardens into proof. The
+strongest evidence usually offered for it is exactly the wrong kind:
+most software anyone can point to was built this way, therefore the
+assumption must generally hold. This is the same selection effect
+the rest of this page names for a different population — a live,
+maintained codebase is observable precisely because it satisficed; a
+project that never found its basin's good-enough point does not
+stick around to be cited alongside it. It gets rewritten, which the
+old doctrines already treat as the rare, expensive exception rather
+than a disproof; or abandoned, which leaves no artifact to point to
+at all; or left running in a permanent, expensive, never-quite-
+acceptable state that nobody offers as a positive example even
+though it is evidence the assumption failed there. The population of
+systems available as examples is already conditioned on having
+satisficed — the identical structure "Many worlds" uses to explain
+why a stable artifact's untested dimensions look safe: they look
+safe, or here the assumption looks true, only because the
+counter-examples are the ones nobody gets to see. The honest
+position is narrower than "the assumption is probably true." It is
+that failure is visible after the fact, in technical debt and drift,
+and there is no way to know in advance, for a specific basin,
+whether it holds.
+
 ## The region is never a point
 
 Push the same limit case one step further, in the other direction.
@@ -1084,6 +1107,74 @@ defects and checking whether the suite notices — makes this
 yardstick operational: it asks the suite the same question a cheap,
 adversarial generator will eventually ask it, before the generator
 gets the chance.
+
+## Test, spec, or both
+
+The apparatus already gives a decision procedure for this, not just
+a set of concepts, so it is worth writing out as one.
+
+Start with the taxonomy from "What a bug is." If the failure is
+nonconformance — the description already spoke on this dimension
+and the sample still landed outside it — the spec was never the
+problem, and the fix is a test, or simply another sample against the
+same description. Writing a spec clause here duplicates what already
+exists and does not address why the generator missed it. If the same
+nonconformance keeps recurring despite the spec already speaking
+plainly, that repetition is itself evidence — not that the rule is
+missing, but that its current wording is not registering, which is
+an aim problem to solve by rewording or repositioning the existing
+clause, not a reason to add a new one.
+
+If the failure is underspecification — the description was genuinely
+silent — the default is both, for a reason already argued and worth
+restating plainly here: a spec clause is probabilistic and durable, a
+test is mechanical and local. The clause conditions every future
+sample, including one from a full resample, on every variant of the
+mistake its wording actually covers; but this site's own record
+already shows prose being present in full and still not followed, so
+a clause alone carries no guarantee. The test costs little to add
+once the mistake is understood, and it guarantees the specific case
+will be caught if it recurs — but its guarantee stops exactly at the
+case it names, and its value depends on staying in the same
+battlefield unless it is written at the level of the contract rather
+than the accident. Together they cover for each other's weak side:
+the clause's reach against the test's certainty.
+
+Where budget forces a choice between only one, weigh stakes and
+durability the way "Where the crossover sits" and "Decomposition as
+a lever" already do. A component with high fan-in, high failure
+cost, or a long remaining life in its current battlefield earns the
+spec clause even at the cost of writing it carefully — the broad,
+resample-surviving protection is worth the effort. A component about
+to be resampled anyway, used once, or cheap to fail earns the test
+and nothing more; the clause's marginal value has nowhere long-lived
+to pay off. And a dimension that is behaviorally free but
+cost-relevant — the naming case argued earlier — earns neither a
+test, which would have nothing to check, nor a heavy clause, only a
+light convention note aimed at the humans and agents who will next
+need to tell a load-bearing dimension from an inert one.
+
+None of this replaces judgment. It replaces "should I write a test
+or fix the spec" with the question this page has been arguing has an
+answer: which side of aim and confirm is actually missing here, and
+does this battlefield have enough life left in it to be worth aiming
+better, or only enough to be worth confirming once.
+
+One clarification worth stating on its own, since it is easy to
+conflate: consulting the description at every fix is necessary, but
+it is an act of aim, not of confirmation, and the distinction from
+the primitives applies here without exception. Reading the spec
+before making a change shifts the odds that the change respects it;
+it does not guarantee the change stays inside the region, and this
+site's own record already shows why — prose present in full, in the
+chain, has still gone unfollowed. The only operation that actually
+confirms a fix has not carried the point outside the region is
+running the oracle against the result, and even that confirms only
+on the dimensions the oracle happens to cover, per "The region is
+never a point." Consulting the spec on every fix is the right habit,
+worth making structurally unavoidable rather than optional — but it
+buys better odds, not a guarantee. The guarantee, bounded as it
+always is, comes from the test that runs after.
 
 ## The questions this reframes
 

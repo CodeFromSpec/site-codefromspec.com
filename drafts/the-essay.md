@@ -93,7 +93,7 @@ fails, suspecting the test is a legitimate question, and sometimes the right ans
 verdict; only one of those verdicts gets taken at its word. The distinction underneath is whether the verdict itself can
 be ambiguous.
 
-It is tempting to answer that a compiler is simply a different kind of thing, but the honest reason is less
+It is tempting to answer that a compiler is simply a different kind of thing, but the reason is less
 categorical. The language standard and the compiler's implementation of it are, strictly, two independently
 authored accounts of the same behavior, and a compiler bug is exactly a disagreement between them, which means a
 compiler is not different in kind from a test, only in how thoroughly it has been ratified. What actually makes a mature compiler behave as if it could not disagree with anything is that
@@ -129,8 +129,8 @@ model's — a career, an industry's conventions, a measure that responds to inst
 project in it. Nobody proposes versioning the engineer alongside the spec, and a model earns no different
 treatment by being software.
 
-There is another reason the generator stays out of version control, worth separating from the practical
-difficulties of pinning a hosted model, because it would survive even if pinning were perfect. A dependency
+There is another reason the generator stays out of version control, separate from the practical
+difficulties of pinning a hosted model: it would survive even if pinning were perfect. A dependency
 persists: the artifact calls it on every execution, which is why a library that deprecates can break a program
 nobody touched. The generator is consumed at the draw. Once the artifact exists, the generator's entire influence
 has been absorbed into the point — swapping models cannot break a shipped artifact; it can only change future
@@ -213,8 +213,8 @@ satisficed; a project that never found its neighborhood's good-enough point does
 alongside it. It gets rewritten, abandoned, or left running in a permanent, expensive, never-quite-acceptable
 state that nobody offers as a positive example, though each is evidence the assumption failed. The population
 of examples is already conditioned on having satisficed — the same reason a stable artifact's untested dimensions
-can look safe: the counter-examples are exactly the ones nobody gets to see. The honest position is narrower than
-"the assumption is probably true." It is that failure is visible only after the fact, in technical debt and drift,
+can look safe: the counter-examples are exactly the ones nobody gets to see. The position the evidence supports is
+narrower than "the assumption is probably true." It is that failure is visible only after the fact, in technical debt and drift,
 with no way to know in advance, for a specific neighborhood, whether it holds.
 
 ### The region is never a point
@@ -365,7 +365,7 @@ the accident happened to occur.
 
 ### The environment as the slowest oracle
 
-There is an oracle worth naming on its own: production. Every input the software actually receives,
+Production is an oracle in its own right. Every input the software actually receives,
 over its whole operating life, is a draw from a distribution nobody wrote down and no test suite enumerated in
 advance — and each one is, functionally, a query to the oracle: does this sample belong to the region intent
 actually wants? Most queries return an unremarkable yes and change nothing. The ones that return no are incidents,
@@ -403,7 +403,7 @@ is not a failure of discipline: intent is discovered by contact with a working s
 ahead of one, and a description, however carefully authored, is a snapshot of intent at the moment someone was
 willing to commit it to writing — not a claim that intent will hold still afterward.
 
-There is a natural instinct worth stating so it can be qualified: survivor evidence only grows more valuable
+A natural instinct says survivor evidence only grows more valuable
 with age, so the case for resampling only weakens over time. That holds when intent stands still. Under drift,
 an old artifact's survivor evidence is evidence about a target that no longer fully exists — still valuable, but
 depreciating on a schedule nobody has found how to write down. How to tell, in practice, whether a given incident
@@ -433,7 +433,7 @@ against the cost of re-specifying plus a fresh sample. That comparison used to f
 because generation was the expensive side of it. Whether it still does, in a given case, is no longer something
 the old default can answer for you.
 
-It is worth saying without hedging how large a reversal this is. "Never rewrite from scratch" has been arguably
+"Never rewrite from scratch" has been arguably
 one of the discipline's wisest guidelines, and it was a theorem of a cost structure, not a law of software: when a
 rewrite cost years of a team's life and destroyed the accumulated evidence with nothing to show until the end,
 refusing it was simply correct. Collapse the cost of the draw and the wisdom does not flip into error — it
@@ -452,7 +452,7 @@ or how much a local diff can absorb before anchoring takes over. What changed is
 computable. It is that the collapse in generation cost moved the break-even point somewhere a team now has to
 actually go look for, instead of a point so far away that the old default could stand in without anyone checking.
 
-One assumption here deserves the same scrutiny the battlefield assumption already turned on itself: "generation is
+"Generation is
 cheap" has been quietly carrying "and generates something adequate" alongside it, and those are different claims. A
 cheap resample that lands somewhere worse than the patch it replaced is not a counterexample to anything argued
 here, but nothing establishes that cheap generation is competent generation — only that it is cheap. Where that
@@ -482,7 +482,7 @@ not yet visible, for the same reason a dormant bug is not yet visible: nobody ha
 
 ## Part IV — What AI actually changed
 
-Here is the fact worth taking seriously without overstating it: two human teams handed the same requirement produce
+Two human teams handed the same requirement produce
 different codebases. The same developer, implementing the same ticket on two different Mondays, produces different
 modules. There has never been a deterministic executor turning intent into code. Calling this sampling, in the literal
 sense used so far, would claim too much. The process by which a person turns a ticket into code is not one context,
@@ -627,7 +627,7 @@ intent has not moved. The supply of generators able to stand on that point and f
 find people who can maintain this system" is a report that one whole term in the crossover has gone to infinity,
 and migrating can be entirely rational even when nothing about behavior needed to change at all.
 
-It is worth naming, tentatively, what a cheap and competent generator does to this specific trigger, because it may
+This trigger may
 be the one case AI genuinely changes rather than merely accelerates. A model's competence is a property of training,
 not of a living community — it does not retire, does not need replacing, and does not care how few humans still
 read the language fluently. If a model can generate and verify code in a scarce language as competently as it
@@ -655,7 +655,7 @@ moving can force the same choice again, later in an artifact's life, no matter h
 And regeneration should be **minimal** by default — a local move against the existing point, not a fresh draw
 from the space — exactly because a fresh draw destroys accumulated evidence the spec never captured.
 
-Two limits are worth stating plainly here.
+These corollaries have two limits.
 
 What actually gets externalized by a clause or a pinned test is narrower than the theory Naur described: durable
 protection against one already-discovered failure mode, not the understanding that would help with the next one
@@ -715,8 +715,8 @@ necessary for almost every purpose and sufficient for almost none.
 
 But the choice of language does something an ordinary description does not: it does not narrow a region inside
 a fixed space of programs, it selects which space is being sampled from in the first place — a decision made
-once, early, closer to a zeroth-order description than an ordinary spec clause. And it is worth naming how that
-oracle got paid for. An ordinary test or spec clause is authored retail, at this project's cost. A type system is
+once, early, closer to a zeroth-order description than an ordinary spec clause. And this oracle was paid for
+differently. An ordinary test or spec clause is authored retail, at this project's cost. A type system is
 authored wholesale, once, by a language's designers, and every program in that language inherits its coverage for
 free at the moment of compilation. Choosing a strongly-typed language is buying oracle coverage in bulk, prepaid
 by a community, instead of building it retail.
@@ -805,7 +805,7 @@ it shouldn't drops with it: fewer nearby load-bearing dimensions to possibly tou
 
 ### Partitioning dimensions, not shrinking them
 
-One correction is worth making before decomposition is mistaken for something stronger than it is. Componentization
+Decomposition should not be mistaken for something stronger than it is. Componentization
 does not shrink the total dimensionality of a problem — the decisions a system has to make do not disappear
 by being split across files, and drawing a boundary between two components typically adds a few new ones at the
 seam: what the contract says, how a failure crosses it, what either side may assume about the other. The union of

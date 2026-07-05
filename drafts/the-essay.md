@@ -42,20 +42,6 @@ to the region the description actually defines — it is the narrower claim of b
 oracle happens to observe. Outside that intersection there is no confirmation available, only the aim, and whatever
 confidence the aim earned. Hold this distinction in mind; almost everything below is a variation on it.
 
-### The generator is not part of the description
-
-A description does not absorb the generator just because the generator resolves what the description leaves
-silent — that is the definition of a generator, not a discovery about models. A description conditions a
-distribution; a generator is the distribution, and something has to supply it regardless of what any description
-says. A human filling in a silence, drawing on years in a domain, and a model filling it from training data are
-doing the identical job with the identical structure.
-
-The consequence is worth stating plainly: the generator is not something to version. Nobody proposes
-versioning an engineer alongside the spec they implement, and a model earns no different treatment by being
-software. Whatever the generator resolves on its own is either safe to leave stochastic or was never safe to
-leave silent — and the remedy for the second case is a narrower description or a stronger oracle, not a frozen
-generator.
-
 ### The operations
 
 Four operations act on these parts. **Sampling** produces a fresh point from the generator. A **local move** —
@@ -121,6 +107,53 @@ implementation violated something the spec and the test agree on, or the test an
 and the implementation is caught in the middle. Call this an **open oracle** — not a different kind of thing from
 a closed one, but one recently or thinly enough ratified that disagreement with its own governing description is
 still a live possibility.
+
+### The generator is not part of the description
+
+A description can be violated. A generator cannot — "this sample violates the spec" names something an oracle can
+check; "this sample violates the generator" names nothing at all. The whole distinction is contained in that
+asymmetry. The description is a predicate: it defines the region of acceptable programs, and membership is
+checkable without ever asking which generator produced the sample. The generator is a measure: the distribution
+the draw came from. Because predicate and measure are different objects, a program's two properties are
+independent — it can conform and be improbable, or be probable and nonconforming — and no amount of probability
+adds up to acceptability.
+
+The conflation is inviting because both objects shape where samples land. A generator's prior, before any
+description narrows it, already concentrates nearly all its mass on a small, conventional corner of the space;
+but concentration is not aim, and a description does not absorb the generator just because the generator resolves
+what the description leaves silent — that is the definition of a generator, not a discovery about models. The
+description narrows the space toward what a particular project means; the generator narrows it toward what code in
+general has been. Where the two coincide, silence is free. Where they diverge, the description earns its keep,
+sentence by sentence, fighting the prior. A human engineer's prior sits on the same side of this line as any
+model's — a career, an industry's conventions, a measure that responds to instruction, with nothing of the
+project in it. Nobody proposes versioning the engineer alongside the spec, and a model earns no different
+treatment by being software.
+
+There is another reason the generator stays out of version control, worth separating from the practical
+difficulties of pinning a hosted model, because it would survive even if pinning were perfect. A dependency
+persists: the artifact calls it on every execution, which is why a library that deprecates can break a program
+nobody touched. The generator is consumed at the draw. Once the artifact exists, the generator's entire influence
+has been absorbed into the point — swapping models cannot break a shipped artifact; it can only change future
+draws. What persists gets versioned or pinned precisely because it keeps acting: the description and the oracle
+persist, so they are versioned; dependencies persist, so they are pinned; the generator evaporates into the
+artifact it produced.
+
+What version control records, on this reading, is a ledger of the project's decisions — each clause authored,
+each test pinned, in answer to this intent. The generator's prior is not free of decisions; it is the sedimented,
+anonymous ratifications of an entire discipline, which is exactly why it resolves silence so plausibly. But they
+are not the project's decisions, and checking the generator into the repository would be versioning everyone
+else's ledger inside this one. Record which generator produced which artifact — provenance is cheap and worth
+keeping. Authority is different, and it never migrates: the description states what must hold whoever, or
+whatever, executes it.
+
+The argument has two boundaries. The weight of provenance scales with how often the
+process resamples: a project that retains its artifacts meets the generator's changes only when it chooses to
+draw again, while a process that regenerates constantly has made the generator a live input, and pinning its
+version there is as rational as pinning a compiler whose upgrade changes codegen — authority still does not
+migrate, but the metadata starts to matter. And the moment a project fine-tunes a model on its own corrections,
+part of the generator has been authored in answer to this intent — that part is description-like, and
+version-worthy, which confirms the criterion rather than breaking it: what gets versioned is what was authored in
+response to intent, wherever it happens to live.
 
 ## Part II — Finite descriptions, infinite space
 

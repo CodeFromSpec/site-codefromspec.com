@@ -91,71 +91,61 @@ have contained it from the start.
 
 ### The dimensions that do and do not matter
 
-The space of
-programs has far more dimensions than intuition expects, and displacement along most of them does not correlate
-with behavior at all — a renamed variable, two independent statements reordered, one standard-library function
-swapped for an equivalent one: each a real move in the space and a null move in what the program does. A small
-number of other dimensions behave the opposite way: flip a comparison operator, shift a loop bound by one, swap
-two arguments of the same type, and a single-token edit lands the artifact in a different region of the space
+The space of programs has far more dimensions than intuition expects, and displacement along most of them does not
+correlate with behavior at all — a renamed variable, two independent statements reordered, one standard-library
+function swapped for an equivalent one: each a real move in the space and a null move in what the program does. A
+small number of other dimensions behave the opposite way: flip a comparison operator, shift a loop bound by one,
+swap two arguments of the same type, and a single-token edit lands the artifact in a different region of the space
 entirely. Textual distance — the only distance cheap enough to compute — tracks neither kind of dimension:
 it overstates the move for most of them and misses it completely for the few that matter.
 
-A second fact belongs next to the first, because it is easy to conflate the two. A dimension can be free with
-respect to the region a description defines — it never changes which programs count as conforming — while
-remaining expensive with respect to everything else worth counting as a cost: the price a human pays to confirm a
-candidate, the price a future editor pays to aim correctly at what still needs deciding, the price of a local move
-accidentally touching a dimension that does matter. Naming is exactly this kind of dimension. Phil Karlton's
-list of the two hard problems in computer science — cache invalidation and naming things — puts naming next
-to a genuinely hard correctness problem, which is strange if naming only ever mattered for behavior. It plainly
-does not only matter for behavior: it never touches the region a description defines, and it constantly touches
-how cheaply anyone — human reviewer, future engineer, generating agent reading its own prior output — can tell
-a load-bearing dimension from an inert one before touching it. A good name is a nearly free signal that narrows,
-locally, the exact uncertainty just named as fundamental: nobody can compute this space's metric cleanly enough to
-know in advance which moves are free. A bad name spends the same free dimension for nothing, or worse, misdirects
-the judgment call — free or load-bearing? — that carries real cost when it fails. **Behaviorally free** and
-**cost-relevant** are independent properties, not the same property under two names. Most dimensions are low on
-both. A few carry outsized, catastrophic sensitivity. Naming is high on the second while usually low, not zero, on
-the first — reflection, serialization keys, ORM column mapping, and a public API's own symbols are the exceptions,
-and not small ones: a renamed public function is exactly the externally observable change the Hyrum's Law discussion
-later says will already have been depended on by somebody. Most naming, especially internal to an implementation,
-is free in the behavioral sense. Not all of it is, and the exceptions are precisely where a name stops being free
-and becomes another load-bearing dimension wearing a disguise.
+A dimension can be free with respect to the region a description defines — it never changes which programs count
+as conforming — while remaining expensive with respect to everything else worth counting as a cost: the price a
+human pays to confirm a candidate, the price a future editor pays to aim correctly at what still needs deciding,
+the price of a local move accidentally touching a dimension that does matter. Naming is one example of this kind
+of dimension.
+
+**Behaviorally free** and **cost-relevant** are independent properties, not the same property under two names.
+Most dimensions are low on both. A few carry outsized, catastrophic sensitivity. Naming is high on the second
+while usually low, not zero, on the first — reflection, serialization keys, ORM column mapping, and a public
+API's own symbols are the exceptions.
 
 ### The battlefield assumption
 
 Push the model to a limit case, exactly to see what it assumes without saying so: grant a perfect oracle — no blind
 spot, deciding any sample against true intent, for free. The space of programs does not shrink because the oracle
-got better. Even restricted to strings over a finite alphabet it stays infinite — countably so, an enumerable
-infinity with no continuum and no native metric, not the richer kind of infinite the spatial language of "neighborhood"
-and "terrain" later in this essay might suggest — so the set of points that fail intent stays infinite too. No
+got better. Even restricted to strings over a finite alphabet it stays infinite — so the set of points that fail
+intent stays infinite too. No
 finite description can pre-empt an infinite defect surface — enumerating every way a program could go wrong would
-make the description as long as the space it describes, which is the same wall that gives a description room for
-silence in the first place.
+make the description as long as the space it describes.
 
-So "eliminate every bug in the spec" is not a high bar nobody has cleared yet. It is not a coherent goal, oracle or
-no oracle. What happens instead, in every real project, is narrower and more honest: pick a point — the artifact
-currently deployed — and the neighborhood reachable from it by local moves, and treat that neighborhood as the
-battlefield. Fix what surfaces there, one defect at a time, and stop asking whether the description covers the
-rest of the space. This is Herbert Simon's satisficing, fought geographically: not "find the best program the
-space permits," but "find a program in this basin good enough to stop looking for a better one."
+So "eliminate every bug in the spec" is not a high bar nobody has cleared yet; it is simply not a coherent goal. 
 
-Fighting this way rests on an assumption nobody states, because most basins honor it well enough that stating
-it never seemed necessary: *every basin entered contains a point good enough, reachable by successive local
+What happens in practice is more pragmatic: rather than trying to anticipate every
+failure before shipping, deploy the artifact at hand and fix only the defects production actually reports — one
+at a time, as they arrive — inside the neighborhood reachable from that point by local moves. The battlefield is
+not the whole space of possible failures; it is the narrow, specific set an artifact actually meets once it is out
+in the world. This is analogous to Herbert Simon's concept of satisficing: not "find the best program the space
+permits," but "find a program good enough, against the defects that actually show up, to stop looking for a
+better one."
+
+### The evidence for it is survivorship
+
+Satisficing this way rests on an assumption nobody states, because most neighborhoods honor it well enough that stating
+it never seemed necessary: *every neighborhood entered contains a point good enough, reachable by successive local
 corrections, at a cost that stays acceptable.* Technical debt — the local gradient's cost rising over time —
 is what it looks like when this assumption starts to fail.
 
 That confidence deserves a caveat before it hardens into proof. The strongest evidence usually offered for it
 is exactly the wrong kind: most software anyone can point to was built this way, therefore the assumption must
-generally hold. This is a selection effect — a live, maintained codebase is observable precisely because it
-satisficed; a project that never found its basin's good-enough point does not stick around to be cited alongside
-it. It gets rewritten, which the doctrines discussed later treat as the rare, expensive exception rather than a
-disproof; or abandoned, which leaves no artifact to point to at all; or left running in a permanent, expensive,
-never-quite-acceptable state that nobody offers as a positive example even though it is evidence the assumption
-failed there. The population of systems available as examples is already conditioned on having satisficed —
-the identical structure invoked later to explain why a stable artifact's untested dimensions look safe: they look
-safe, or here the assumption looks true, only because the counter-examples are the ones nobody gets to see. The
-honest position is narrower than "the assumption is probably true." It is that failure is visible after the fact,
-in technical debt and drift, and there is no way to know in advance, for a specific basin, whether it holds.
+generally hold. That is a selection effect — a live, maintained codebase is observable precisely because it
+satisficed; a project that never found its neighborhood's good-enough point does not stick around to be cited
+alongside it. It gets rewritten, abandoned, or left running in a permanent, expensive, never-quite-acceptable
+state that nobody offers as a positive example, though each is evidence the assumption failed. The population
+of examples is already conditioned on having satisficed — the same reason a stable artifact's untested dimensions
+can look safe: the counter-examples are exactly the ones nobody gets to see. The honest position is narrower than
+"the assumption is probably true." It is that failure is visible only after the fact, in technical debt and drift,
+with no way to know in advance, for a specific neighborhood, whether it holds.
 
 ### The region is never a point
 
@@ -222,7 +212,7 @@ attention, the identical probability-weighted calculation justifies chasing the 
 cost term on the other side of the multiplication is enormous. This is not a new observation for this discipline:
 aviation and medical devices are the two domains where specification-heavy methods survived, for a reason usually
 stated in different words — an external force pays the cost of rigor. The mechanism behind that reason is the
-one just given. Those domains do not run on a different mathematics of diminishing returns. They carry a different
+one just given. Those domains do not run on a different mathematics of diminishing returns; they carry a different
 multiplier on the value side of the same crossover.
 
 ### Why resampling forever does not scale
@@ -271,9 +261,8 @@ few than an independent resample is to land on the same one by chance. A diff op
 often near the very lines that caused the defect the first time. The description could carry a warning there too
 — narrowing it is literally the other half of ratification — but a warning written into the description only
 shifts probability; it does not bind. A constraint stated plainly in the chain still only conditions what the
-generator is likely to do, and a spec stating a change in full, present in the chain, has been observed to not be
-enough on its own to stop an agent from anchoring on the two words it should have overridden. And even where the
-description's warning lands, it only acts at the moment the whole chain is walked again; it says nothing to an
+generator is likely to do. And even where the description's warning lands, it only acts at the moment the whole
+chain is walked again; it says nothing to an
 edit that touches the artifact without regenerating from the tree at all. The oracle's warning fires on any edit,
 whether the chain was consulted or not. A pinned test is what is left standing in the gap the description cannot
 close alone — not because prose is forbidden there, but because prose, however present, only ever aims.
@@ -391,36 +380,6 @@ not itself define. A codebase that is never touched is not, contrary to an assum
 of this essay's economics, a codebase whose region-membership is stable. It may simply be a codebase whose decay is
 not yet visible, for the same reason a dormant bug is not yet visible: nobody has run the query that would reveal it.
 
-### Why refactors hurt
-
-A refactor is meant to be free: change structure, preserve behavior, move along the dimensions already established as
-inert, without touching the few that carry real weight. In principle this is the trivial multiplicity from earlier:
-motion within a single behavioral equivalence class, at zero cost.
-
-In practice a refactor of any size rarely stays that clean, for the same union-bound reason that explained
-diminishing returns, run in the opposite direction: the chance of tripping at least one of several failure modes
-grows, not shrinks, the more of them a single move puts at risk. A small diff touches one or two lines and has
-correspondingly little chance of brushing a load-bearing dimension nearby. A refactor spans the whole structure,
-and even when every individual step aims to move along an inert dimension, the sheer number of steps raises the
-cumulative chance that at least one of them nicks a dimension that was never inert to begin with. A refactor large
-enough to be worth doing is, by the same arithmetic that makes a long spec chase a shrinking tail, large enough
-to be likely to cross a dimension that mattered.
-
-There is a second cost, independent of the first, and it may be the one that actually hurts: refactors are typically
-verified once, at the end, rather than checked after each of the many moves that make them up. When something breaks,
-the failure is not localized to one small, reviewable change, but to some point inside a large bundle of simultaneous
-ones, and finding which one requires exactly the archaeology a confined, incremental process exists to avoid.
-
-None of this is the whole account, and leaving it there would make the same mistake in reverse. Refactoring is usually
-undertaken specifically to lower the local-gradient cost of every move that comes after it — the entire point of
-paying the risk above is to buy a cheaper future battlefield, the technical-debt payoff named earlier from the other
-side. A fair expected-value comparison weighs the union-bound risk taken on today against the local-gradient cost
-avoided on every future move this artifact will need, discounted by how many such moves are actually coming. For
-a component near the end of its useful life that future term is small and the refactor is a bad trade even before
-its immediate risk is counted; for one with years of active change ahead of it, the same future term can dwarf
-the risk and make the refactor the right call by a wide margin. The case against refactoring checked only at the
-end is a case about how to pay a cost that is frequently worth paying, not a case against paying it.
-
 ## Part IV — Where to draw the lines
 
 ### Decomposition as a lever
@@ -445,18 +404,18 @@ times, it matures N times more slowly, with N different defect sets to eventuall
 **Encapsulation** — hiding a component's internals behind a public contract — is a defense against Hyrum's
 Law, drawn structurally rather than promised by convention. Hyrum's Law says that with enough users, every
 observable behavior becomes something somebody depends on, whatever the contract says — and it bites on whatever
-is observable. A caller cannot ratify a dependency on a resolution it cannot see. This is the identical mechanism
-behind generating a test spec from a component's public contract rather than its implementation, and behind confining
-a generation agent to what its chain declares rather than the whole tree: three different observers — callers,
-generation agents, verification agents — all kept from ratifying, accidentally or otherwise, a resolution nobody
-meant to promise.
+is observable. A caller cannot ratify a dependency on a resolution it cannot see. This buys something the other two
+levers do not: internals can be resampled or restructured freely, accumulating none of the lock-in Hyrum's Law
+would otherwise impose, while the public contract keeps maturing on its own, undisturbed survivor evidence —
+internal churn and external stability decoupled by the same wall that keeps a caller from seeing what it should
+not.
 
 **Single Responsibility** narrows the battlefield itself rather than just its visibility. A component that owns
 one concern has fewer behaviorally load-bearing dimensions bundled into one region, which moves three things in its
 favor. Diminishing returns on its spec arrive sooner and cheaper. Drift is contained: when the stakeholder concern
 behind one responsibility moves, only the component that owns it needs to be re-fought, and the survivor evidence
-accumulated by every unrelated component stays untouched. And the union-bound risk from refactoring drops with it:
-a local move inside a single-responsibility component has fewer nearby load-bearing dimensions it could possibly nick.
+accumulated by every unrelated component stays untouched. And the union-bound risk of a local move nicking something
+it shouldn't drops with it: fewer nearby load-bearing dimensions to possibly touch.
 
 ### Partitioning dimensions, not shrinking them
 
@@ -598,7 +557,7 @@ as an agent regenerating code by reading only the existing file.
 
 **Technical debt** is the cost of the local gradient rising over time. **Wrapping legacy systems in adapters instead
 of rewriting them** is what a team does when moving the point is no longer affordable and the only remaining lever
-is deforming the landscape around it.
+is deforming the terrain around it.
 
 A historical correction belongs here, because the term itself has drifted from what coined it. Ward Cunningham's
 original 1992 use of "technical debt" was not about sloppy code — he said explicitly it was not — it was about
@@ -681,7 +640,7 @@ the artifact is the record of resolved decisions, closer to design than to the d
 response rather than an observation: welcome changing requirements even late in development, and flatten the
 cost-of-change curve through tests, refactoring, and continuous integration rather than accept it as an exponential
 law of nature. This is the battlefield assumption treated as an achievement rather than a given — the assumption
-that a basin's satisficing point stays reachable at acceptable cost does not hold by default, and the practices
+that a neighborhood's satisficing point stays reachable at acceptable cost does not hold by default, and the practices
 agile prescribes are a program for keeping the local gradient flat on purpose.
 
 None of these voices had a generator that samples cheaply, and none of them needed one to notice that specifying
@@ -1179,7 +1138,7 @@ it was paired with a tacit half held by whoever wrote it. The live question is w
 lives now, and whether it survives the departure of whoever is holding it.
 
 *When should you regenerate instead of patching?* When the evidence a resample would destroy is worth less than the
-cost of staying in the current basin, discounted by how much of that evidence the oracle can hand back for free —
+cost of staying in the current neighborhood, discounted by how much of that evidence the oracle can hand back for free —
 or, separately, when intent has drifted far enough that walking a local diff toward it, anchoring risk included,
 costs more than re-specifying and drawing fresh.
 
@@ -1349,9 +1308,7 @@ and until someone does, every claim built on the value of a stable artifact carr
 
 This is a lens, not a predictor, and it should not be sold as more. Textual distance — the only distance
 cheap enough to compute — tracks neither the dimensions that matter nor the ones that do not: it overstates
-the move for most of them and misses it completely for the few that count. "Basin" and "landscape" are borrowed
-from continuous optimization and used loosely; nothing in this model computes a gradient in the sense an optimizer
-would recognize. Intent is latent, partial, and moves as the people who hold it learn more about their own problem
+the move for most of them and misses it completely for the few that count. Intent is latent, partial, and moves as the people who hold it learn more about their own problem
 — no description ever fully catches up to it. And the oracle only ever certifies what someone thought to check;
 it has no opinion about the region it was never built to see.
 

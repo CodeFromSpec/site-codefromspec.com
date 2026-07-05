@@ -186,9 +186,9 @@ with no way to know in advance, for a specific neighborhood, whether it holds.
 
 ### The region is never a point
 
-Push the same limit case one step further, in the other direction. The battlefield assumption argued that a finite
-description, however detailed, cannot pre-empt an infinite defect surface. The same argument runs in reverse:
-does a spec ever define a single program?
+The battlefield assumption argued that a finite description, however detailed, cannot pre-empt an infinite
+defect surface. The same argument, pointed inward, answers a second question: does a spec ever define a single
+program?
 
 Not even a perfect one does. Some of the infinitude inside a region is the trivial kind already named — renaming,
 reordering, swapping equivalents — free in every sense, costing nothing and buying nothing. But there is a
@@ -210,27 +210,32 @@ sampling doing the one thing a finite description structurally cannot: choosing.
 
 ### Diminishing returns on aim
 
-There is a mechanism worth making precise, because the intuition behind it is right and the usual way to state it —
-counting how much of the space a rule "removes" — breaks down the moment the space is infinite. Subtracting infinite
-sets from infinite sets does not say which rule mattered more. The quantity that actually behaves the way intuition
-wants is not a count of excluded programs. It is probability mass under the generator's own distribution — the
-same notion of aim already established: a rule's power is the probability that the generator, left unconstrained,
-would have violated it.
+Each rule added to a spec buys less than the one before it. The intuition is old and correct; what it lacks is a
+way of being stated that survives the space being infinite. The natural formalization — count how many programs a
+rule removes — fails immediately: every rule excludes infinitely many programs, and subtracting infinite sets from
+infinite sets says nothing about which rule mattered more.
 
-Stated this way, the overlap argument holds rigorously, by a fact from probability rather than a leap of intuition:
-the chance of violating at least one of several rules is at most the sum of the chances of violating each on its
-own — Boole's inequality, the same union bound the intuition was already reaching for. Two rules whose likely
+The quantity that does behave the way the intuition wants is probability mass — the same notion of aim already
+established. A rule's power is the probability that the generator, left unconstrained, would have violated it. A
+rule against a mistake the generator was likely to make is powerful; a rule against a mistake it would almost
+never make is nearly inert, however reasonable it reads.
+
+Measured this way, two mechanisms drive the returns down. The first is overlap, and it holds by a fact from
+probability rather than a leap of intuition: the chance of violating at least one of several rules is at most the
+sum of the chances of violating each alone — Boole's inequality, the union bound. Two rules whose likely
 violations overlap buy less together than the sum of what they buy apart.
 
-But overlap alone does not yet explain why the *first* rule written tends to buy the most — that needs the
-failure modes a spec could name to be unevenly sized, and they generically are. A handful of ways a program goes
-wrong are common enough that almost any unconstrained sample trips one of them; the rest are individually rare,
-in a long tail with no end. State the common failure modes first — which is what a competent spec, or even an
-inattentive one, tends to do — and every rule after the first has to work with what the earlier ones already
-excluded. This is not a law forced by the structure of the space. It is what happens when rules are written in the
-order people actually write them, and it gives the battlefield assumption its economic twin: that section argued
-a spec cannot eliminate every bug, because the defect surface stays infinite; this adds the reason not to try —
-the marginal rule costs about as much effort as the one before it, and buys steadily less.
+The second is that failure modes are unevenly sized, and this is what makes the *first* rule the most valuable. A
+handful of ways a program goes wrong are common enough that almost any unconstrained sample trips one of them; the
+rest are individually rare, in a long tail with no end. A competent spec — even an inattentive one — states the
+common failure modes first, so every later rule works with what the earlier ones already excluded: the largest,
+easiest-to-name chunks of probability mass are already spoken for, and what is left to a later rule is
+disproportionately the tail, one thin slice at a time.
+
+None of this is a law forced by the structure of the space; it is what happens when rules are written in the order
+people actually write them. And it gives the battlefield assumption its economic twin: that section argued a spec
+cannot eliminate every bug, because the defect surface stays infinite. This adds the reason not to try — the
+marginal rule costs about as much effort as the one before it, and buys steadily less.
 
 ### Where the crossover sits
 
@@ -259,9 +264,9 @@ discard the artifact and regenerate from the spec on every change, rather than p
 sufficient on its own, with nothing lost by never keeping what it last produced. That is not so, and the reason is
 a fact about defect sets. The defects of one program are a bounded set that tends to shrink as fixes get ratified
 and pinned — though not monotonically, since a bad fix can reintroduce an old defect and an untouched artifact
-can still lose ground to its environment, discussed later — while the defects of a distribution of programs are
-not bounded at all. Each regeneration is a fresh sample from that unbounded distribution, exposed to a fresh set of
-bugs, and the maturity a stable artifact accumulates never gets the chance to compound. The crossover point adds the
+can still lose ground to its environment, discussed later — while the defects of the whole distribution of programs
+are not bounded at all. Each regeneration is a fresh sample from that unbounded distribution, exposed to a fresh
+defect set, and the maturity a stable artifact accumulates never gets the chance to compound. The crossover point adds the
 reason the obvious fix — write a spec large enough that any sample from it is safe — does not rescue the strategy.
 
 Making repeated, independent resampling safe requires the spec to pre-empt the failure modes a fresh sample could
@@ -277,6 +282,17 @@ first and a long tail after. Resampling forever is maladaptive not because resam
 — it never did — but because the safety net a spec or an oracle can economically provide keeps the same shape
 it always had: dense where failures are common, thin in the tail. Cheap generation does not change that shape. It
 only changes how often the strategy asks you to jump without one.
+
+For a small enough program, experience pushes back: a spec plus a test suite really can cover everything worth
+covering, and regenerating on every change really is safe. That experience is correct, and it does not contradict
+the argument, because what decides safety is not lines of code but the dimensionality of the intent. A small, pure
+component with a narrow interface has a short list of load-bearing dimensions; a spec that covers them is
+affordable, an oracle over its behavior can be driven close to exhaustive — close, in Part I's vocabulary, to
+closed — and the residual mass of unsafe samples gets small enough that a fresh draw on every change is safe in
+practice. The claim above is about what happens as dimensionality grows. It is also one reason decomposition,
+taken up in Part IV, matters more under regeneration than it ever did: drawing boundaries that hold each component
+inside this regime is what makes local resampling safe — while the seams between components, which add dimensions
+of their own, keep the whole system from ever qualifying at once.
 
 ## Part III — Locality, drift, and the shape of change
 
@@ -937,6 +953,14 @@ lives now, and whether it survives the departure of whoever is holding it.
 cost of staying in the current neighborhood, discounted by how much of that evidence the oracle can hand back for free —
 or, separately, when intent has drifted far enough that walking a local diff toward it, anchoring risk included,
 costs more than re-specifying and drawing fresh.
+
+*Can you tell in advance whether a codebase is doomed to a bad neighborhood?* No. Whether a neighborhood holds a
+good-enough point is checkable only by fighting in it, because a neighborhood's quality lives largely on the
+dimensions descriptions stay silent about and mechanical oracles cannot check. What replaces prediction is
+strategy: draw more than one candidate while exploration is cheap, judge them on the cost-relevant dimensions only
+a reading can see, partition the system so no single draw decides its whole fate, and keep the exit cheap — a
+description kept current and an oracle kept dense are what turn a bad neighborhood from a destiny into a bounded
+loss. And the failure signal is not a prediction but a trend: each local move costing more than the last.
 
 *What is codebase maturity?* A posterior narrowed by selection — a defect set that contact with reality has
 shrunk, held in a point that has stopped moving. A statistical property of a single sample, not a property of the

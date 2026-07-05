@@ -258,11 +258,11 @@ behavior, but a few carry outsized, catastrophic sensitivity, and a local move i
 few than an independent resample is to land on the same one by chance. A diff operates on the same representation,
 often near the very lines that caused the defect the first time. The description could carry a warning there too
 — narrowing it is literally the other half of ratification — but a warning written into the description only
-shifts probability; it does not bind. A constraint stated plainly in the chain still only conditions what the
-generator is likely to do. And even where the description's warning lands, it only acts at the moment the whole
-chain is walked again; it says nothing to an
-edit that touches the artifact without regenerating from the tree at all. The oracle's warning fires on any edit,
-whether the chain was consulted or not. A pinned test is what is left standing in the gap the description cannot
+shifts probability; it does not bind. A constraint stated plainly in the description still only conditions what the
+generator is likely to do. And even where the description's warning lands, it only acts at the moment the
+description is consulted again; it says nothing to an
+edit that touches the artifact without regenerating from the description at all. The oracle's warning fires on any edit,
+whether the description was consulted or not. A pinned test is what is left standing in the gap the description cannot
 close alone — not because prose is forbidden there, but because prose, however present, only ever aims.
 
 This also names the failure symmetric to underspecification. A test can pin more than intent. Written against the
@@ -560,8 +560,8 @@ Two limits are worth stating plainly here.
 What actually gets externalized by a clause or a pinned test is narrower than the theory Naur described: durable
 protection against one already-discovered failure mode, not the understanding that would help with the next one
 nobody has found yet. A spec clause says what must hold, not why. The fix is to put the why where the generator
-actually reads it — inside the same spec tree a generation is produced from, not a separate document no tooling
-opens — so a rationale that goes stale eventually produces a generation that contradicts it, the same discovery
+actually reads it — inside the same description a generation is produced from, not a separate document nothing
+consults — so a rationale that goes stale eventually produces a generation that contradicts it, the same discovery
 loop this essay has relied on throughout, now pointed at reasons instead of only requirements.
 
 And every probability-weighted argument in this essay — a rule's power, a crossover point, which silences are
@@ -659,9 +659,9 @@ silent — that is the definition of a generator, not a discovery about models. 
 where the model sits but what its variability costs. A human generator's prior changes
 slowly, across a career, mostly in the direction of improvement. A model's prior does not change across a career
 at all — it changes the moment a provider retrains or swaps a version, for reasons outside any project's control,
-and the artifact that comes out can move without a single line of the description changing. The chain hash records
-the state of the description faithfully; it cannot record the state of a generator that is not part of what it
-hashes. This is not evidence the generator belongs inside the versioned half. It is evidence that an unversioned,
+and the artifact that comes out can move without a single line of the description changing. A hash of the description
+records the state of the description faithfully; it cannot record the state of a generator that is not part of what
+it hashes. This is not evidence the generator belongs inside the versioned half. It is evidence that an unversioned,
 unaccountable input sits upstream of every artifact — and the discipline of diverting what must not vary to
 a deterministic oracle or a hard type, leaving to the generator only what is safe to leave stochastic, exists
 because of exactly that boundary.
@@ -783,7 +783,7 @@ not a reason to add a new rule.
 
 If the failure is underspecification, the default is both, because a spec clause is probabilistic and durable while
 a test is mechanical and local. The clause conditions every future sample, including one from a full resample, on
-every variant of the mistake its wording actually covers; but prose present in full, in the chain, has still gone
+every variant of the mistake its wording actually covers; but prose present in full has still gone
 unfollowed, so a clause alone carries no guarantee. The test guarantees the specific case will be caught if it recurs,
 but its guarantee stops exactly at the case it names, and its value depends on staying in the same battlefield unless
 it is written at the level of the contract rather than the accident. Together they cover for each other's weak side.
@@ -887,8 +887,8 @@ now or soon — nothing about the function is reserved for a biological reader b
 **Locally earned competence is the harder gap to close.** A long-tenured reviewer's value is partly generic skill and
 partly a tacit, project-specific history — this team's past incidents, this codebase's specific fragile corners. A
 model has this only to the extent it was actually given it, which is exactly the argument for externalizing the
-tacit half into the spec tree: the gap between a tenured human reviewer and a model reviewer is a measure of how
-much of that project's history has been written down anywhere the model can read it, not a permanent ceiling.
+tacit half into a versioned description: the gap between a tenured human reviewer and a model reviewer is a measure
+of how much of that project's history has been written down anywhere the model can read it, not a permanent ceiling.
 
 **Consistency cuts in both directions.** A model given the same diff twice is close to the same reviewer twice —
 no fatigue, no throughput pressure degrading care, but also no lucky day where an unrelated association catches

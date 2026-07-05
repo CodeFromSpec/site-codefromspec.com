@@ -298,9 +298,11 @@ of their own, keep the whole system from ever qualifying at once.
 
 ### Why pinning a defect pays off locally, and mostly locally
 
-Every fix made in the battlefield mode — a defect reported by production, corrected by a local move — gets
-ratified into the oracle, per the taxonomy of Part I: a test is added that would have caught it. That test extends
-what the oracle can *confirm*; it does not necessarily narrow what the description *aims* at.
+The shape of a battlefield fix follows the taxonomy of Part I: a defect reported by production is either
+nonconformance, cured by regenerating or by extending the oracle, or underspecification, cured by narrowing the
+description and teaching the oracle in the same motion. The common element, and the durable one, is the oracle's
+side — a test is added that would have caught it. That test extends what the oracle can *confirm*; it does not
+necessarily narrow what the description *aims* at.
 
 The value of that addition is not uniform across the space. It is highest inside the battlefield actually being
 fought on, and close to zero outside it — the defect a test catches is, by construction, a property of the region
@@ -314,9 +316,9 @@ few than an independent resample is to land on the same one by chance. A diff op
 often near the very lines that caused the defect the first time. The description could carry a warning there too
 — narrowing it is literally the other half of ratification — but a warning written into the description only
 shifts probability; it does not bind. A constraint stated plainly in the description still only conditions what the
-generator is likely to do. And even where the description's warning lands, it only acts at the moment the
-description is consulted again; it says nothing to an
-edit that touches the artifact without regenerating from the description at all. The oracle's warning fires on any edit,
+generator is likely to do. And even where the description's warning lands, it only acts when the description is actually
+consulted — in a regeneration, or in an edit made with it in hand; it says nothing to the edit that touches the
+artifact without opening it at all. The oracle's warning fires on any edit,
 whether the description was consulted or not. A pinned test is what is left standing in the gap the description cannot
 close alone — not because prose is forbidden there, but because prose, however present, only ever aims.
 
@@ -330,17 +332,17 @@ the accident happened to occur.
 
 ### The environment as the slowest oracle
 
-There is a layer of the oracle worth naming on its own: production. Every input the software actually receives,
+There is an oracle worth naming on its own: production. Every input the software actually receives,
 over its whole operating life, is a draw from a distribution nobody wrote down and no test suite enumerated in
 advance — and each one is, functionally, a query to the oracle: does this sample belong to the region intent
 actually wants? Most queries return an unremarkable yes and change nothing. The ones that return no are incidents,
-and each incident triggers a fix that narrows the description and extends what a cheaper, faster layer of the
-oracle — a test — can now catch without waiting for production to ask again.
+and each incident triggers a fix that narrows the description and extends what a cheaper, faster oracle — a
+test — can now catch without waiting for production to ask again.
 
 Read this way, a program's maturity is not a metaphor and not merely age. It is the accumulated record of one specific,
 very expensive, very slow oracle — the world, running the software — having fired against the artifact repeatedly,
-with every firing ratified back into a cheaper layer so it need not fire the same way twice. Production sits above
-types, property checks, and example-based tests in both coverage and cost per verdict, and it is the only layer
+with every firing ratified back into a cheaper oracle so it need not fire the same way twice. Production sits above
+types, property checks, and example-based tests in both coverage and cost per verdict, and it is the only oracle
 that checks against intent directly rather than against somebody's earlier, necessarily incomplete encoding of
 intent into a cheaper check. That is also its danger: by the time it returns a no, the cost was already paid in
 production, not in a build.
@@ -366,9 +368,13 @@ while the destination keeps moving. None of this is new to people who build soft
 in the discipline, usually filed under "requirements churn." What this lens adds is the reason that complaint
 is not a failure of discipline: intent is discovered by contact with a working system as much as it is specified
 ahead of one, and a description, however carefully authored, is a snapshot of intent at the moment someone was
-willing to commit it to writing — not a claim that intent will hold still afterward. Peter Naur's argument about
-programming as theory-building has the same shape once more, discussed at length below: the theory a team holds
-is not static either, and the reason it degrades on turnover is the same reason a description degrades under drift.
+willing to commit it to writing — not a claim that intent will hold still afterward. Peter Naur argued, in 1985,
+that a program is not its text: it is the theory the team holds about how the text maps onto the world — why each
+part is the way it is, and how the whole can be changed without fighting its own design — and that theory lives
+in people, not in any artifact they leave behind. His argument returns at length in Part V; what matters here is
+that it has the same shape: the theory a team holds is not static either, and the reason it degrades on turnover
+is the same reason a description degrades under drift — the holder of the current, truer version of intent is a
+person, and the artifact is only ever as current as the last time someone updated it from them.
 
 There is a natural instinct worth stating so it can be qualified: survivor evidence only grows more valuable
 with age, so the case for resampling only weakens over time. That holds when intent stands still. Under drift,
@@ -851,7 +857,7 @@ are usually taught together and turn out to answer different questions.
 a test confirms behavior against whatever it was written to check; neither can say anything about a dimension
 that carries no behavioral difference at all. Naming, structure, the shape of an abstraction — cost-relevant,
 behaviorally free dimensions — are invisible to every oracle that only watches what a program does. A human
-reading the code is the only oracle layer that can confirm these, which is also why no amount of test investment
+reading the code is the only oracle that can confirm these, which is also why no amount of test investment
 ever makes review fully redundant.
 
 **Independence is what makes it work, and its absence is what makes it decorative.** A reviewer who is the author,
@@ -890,7 +896,7 @@ copy change and a payment-authorization path wastes effort on the cheap componen
 
 **Whether review is necessary is the wrong question, because review is not one thing.** It bundles confirming
 the free-but-cost-relevant dimensions no mechanical oracle sees, catching underspecification before the next,
-more expensive oracle layer has to, and supplying independence against a generator's blind spots. Each has a
+more expensive oracle has to, and supplying independence against a generator's blind spots. Each has a
 different crossover.
 
 **And a fourth function is not technical at all, and predicts its own decay.** An approval attached to a name

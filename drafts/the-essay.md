@@ -44,6 +44,22 @@ to the region the description actually defines — it is the narrower claim of b
 oracle happens to observe. Outside that intersection there is no confirmation available, only the aim, and whatever
 confidence the aim earned. Hold this distinction in mind; almost everything below is a variation on it.
 
+### The generator is not part of the description
+
+A description does not absorb the generator just because the generator resolves what the description leaves
+silent — that is the definition of a generator, not a discovery about models. A description conditions a
+distribution; a generator is the distribution, and something has to supply it regardless of what any description
+says. A human filling in a silence, drawing on years in a domain, and a model filling it from training data are
+doing the identical job with the identical structure.
+
+The consequence is worth stating plainly: the generator is not something to version. Nobody proposes
+versioning an engineer alongside the spec they implement, and a model earns no different treatment by being
+software. Whatever the generator resolves on its own is either safe to leave stochastic or was never safe to
+leave silent — and the remedy for the second case is a narrower description or a stronger oracle, not a frozen
+generator.
+
+### The operations
+
 Four operations act on these parts. **Sampling** produces a fresh point from the generator. A **local move** —
 a diff — nudges the existing point without resampling the rest. **Resampling** discards the point and draws a
 new one, independent of the last. And **ratifying** moves a discovery from the environment into the description or
@@ -85,7 +101,30 @@ fact. It is retroactively narrowing the region a description defines, to exclude
 reachable and unwanted — intent folded back into the description that was supposed to
 have contained it from the start.
 
-## Part II — Why nothing is ever finished
+### Closed oracles and open oracles
+
+Not all oracles fail the same way, and the difference shows up in an experience every engineer recognizes. When
+the compiler rejects a program, nobody's first move is to suspect the compiler — the code gets fixed. When a test
+fails, suspecting the test is a legitimate question, and sometimes the right answer. Both are oracles delivering a
+verdict; only one of those verdicts gets taken at its word. The distinction underneath is whether the verdict itself can
+be ambiguous.
+
+It is tempting to answer that a compiler is simply a different kind of thing, but the honest reason is less
+categorical. The language standard and the compiler's implementation of it are, strictly, two independently
+authored accounts of the same behavior, and a compiler bug is exactly a disagreement between them, which means a
+compiler is not different in kind from a test, only in how thoroughly it has been ratified. What actually makes a mature compiler behave as if it could not disagree with anything is that
+the standard-versus-implementation gap has been driven, by long exposure and heavy use, to a probability low enough
+to treat as zero. Call a **closed oracle** the limit of that process: an oracle so heavily ratified against its
+own governing description that disagreement is negligible.
+
+A freshly written test sits at the other end of the same line. It is authored separately from the implementation,
+deliberately independent, and that same independence means its failure can mean one of two different things: the
+implementation violated something the spec and the test agree on, or the test and the spec disagree with each other,
+and the implementation is caught in the middle. Call this an **open oracle** — not a different kind of thing from
+a closed one, but one recently or thinly enough ratified that disagreement with its own governing description is
+still a live possibility.
+
+## Part II — Finite descriptions, infinite space
 
 ### The dimensions that do and do not matter
 
@@ -101,7 +140,10 @@ A dimension can be free with respect to the region a description defines — it 
 as conforming — while remaining expensive with respect to everything else worth counting as a cost: the price a
 human pays to confirm a candidate, the price a future editor pays to aim correctly at what still needs deciding,
 the price of a local move accidentally touching a dimension that does matter. Naming is one example of this kind
-of dimension.
+of dimension. A name never touches the region a description defines. It constantly touches how cheaply anyone —
+human reviewer, future engineer, generating agent reading its own prior output — can tell a load-bearing dimension
+from an inert one before touching it; a bad name misdirects exactly the judgment whose failure the third cost
+above prices.
 
 **Behaviorally free** and **cost-relevant** are independent properties, not the same property under two names.
 Most dimensions are low on both. A few carry outsized, catastrophic sensitivity. Naming is high on the second
@@ -602,7 +644,7 @@ this essay has been describing throughout — how much oracle coverage to buy, a
 even a project to make it for.
 
 The boundary this section draws between shape and behavior is not fixed by nature, and language design has spent
-decades moving it. Rust's borrow checker is a closed oracle in exactly the sense given below, authored once with
+decades moving it. Rust's borrow checker is a closed oracle in exactly the sense already given, authored once with
 no independent second account to disagree with it, and it is total authority over a dimension considerably richer
 than parsing and type arity: a program that borrows without violating the checker's rules is memory-safe and free of
 data races in the code the checker covers, not merely well-shaped. The same move scales further in dependently-typed
@@ -611,36 +653,21 @@ between what a closed oracle can settle for free and what only an open oracle, t
 design choice a type system's authors make, and every property moved across it stops needing a test. What a closed
 oracle can never do, no matter how rich the type system, is confirm a property nobody thought to encode.
 
-### Closed oracles and open oracles
+### Feeding the verdict back
 
-There is a further distinction worth making explicit: can an oracle's verdict itself be ambiguous?
-
-A compiler's verdict is, in the cases that matter in practice, effectively unambiguous — but the honest reason is
-not the categorical one it is tempting to reach for. The language standard and the compiler's implementation of it are,
-strictly, two independently authored accounts of the same behavior, and a compiler bug is exactly a disagreement between them, which means
-a compiler is not different in kind from a test, only in how thoroughly it has been ratified. What actually makes
-a mature compiler behave as if it could not disagree with anything is that the standard-versus-implementation gap
-has been driven, by the same production-oracle mechanism that matures anything else, to a probability low enough
-to treat as zero. Call a **closed oracle** the limit of that process: an oracle so heavily ratified against its
-own governing description that disagreement is negligible.
-
-A freshly written test sits at the other end of the same line. It is authored separately from the implementation,
-deliberately independent, and that same independence means its failure can mean one of two different things: the
-implementation violated something the spec and the test agree on, or the test and the spec disagree with each other,
-and the implementation is caught in the middle. Call this an **open oracle** — not a different kind of thing from
-a closed one, but one recently or thinly enough ratified that disagreement with its own governing description is
-still a live possibility. Closed and open are two ends of the same gradient this essay has been calling maturity
-throughout, applied to the oracle instead of to the artifact it checks.
-
-This gives a practical rule, and it scales with the gradient rather than switching on a category: feeding an oracle's
-verdict back into a bounded retry, without treating it as a new source of aim, is safer the further toward the closed
-end the oracle sits. Near that end, a verdict can be treated as nonconformance with negligible risk of a second
-reading — retrying with the verdict in hand is re-sampling with a cheap directional signal, not consulting an
-unauthorized description. Nearer the open end, the same verdict needs the nonconformance-versus-underspecification
-fork resolved before any retry is safe, because a meaningfully live share of what it might mean is a disagreement
-between the test and the spec that only a human can resolve without quietly erasing it. This also names a fifth
-operation the primitives did not yet have a place for: a **bounded, ephemeral resample** — scoped to a single
-generation event, guided by a closed oracle's own verdict, leaving no trace in anything versioned once the event ends.
+The closed-versus-open distinction from Part I decides the safety of a loop every generation workflow contains: a
+candidate fails a check, and the failure message goes back to the generator for another attempt. Whether that loop
+is safe scales with the gradient rather than switching on a category — the further toward the closed end the
+oracle sits, the safer it is to hand its verdict back and retry, so long as the verdict stays a signal to try
+again and never becomes something more dangerous: a constraint the description never stated, silently governing
+what gets generated. Near the closed end, a verdict can be treated as nonconformance with negligible risk of a
+second reading — retrying with the verdict in hand is re-sampling with a cheap directional signal, not consulting
+an unauthorized description. Nearer the open end, the same verdict needs the
+nonconformance-versus-underspecification fork resolved before any retry is safe, because a meaningfully live share
+of what it might mean is a disagreement between the test and the spec that only a human can resolve without
+quietly erasing it. This also names a fifth operation the primitives did not yet have a place for: a **bounded,
+ephemeral resample** — scoped to a single generation event, guided by a closed oracle's own verdict, leaving no
+trace in anything versioned once the event ends.
 
 ### The oracle is generated too
 
@@ -652,11 +679,12 @@ and fallible relative to whatever generated it — trustworthy to the extent it 
 by mutation testing, and matured by the same production-oracle mechanism as anything else. The chain of trust
 bottoms out at a sufficiently ratified oracle or a sufficiently careful human, and nowhere firmer than that.
 
-### The generator is not the spec
+### What a model's variability costs
 
-A description does not absorb the generator just because the generator resolves what the description leaves
-silent — that is the definition of a generator, not a discovery about models. What is genuinely new is not
-where the model sits but what its variability costs. A human generator's prior changes
+The conflation named in Part I is easy to grant in the abstract and easy to re-commit the moment a model is the
+generator in question — the fluency invites the sense that it has joined the description as an unwritten second
+half. It has not; nothing about a generator resolving silence changes because the generator got better at it.
+What is genuinely new is not where the model sits but what its variability costs. A human generator's prior changes
 slowly, across a career, mostly in the direction of improvement. A model's prior does not change across a career
 at all — it changes the moment a provider retrains or swaps a version, for reasons outside any project's control,
 and the artifact that comes out can move without a single line of the description changing. A hash of the description

@@ -648,10 +648,10 @@ of diligent writing usually is — for this audience. It was adequately document
 ### Versioning the generator
 
 Part I deferred a question: if the generator shapes the description this much, should it be versioned alongside
-it? The human case answers first. An engineer's prior sits on the same side of the category line as any model's —
-a career, an industry's conventions, a measure that responds to instruction, with nothing of the project in it.
-Nobody proposes versioning the engineer alongside the spec, and a model earns no different treatment by being
-software.
+it? The human case answers first. A new engineer's prior sits on the same side of the category line as any
+model's — a career, an industry's conventions, a measure that responds to instruction, with nothing of the
+project in it yet. Nobody proposes versioning the engineer alongside the spec, and a model earns no different
+treatment by being software.
 
 The reason runs deeper than the analogy, and it is separate from the practical difficulties of pinning a hosted
 model: it would survive even if pinning were perfect. A dependency persists: the artifact calls it on every
@@ -675,7 +675,9 @@ The temptation follows directly from the tuning: if the description in use is in
 generator still. Whether that is rational depends on how often the process draws. A project that retains its
 artifacts meets the generator's changes only when it chooses to resample; for it, the generator's identity is
 provenance — worth recording, nothing to freeze. A process that regenerates constantly has made the generator a
-live input — the one regime where it behaves like something that persists, and earns the pin a dependency gets.
+live input — the one regime where it behaves like something that persists, and earns the pin a dependency gets —
+an entry in the versioned configuration, the way a toolchain is: the generator's identity checked in, the
+generator itself never becoming content or authority.
 
 What a pin buys should be stated exactly. A pinned compiler is deterministic: pin it and the binary is
 reproducible from the source. A pinned model still samples — the draw can miss under the same version that
@@ -687,7 +689,11 @@ scheduled.
 The frontier case is fine-tuning. The moment a project tunes a model on its own corrections, part of the
 generator has been authored in answer to this intent — that part is description-like, and version-worthy, which
 confirms the criterion rather than breaking it: what gets versioned is what was authored in response to intent,
-wherever it happens to live.
+wherever it happens to live. And the human case was always there: onboarding is fine-tuning, and years inside a
+project tune a veteran's prior in answer to its intent the same way. That part of a person is description-like
+too, version-worthy, and impossible to check in — it can only be externalized, or lost. This is what the handover
+above actually measured: part of the project's description existed only inside a generator, and the generator
+walked out the door.
 
 ### When the generators disappear
 

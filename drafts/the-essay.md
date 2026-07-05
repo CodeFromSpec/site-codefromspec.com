@@ -23,9 +23,10 @@ programs: a spec, a test suite, a type system, a ticket, a convention nobody wro
 review. A description does not have to be versioned to count; it only has to constrain. There is a **generator**
 — any process that, given a description and a context, produces a program: a distribution over the space,
 sampled once per invocation. Even before any description narrows it, that distribution is nowhere near uniform
-— training already concentrates almost all of its probability mass on a vanishingly small, highly conventional
-corner of an otherwise limitless space, because the training objective rewards predicting what a corpus of
-real code already made likely, and that corpus was never uniform over the space to begin with. There is an **oracle** — the
+— a generator's history already concentrates almost all of its probability mass on a vanishingly small, highly
+conventional corner of an otherwise limitless space: for a model, because the training objective rewards
+predicting what a corpus of real code already made likely, and that corpus was never uniform over the space to
+begin with; for a person, because a career does the same thing more slowly. There is an **oracle** — the
 partial procedure that decides membership in the region, on whichever dimensions it happens to cover. And there
 is the **artifact** — the point you actually have, carrying whatever evidence of survival it has accumulated:
 tests it has passed, traffic it has served, incidents it has not caused.
@@ -40,7 +41,7 @@ confirming is bounded rather than statistical: it decides membership by checking
 dimensions someone built it to check. Passing every check an oracle can run is not the same proposition as belonging
 to the region the description actually defines — it is the narrower claim of belonging to the intersection the
 oracle happens to observe. Outside that intersection there is no confirmation available, only the aim, and whatever
-confidence the aim earned. Hold this distinction in mind; almost everything below is a variation on it.
+confidence the aim earned.
 
 ### The operations
 
@@ -131,9 +132,9 @@ sentence by sentence, fighting the prior.
 
 That is the category line, and it is the ideal-world half of the account. In practice the influence runs the
 other way too: a description in use is inevitably shaped by the generator it is used with, and swapping
-generators reprices a description end to end. Those two facts are strong enough to make versioning the generator
-alongside the spec a practical necessity — wrong in category, necessary in practice — and Part IV takes up how
-both of those can be true at once.
+generators reprices a description end to end. Those two facts are strong enough that versioning the generator
+alongside the spec can become a practical necessity — wrong in category, necessary in practice — and Part IV
+takes up how both of those can be true at once.
 
 ## Part II — Finite descriptions, infinite space
 
@@ -186,7 +187,7 @@ Satisficing this way rests on an assumption nobody states, because most neighbor
 it never seemed necessary: *every neighborhood entered contains a point good enough, reachable by successive local
 corrections, at a cost that stays acceptable.*
 
-That confidence deserves a caveat before it hardens into proof. The strongest evidence usually offered for it
+That assumption deserves a caveat before it hardens into proof. The strongest evidence usually offered for it
 is exactly the wrong kind: most software anyone can point to was built this way, therefore the assumption must
 generally hold. That is a selection effect — a live, maintained codebase is observable precisely because it
 satisficed; a project that never found its neighborhood's good-enough point does not stick around to be cited

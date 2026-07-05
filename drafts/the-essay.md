@@ -510,7 +510,8 @@ and frequent enough to see.
 to be the load-bearing half of the claim. A hosted model retains nothing between invocations by default, and even
 where retrieval, long context, or persistent agent memory patch some of that back, what gets retrieved is usually
 the same lossy record already argued not to carry the tacit half — old text, not old understanding. Real or
-simulated, that memory is not hashed, not reviewed, and not portable across a model swap the way a spec is. Naur's
+simulated, that memory is not something a project can diff, review, or carry across a model swap the way it can
+a spec. Naur's
 theory, which used to survive precariously in the heads of a stable team, now has no home built for it by default,
 memory features or not.
 

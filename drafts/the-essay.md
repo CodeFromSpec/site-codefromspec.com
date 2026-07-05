@@ -294,13 +294,13 @@ taken up in Part IV, matters more under regeneration than it ever did: drawing b
 inside this regime is what makes local resampling safe — while the seams between components, which add dimensions
 of their own, keep the whole system from ever qualifying at once.
 
-## Part III — Locality, drift, and the shape of change
+## Part III — Maturity, drift, and decay
 
 ### Why pinning a defect pays off locally, and mostly locally
 
-Every fix made this way, per the earlier taxonomy, gets ratified into the oracle: a test is added that would have
-caught it. That test extends what the oracle can *confirm*; it does not necessarily narrow what the description
-*aims* at.
+Every fix made in the battlefield mode — a defect reported by production, corrected by a local move — gets
+ratified into the oracle, per the taxonomy of Part I: a test is added that would have caught it. That test extends
+what the oracle can *confirm*; it does not necessarily narrow what the description *aims* at.
 
 The value of that addition is not uniform across the space. It is highest inside the battlefield actually being
 fought on, and close to zero outside it — the defect a test catches is, by construction, a property of the region

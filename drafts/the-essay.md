@@ -447,9 +447,9 @@ not itself define. A codebase that is never touched is not, contrary to an assum
 of this essay's economics, a codebase whose region-membership is stable. It may simply be a codebase whose decay is
 not yet visible, for the same reason a dormant bug is not yet visible: nobody has run the query that would reveal it.
 
-## Part IV — Where the tacit half used to live
+## Part IV — What AI actually changed
 
-Here is the fact worth taking seriously without overstating it: two teams handed the same requirement produce
+Here is the fact worth taking seriously without overstating it: two human teams handed the same requirement produce
 different codebases. The same developer, implementing the same ticket on two different Mondays, produces different
 modules. There has never been a deterministic executor turning intent into code. Calling this sampling, in the literal
 sense used so far, would claim too much. The process by which a person turns a ticket into code is not one context,
@@ -474,7 +474,7 @@ the people who wrote the code, and moved when they did.
 
 ### What expertise actually is
 
-Extend the same idea across a career and it names something worth stating precisely: an engineer who has spent years
+An engineer who has spent years
 working in one region of the space of programs is not merely faster than a novice. They are better calibrated in
 three distinct places this apparatus already separates.
 
@@ -497,9 +497,9 @@ not survive in a memoryless executor. What an experienced engineer used to suppl
 into personal judgment, now has to be supplied on purpose, written down, by someone. This is not a smaller job
 than the one experienced engineers already did. It is the same job, made explicit.
 
-## Part V — What AI actually changed
+### The three parameters AI changes
 
-AI changes three of the parameters above. It changes none of the structure.
+AI changes three parameters of everything described so far. It changes none of the structure.
 
 **The cost of generating collapses.** Sampling, which used to happen once per system across a career, becomes
 a routine operation, cheap enough to run on every change. This is also the first time the distribution becomes
@@ -521,135 +521,6 @@ adversarial search for the suite's blind spots than to an engineer trying in goo
 Nothing about the space of programs, the existence of intent, or the need for an oracle changed. What changed is
 that the thing that used to be free — the generator's memory — now has a price, and the thing that used to be
 nearly free — a sample — now is.
-
-### What an adversarial generator is
-
-Call a generator adversarial not because it intends harm, but because of what cheap, repeated sampling against
-a fixed, partial oracle does structurally, regardless of intent. When generating is expensive, a generator that
-fails the oracle simply fails, and the cost of trying again discourages searching for the edge cases the oracle
-cannot see. When generating is nearly free, failing the oracle costs almost nothing, and an oracle with any blind
-spot at all becomes more likely to be found the more attempts get thrown at it — not because the generator is
-malicious, but because search converges on whatever the fitness function rewards, and the fitness function here is
-"passed the oracle," not "satisfies the intent the oracle was built to protect." How much this matters in practice
-depends on how many attempts actually get thrown, and at the retry counts typical of most generation loops today
-— a handful, not an exhaustive search — this is a real, directional pressure rather than the fully realized
-adversarial search the phenomenon describes at its strongest. The mechanism does not require malice or scale to
-exist. It requires scale to dominate, and that is a claim about a trend, not yet where things already stand.
-
-This is the same phenomenon documented under different names in adjacent fields: reward hacking in reinforcement
-learning, specification gaming, Goodhart's law read as a law of engineering rather than of economics. A model asked
-to make a failing test pass may find it cheaper to special-case the exact input the test checks than to fix the
-underlying logic; asked to raise coverage, it may add assertions that exercise a line without constraining its
-behavior. Both satisfy the oracle. Neither moves the artifact closer to the region the spec actually defines.
-
-The consequence for oracle design is direct: an oracle that shares its blind spots with the generator that has to
-satisfy it will be found and exploited faster than an oracle that does not. Requiring that a test spec be generated
-from a component's public contract, not its implementation, ensures the two readings of the same intent do not
-inherit the same gap. Independence does not close the blind spot — nothing does — but it makes the blind spot
-of the generator and the blind spot of the oracle two different sets, which is the only defense a partial oracle
-has against a generator cheap enough to search for their intersection.
-
-### The corollaries
-
-Read against this shift, the whole apparatus stops being ideas about AI coding tools and becomes the predictable
-response to a changed cost structure.
-
-The tacit half of the pair must be **externalized**, because the generator no longer carries it: the spec defines
-the region, the artifact records the resolution, and the pair — not either half alone — is the unit that must
-be versioned.
-
-The boundary between what is **ratified** and what merely **survived by luck** becomes the variable that decides
-whether a regeneration is safe: everything written into the spec and pinned by a test is preserved across a re-roll;
-everything that worked by accident is re-decided, and may not land the same way twice.
-
-Exploration is cheapest at **birth**, before an artifact has accumulated survivor evidence worth losing, and gets
-more expensive with every day it runs — resample early, hold steady later. Drift complicates this: intent that keeps
-moving can force the same choice again, later in an artifact's life, no matter how much survivor evidence has piled up.
-
-And regeneration should be **minimal** by default — a local move against the existing point, not a fresh draw
-from the space — exactly because a fresh draw destroys accumulated evidence the spec never captured.
-
-Two limits are worth stating plainly here.
-
-What actually gets externalized by a clause or a pinned test is narrower than the theory Naur described: durable
-protection against one already-discovered failure mode, not the understanding that would help with the next one
-nobody has found yet. A spec clause says what must hold, not why. The fix is to put the why where the generator
-actually reads it — inside the same description a generation is produced from, not a separate document nothing
-consults — so a rationale that goes stale eventually produces a generation that contradicts it, the same discovery
-loop this essay has relied on throughout, now pointed at reasons instead of only requirements.
-
-And every probability-weighted argument in this essay — a rule's power, a crossover point, which silences are
-safe to leave alone — was computed against "the generator's own distribution," which is itself unversioned and
-can change on a provider's schedule without a line of any description moving. When it changes, those valuations
-silently reprice. The partial reassurance: models trained on overlapping corpora likely share priors about common
-failure modes even where they diverge on rare ones, so a rule guarding against a common failure probably keeps
-its value across a swap, while one guarding against something rare to a specific model's training does not —
-a testable claim, not a settled one. Every crossover and diminishing-returns curve here should be read as valid
-for a stated generator, not guaranteed to survive its retirement.
-
-### The type system as a pre-paid oracle
-
-A compiler is an oracle in the strict sense already given: a mechanical, binary procedure that decides membership
-against one real, if narrow, slice of intent — shape, not behavior. When the language itself was a deliberate
-choice, as it usually is, failing to compile is a genuine intent violation, not a technicality outside intent's
-reach: whoever chose the language meant the software to be expressible in it. That holds for the choice itself,
-not for every incidental rule a toolchain happens to enforce underneath it — a linter's arbitrary style
-preference does not become intent merely because failing it produces an error. The line is deliberateness, not
-mere enforceability. What compiling does not do is extend that credit to the rest of intent. Type-correctness is
-necessary for almost every purpose and sufficient for almost none.
-
-But the choice of language does something an ordinary description does not: it does not narrow a region inside
-a fixed space of programs, it selects which space is being sampled from in the first place — a decision made
-once, early, closer to a zeroth-order description than an ordinary spec clause. And it is worth naming how that
-oracle got paid for. An ordinary test or spec clause is authored retail, at this project's cost. A type system is
-authored wholesale, once, by a language's designers, and every program in that language inherits its coverage for
-free at the moment of compilation. Choosing a strongly-typed language is buying oracle coverage in bulk, prepaid
-by a community, instead of building it retail.
-
-None of this is free on the other side. A stricter type system also narrows the space it draws from, and a correct,
-intent-satisfying program the type checker cannot prove safe is rejected all the same — the type system's own
-version of the false positive every partial oracle can produce. This tracks the birth-versus-maturity policy
-already given: a system whose intent is still being discovered benefits from a larger, more permissive space; a
-system with a long life ahead of it, high fan-in, or high stakes collects more value from prepaid coverage than it
-loses to the narrower space. The choice of language is the earliest and longest-lived instance of the exact trade
-this essay has been describing throughout — how much oracle coverage to buy, and when — made before there is
-even a project to make it for.
-
-The boundary this section draws between shape and behavior is not fixed by nature, and language design has spent
-decades moving it. Rust's borrow checker is a closed oracle in exactly the sense already given, authored once with
-no independent second account to disagree with it, and it is total authority over a dimension considerably richer
-than parsing and type arity: a program that borrows without violating the checker's rules is memory-safe and free of
-data races in the code the checker covers, not merely well-shaped. The same move scales further in dependently-typed
-languages, where a passing type check can certify an arbitrary proposition the type was built to state. The frontier
-between what a closed oracle can settle for free and what only an open oracle, tested at runtime, can settle is a
-design choice a type system's authors make, and every property moved across it stops needing a test. What a closed
-oracle can never do, no matter how rich the type system, is confirm a property nobody thought to encode.
-
-### Feeding the verdict back
-
-The closed-versus-open distinction from Part I decides the safety of a loop every generation workflow contains: a
-candidate fails a check, and the failure message goes back to the generator for another attempt. Whether that loop
-is safe scales with the gradient rather than switching on a category — the further toward the closed end the
-oracle sits, the safer it is to hand its verdict back and retry, so long as the verdict stays a signal to try
-again and never becomes something more dangerous: a constraint the description never stated, silently governing
-what gets generated. Near the closed end, a verdict can be treated as nonconformance with negligible risk of a
-second reading — retrying with the verdict in hand is re-sampling with a cheap directional signal, not consulting
-an unauthorized description. Nearer the open end, the same verdict needs the
-nonconformance-versus-underspecification fork resolved before any retry is safe, because a meaningfully live share
-of what it might mean is a disagreement between the test and the spec that only a human can resolve without
-quietly erasing it. This also names a fifth operation the primitives did not yet have a place for: a **bounded,
-ephemeral resample** — scoped to a single generation event, guided by a closed oracle's own verdict, leaving no
-trace in anything versioned once the event ends.
-
-### The oracle is generated too
-
-A test is not a primitive — it is itself an artifact, generated from a description (a test spec) by a generator
-(a person or an agent), and it inherits every uncertainty already named: the test-generation step can miss what
-the test spec actually said, or resolve a silence in a way nobody intended. Ratifying a fix "into a test" is not
-the bedrock it is allowed to sound like. It is durable relative to the artifact it protects, but generated, aimed,
-and fallible relative to whatever generated it — trustworthy to the extent it was authored independently, exercised
-by mutation testing, and matured by the same production-oracle mechanism as anything else. The chain of trust
-bottoms out at a sufficiently ratified oracle or a sufficiently careful human, and nowhere firmer than that.
 
 ### What a model's variability costs
 
@@ -729,6 +600,137 @@ read the language fluently. If a model can generate and verify code in a scarce 
 can in a common one, the generator-extinction trigger for migration weakens in a way none of this essay's other
 arguments do, because the scarcity it responds to was always about people. This is speculative: it depends on a
 model's competence in a given language actually holding up, which nothing here has tested.
+
+### The corollaries
+
+Read against this shift, the whole apparatus stops being ideas about AI coding tools and becomes the predictable
+response to a changed cost structure.
+
+The tacit half of the pair must be **externalized**, because the generator no longer carries it: the spec defines
+the region, the artifact records the resolution, and the pair — not either half alone — is the unit that must
+be versioned.
+
+The boundary between what is **ratified** and what merely **survived by luck** becomes the variable that decides
+whether a regeneration is safe: everything written into the spec and pinned by a test is preserved across a re-roll;
+everything that worked by accident is re-decided, and may not land the same way twice.
+
+Exploration is cheapest at **birth**, before an artifact has accumulated survivor evidence worth losing, and gets
+more expensive with every day it runs — resample early, hold steady later. Drift complicates this: intent that keeps
+moving can force the same choice again, later in an artifact's life, no matter how much survivor evidence has piled up.
+
+And regeneration should be **minimal** by default — a local move against the existing point, not a fresh draw
+from the space — exactly because a fresh draw destroys accumulated evidence the spec never captured.
+
+Two limits are worth stating plainly here.
+
+What actually gets externalized by a clause or a pinned test is narrower than the theory Naur described: durable
+protection against one already-discovered failure mode, not the understanding that would help with the next one
+nobody has found yet. A spec clause says what must hold, not why. The fix is to put the why where the generator
+actually reads it — inside the same description a generation is produced from, not a separate document nothing
+consults — so a rationale that goes stale eventually produces a generation that contradicts it, the same discovery
+loop this essay has relied on throughout, now pointed at reasons instead of only requirements.
+
+And every probability-weighted argument in this essay — a rule's power, a crossover point, which silences are
+safe to leave alone — was computed against "the generator's own distribution," which is itself unversioned and
+can change on a provider's schedule without a line of any description moving. When it changes, those valuations
+silently reprice. The partial reassurance: models trained on overlapping corpora likely share priors about common
+failure modes even where they diverge on rare ones, so a rule guarding against a common failure probably keeps
+its value across a swap, while one guarding against something rare to a specific model's training does not —
+a testable claim, not a settled one. Every crossover and diminishing-returns curve here should be read as valid
+for a stated generator, not guaranteed to survive its retirement.
+
+## Part V — What oracles are made of
+
+### What an adversarial generator is
+
+Call a generator adversarial not because it intends harm, but because of what cheap, repeated sampling against
+a fixed, partial oracle does structurally, regardless of intent. When generating is expensive, a generator that
+fails the oracle simply fails, and the cost of trying again discourages searching for the edge cases the oracle
+cannot see. When generating is nearly free, failing the oracle costs almost nothing, and an oracle with any blind
+spot at all becomes more likely to be found the more attempts get thrown at it — not because the generator is
+malicious, but because search converges on whatever the fitness function rewards, and the fitness function here is
+"passed the oracle," not "satisfies the intent the oracle was built to protect." How much this matters in practice
+depends on how many attempts actually get thrown, and at the retry counts typical of most generation loops today
+— a handful, not an exhaustive search — this is a real, directional pressure rather than the fully realized
+adversarial search the phenomenon describes at its strongest. The mechanism does not require malice or scale to
+exist. It requires scale to dominate, and that is a claim about a trend, not yet where things already stand.
+
+This is the same phenomenon documented under different names in adjacent fields: reward hacking in reinforcement
+learning, specification gaming, Goodhart's law read as a law of engineering rather than of economics. A model asked
+to make a failing test pass may find it cheaper to special-case the exact input the test checks than to fix the
+underlying logic; asked to raise coverage, it may add assertions that exercise a line without constraining its
+behavior. Both satisfy the oracle. Neither moves the artifact closer to the region the spec actually defines.
+
+The consequence for oracle design is direct: an oracle that shares its blind spots with the generator that has to
+satisfy it will be found and exploited faster than an oracle that does not. Requiring that a test spec be generated
+from a component's public contract, not its implementation, ensures the two readings of the same intent do not
+inherit the same gap. Independence does not close the blind spot — nothing does — but it makes the blind spot
+of the generator and the blind spot of the oracle two different sets, which is the only defense a partial oracle
+has against a generator cheap enough to search for their intersection.
+
+### The type system as a pre-paid oracle
+
+A compiler is an oracle in the strict sense already given: a mechanical, binary procedure that decides membership
+against one real, if narrow, slice of intent — shape, not behavior. When the language itself was a deliberate
+choice, as it usually is, failing to compile is a genuine intent violation, not a technicality outside intent's
+reach: whoever chose the language meant the software to be expressible in it. That holds for the choice itself,
+not for every incidental rule a toolchain happens to enforce underneath it — a linter's arbitrary style
+preference does not become intent merely because failing it produces an error. The line is deliberateness, not
+mere enforceability. What compiling does not do is extend that credit to the rest of intent. Type-correctness is
+necessary for almost every purpose and sufficient for almost none.
+
+But the choice of language does something an ordinary description does not: it does not narrow a region inside
+a fixed space of programs, it selects which space is being sampled from in the first place — a decision made
+once, early, closer to a zeroth-order description than an ordinary spec clause. And it is worth naming how that
+oracle got paid for. An ordinary test or spec clause is authored retail, at this project's cost. A type system is
+authored wholesale, once, by a language's designers, and every program in that language inherits its coverage for
+free at the moment of compilation. Choosing a strongly-typed language is buying oracle coverage in bulk, prepaid
+by a community, instead of building it retail.
+
+None of this is free on the other side. A stricter type system also narrows the space it draws from, and a correct,
+intent-satisfying program the type checker cannot prove safe is rejected all the same — the type system's own
+version of the false positive every partial oracle can produce. This tracks the birth-versus-maturity policy
+already given: a system whose intent is still being discovered benefits from a larger, more permissive space; a
+system with a long life ahead of it, high fan-in, or high stakes collects more value from prepaid coverage than it
+loses to the narrower space. The choice of language is the earliest and longest-lived instance of the exact trade
+this essay has been describing throughout — how much oracle coverage to buy, and when — made before there is
+even a project to make it for.
+
+The boundary this section draws between shape and behavior is not fixed by nature, and language design has spent
+decades moving it. Rust's borrow checker is a closed oracle in exactly the sense already given, authored once with
+no independent second account to disagree with it, and it is total authority over a dimension considerably richer
+than parsing and type arity: a program that borrows without violating the checker's rules is memory-safe and free of
+data races in the code the checker covers, not merely well-shaped. The same move scales further in dependently-typed
+languages, where a passing type check can certify an arbitrary proposition the type was built to state. The frontier
+between what a closed oracle can settle for free and what only an open oracle, tested at runtime, can settle is a
+design choice a type system's authors make, and every property moved across it stops needing a test. What a closed
+oracle can never do, no matter how rich the type system, is confirm a property nobody thought to encode.
+
+### Feeding the verdict back
+
+The closed-versus-open distinction from Part I decides the safety of a loop every generation workflow contains: a
+candidate fails a check, and the failure message goes back to the generator for another attempt. Whether that loop
+is safe scales with the gradient rather than switching on a category — the further toward the closed end the
+oracle sits, the safer it is to hand its verdict back and retry, so long as the verdict stays a signal to try
+again and never becomes something more dangerous: a constraint the description never stated, silently governing
+what gets generated. Near the closed end, a verdict can be treated as nonconformance with negligible risk of a
+second reading — retrying with the verdict in hand is re-sampling with a cheap directional signal, not consulting
+an unauthorized description. Nearer the open end, the same verdict needs the
+nonconformance-versus-underspecification fork resolved before any retry is safe, because a meaningfully live share
+of what it might mean is a disagreement between the test and the spec that only a human can resolve without
+quietly erasing it. This also names a fifth operation the primitives did not yet have a place for: a **bounded,
+ephemeral resample** — scoped to a single generation event, guided by a closed oracle's own verdict, leaving no
+trace in anything versioned once the event ends.
+
+### The oracle is generated too
+
+A test is not a primitive — it is itself an artifact, generated from a description (a test spec) by a generator
+(a person or an agent), and it inherits every uncertainty already named: the test-generation step can miss what
+the test spec actually said, or resolve a silence in a way nobody intended. Ratifying a fix "into a test" is not
+the bedrock it is allowed to sound like. It is durable relative to the artifact it protects, but generated, aimed,
+and fallible relative to whatever generated it — trustworthy to the extent it was authored independently, exercised
+by mutation testing, and matured by the same production-oracle mechanism as anything else. The chain of trust
+bottoms out at a sufficiently ratified oracle or a sufficiently careful human, and nowhere firmer than that.
 
 ## Part VI — Applying it
 
@@ -983,6 +985,22 @@ the generator remembered and the big move was rare. Both premises are gone.
 it was paired with a tacit half held by whoever wrote it. The live question is where the other half of the pair
 lives now, and whether it survives the departure of whoever is holding it.
 
+*Spec-first, spec-anchored, spec-as-source — what does the lens say about them?* The taxonomy is Birgitta
+Böckeler's, from her analysis of spec-driven development; what the lens adds is that they are not three
+intensities of the same discipline; they differ on two structural questions — where ratification flows, and
+whether the pair itself has an oracle. Spec-first aims once: the description conditions the first draw and nothing
+after it, every subsequent fix ratifies into the artifact and its tests while the description freezes, and the
+outcome is a theorem rather than a risk — the pair splits at birth, the written half rots at the rate of
+unratified fixes, and the option it seemed to buy quietly expires. Spec-anchored keeps the description in the aim
+of every move, which is real value; but agreement between spec and code has no oracle — it is maintained by
+discipline, and discipline only shifts probability, so divergence there is a dormant defect: present, invisible,
+waiting for a query nobody is forced to run. Spec-as-source forces ratification into the description by
+construction — a fix has nowhere else to go — and gives the pair itself a mechanical oracle: divergence in either
+direction stops being a condition someone eventually notices and becomes a nonconformance something actually
+reports. It pays for this — every change routes through the description, and regeneration carries every risk this
+essay has priced. The lens does not rank the three; it prices them, and the price of each moved when generation
+got cheap.
+
 *When should you regenerate instead of patching?* When the evidence a resample would destroy is worth less than the
 cost of staying in the current neighborhood, discounted by how much of that evidence the oracle can hand back for free —
 or, separately, when intent has drifted far enough that walking a local diff toward it, anchoring risk included,
@@ -999,3 +1017,10 @@ loss. And the failure signal is not a prediction but a trend: each local move co
 *What is codebase maturity?* A posterior narrowed by selection — a defect set that contact with reality has
 shrunk, held in a point that has stopped moving. A statistical property of a single sample, not a property of the
 code's age or its aesthetics.
+
+*Can a layperson build software with an AI tool alone?* The tool replaces the generator, and the generator was
+never the bottleneck. Stating intent in natural language is aiming, and a layperson can aim; what they cannot
+supply alone is confirmation — the oracle that decides whether what came back is what was meant, and the judgment
+over which resolved silences to distrust. Output accepted without an oracle is not participation; it is delegation
+to a process nobody is checking. Not alone, then — but inside rails where someone else built the oracles and drew
+the boundaries, the distance between stating intent and shipping software is shorter than it has ever been.

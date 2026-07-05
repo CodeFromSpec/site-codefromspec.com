@@ -18,11 +18,9 @@ such an executor exists, and what does not follow from its existence turns out t
 
 ### The primitives
 
-Strip the argument to its parts, and none of them require a model.
-
 There is a **space of programs**, every artifact expressible in some language. There is an **intent** — what
 the system is actually supposed to do, held by the people who need it, known incompletely even to them, revised on
-contact with reality. There is a **description** — any artifact that narrows the space to a region of acceptable
+contact with reality. There is a **description** — anything that narrows the space to a region of acceptable
 programs: a spec, a test suite, a type system, a ticket, a convention nobody wrote down but everybody enforces in
 review. A description does not have to be versioned to count; it only has to constrain. There is a **generator**
 — any process that, given a description and a context, produces a program: a distribution over the space,
@@ -455,7 +453,7 @@ variability when they have only ever seen one output from one team. The second, 
 process, tangled as it is, remembers its own history in a way nothing about a model does. This is where Peter
 Naur's 1985 argument about programming as theory-building lands with precision. Naur's point was that a program
 is not its text — it is the theory the team holds about how the text maps onto the world, and that theory is not
-recoverable from the artifacts once the team disperses. In this model, that theory is exactly the tacit half of a
+recoverable from the artifact once the team disperses. In this model, that theory is exactly the tacit half of a
 pair: the record of which ambiguities were resolved, and how, and why. The pair — description plus resolution
 — always existed. The description-half was written down, sometimes. The resolution-half lived in the heads of
 the people who wrote the code, and moved when they did.
@@ -497,7 +495,7 @@ and frequent enough to see.
 **The generator loses its memory** — or, more precisely, whatever memory it has is not versioned, which turns out
 to be the load-bearing half of the claim. A hosted model retains nothing between invocations by default, and even
 where retrieval, long context, or persistent agent memory patch some of that back, what gets retrieved is usually
-the same lossy artifacts already argued not to carry the tacit half — old text, not old understanding. Real or
+the same lossy record already argued not to carry the tacit half — old text, not old understanding. Real or
 simulated, that memory is not hashed, not reviewed, and not portable across a model swap the way a spec is. Naur's
 theory, which used to survive precariously in the heads of a stable team, now has no home built for it by default,
 memory features or not.
@@ -557,62 +555,23 @@ moving can force the same choice again, later in an artifact's life, no matter h
 And regeneration should be **minimal** by default — a local move against the existing point, not a fresh draw
 from the space — exactly because a fresh draw destroys accumulated evidence the spec never captured.
 
-Two honesties are owed here, and they are related.
+Two limits are worth stating plainly here.
 
-The first: calling this a change of parameters rather than of structure is a framing choice, and a reader is
-right to notice the tension. Relocating where the tacit half of the pair lives — from a generator's memory to a
-versioned spec-and-artifact pair — is what actually does the practical work in everything that follows, and "the
-structure did not change" undersells it. The primitives named at the start are the same set of roles either way,
-which is the sense in which the claim is literally true. But the discipline required to keep the system working
-is not a knob turned on an old dial; it is a new obligation the old regime discharged for free, silently, inside
-a head that stuck around. Call it what it more honestly is: a change in what the practice must build on purpose,
-forced by the loss of something that used to come free.
+What actually gets externalized by a clause or a pinned test is narrower than the theory Naur described: durable
+protection against one already-discovered failure mode, not the understanding that would help with the next one
+nobody has found yet. A spec clause says what must hold, not why. The fix is to put the why where the generator
+actually reads it — inside the same spec tree a generation is produced from, not a separate document no tooling
+opens — so a rationale that goes stale eventually produces a generation that contradicts it, the same discovery
+loop this essay has relied on throughout, now pointed at reasons instead of only requirements.
 
-The second is sharper, and "externalize the tacit half" does not fully answer it. Naur's theory was never only a
-list of constraints; it was an understanding of why the system is shaped the way it is, rich enough to navigate
-a situation nobody has hit yet. What actually gets externalized by the mechanism this essay describes — a clause
-narrowing the description, a test pinning the case — is narrower than that: durable protection against one specific,
-already-discovered failure mode, not the narrative understanding that would help with the next one nobody has found
-yet. A spec clause says what must hold. It does not, by itself, carry why, any more than the artifact does. The
-category that would carry why — a rationale record, a design note, an explanation of a tradeoff — is exactly
-the kind of description this essay has already argued is economically doomed to drift out of sync with what it
-describes, for the same reasons formal specifications and CASE-tool models drifted before it.
-
-There is a repair available, and this essay already has the mechanism for it without having drawn the conclusion. A
-description that is not consumed by generation or verification has no force holding it to the artifact —
-that was the diagnosis given earlier for why documentation rots. What it implies: put the rationale where the
-generator actually reads it, inside the same spec tree a generation is produced from, not in a separate document no
-tooling ever opens. A rationale note living there is not exempt from going stale. It is no longer exempt from the
-consequence of going stale, either — a rationale that no longer matches why a constraint exists will eventually
-produce a generation that contradicts it, which is the same discovery loop this essay has relied on throughout,
-now pointed at the reasons instead of only at the requirements. This does not rescue theory-building in general;
-a rationale kept for humans only, that no generator's chain ever includes, is exactly as doomed as before. It does
-mean the doom is not automatic. It is a choice about what the generator is allowed to ignore.
-
-There is a third instability worth naming while the second is still in view, because it undercuts this essay's
-own machinery rather than someone else's. Every probability-weighted argument since the primitives — a rule's
-power, a spec's crossover point, which silences are safe to leave alone — was defined against "the generator's
-own distribution." That distribution belongs to whichever generator happens to be running, and this essay has just
-spent a full section arguing that generator is unversioned and can change on a provider's schedule, without a line
-of any description changing. When it changes, every one of those valuations silently reprices: a rule that excluded
-the common failures of one model may guard against something rare under the next, a silence that was safe may stop
-being safe, and nothing in the versioned pair records that the ground under the economics moved. This page's own
-value theory has the same unversioned-generator problem its artifacts do. It is named so that a reader trusting a
-specific crossover or diminishing-returns curve knows which generator that number was implicitly computed against,
-and that the number does not survive a swap for free any more than a spec's silences do.
-
-There is a partial repair available, and it is worth taking rather than leaving the instability to stand as pure
-liability. Models trained on heavily overlapping corpora share priors about the common failure modes — the head
-of the distribution, the mistakes any competent generator makes often — even where they disagree at the tail,
-on the rare and idiosyncratic ones. That is an empirical claim, not an assertion: it predicts that a spec clause
-excluding a common failure keeps roughly the same value across a model swap, while a clause guarding against
-something rare or unusual to one model's training does not, and it is checkable by running the same description
-against two different models and comparing which clauses each would have violated without it. If that prediction
-holds, the crossover argument survives a swap exactly where it matters most — the front of the curve, before
-diminishing returns has bitten — and only the long tail, already the least reliable part of the accounting, gets
-fully re-priced. If it does not hold, the instability is worse than named here, not better, and every crossover
-and diminishing-returns curve in this essay should be read with a permanent asterisk: valid for a stated generator,
-not guaranteed to survive its retirement.
+And every probability-weighted argument in this essay — a rule's power, a crossover point, which silences are
+safe to leave alone — was computed against "the generator's own distribution," which is itself unversioned and
+can change on a provider's schedule without a line of any description moving. When it changes, those valuations
+silently reprice. The partial reassurance: models trained on overlapping corpora likely share priors about common
+failure modes even where they diverge on rare ones, so a rule guarding against a common failure probably keeps
+its value across a swap, while one guarding against something rare to a specific model's training does not —
+a testable claim, not a settled one. Every crossover and diminishing-returns curve here should be read as valid
+for a stated generator, not guaranteed to survive its retirement.
 
 ### The type system as a pre-paid oracle
 
@@ -658,7 +617,7 @@ There is a further distinction worth making explicit: can an oracle's verdict it
 
 A compiler's verdict is, in the cases that matter in practice, effectively unambiguous — but the honest reason is
 not the categorical one it is tempting to reach for. The language standard and the compiler's implementation of it are,
-strictly, two independently authored artifacts, and a compiler bug is exactly a disagreement between them, which means
+strictly, two independently authored accounts of the same behavior, and a compiler bug is exactly a disagreement between them, which means
 a compiler is not different in kind from a test, only in how thoroughly it has been ratified. What actually makes
 a mature compiler behave as if it could not disagree with anything is that the standard-versus-implementation gap
 has been driven, by the same production-oracle mechanism that matures anything else, to a probability low enough
@@ -679,51 +638,25 @@ end the oracle sits. Near that end, a verdict can be treated as nonconformance w
 reading — retrying with the verdict in hand is re-sampling with a cheap directional signal, not consulting an
 unauthorized description. Nearer the open end, the same verdict needs the nonconformance-versus-underspecification
 fork resolved before any retry is safe, because a meaningfully live share of what it might mean is a disagreement
-between two authored artifacts that only a human can resolve without quietly erasing it. This also names a fifth
+between the test and the spec that only a human can resolve without quietly erasing it. This also names a fifth
 operation the primitives did not yet have a place for: a **bounded, ephemeral resample** — scoped to a single
 generation event, guided by a closed oracle's own verdict, leaving no trace in anything versioned once the event ends.
 
 ### The oracle is generated too
 
-There is a recursion sitting inside everything said about tests so far, and it is worth pulling into the open:
-a test is not a primitive. It is an artifact, generated the same way any other artifact is — from a description
-(a test spec), by a generator (a person or an agent translating that description into code), producing a sample
-that can suffer everything already named. The test-generation step can miss what the test spec actually said,
-or resolve something it left silent in a way nobody intended. The oracle, in other words, is downstream of its
-own aim, and inherits every uncertainty aim was ever shown to carry.
-
-This means an open oracle is open in a second sense beyond the one already given. It is not only capable of
-disagreeing with the spec because it was authored independently — it is itself a generated translation of
-a description, and that translation can be wrong on its own terms, before any question of agreement with the
-implementation's spec even arises.
-
-The regress this opens does not go on forever, but it does not bottom out on solid ground either. It bottoms
-out at two things, both of them matters of degree rather than a structural floor. One is a heavily ratified,
-near-closed oracle: the generated test code at least has to compile, and a mature compiler's disagreement with
-its own standard is negligible rather than impossible — a floor under every open oracle that is only ever a very
-good approximation of one, confirming shape even when it can say nothing about whether the test checks the right
-thing. The other is a human, or an independent second generation, reading the test against the test spec directly,
-and a fallible human is exactly as much a matter of degree as a heavily ratified oracle is. A test's trustworthiness
-is earned the same way an implementation's is — by independence of authorship, by mutation testing standing in
-for a confirm layer the test does not otherwise have, and by the same production-oracle mechanism ratifying it
-over time. Ratifying a fix "into a test" is not the bedrock it is allowed to sound like. It is durable relative
-to the artifact it protects, and generated, aimed, and fallible relative to whatever generated it. The chain of
-trust bottoms out at a sufficiently ratified oracle or a sufficiently careful human, and nowhere firmer than that.
+A test is not a primitive — it is itself an artifact, generated from a description (a test spec) by a generator
+(a person or an agent), and it inherits every uncertainty already named: the test-generation step can miss what
+the test spec actually said, or resolve a silence in a way nobody intended. Ratifying a fix "into a test" is not
+the bedrock it is allowed to sound like. It is durable relative to the artifact it protects, but generated, aimed,
+and fallible relative to whatever generated it — trustworthy to the extent it was authored independently, exercised
+by mutation testing, and matured by the same production-oracle mechanism as anything else. The chain of trust
+bottoms out at a sufficiently ratified oracle or a sufficiently careful human, and nowhere firmer than that.
 
 ### The generator is not the spec
 
-A natural temptation, once a description is seen to leave so much unwritten, is to conclude that whatever fills
-the silence must itself be part of the description — that the model has joined the spec as an unwritten second
-half. This is a category error the primitives already rule out.
-
-The generator and the description are separate primitives, and for a reason that matters here specifically: a
-description conditions a distribution; a generator is the distribution, and something has to supply it regardless of
-what any description says. Every generator resolves whatever a description leaves silent — that is not a special
-property discovered about models, it is the definition of a generator. A human filling in the same silence, drawing
-on years in a domain, does the identical job: expertise, discussed earlier, is located squarely in the generator,
-as a better-calibrated sampling distribution, not as a hidden clause smuggled into the spec.
-
-What is genuinely new is not where the model sits but what its variability costs. A human generator's prior changes
+A description does not absorb the generator just because the generator resolves what the description leaves
+silent — that is the definition of a generator, not a discovery about models. What is genuinely new is not
+where the model sits but what its variability costs. A human generator's prior changes
 slowly, across a career, mostly in the direction of improvement. A model's prior does not change across a career
 at all — it changes the moment a provider retrains or swaps a version, for reasons outside any project's control,
 and the artifact that comes out can move without a single line of the description changing. The chain hash records
@@ -966,7 +899,7 @@ something a systematic pass would miss, and whatever blind spot the model carrie
 A few questions recur in every conversation about specs versus code. The model does not settle them with a number,
 but it replaces each with a version that has an answer.
 
-*Does the spec have value?* The spec is the only artifact that distinguishes a region from a point, a decision from
+*Does the spec have value?* The spec is the only description that distinguishes a region from a point, a decision from
 an accident. Its value is the value of the option it preserves — to regenerate, to hand the system to a new team,
 to bring in an executor with no memory of what came before — and that option was cheap to give up only while
 the generator remembered and the big move was rare. Both premises are gone.

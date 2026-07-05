@@ -290,7 +290,7 @@ component with a narrow interface has a short list of load-bearing dimensions; a
 affordable, an oracle over its behavior can be driven close to exhaustive — close, in Part I's vocabulary, to
 closed — and the residual mass of unsafe samples gets small enough that a fresh draw on every change is safe in
 practice. The claim above is about what happens as dimensionality grows. It is also one reason decomposition,
-taken up in Part IV, matters more under regeneration than it ever did: drawing boundaries that hold each component
+taken up in Part VI, matters more under regeneration than it ever did: drawing boundaries that hold each component
 inside this regime is what makes local resampling safe — while the seams between components, which add dimensions
 of their own, keep the whole system from ever qualifying at once.
 
@@ -368,13 +368,7 @@ while the destination keeps moving. None of this is new to people who build soft
 in the discipline, usually filed under "requirements churn." What this lens adds is the reason that complaint
 is not a failure of discipline: intent is discovered by contact with a working system as much as it is specified
 ahead of one, and a description, however carefully authored, is a snapshot of intent at the moment someone was
-willing to commit it to writing — not a claim that intent will hold still afterward. Peter Naur argued, in 1985,
-that a program is not its text: it is the theory the team holds about how the text maps onto the world — why each
-part is the way it is, and how the whole can be changed without fighting its own design — and that theory lives
-in people, not in any artifact they leave behind. His argument returns at length in Part V; what matters here is
-that it has the same shape: the theory a team holds is not static either, and the reason it degrades on turnover
-is the same reason a description degrades under drift — the holder of the current, truer version of intent is a
-person, and the artifact is only ever as current as the last time someone updated it from them.
+willing to commit it to writing — not a claim that intent will hold still afterward.
 
 There is a natural instinct worth stating so it can be qualified: survivor evidence only grows more valuable
 with age, so the case for resampling only weakens over time. That holds when intent stands still. Under drift,
@@ -390,9 +384,12 @@ wherever the new intent's optimum now sits, and that walk inherits every cost al
 gets steeper the farther the walk has to go, because a diff is built to make a small, bounded change, not to
 reshape an artifact's structure wholesale. And the walk runs straight through the regime where anchoring — an
 agent, or a person, over-weighting the existing artifact against what the spec now says — does the most damage:
-the more intent has moved, the more the existing artifact resists exactly the range of change now required. Drift
-large enough to demand reshaping architecture, not adjusting a rule, is drift large enough that local correction
-may cost more than starting over.
+the more intent has moved, the more the existing artifact resists exactly the range of change now required.
+Anchoring's danger is its silence: the change is not misapplied, which an oracle might catch, but never made, or
+made only in part — while the build, the bookkeeping, and every test written against the old behavior report the
+work done.
+Drift large enough to demand reshaping architecture, not adjusting a rule, is drift large enough that local
+correction may cost more than starting over.
 
 Starting over, though, is no longer the operation it used to be. Re-specifying is cheap — rewriting a description
 in natural language to match a new understanding of intent costs a fraction of what re-architecting the same
@@ -403,8 +400,19 @@ against the cost of re-specifying plus a fresh sample. That comparison used to f
 because generation was the expensive side of it. Whether it still does, in a given case, is no longer something
 the old default can answer for you.
 
+It is worth saying without hedging how large a reversal this is. "Never rewrite from scratch" has been arguably
+one of the discipline's wisest guidelines, and it was a theorem of a cost structure, not a law of software: when a
+rewrite cost years of a team's life and destroyed the accumulated evidence with nothing to show until the end,
+refusing it was simply correct. Collapse the cost of the draw and the wisdom does not flip into error — it
+dissolves into a calculation, one whose answer will sometimes, legitimately, be the rewrite the old guideline
+forbade.
+
 Drift is a signal to resample rather than merely patch exactly when the distance it has moved exceeds what a local
-diff can absorb without inheriting anchoring's failure mode. That criterion should be read for what it is —
+diff can absorb — either because anchoring makes the walk unreliable, or because the walk required is long enough
+that its own cumulative risk matches a resample's: every local move carries some probability of touching a
+load-bearing dimension, a long enough sequence of them approaches a fresh draw's defect exposure paid in
+installments, and the survivor evidence being protected attaches to less and less of the artifact with every step
+that rewrites part of it. That criterion should be read for what it is —
 a sharper restatement of the tradeoff, not a resolution of it, because both sides of the comparison are exactly
 the unmeasurable quantities conceded throughout this section: nobody has a number for how far intent has moved
 or how much a local diff can absorb before anchoring takes over. What changed is not that the comparison became
@@ -439,62 +447,7 @@ not itself define. A codebase that is never touched is not, contrary to an assum
 of this essay's economics, a codebase whose region-membership is stable. It may simply be a codebase whose decay is
 not yet visible, for the same reason a dormant bug is not yet visible: nobody has run the query that would reveal it.
 
-## Part IV — Where to draw the lines
-
-### Decomposition as a lever
-
-Reuse, componentization, and object-oriented encapsulation are usually taught as hygiene: don't repeat code, group
-related things, hide what callers should not see. Read under this lens they are something sharper — a decision
-about where to draw the boundaries of a battlefield, made because the primitives apply recursively. A component is
-not a metaphor for a smaller version of the system; it is a smaller instance of the exact same structure — its
-own intent, its own description, its own generator, its own oracle, its own artifact accumulating its own survivor
-evidence — nested inside a larger one.
-
-**Reuse**, seen this way, is a decision about how many independent samples a subproblem gets drawn as. Solve it
-once and reference the single result from every call site, and there is one artifact, one description, one oracle to
-ratify fixes into, and one accumulating record of survival. Solve it independently at each site — copy the logic,
-or re-derive it from scratch — and each copy is its own draw from the space, with its own uncorrelated defect
-set, the cost of resampling triggered here by duplication instead of by time. Reuse also accelerates maturity in a
-way plain deduplication does not get credit for: every call site's traffic funnels through the same point, so the
-shared component meets the environment acting as oracle far more often, per unit of time, than any one duplicate
-would alone. Solved once and shared, a subproblem matures at the rate of the whole system's use of it. Solved N
-times, it matures N times more slowly, with N different defect sets to eventually discover.
-
-**Encapsulation** — hiding a component's internals behind a public contract — is a defense against Hyrum's
-Law, drawn structurally rather than promised by convention. Hyrum's Law says that with enough users, every
-observable behavior becomes something somebody depends on, whatever the contract says — and it bites on whatever
-is observable. A caller cannot ratify a dependency on a resolution it cannot see. This buys something the other two
-levers do not: internals can be resampled or restructured freely, accumulating none of the lock-in Hyrum's Law
-would otherwise impose, while the public contract keeps maturing on its own, undisturbed survivor evidence —
-internal churn and external stability decoupled by the same wall that keeps a caller from seeing what it should
-not.
-
-**Single Responsibility** narrows the battlefield itself rather than just its visibility. A component that owns
-one concern has fewer behaviorally load-bearing dimensions bundled into one region, which moves three things in its
-favor. Diminishing returns on its spec arrive sooner and cheaper. Drift is contained: when the stakeholder concern
-behind one responsibility moves, only the component that owns it needs to be re-fought, and the survivor evidence
-accumulated by every unrelated component stays untouched. And the union-bound risk of a local move nicking something
-it shouldn't drops with it: fewer nearby load-bearing dimensions to possibly touch.
-
-### Partitioning dimensions, not shrinking them
-
-One correction is worth making before decomposition is mistaken for something stronger than it is. Componentization
-does not shrink the total dimensionality of a problem — the decisions a system has to make do not disappear
-by being split across files, and drawing a boundary between two components typically adds a few new ones at the
-seam: what the contract says, how a failure crosses it, what either side may assume about the other. The union of
-dimensions across every component is not smaller than the monolith's, and is sometimes slightly larger.
-
-What shrinks is not the count. It is the **interaction surface** — how many other dimensions any given dimension
-can combinatorially entangle with. A monolith holds every dimension in one region, where a local move can, in
-principle, reach any of them. Partition the same dimensions into components with a real boundary between them,
-and a local move inside one component can only ever reach the dimensions inside it — the reachable set per move
-drops from the whole system to one component's share of it, even though nothing about the system's total complexity
-changed. Fewer dimensions to entangle with per box, not fewer dimensions overall.
-
-Reuse is a related but separate lever. Partitioning decides how dimensions are grouped; reuse decides how many
-independent samples get drawn for a given group. The two compose well precisely because they act on different things.
-
-## Part V — Where the tacit half used to live
+## Part IV — Where the tacit half used to live
 
 Here is the fact worth taking seriously without overstating it: two teams handed the same requirement produce
 different codebases. The same developer, implementing the same ticket on two different Mondays, produces different
@@ -544,7 +497,7 @@ not survive in a memoryless executor. What an experienced engineer used to suppl
 into personal judgment, now has to be supplied on purpose, written down, by someone. This is not a smaller job
 than the one experienced engineers already did. It is the same job, made explicit.
 
-## Part VI — What AI actually changed
+## Part V — What AI actually changed
 
 AI changes three of the parameters above. It changes none of the structure.
 
@@ -777,7 +730,82 @@ can in a common one, the generator-extinction trigger for migration weakens in a
 arguments do, because the scarcity it responds to was always about people. This is speculative: it depends on a
 model's competence in a given language actually holding up, which nothing here has tested.
 
-## Part VII — Applying it
+## Part VI — Applying it
+
+### Decomposition as a lever
+
+Reuse, componentization, and object-oriented encapsulation are usually taught as hygiene: don't repeat code, group
+related things, hide what callers should not see. Read under this lens they are something sharper — a decision
+about where to draw the boundaries of a battlefield, made because the primitives apply recursively. A component is
+not a metaphor for a smaller version of the system; it is a smaller instance of the exact same structure — its
+own intent, its own description, its own generator, its own oracle, its own artifact accumulating its own survivor
+evidence — nested inside a larger one.
+
+**Reuse**, seen this way, is a decision about how many independent samples a subproblem gets drawn as. Solve it
+once and reference the single result from every call site, and there is one artifact, one description, one oracle to
+ratify fixes into, and one accumulating record of survival. Solve it independently at each site — copy the logic,
+or re-derive it from scratch — and each copy is its own draw from the space, with its own uncorrelated defect
+set, the cost of resampling triggered here by duplication instead of by time. Reuse also accelerates maturity in a
+way plain deduplication does not get credit for: every call site's traffic funnels through the same point, so the
+shared component meets the environment acting as oracle far more often, per unit of time, than any one duplicate
+would alone. Solved once and shared, a subproblem matures at the rate of the whole system's use of it. Solved N
+times, it matures N times more slowly, with N different defect sets to eventually discover.
+
+**Encapsulation** — hiding a component's internals behind a public contract — is a defense against Hyrum's
+Law, drawn structurally rather than promised by convention. Hyrum's Law says that with enough users, every
+observable behavior becomes something somebody depends on, whatever the contract says — and it bites on whatever
+is observable. A caller cannot ratify a dependency on a resolution it cannot see. This buys something the other two
+levers do not: internals can be resampled or restructured freely, accumulating none of the lock-in Hyrum's Law
+would otherwise impose, while the public contract keeps maturing on its own, undisturbed survivor evidence —
+internal churn and external stability decoupled by the same wall that keeps a caller from seeing what it should
+not.
+
+**Single Responsibility** narrows the battlefield itself rather than just its visibility. A component that owns
+one concern has fewer behaviorally load-bearing dimensions bundled into one region, which moves three things in its
+favor. Diminishing returns on its spec arrive sooner and cheaper. Drift is contained: when the stakeholder concern
+behind one responsibility moves, only the component that owns it needs to be re-fought, and the survivor evidence
+accumulated by every unrelated component stays untouched. And the union-bound risk of a local move nicking something
+it shouldn't drops with it: fewer nearby load-bearing dimensions to possibly touch.
+
+### Partitioning dimensions, not shrinking them
+
+One correction is worth making before decomposition is mistaken for something stronger than it is. Componentization
+does not shrink the total dimensionality of a problem — the decisions a system has to make do not disappear
+by being split across files, and drawing a boundary between two components typically adds a few new ones at the
+seam: what the contract says, how a failure crosses it, what either side may assume about the other. The union of
+dimensions across every component is not smaller than the monolith's, and is sometimes slightly larger.
+
+What shrinks is not the count. It is the **interaction surface** — how many other dimensions any given dimension
+can combinatorially entangle with. A monolith holds every dimension in one region, where a local move can, in
+principle, reach any of them. Partition the same dimensions into components with a real boundary between them,
+and a local move inside one component can only ever reach the dimensions inside it — the reachable set per move
+drops from the whole system to one component's share of it, even though nothing about the system's total complexity
+changed. Fewer dimensions to entangle with per box, not fewer dimensions overall.
+
+Reuse is a related but separate lever. Partitioning decides how dimensions are grouped; reuse decides how many
+independent samples get drawn for a given group. The two compose well precisely because they act on different things.
+
+### When the boundary is real
+
+The instinct that a change confined to one component should only affect that component is correct exactly as often
+as the boundary drawn in the file structure is the boundary that actually governs the dimensions. When it fails —
+a change to interest calculation somehow breaks authentication — the failure always traces to the same thing: the
+two were never the same boundary.
+
+A boundary is real to the extent that four things hold. No dimension crosses it through shared mutable state — a
+global variable, a shared table, an ambient config object read by both sides is a dimension that belongs to neither
+component alone, and a move that looks confined to one file can still reach it. The interface crossing it is
+narrow — few dimensions actually pass through. The failure domains are isolated — one side crashing or exhausting
+a shared resource cannot take the other down, which is a property of the runtime and deployment, not of the source
+tree. And the oracle covers both sides regardless of which one changed — a suite that only re-runs "affected"
+tests, guessed from an incomplete dependency graph, can let a leak through the seam and report green, which is not
+evidence the boundary held, only evidence nobody looked.
+
+Every one of the first three is a claim about where dimensions actually live, which the file structure asserts but
+does not enforce. None of this is a reason to distrust decomposition. It is the reason decomposition is a design
+decision with a real answer, not a free assumption: draw the interface narrow, keep state unshared, isolate the
+runtime, and verify both sides on every change that touches the seam, and the instinct holds exactly as strongly
+as those four things do — no more, and no less.
 
 ### What this says about generating tests
 

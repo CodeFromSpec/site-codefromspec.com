@@ -47,7 +47,10 @@ confidence the aim earned. Hold this distinction in mind; almost everything belo
 Four operations act on these parts. **Sampling** produces a fresh point from the generator. A **local move** —
 a diff — nudges the existing point without resampling the rest. **Resampling** discards the point and draws a
 new one, independent of the last. And **ratifying** moves a discovery from the environment into the description or
-the oracle, so that future samples are constrained by it rather than merely lucky with respect to it. Underneath
+the oracle, so that future samples are constrained by it rather than merely lucky with respect to it. Local move
+and resample are ends of one scale rather than different kinds of thing: every change to software is a draw, and
+what varies is how much of the existing point conditions it — which dimensions get re-decided, and which are
+carried forward untouched. Underneath
 all four sit three costs that determine which one is rational at any moment: the cost of generating a candidate,
 the cost of checking it against the oracle, and the cost of the next local move once you are standing on a given
 point — call it the cost of the local gradient.
@@ -124,36 +127,13 @@ but concentration is not aim, and a description does not absorb the generator ju
 what the description leaves silent — that is the definition of a generator, not a discovery about models. The
 description narrows the space toward what a particular project means; the generator narrows it toward what code in
 general has been. Where the two coincide, silence is free. Where they diverge, the description earns its keep,
-sentence by sentence, fighting the prior. A human engineer's prior sits on the same side of this line as any
-model's — a career, an industry's conventions, a measure that responds to instruction, with nothing of the
-project in it. Nobody proposes versioning the engineer alongside the spec, and a model earns no different
-treatment by being software.
+sentence by sentence, fighting the prior.
 
-There is another reason the generator stays out of version control, separate from the practical
-difficulties of pinning a hosted model: it would survive even if pinning were perfect. A dependency
-persists: the artifact calls it on every execution, which is why a library that deprecates can break a program
-nobody touched. The generator is consumed at the draw. Once the artifact exists, the generator's entire influence
-has been absorbed into the point — swapping models cannot break a shipped artifact; it can only change future
-draws. What persists gets versioned or pinned precisely because it keeps acting: the description and the oracle
-persist, so they are versioned; dependencies persist, so they are pinned; the generator evaporates into the
-artifact it produced.
-
-What version control records, on this reading, is a ledger of the project's decisions — each clause authored,
-each test pinned, in answer to this intent. The generator's prior is not free of decisions; it is the sedimented,
-anonymous ratifications of an entire discipline, which is exactly why it resolves silence so plausibly. But they
-are not the project's decisions, and checking the generator into the repository would be versioning everyone
-else's ledger inside this one. Record which generator produced which artifact — provenance is cheap and worth
-keeping. Authority is different, and it never migrates: the description states what must hold whoever, or
-whatever, executes it.
-
-The argument has two boundaries. The weight of provenance scales with how often the
-process resamples: a project that retains its artifacts meets the generator's changes only when it chooses to
-draw again, while a process that regenerates constantly has made the generator a live input, and pinning its
-version there is as rational as pinning a compiler whose upgrade changes codegen — authority still does not
-migrate, but the metadata starts to matter. And the moment a project fine-tunes a model on its own corrections,
-part of the generator has been authored in answer to this intent — that part is description-like, and
-version-worthy, which confirms the criterion rather than breaking it: what gets versioned is what was authored in
-response to intent, wherever it happens to live.
+That is the category line, and it is the ideal-world half of the account. In practice the influence runs the
+other way too: a description in use is inevitably shaped by the generator it is used with, and swapping
+generators reprices a description end to end. Those two facts are strong enough to make versioning the generator
+alongside the spec a practical necessity — wrong in category, necessary in practice — and Part IV takes up how
+both of those can be true at once.
 
 ## Part II — Finite descriptions, infinite space
 
@@ -249,7 +229,7 @@ rule removes — fails immediately: every rule excludes infinitely many programs
 infinite sets says nothing about which rule mattered more.
 
 The quantity that does behave the way the intuition wants is probability mass — the same notion of aim already
-established. A rule's power is the probability that the generator, left unconstrained, would have violated it. A
+established. A rule's power is the probability that an unconstrained draw would violate it. A
 rule against a mistake the generator was likely to make is powerful; a rule against a mistake it would almost
 never make is nearly inert, however reasonable it reads.
 
@@ -613,6 +593,102 @@ silent, because silence invites exactly the default the prior was built to prefe
 sentences are, by this logic, the ones fighting the prior rather than riding it — precisely where a short spec's
 usual bet, that silence resolves itself reasonably, stops paying off for free.
 
+### The two descriptions
+
+Every project has two descriptions, and only one of them is ever written down. The first is intent's projection
+onto the space — the region itself, what the people who need the system would accept, independent of who or what
+executes. Nobody possesses this one as text: intent is held partially, discovered on contact, and finite people
+writing in finite time never close it. The second is the artifact called "the spec": a finite encoding of some of
+that content, and — like any text — written for an audience. What to state and what to leave silent, which rules
+to put first, how forcefully to word a constraint: every one of those choices is made, consciously or not, against
+a reader's prior. A spec handed to a ten-year veteran is two sentences; the same intent handed to a new contractor
+is three pages. The content did not change. The audience did.
+
+Read this way, a written description is a delta: the distance between what the intent requires and what the
+executor already brings. The short-spec argument above established this from one side — the routine part is
+supplied by the prior for free, and the spec's real job is the part that fights it. The delta framing adds the
+other side: the written description is tuned to a particular generator the way a letter is tuned to its recipient.
+The generator is not part of the description's content — Part I stands — but it is the addressee of the
+description's form, and the form is most of the text.
+
+Under a generation loop, the tuning stops being a choice and becomes a pressure. The loop that keeps a spec
+honest — generate, check, fix what diverged — only fires on content that changes what gets generated. A clause
+that fights the prior is policed: let it rot and the next generation contradicts it. A rationale that is
+behaviorally inert produces no contradiction when it goes stale — and much of what a team needs from a
+description lives on exactly the cost-relevant, behaviorally free dimensions no mechanical check sees. Left
+alone, the pressure has a direction: the written description converges toward an excellent prompt — precise where
+the generator needs precision, silent where the generator needs nothing, and increasingly illegible as a theory
+of the system for the humans who also have to read it. What affects generation is kept alive by the loop; what
+only a human reader needs survives on discipline, which is how documentation always survived, and how it always
+died. Externalization has two ceilings, not one: the tacit that cannot be written, and the writable that no loop
+polices.
+
+The distinction also gives ratification a second mode. Some fixes narrow the region — new content, a decision the
+project had not made yet. Others only re-aim the encoding: the rule was already there, the generator keeps missing
+it, and the fix is rewording, not legislation. Same file, different descriptions being edited — and the fork
+returns, as practice, in Part VI.
+
+This closes a loop the essay opened when it ruled the generator out of the description, and what came back around
+should be said plainly. The generator's identity matters after all — significantly — just not as authority. The
+written description's form is indexed to the generator it was tuned against, the way source code is portable in
+principle and still written against a platform. A swap touches none of the region, the decisions, or the tests;
+it reprices the form — clauses that fought the old prior sit idle, silences that were free stop being — and
+re-tuning the encoding to its new audience is real work that scales with how far the priors differ. Recording
+which generator a description is currently tuned for is not bookkeeping; it is naming the encoding's target.
+Authority never migrates. The addressee still matters.
+
+The oldest proof of this is human. The audience a description was historically tuned for is the team, and
+everything a team writes — specs, comments, the documents nobody reads until they must — is priced against what
+that team already knows. This is why turnover costs more than the departure of the theory in people's heads,
+which this part opened with: the written half that remains was tuned to readers who held that theory, its
+silences free for someone who left, its clauses fighting battles the new readers never fight. A team swap is a
+generator swap, and it reprices the encoding the same way. The handover that feels underdocumented despite years
+of diligent writing usually is — for this audience. It was adequately documented for the one that left.
+
+### Versioning the generator
+
+Part I deferred a question: if the generator shapes the description this much, should it be versioned alongside
+it? The human case answers first. An engineer's prior sits on the same side of the category line as any model's —
+a career, an industry's conventions, a measure that responds to instruction, with nothing of the project in it.
+Nobody proposes versioning the engineer alongside the spec, and a model earns no different treatment by being
+software.
+
+The reason runs deeper than the analogy, and it is separate from the practical difficulties of pinning a hosted
+model: it would survive even if pinning were perfect. A dependency persists: the artifact calls it on every
+execution, which is why a library that deprecates can break a program nobody touched. The generator is consumed
+at the draw. Once the artifact exists, the generator's entire influence has been absorbed into the point —
+swapping models cannot break a shipped artifact; it can only change future draws. What persists gets versioned or
+pinned precisely because it keeps acting: the description and the oracle persist, so they are versioned;
+dependencies persist, so they are pinned; the generator evaporates into the artifact it produced.
+
+What version control records, on this reading, is a ledger of the project's decisions — each clause authored,
+each test pinned, in answer to this intent. The generator's prior is not free of decisions; it is the sedimented,
+anonymous ratifications of an entire discipline, which is exactly why it resolves silence so plausibly. But they
+are not the project's decisions, and checking the generator into the repository would be versioning everyone
+else's ledger inside this one. Record which generator produced which artifact — provenance is cheap and worth
+keeping. Authority is different, and it never migrates: the description states what must hold whoever, or
+whatever, executes it.
+
+### Pinning the generator
+
+The temptation follows directly from the tuning: if the description in use is indexed to a generator, hold the
+generator still. Whether that is rational depends on how often the process draws. A project that retains its
+artifacts meets the generator's changes only when it chooses to resample; for it, the generator's identity is
+provenance — worth recording, nothing to freeze. A process that regenerates constantly has made the generator a
+live input — the one regime where it behaves like something that persists, and earns the pin a dependency gets.
+
+What a pin buys should be stated exactly. A pinned compiler is deterministic: pin it and the binary is
+reproducible from the source. A pinned model still samples — the draw can miss under the same version that
+produced last week's success — so the pin stabilizes the distribution, not the output, and the encoding's target,
+not the artifact. And a hosted model is pinned on a lease: providers retire versions on their own schedule, so
+the pin postpones a swap; it does not prevent one. The repricing described above is not avoided by pinning. It is
+scheduled.
+
+The frontier case is fine-tuning. The moment a project tunes a model on its own corrections, part of the
+generator has been authored in answer to this intent — that part is description-like, and version-worthy, which
+confirms the criterion rather than breaking it: what gets versioned is what was authored in response to intent,
+wherever it happens to live.
+
 ### When the generators disappear
 
 Two ways the local-gradient cost can rise have been named: technical debt, the code's own structure degrading,
@@ -662,7 +738,9 @@ protection against one already-discovered failure mode, not the understanding th
 nobody has found yet. A spec clause says what must hold, not why. The fix is to put the why where the generator
 actually reads it — inside the same description a generation is produced from, not a separate document nothing
 consults — so a rationale that goes stale eventually produces a generation that contradicts it, the same discovery
-loop this essay has relied on throughout, now pointed at reasons instead of only requirements.
+loop this essay has relied on throughout, now pointed at reasons instead of only requirements. The reach of that
+fix is bounded the way the two descriptions above drew: the loop polices only the why that changes what gets
+generated, and the rest of the theory survives on discipline.
 
 And every probability-weighted argument in this essay — a rule's power, a crossover point, which silences are
 safe to leave alone — was computed against "the generator's own distribution," which is itself unversioned and
@@ -671,7 +749,9 @@ silently reprice. The partial reassurance: models trained on overlapping corpora
 failure modes even where they diverge on rare ones, so a rule guarding against a common failure probably keeps
 its value across a swap, while one guarding against something rare to a specific model's training does not —
 a testable claim, not a settled one. Every crossover and diminishing-returns curve here should be read as valid
-for a stated generator, not guaranteed to survive its retirement.
+for a stated generator, not guaranteed to survive its retirement. What does survive a swap unchanged is the
+oracle: a test's verdict consults no prior, so while every clause of aim reprices, everything confirmed stays
+confirmed — the safety net for a generator swap is the oracle, not a pin.
 
 ## Part V — What oracles are made of
 

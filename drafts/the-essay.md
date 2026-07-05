@@ -14,9 +14,7 @@ violation — depends on that literal sense holding, and it holds for exactly th
 one context in, one pass, a genuine distribution over outputs, checked afterward. This essay is about what follows once
 such an executor exists, and what does not follow from its existence turns out to matter just as much as what does.
 
-## Part I — The model
-
-### The primitives
+## Part I — The primitives
 
 There is a **space of programs**, every artifact expressible in some language. There is an **intent** — what
 the system is actually supposed to do, held by the people who need it, known incompletely even to them, revised on
@@ -152,7 +150,7 @@ API's own symbols are the exceptions.
 
 ### The battlefield assumption
 
-Push the model to a limit case, exactly to see what it assumes without saying so: grant a perfect oracle — no blind
+Push the apparatus to a limit case, exactly to see what it assumes without saying so: grant a perfect oracle — no blind
 spot, deciding any sample against true intent, for free. The space of programs does not shrink because the oracle
 got better. Even restricted to strings over a finite alphabet it stays infinite — so the set of points that fail
 intent stays infinite too. No
@@ -173,8 +171,7 @@ better one."
 
 Satisficing this way rests on an assumption nobody states, because most neighborhoods honor it well enough that stating
 it never seemed necessary: *every neighborhood entered contains a point good enough, reachable by successive local
-corrections, at a cost that stays acceptable.* Technical debt — the local gradient's cost rising over time —
-is what it looks like when this assumption starts to fail.
+corrections, at a cost that stays acceptable.*
 
 That confidence deserves a caveat before it hardens into proof. The strongest evidence usually offered for it
 is exactly the wrong kind: most software anyone can point to was built this way, therefore the assumption must
@@ -350,7 +347,7 @@ with great discipline, toward where the target used to be.
 Drift is a second way the battlefield assumption can fail, distinct from technical debt. Technical debt is the
 destination standing still while the road there gets more expensive with every step. Drift is the road staying cheap
 while the destination keeps moving. None of this is new to people who build software — it is the oldest complaint
-in the discipline, usually filed under "requirements churn." What this model adds is the reason that complaint
+in the discipline, usually filed under "requirements churn." What this lens adds is the reason that complaint
 is not a failure of discipline: intent is discovered by contact with a working system as much as it is specified
 ahead of one, and a description, however carefully authored, is a snapshot of intent at the moment someone was
 willing to commit it to writing — not a claim that intent will hold still afterward. Peter Naur's argument about
@@ -425,7 +422,7 @@ not yet visible, for the same reason a dormant bug is not yet visible: nobody ha
 ### Decomposition as a lever
 
 Reuse, componentization, and object-oriented encapsulation are usually taught as hygiene: don't repeat code, group
-related things, hide what callers should not see. Read under this model they are something sharper — a decision
+related things, hide what callers should not see. Read under this lens they are something sharper — a decision
 about where to draw the boundaries of a battlefield, made because the primitives apply recursively. A component is
 not a metaphor for a smaller version of the system; it is a smaller instance of the exact same structure — its
 own intent, its own description, its own generator, its own oracle, its own artifact accumulating its own survivor
@@ -495,7 +492,7 @@ variability when they have only ever seen one output from one team. The second, 
 process, tangled as it is, remembers its own history in a way nothing about a model does. This is where Peter
 Naur's 1985 argument about programming as theory-building lands with precision. Naur's point was that a program
 is not its text — it is the theory the team holds about how the text maps onto the world, and that theory is not
-recoverable from the artifact once the team disperses. In this model, that theory is exactly the tacit half of a
+recoverable from the artifact once the team disperses. Through this lens, that theory is exactly the tacit half of a
 pair: the record of which ambiguities were resolved, and how, and why. The pair — description plus resolution
 — always existed. The description-half was written down, sometimes. The resolution-half lived in the heads of
 the people who wrote the code, and moved when they did.
@@ -504,7 +501,7 @@ the people who wrote the code, and moved when they did.
 
 Extend the same idea across a career and it names something worth stating precisely: an engineer who has spent years
 working in one region of the space of programs is not merely faster than a novice. They are better calibrated in
-three distinct places this model already separates.
+three distinct places this apparatus already separates.
 
 They are a **better generator**. Enough excursions into a domain condition an engineer's own sampling the way a
 description conditions a model's: the first solution that comes to mind already carries the weight of every past
@@ -738,8 +735,8 @@ usual bet, that silence resolves itself reasonably, stops paying off for free.
 
 ### When the generators disappear
 
-The battlefield assumption named one way the local-gradient cost can rise: technical debt, the code's own structure
-degrading. Drift named a second: intent moving out from under a fixed description. There is a third, and it has
+Two ways the local-gradient cost can rise have been named: technical debt, the code's own structure degrading,
+and drift, intent moving out from under a fixed description. There is a third, and it has
 nothing to do with the code or the intent: the population of generators competent to work on it can collapse out
 from under both.
 
@@ -924,7 +921,7 @@ something a systematic pass would miss, and whatever blind spot the model carrie
 
 ### The questions this reframes
 
-A few questions recur in every conversation about specs versus code. The model does not settle them with a number,
+A few questions recur in every conversation about specs versus code. The lens does not settle them with a number,
 but it replaces each with a version that has an answer.
 
 *Does the spec have value?* The spec is the only description that distinguishes a region from a point, a decision from

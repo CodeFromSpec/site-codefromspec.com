@@ -1,9 +1,12 @@
 ---
 title: Rationale
 description: "Why Code from Spec exists — what killed specifications twice, what changed, and where this leads: a platform team for the whole company"
+date: 2026-04-15
 ---
 
 ![Rationale](/images/banner_rationale.png)
+
+<div class="notice">April 2026. This is the argument that launched the project, the rationale as it stood before the <a href="/theory">theory</a> was written. It is preserved here as published.</div>
 
 # Rationale
 

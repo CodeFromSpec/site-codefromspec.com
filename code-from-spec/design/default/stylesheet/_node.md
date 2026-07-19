@@ -62,7 +62,16 @@ The stylesheet must cover:
    inside `main`, not to the header logo or other UI
    images.
 
-10. **Responsive** — at max-width 768px: container
+10. **Notice box** — `.notice` is an editorial note
+    styled as a distinct box: `var(--color-border)` border
+    (1px solid), border-radius 4px, padding 1em 1.25em,
+    margin-top 1.5em, margin-bottom 1.5em, 0.95em font
+    size, muted color (`var(--color-text-muted)`).
+    Background `#f5f3f0` (a warm light gray). Links inside
+    `.notice` use accent color. The box should read as a
+    quiet, distinct annotation, not as body text.
+
+11. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically
    (flex-direction column, align flex-start, 12px gap),
    nav wraps (16px gap), main padding 20px 0.

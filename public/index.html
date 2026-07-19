@@ -78,6 +78,7 @@ Reject non-positive amounts with a validation error.</code></pre>
 <p>The spec tree format — how specifications are structured, how context is assembled, how staleness is detected — is approaching a definitive form. The newest piece is the regeneration mechanism: telling the agent exactly which parts of a spec changed, so it updates the code without re-deciding everything that did not. It is built, and early results are promising. The <a href="/journal">journal</a> reports this work as it happens, including the hypotheses that failed.</p>
 <p>Open problems remain. Natural language is ambiguous; the working answer is convergence, with test specs anchoring meaning mechanically — whether it converges fast enough for complex domains is unproven. Generation is non-deterministic; the guarantees are about behavior, verified by tests, not about the generated code itself. Authorship by someone with no software background is the north star, not a current capability — the <a href="/rationale">rationale</a> describes that destination, and the precedent it stands on. The tooling targets Claude Code; the spec format is client-agnostic, the orchestration is not.</p>
 <p><a href="https://github.com/CodeFromSpec/framework" target="_blank" rel="noopener">Explore the framework on GitHub</a></p>
+<p><em>Last updated July 3, 2026.</em></p>
 </section>
     </div>
   </main>

@@ -9,6 +9,7 @@ description: Notes on building with Code from Spec — progress reports, lessons
 
 Notes on building with Code from Spec — progress reports, lessons learned, roadblocks, and future directions.
 
+- [Growing pains](/journal/growing-pains) — July 19, 2026 — The theory essay gave the project a vocabulary for analyzing its own promises — and the first thing it analyzed was how incomplete they were.
 - [Telling the agent what changed](/journal/telling-the-agent-what-changed) — July 1, 2026 — The fix for anchoring: a cache, a hash comparison, and a one-word disposition per spec position. What worked, and the elegant hypothesis that didn't.
 - [Anchoring on old code](/journal/anchoring-on-old-code) — June 16, 2026 — When regenerating code from specs, should the agent see its previous output? On the tension between codebase stability and silent anchoring.
 - [Confinement](/journal/confinement) — June 10, 2026 — Why Code from Spec's generation agents see only the spec chain — and why taking context away from an AI makes its output trustworthy.

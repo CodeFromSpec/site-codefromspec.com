@@ -1,6 +1,7 @@
 ---
 title: Code from Spec
 description: A software engineering methodology where specifications are the source of truth and code materializes it.
+updated: 2026-07-03
 ---
 
 ![Code from Spec](/images/banner.png)
@@ -196,3 +197,5 @@ tooling targets Claude Code; the spec format is
 client-agnostic, the orchestration is not.
 
 [Explore the framework on GitHub](https://github.com/CodeFromSpec/framework)
+
+*Last updated July 3, 2026.*

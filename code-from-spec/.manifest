@@ -1,12 +1,15 @@
 code-from-spec: v5
-ARTIFACT/design/baseline;path:public/css/baseline.css;checksum:ydmHzducyUbWcXP4PtXGYcUhKEk;chain:Rz-BGpOurmReZfw_-wh5VaLbmE0
-ARTIFACT/design/default/stylesheet;path:public/css/default.css;checksum:qMitBPGfLqGAcyK3Ks3ZLUJLXg0;chain:t_q31H-Rdhn-5hr7HpIZ-MCsmMQ
-ARTIFACT/design/journal/stylesheet;path:public/css/journal.css;checksum:2nX_MFCEDos4ISWpeR1EC1gbLfU;chain:oEBxEswFIY-ZxuBZQ1ZJzTDKk-o
-ARTIFACT/html/home;path:public/index.html;checksum:ujaUZpPzSEizhVuavEyAAPI-Xo4;chain:Bsc-mG4VLRT4x4ov-mRcJTyeloA
-ARTIFACT/html/sections/journal/entries/anchoring-on-old-code;path:public/journal/anchoring-on-old-code/index.html;checksum:dCtjB9-yTtjlQ3AmV-OIsGZwgSM;chain:y-6FAdNNfRqPjCKmvMkwmEv-PQk
-ARTIFACT/html/sections/journal/entries/confinement;path:public/journal/confinement/index.html;checksum:aSNUTfBszeVBRXMkklooOnBIiFk;chain:zlocQKraGALAQToI4J5tyXH-dSE
-ARTIFACT/html/sections/journal/entries/context-management;path:public/journal/context-management/index.html;checksum:iuU1rKXQLCq_ZPJnhYP8pVf92dE;chain:xUSdf-R--GHw4BTu1o4ZHCGxqck
-ARTIFACT/html/sections/journal/entries/telling-the-agent-what-changed;path:public/journal/telling-the-agent-what-changed/index.html;checksum:cynF4K0KPeuGtLpnEuypmf35aIo;chain:OzNPTYJ9FlFZ53IOs5vPxTDqy-o
-ARTIFACT/html/sections/journal/index;path:public/journal/index.html;checksum:8lG23Ku478H5tCTNKzhOvC6_yOU;chain:LgwAx7WFSpZGs_K7s4Ffs4aiYFo
-ARTIFACT/html/sections/license;path:public/license/index.html;checksum:ratqqUSRQjOGN3slnp1twshXGpQ;chain:FJY3du7z6gbf-SMieCNs-Dq3N7s
-ARTIFACT/html/sections/rationale;path:public/rationale/index.html;checksum:IxIX1FAZj57kPpuyinDrUwVQTXQ;chain:Gb8lDGs_9z-7iLZJ7XUtBvE4T-Y
+ARTIFACT/design/baseline;path:public/css/baseline.css;checksum:ydmHzducyUbWcXP4PtXGYcUhKEk;chain:JCJyVoRj8dborgTDzv7u_YPFmrM
+ARTIFACT/design/default/stylesheet;path:public/css/default.css;checksum:qMitBPGfLqGAcyK3Ks3ZLUJLXg0;chain:1jx9aRGztz1LFNwdu1CITLfHkws
+ARTIFACT/design/journal/stylesheet;path:public/css/journal.css;checksum:2nX_MFCEDos4ISWpeR1EC1gbLfU;chain:9BgmyB3Xk_IK82HRBTogKVvZajE
+ARTIFACT/design/theory-index/stylesheet;path:public/css/theory-index.css;checksum:IpJmdo75KqTwGTpGF19kArTqcjs;chain:UC1xG3vfQDUJ_BpYqx4IJVIHBs0
+ARTIFACT/design/theory/stylesheet;path:public/css/theory.css;checksum:a8f9YMA_ukMVjHqq8FOhWZiLY9M;chain:DzjaWI5nrnL3O3ccc5G4xWF521M
+ARTIFACT/html/home;path:public/index.html;checksum:48N9A4kb4mFRkIbMEFSMW42c9u4;chain:9m7RSmsuDi8chlRRgw0mtbrIwxY
+ARTIFACT/html/sections/journal/entries/anchoring-on-old-code;path:public/journal/anchoring-on-old-code/index.html;checksum:V1WISJBJvCPdnWjFsXPcbcVPB3M;chain:MpQiOkk0b4GazqkTH73oUfoGaYM
+ARTIFACT/html/sections/journal/entries/confinement;path:public/journal/confinement/index.html;checksum:Wcy_9O5lQXtvQnCkAGwsLM7krS4;chain:KjtSnUMPg1f0sq4elBz3g0M4oaA
+ARTIFACT/html/sections/journal/entries/context-management;path:public/journal/context-management/index.html;checksum:C3xcR9iX1ItOjyyiLkzsmilS_ag;chain:iSejYDTADv7PD8HSBWK2IQ4ku9I
+ARTIFACT/html/sections/journal/entries/telling-the-agent-what-changed;path:public/journal/telling-the-agent-what-changed/index.html;checksum:BmqWNLXWeH3ftCPnBlsExDCmi-g;chain:Zg3hcJjplqygMsSYildpMpL88Qg
+ARTIFACT/html/sections/journal/index;path:public/journal/index.html;checksum:WilN1InCb0dQLR5vGuHCbZME0YM;chain:_fxVrVlomBC6kieTbYmro91Zd00
+ARTIFACT/html/sections/license;path:public/license/index.html;checksum:RYGhfBdqhCK9afCTBH5BJtVroLk;chain:Zcb5Bogy6kulU9QecHcFLpckmDg
+ARTIFACT/html/sections/rationale;path:public/rationale/index.html;checksum:7ooP7cVoUkxSnfF7pyYE2sXE0TU;chain:QEXpI_KpRjO772rVbWflTZX0S9s
+ARTIFACT/html/sections/theory/index;path:public/theory/index.html;checksum:7wuCnekwYu44_mrXVBYC25YuEF0;chain:dTGtfVGkqjediG96V1ydFT9PSUE

@@ -4,11 +4,11 @@ description: "The case for the test suite under cheap generation: memory, not co
 date: 2026-07-18
 ---
 
-![Part V — The test suite](/images/theory/20260718_image_part_V.png)
-
 # Part V — The test suite
 
-### The case for the test suite
+## The case for the test suite
+
+![Part V — The test suite](/images/theory/20260718_image_part_V.png)
 
 Every oracle available to a project has limits. The type system confirms shape on every build, for free,
 but no behavioral property crosses it. Review takes human time per candidate, and when candidates are nearly free
@@ -47,7 +47,7 @@ firmer than the process that produced it. The next sections deal with it. The ne
 conclusion about price, not a commandment: the test suite is the one oracle whose economics cheap
 generation improves instead of eroding.
 
-### Where tests are not worth writing
+## Where tests are not worth writing
 
 Three cases keep the claim at "almost." A throwaway prototype needs no test suite, because nothing is meant to
 survive; the prototype exists to provoke a reaction, not to accumulate a record. A piece whose entire
@@ -55,7 +55,7 @@ behavior can be closed by a checker or a proof needs fewer tests, because there 
 tested side worth writing by hand. And where the cost of writing and maintaining tests exceeds what defects
 cost, no test suite pays for itself; the team writes what it can afford and accepts the rest as incidents.
 
-### The test suite is generated too
+## The test suite is generated too
 
 A test is not a fixture; it is generated code, produced the same way the software is: someone writes a
 description of what the test should check, a generator turns it into an executable assertion. Generating a
@@ -102,7 +102,7 @@ stops appearing on both sides. Separate as much as the budget allows. The one th
 can reach: both accounts still answer to the same intent, and a misunderstanding that lives there has no second
 account to disagree with it.
 
-### The test suite under a generator swap
+## The test suite under a generator swap
 
 When a project changes its generator, the tests themselves do not change. No test is rewritten, and every
 verdict the test suite ever delivered remains valid, because a test does not depend on how the code was produced.
@@ -120,7 +120,7 @@ before keep their value under any generator, because they watch this code, not t
 tests that need re-evaluating are the ones written to guard against a tendency the old generator had. That
 is one more thing to review when the generator changes.
 
-### Test, spec, or both
+## Test, spec, or both
 
 When a project discovers a defect and fixes it, the fix has to be recorded somewhere. There are two places:
 a clause in the description, or a test. A clause tells every future generator what to avoid, including a
@@ -151,3 +151,5 @@ test that the current generator never trips still fires on every future edit, ea
 generator changes. There is no fixed optimum, only a balance, repriced whenever the generator changes. The
 only arrangements that fail outright are the extremes. All clauses and no tests loses the mechanical
 guarantee; all tests and no clauses loses the explanation of why.
+
+[← Part IV](/theory/part-iv) · [Table of contents](/theory) · [Part VI →](/theory/part-vi)

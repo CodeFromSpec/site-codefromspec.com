@@ -4,14 +4,14 @@ description: "What the description should be: a delta against the prior, not an 
 date: 2026-07-18
 ---
 
-![Part III — The description](/images/theory/20260718_image_part_III.png)
-
 # Part III — The description
 
 In Part II we learned that a perfect description does not eliminate the need for the oracle, and a perfect
 oracle does not eliminate the need for the description. Here we discuss what the description should be.
 
-### What the generator supplies for free
+## What the generator supplies for free
+
+![Part III — The description](/images/theory/20260718_image_part_III.png)
 
 No description teaches its generator to program.
 
@@ -38,7 +38,7 @@ redundancy. An underspecification bug is a compression failure: the author assum
 something it did not, and the draw resolved the silence against intent. A generator swap reprices
 the silences where the two priors differ: what was safe under the old one becomes a bet on the new one.
 
-### Source code is also a spec
+## Source code is also a spec
 
 The delta has an upper bound, and it is source code itself. Source code is a description in the limiting case:
 it decides every dimension and leaves the generator nothing to resolve. No spec ever needs to carry more
@@ -55,7 +55,7 @@ not choose between spec and source code. Where a piece demands full determinatio
 needs is the source code itself, kept as such. The two levels combine within a single program, and a spec-driven
 workflow that cannot say "this part is decided literally" is missing the top of its own range.
 
-### Diminishing returns
+## Diminishing returns
 
 A second reason not to specify everything arrives before the bound does: each clause buys less than the one
 before it. A clause is worth how often the generator would break it if left unstated, times what the break
@@ -72,7 +72,7 @@ The stopping point also moves with what an undetected failure costs. Where a fai
 cleanup, most rare deviations are not worth a clause; where it costs a plane or a misdosed patient, the same
 arithmetic justifies specifying far into the rare cases.
 
-### Smaller is not cheaper
+## Smaller is not cheaper
 
 It is tempting to assume that the goal is to minimize the spec's size, but the decision between spec and
 source is not about which one is shorter. A spec shorter than its source can still lose, if nothing catches
@@ -85,7 +85,7 @@ it describes. Intent changes arrive as edits to it, verification runs against it
 and every generator swap reads it fresh. What decides is the cost of authoring plus verifying plus evolving,
 not characters saved.
 
-### The cost of authoring
+## The cost of authoring
 
 Authoring has entered every account so far as a single price. It bundles three costs. Deciding what the system is:
 the abstractions, the trade-offs, the resolutions intent does not hand over ready-made. Knowing the prior: a
@@ -102,7 +102,7 @@ bill, and the cost of deciding amortizes out of sight. It is still paid — on e
 every trade-off no training data resolves, every re-decision when intent moves — and nothing about cheap drawing has
 made deciding any cheaper.
 
-### The generator is not part of the description
+## The generator is not part of the description
 
 The generator shapes every draw so strongly that it is natural to think of it as part of the description.
 
@@ -116,7 +116,7 @@ manufactured, and the manufacturing is what aiming is.
 Both description and generator narrow the space, but toward different targets. The generator narrows toward
 what code in general has been, the description toward what this project means.
 
-### The description is the delta between intent and the generator
+## The description is the delta between intent and the generator
 
 A spec is written for an audience. What order the clauses come in, how forcefully each is worded, what
 needs no mention at all: every one of those choices is made against a reader's prior. So the subtraction that
@@ -143,7 +143,7 @@ not made yet. Others only re-aim the encoding, rewording a clause the generator 
 receives two different kinds of edit: one changes what the project means, the other changes how it is said
 to this generator.
 
-### Versioning the generator
+## Versioning the generator
 
 The handover from team to team also happens between models, every time the generator in use changes. Teams
 never versioned the engineer, but a model's identity is trivial to record. Declare it in the project's
@@ -166,7 +166,7 @@ optimization, a security improvement) announcing nothing and renaming nothing. A
 is blind, and only the oracles can notice. And the pin is a lease: providers retire versions on their own
 schedule, so the swap is postponed, not prevented.
 
-### The spec converges toward a prompt
+## The spec converges toward a prompt
 
 A description in use sits under a pressure: the generation loop only polices content that changes what gets
 generated. A clause that fights the prior rots visibly (the next generation contradicts it), while a
@@ -183,7 +183,7 @@ That cuts against the hope pinned on spec-as-source workflows. Making the spec t
 between spec and code, and reopens it inside the spec, between the document the generator needs and the
 theory the team needs.
 
-### The authored form and the delivered form
+## The authored form and the delivered form
 
 Nothing in the apparatus requires the spec to be presented to the generator as written. The description a
 human edits and the description the generator receives can be different forms of the same content:
@@ -194,7 +194,7 @@ presented is part of how it aims, and an adapter between the authored form and t
 infrastructure of the same kind as the compiler that transforms source into the machine's input without
 changing what the program means.
 
-### The artifact is not disposable
+## The artifact is not disposable
 
 A description defines a region, never a point. Every draw resolves the silences the description left open,
 and those resolutions are recorded nowhere but in the artifact: the description says what may vary; the
@@ -226,7 +226,7 @@ bet that the unchecked dimensions do not matter, never a fact. There, regenerati
 exception rather than a strategy, and what forces it is anchoring — the point capturing the draw instead of
 informing it — and even then the first response is to re-arm the description, not to discard the artifact.
 
-### What spec-driven development optimizes
+## What spec-driven development optimizes
 
 Each piece of the software faces one decision: at which level between spec and source code does it live?
 The answer is an optimization, not an allegiance. Where the cost of authoring, verifying, and evolving a
@@ -252,3 +252,5 @@ spec-driven development is not the document that dream was about: it is addresse
 its prior, and pulled by the loop's incentives away from its human readers, not toward them. Spec-driven
 development is an engineering technique for extracting reliable software from a stochastic generator; the
 spec is the instrument, not the point.
+
+[← Part II](/theory/part-ii) · [Table of contents](/theory) · [Part IV →](/theory/part-iv)

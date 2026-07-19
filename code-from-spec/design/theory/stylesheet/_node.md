@@ -52,14 +52,7 @@ The stylesheet must cover:
    `clear: both`. This prevents floated images from
    bleeding into the next section.
 
-7. **Subheading** — `h1 + p` styled at 1.25em, muted
-   color.
-
-8. **Entry date** — `main time`, `main p` immediately
-   after `h1 + p` (or after `h1` if no subheading):
-   0.875em, muted color, margin-bottom 1.5em.
-
-9. **Responsive** — at max-width 768px: container
+7. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically
    (flex-direction column, align flex-start, 12px gap),
    nav wraps (16px gap), main padding 20px 0.

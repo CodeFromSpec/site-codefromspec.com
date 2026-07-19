@@ -4,15 +4,15 @@ description: "Where verdicts come from, what each costs, and how far each can be
 date: 2026-07-18
 ---
 
-![Part IV — The oracle](/images/theory/20260718_image_part_IV.png)
-
 # Part IV — The oracle
 
 Part III asked what the description should be. This part asks the same of the oracle: where a project's
 verdicts come from, what each one costs, and how far each can be trusted, starting from the verdicts farthest
 from intent, and climbing.
 
-### The type system as a pre-paid oracle
+## The type system as a pre-paid oracle
+
+![Part IV — The oracle](/images/theory/20260718_image_part_IV.png)
 
 The compiler is the project's first oracle, running before the first test is written. It decides one slice
 of intent (shape, not behavior), and the slice is genuine intent because the language was a deliberate
@@ -31,7 +31,7 @@ free coverage in the regime that needs it most, to save a cost that has mostly s
 type system confirms a property nobody thought to encode. The frontier between prepaid shape and tested
 behavior is a design choice, and something always stays on the tested side.
 
-### Closed oracles and open oracles
+## Closed oracles and open oracles
 
 When the compiler rejects a program, nobody suspects the compiler. When a test fails, suspecting the test
 is sometimes the right answer. The difference is not one of kind (a compiler bug is structurally the same
@@ -66,7 +66,7 @@ closure. The compiler's verdict is never argued with, the linter's rarely; a sca
 if it were a clause is a promotion nobody examined, and a generator pressed to silence a suspicion will find
 the cheapest silence, which is not always a fix.
 
-### When intent moves
+## When intent moves
 
 When a requirement changes on purpose, a description-facing oracle resists, because it
 still polices yesterday's requirements. At the right strength that resistance is useful: the failing test
@@ -89,7 +89,7 @@ way, something still changing sits behind a rigid check and every change pays fo
 Misaligned the other way, something settled sits behind checks that a bulk update can erase, and that is
 what the next section's generator learns to exploit.
 
-### What an adversarial generator is
+## What an adversarial generator is
 
 When generating is expensive, a candidate that fails the tests simply fails; retrying costs too much. When
 generating is nearly free, retrying is the whole method: the generator keeps producing candidates until one
@@ -111,7 +111,7 @@ the tests from the public contract, never from the implementation. This does not
 (nothing can), but it keeps the generator's gaps and the tests' gaps from overlapping, so a cheap search has
 a harder time finding a candidate that slips through both.
 
-### Feeding the verdict back
+## Feeding the verdict back
 
 Most generation workflows run a loop: a candidate fails a test, the failure message goes back to the
 generator, and a new candidate comes out. The failure message is not just a signal to retry; it is a
@@ -139,7 +139,7 @@ event, and discarded candidates leave no trace in anything versioned. That is wh
 what gets thrown away is a candidate, not a deployed artifact, and nothing the project has learned is at
 stake.
 
-### The environment as the ultimate oracle
+## The environment as the ultimate oracle
 
 Production is the most authoritative oracle there is. Every input the software receives is a query: does
 this behavior belong to the region intent wants? The two verdicts are not symmetric: a 'no' arrives with a
@@ -161,7 +161,7 @@ reporting raise the rate at which verdicts get filed instead of evaporating with
 it makes production a different oracle. It re-prices the same one, and every unit of that engineering also
 cheapens the fresh draw, whose new defects get discovered at report prices instead of incident prices.
 
-### Can an intent-facing oracle be built?
+## Can an intent-facing oracle be built?
 
 Production's verdicts are authoritative, late, and expensive, so the tempting project is a cheaper oracle
 with the same authority. It cannot be built. To build is to author, and whatever is authored encodes its
@@ -183,7 +183,7 @@ the behavior and finding it wrong, production meeting an input nobody imagined. 
 authoritative, and it is also what makes them impossible to schedule. A reaction arrives when the encounter
 happens, not when the build needs it.
 
-### The distance from intent
+## The distance from intent
 
 An engineer interviews the stakeholder, misreads one requirement, and writes both the spec and the test
 description from the misreading. Everything that follows agrees: the implementation conforms to the spec,
@@ -215,7 +215,7 @@ every future draw. The reading only covers what is written (the scenario nobody 
 object to) and it goes stale as intent moves, so it has to recur. It is still the cheapest insurance
 there is.
 
-### The LLM-as-judge proposition
+## The LLM-as-judge proposition
 
 A model can be asked to judge candidates: give it the candidate and a judging prompt, and it returns a
 verdict at the price of a draw. The pitch is that this relieves the regime's bottleneck: generation is
@@ -283,3 +283,5 @@ fifty nobody reaches are certified by passes worth nothing. That is not the judg
 equilibrium of the judge used as sold: an instrument that cheapens the verdict finances the volume that
 overwhelms it, dissolves the discipline that made candidates worth judging, and delivers the deferred cost
 at the scale the cheap verdicts built.
+
+[← Part III](/theory/part-iii) · [Table of contents](/theory) · [Part V →](/theory/part-v)

@@ -4,8 +4,6 @@ description: "The six primitives — space, intent, description, generator, orac
 date: 2026-07-18
 ---
 
-![Part I — The primitives](/images/theory/20260718_image_part_I.png)
-
 # Part I — The primitives
 
 The apparatus has six parts.
@@ -101,7 +99,9 @@ renders as "05/06/2025") confirms the dimension it covers and says nothing about
 locale boundaries, or with invalid input. The artifact is the function that exists, carrying those resolutions
 and that one piece of evidence.
 
-### The dimensions that do and do not matter
+## The dimensions that do and do not matter
+
+![Part I — The primitives](/images/theory/20260718_image_part_I.png)
 
 The space of texts has far more dimensions than intuition expects. Moving along most of them does not
 change program behavior at all (a renamed variable, two independent statements reordered), while a few
@@ -113,7 +113,7 @@ pays to understand the artifact well enough to aim the next change, and the odds
 dimension that does matter. Naming is the standing example: it is behaviorally free (reflection, serialization
 keys, and a public API's own symbols are the exceptions) and expensive everywhere else.
 
-### What a bug is
+## What a bug is
 
 Given these primitives, a bug has a precise shape, and it comes in three kinds worth telling apart, because the
 remedies differ.
@@ -170,7 +170,7 @@ check can say whether it did. That is what the second destination is for: ratifi
 into the oracle, the same discovery widens what can be confirmed. A cheap check now covers the dimension an
 expensive incident just visited, and that verdict never has to be bought at that price again.
 
-### Oracles and descriptions
+## Oracles and descriptions
 
 Mis-specification exposed a divide that deserves its own name, because it classifies oracles as much as it classifies bugs. An
 oracle is either **description-facing** or **intent-facing**, depending on which object its verdict answers to. A test
@@ -215,7 +215,7 @@ verdict is consumed through description-facing instruments, and the instruments 
 blind spots, silences, the possibility of measuring the wrong thing. The purest verdicts are the unfiled ones,
 which is why they so rarely arrive.
 
-### Anchoring
+## Anchoring
 
 Anchoring is not a property of the artifact alone; it takes three participants. The point provides the
 attractor: it is what sits in the context, available to be mimicked. The generator determines the strength of
@@ -264,7 +264,7 @@ resample's bill. A methodology that takes it has not solved the presentation pro
 never to face it. How description and artifact are best presented together, so that the point informs the
 draw without capturing it, is an open question, and one of the hardest an honest spec-driven practice owns.
 
-### Comments
+## Comments
 
 Under human maintenance, comments were a dimension like naming: behaviorally free, cost-relevant, priced
 entirely at reading time. A generation loop changes their status. The next draw reads them as context, and a
@@ -291,3 +291,5 @@ future draw is aimed by it on purpose. What survives in the artifact shares the 
 being one — a description clause in transit, or generated text with no authority of its own. The comment
 properly so called, discretionary prose whose only record is the artifact, is the one kind a sound workflow
 does not keep: it is a ratification still pending, stored in the one place a resample erases.
+
+[Table of contents](/theory) · [Part II →](/theory/part-ii)

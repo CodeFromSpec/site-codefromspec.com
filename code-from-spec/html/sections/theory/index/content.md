@@ -16,8 +16,8 @@ Start with two observations about generating code with a stochastic model:
 
 - the generated artifact is the point in that space you landed on.
 
-This essay is about what follows once such a generator exists. It was written in the course of designing a
-spec-driven development methodology, and it serves that work as an instrument: a vocabulary for naming the
+This essay is about what follows once such a generator exists. It was written in the course of designing
+this spec-driven development methodology, and it serves this work as an instrument: a vocabulary for naming the
 parts, a map of where each part reaches its limits, and grounds for design decisions.
 
 - [Part I — The primitives](/theory/part-i) — The six primitives — space, intent, description, generator, oracle, artifact — and the four operations that act on them.

@@ -56,3 +56,5 @@ intent, because no built oracle does. Everything between them — the writing, t
 silences, the mechanical checking — can move to the machine, component by component. Remove those two poles as
 well, and the result is not the dream. It is a loop optimizing conformance to encodings whose fidelity to
 intent no one is left to check.
+
+[← Part VI](/theory/part-vi) · [Table of contents](/theory)

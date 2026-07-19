@@ -4,11 +4,11 @@ description: "Why decomposition matters more, not less, when a generator writes 
 date: 2026-07-18
 ---
 
-![Part VI — The case for decomposition](/images/theory/20260718_image_part_VI.png)
-
 # Part VI — The case for decomposition
 
-### The project was never one thing
+## The project was never one thing
+
+![Part VI — The case for decomposition](/images/theory/20260718_image_part_VI.png)
 
 The essay has asked its questions of "a project" as though one answer covered it: is the intent settled, does
 it fight the prior, does it live at the spec level or the source level, are its verdicts cheap or expensive. No
@@ -29,7 +29,7 @@ own optimum on the axes, instead of the whole inheriting one piece's worst case.
 treated further down: a move inside one piece can reach less of the system than the same move in a monolith
 could.
 
-### A component is the apparatus, nested
+## A component is the apparatus, nested
 
 What makes answering per piece coherent is that a component is not a metaphor for a smaller version of the
 system; it is a smaller instance of the exact same structure: its own intent, its own description, its own
@@ -38,7 +38,7 @@ one. Every question the previous parts asked of a project is asked again of each
 independently. The primitives apply recursively, which is the whole reason a boundary can hold two pieces
 to different answers at all.
 
-### The axes of the cut
+## The axes of the cut
 
 Where to draw a boundary is a question this essay has been answering in pieces since Part II. Each part
 uncovered an axis on which components differ, and every axis is read per component, never per project:
@@ -76,7 +76,7 @@ that makes both sides settled can still strand a mechanically verifiable core in
 perceptual one, and the component is then confirmed at the perceptual price on every draw. A single boundary
 can satisfy one axis and violate another; only reading all three says which.
 
-### The interaction surface
+## The interaction surface
 
 The second gain is the easier one to overstate, so start with what decomposition does not buy.
 Componentization does not shrink the total dimensionality of a problem. The decisions a system has to make do
@@ -93,7 +93,7 @@ reachable set per move drops from the whole system to one component's share of i
 the system's total complexity changed. Fewer dimensions to entangle with per box, not fewer dimensions
 overall.
 
-### What makes a boundary real
+## What makes a boundary real
 
 The instinct that a change confined to one component should only affect that component is correct exactly as often
 as the boundary drawn in the file structure is the boundary that actually governs the dimensions. When it fails
@@ -117,7 +117,7 @@ decision with a real answer, not a free assumption. Draw the interface narrow, k
 runtime, verify both sides on every change that touches the seam. The instinct holds exactly as strongly as
 those four things do, no more and no less.
 
-### The classic levers, reread
+## The classic levers, reread
 
 Reuse, encapsulation, and the single-responsibility principle are usually taught as hygiene: don't repeat
 code, hide what callers should not see, give each unit one job. Under this theory each is a decision about a
@@ -167,7 +167,7 @@ stakeholder concern behind one responsibility moves, only the component that own
 survivor evidence accumulated by every unrelated component stays untouched. And the odds that a local move
 damages something unrelated drop as well: fewer nearby load-bearing dimensions to possibly touch.
 
-### The cycle cuts both ways
+## The cycle cuts both ways
 
 Read separately, each lever lowers the price of aiming, of confirming, or of both. Read together, under cheap
 generation, they compound into a cycle — and which direction it runs is decided by the boundaries.
@@ -201,3 +201,5 @@ the expensive side's price, and cheap generation, far from helping, only finds t
 defects through it. SDD does not reward good architecture and forgive bad; it amplifies whichever it is handed. Which
 is why decades of decomposition wisdom are not made quaint by a generator that writes the code — they are made
 load-bearing.
+
+[← Part V](/theory/part-v) · [Table of contents](/theory) · [Conclusion →](/theory/conclusion)

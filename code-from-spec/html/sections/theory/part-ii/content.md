@@ -4,13 +4,13 @@ description: "What happens when each primitive is pushed to its limit, and the c
 date: 2026-07-18
 ---
 
-![Part II — The apparatus at its limits](/images/theory/20260718_image_part_II.png)
-
 # Part II — The apparatus at its limits
 
 Part II tests the apparatus by pushing each primitive to its limits.
 
-### The limits of intent
+## The limits of intent
+
+![Part II — The apparatus at its limits](/images/theory/20260718_image_part_II.png)
 
 Suppose intent had everything it never has: full knowledge, stillness, finite encodability, consistency
 among stakeholders. Then the description can be finished. Corrections now land on a target that holds
@@ -41,7 +41,7 @@ at all. Both bets treated a project as one single regime, and neither had a voca
 the layers. What this limit leaves a project with is a question asked of each piece: which side of the line
 does it sit on, and which economics follows.
 
-### The limits of the description
+## The limits of the description
 
 Take the absent description limit first, a draw conditioned on nothing but the prior and the point
 it stands on. What comes out is not noise but something more dangerous: perfectly plausible code, aimed at
@@ -85,7 +85,7 @@ stopping rule for writing clauses has to be economic, never a declaration of arr
 the text does not, and the property expires with nothing in the file changing. That is the ceiling on what
 better specification alone can buy.
 
-### The limits of the generator
+## The limits of the generator
 
 The generator has two limits. Take away the prior first: a generator with no training concentrating its output,
 spread as thin as the space allows. Almost every draw is noise (not wrong programs but non-programs, texts no
@@ -101,7 +101,7 @@ The opposite limit (freeze the prior on a single point) dooms aiming from the ot
 emits its one habit no matter what the description says. At the prior-less limit the description's job was
 impossible; at the frozen limit it is pointless. Every generator anyone has shipped sits between the two.
 
-### The limits of the oracle
+## The limits of the oracle
 
 Now the oracle. Its two facings give it two perfect limits, not one. Grant each kind its perfection in turn.
 
@@ -137,7 +137,7 @@ which pushes effort into the description, into the tests, into every check that 
 verdict is spent. Verdicts manufactured cheaply to relieve the bottleneck do not remove the cost; they move it
 onto whoever depends on what passed, paid later, as defects nobody caught.
 
-### The costs at their limits
+## The costs at their limits
 
 The operations run on two prices and on anchoring: the cost of generating a candidate, the cost of buying a
 verdict on it, and how strongly the existing point captures the next draw.
@@ -169,7 +169,7 @@ highest price there is, and only if the artifact survives it. Preserving the art
 real effort goes into keeping anchoring low, because only local moves are desirable; a resample would throw the
 lessons away.
 
-### The corner practice already occupies
+## The corner practice already occupies
 
 The sweep pushed one primitive at a time, but the limit a reader is most likely living in is a joint one: no
 durable description, generation nearly free, and checking that is cheap but partial. That is the agent
@@ -192,3 +192,5 @@ institution software trusts — the review, the test suite, the caution around a
 not the one that bound. That is the turn the rest of this essay runs on: not that generation became cheap, but
 that its becoming cheap moved the binding constraint onto the verdict, and left every discipline calibrated to
 a price that no longer holds.
+
+[← Part I](/theory/part-i) · [Table of contents](/theory) · [Part III →](/theory/part-iii)

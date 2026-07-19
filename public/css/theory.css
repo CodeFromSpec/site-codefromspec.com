@@ -76,18 +76,6 @@ section::after {
   clear: both;
 }
 
-h1 + p {
-  font-size: 1.25em;
-  color: var(--color-muted);
-}
-
-main time,
-main h1 + p + p {
-  font-size: 0.875em;
-  color: var(--color-muted);
-  margin-bottom: 1.5em;
-}
-
 @media (max-width: 768px) {
   .container {
     padding: 0 16px;

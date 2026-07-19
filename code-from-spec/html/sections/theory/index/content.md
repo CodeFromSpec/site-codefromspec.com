@@ -20,10 +20,10 @@ This essay is about what follows once such a generator exists. It was written in
 this spec-driven development methodology, and it serves this work as an instrument: a vocabulary for naming the
 parts, a map of where each part reaches its limits, and grounds for design decisions.
 
-- [Part I — The primitives](/theory/part-i) — The six primitives — space, intent, description, generator, oracle, artifact — and the four operations that act on them.
+- [Part I — The primitives](/theory/part-i) — The six primitives and the four operations that act on them.
 - [Part II — The apparatus at its limits](/theory/part-ii) — What happens when each primitive is pushed to its limit, and the corner where current practice already sits.
-- [Part III — The description](/theory/part-iii) — What the description should be: a delta against the prior, not an ordinary specification.
+- [Part III — The description](/theory/part-iii) — What the description carries, what it leaves to the generator, and what it costs to keep.
 - [Part IV — The oracle](/theory/part-iv) — Where verdicts come from, what each costs, and how far each can be trusted.
-- [Part V — The test suite](/theory/part-v) — The case for the test suite under cheap generation: memory, not coverage, is the decisive property.
-- [Part VI — The case for decomposition](/theory/part-vi) — Why decomposition matters more, not less, when a generator writes the code.
-- [Conclusion](/theory/conclusion) — The vocabulary, the bet, and what is left for the person.
+- [Part V — The test suite](/theory/part-v) — The case for the test suite under cheap generation.
+- [Part VI — The case for decomposition](/theory/part-vi) — Why decomposition matters more, not less, under SDD.
+- [Conclusion](/theory/conclusion) — The payoffs, and the irreducible roles no apparatus replaces.

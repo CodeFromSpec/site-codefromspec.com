@@ -76,6 +76,12 @@ section::after {
   clear: both;
 }
 
+main .container p:last-of-type {
+  text-align: center;
+  color: var(--color-muted);
+  margin-top: 2em;
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 0 16px;

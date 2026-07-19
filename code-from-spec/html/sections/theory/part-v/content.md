@@ -1,6 +1,6 @@
 ---
 title: "Part V — The test suite"
-description: "The case for the test suite under cheap generation: memory, not coverage, is the decisive property."
+description: "The case for the test suite under cheap generation."
 date: 2026-07-18
 ---
 

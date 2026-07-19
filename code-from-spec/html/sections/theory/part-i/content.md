@@ -1,10 +1,12 @@
 ---
 title: "Part I — The primitives"
-description: "The six primitives — space, intent, description, generator, oracle, artifact — and the four operations that act on them."
+description: "The six primitives and the four operations that act on them."
 date: 2026-07-18
 ---
 
 # Part I — The primitives
+
+![Part I — The primitives](/images/theory/20260718_image_part_I.png)
 
 The apparatus has six parts.
 
@@ -100,8 +102,6 @@ locale boundaries, or with invalid input. The artifact is the function that exis
 and that one piece of evidence.
 
 ## The dimensions that do and do not matter
-
-![Part I — The primitives](/images/theory/20260718_image_part_I.png)
 
 The space of texts has far more dimensions than intuition expects. Moving along most of them does not
 change program behavior at all (a renamed variable, two independent statements reordered), while a few

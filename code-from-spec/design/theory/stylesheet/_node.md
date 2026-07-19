@@ -52,7 +52,11 @@ The stylesheet must cover:
    `clear: both`. This prevents floated images from
    bleeding into the next section.
 
-7. **Responsive** — at max-width 768px: container
+7. **Navigation** — the last `<p>` inside `main .container`
+   is centered (`text-align: center`), muted color,
+   margin-top 2em.
+
+8. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically
    (flex-direction column, align flex-start, 12px gap),
    nav wraps (16px gap), main padding 20px 0.

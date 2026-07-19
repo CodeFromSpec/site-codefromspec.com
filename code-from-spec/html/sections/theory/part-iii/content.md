@@ -1,6 +1,6 @@
 ---
 title: "Part III — The description"
-description: "What the description should be: a delta against the prior, not an ordinary specification."
+description: "What the description carries, what it leaves to the generator, and what it costs to keep."
 date: 2026-07-18
 ---
 

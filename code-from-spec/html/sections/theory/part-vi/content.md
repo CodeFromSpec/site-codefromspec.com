@@ -1,6 +1,6 @@
 ---
 title: "Part VI — The case for decomposition"
-description: "Why decomposition matters more, not less, when a generator writes the code."
+description: "Why decomposition matters more, not less, under SDD."
 date: 2026-07-18
 ---
 

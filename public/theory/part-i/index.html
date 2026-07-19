@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="The six primitives — space, intent, description, generator, oracle, artifact — and the four operations that act on them.">
+  <meta name="description" content="The six primitives and the four operations that act on them.">
   <meta name="author" content="Gustavo Silveira Neto">
   <title>Part I — The primitives — Code from Spec</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
@@ -29,6 +29,8 @@
   <main>
     <div class="container">
       <h1>Part I — The primitives</h1>
+
+<img src="/images/theory/20260718_image_part_I.png" alt="Part I — The primitives">
 
 <p>The apparatus has six parts.</p>
 
@@ -70,8 +72,6 @@
 
 <section>
   <h2>The dimensions that do and do not matter</h2>
-
-  <img src="/images/theory/20260718_image_part_I.png" alt="Part I — The primitives">
 
   <p>The space of texts has far more dimensions than intuition expects. Moving along most of them does not change program behavior at all (a renamed variable, two independent statements reordered), while a few carry outsized, catastrophic sensitivity: flip a comparison operator, shift a loop bound by one, and a single-token edit lands the artifact in a different region entirely. Behavior is one axis; cost is another, and they are independent. A dimension can be <strong>behaviorally free</strong> (it never changes which programs conform) and still <strong>cost-relevant</strong>: it moves the price a human pays to confirm a candidate, the price a future editor pays to understand the artifact well enough to aim the next change, and the odds of a local move touching a dimension that does matter. Naming is the standing example: it is behaviorally free (reflection, serialization keys, and a public API's own symbols are the exceptions) and expensive everywhere else.</p>
 </section>

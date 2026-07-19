@@ -1,10 +1,12 @@
 ---
 title: "Conclusion"
-description: "The vocabulary, the bet, and what is left for the person."
+description: "The payoffs, and the irreducible roles no apparatus replaces."
 date: 2026-07-18
 ---
 
 # Conclusion
+
+![Conclusion](/images/theory/20260718_image_conclusion.png)
 
 This essay built a vocabulary: a way to name the pieces in play when code comes from a stochastic generator —
 the description, the generator, the oracle, the artifact, the draw — so they can be reasoned about, not just

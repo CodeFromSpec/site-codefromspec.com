@@ -2,7 +2,7 @@ code-from-spec: v5
 ARTIFACT/design/baseline;path:public/css/baseline.css;checksum:ydmHzducyUbWcXP4PtXGYcUhKEk;chain:JCJyVoRj8dborgTDzv7u_YPFmrM
 ARTIFACT/design/default/stylesheet;path:public/css/default.css;checksum:qMitBPGfLqGAcyK3Ks3ZLUJLXg0;chain:1jx9aRGztz1LFNwdu1CITLfHkws
 ARTIFACT/design/journal/stylesheet;path:public/css/journal.css;checksum:2nX_MFCEDos4ISWpeR1EC1gbLfU;chain:9BgmyB3Xk_IK82HRBTogKVvZajE
-ARTIFACT/design/theory/stylesheet;path:public/css/theory.css;checksum:Hj6ejqkrhODiScil8Q9huXdOg3I;chain:CA1fkwnCeys2RmfnquyB8pTj99Y
+ARTIFACT/design/theory/stylesheet;path:public/css/theory.css;checksum:EokNhckqF1JLJcKdDxRp3fCLLrM;chain:GxBylK02tZD5XTCf4vDi8ljtPAI
 ARTIFACT/html/home;path:public/index.html;checksum:48N9A4kb4mFRkIbMEFSMW42c9u4;chain:9m7RSmsuDi8chlRRgw0mtbrIwxY
 ARTIFACT/html/sections/journal/entries/anchoring-on-old-code;path:public/journal/anchoring-on-old-code/index.html;checksum:V1WISJBJvCPdnWjFsXPcbcVPB3M;chain:MpQiOkk0b4GazqkTH73oUfoGaYM
 ARTIFACT/html/sections/journal/entries/confinement;path:public/journal/confinement/index.html;checksum:Wcy_9O5lQXtvQnCkAGwsLM7krS4;chain:KjtSnUMPg1f0sq4elBz3g0M4oaA

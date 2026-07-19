@@ -65,10 +65,11 @@ The stylesheet must cover:
 10. **Notice box** — `.notice` is an editorial note
     styled as a distinct box: `var(--color-border)` border
     (1px solid), border-radius 4px, padding 1em 1.25em,
-    margin-bottom 1.5em, 0.95em font size, muted color
-    (`var(--color-text-muted)`). Background is transparent.
-    Links inside `.notice` use accent color. The box should
-    read as a quiet, distinct annotation, not as body text.
+    margin-top 1.5em, margin-bottom 1.5em, 0.95em font
+    size, muted color (`var(--color-text-muted)`).
+    Background `#f5f3f0` (a warm light gray). Links inside
+    `.notice` use accent color. The box should read as a
+    quiet, distinct annotation, not as body text.
 
 11. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically

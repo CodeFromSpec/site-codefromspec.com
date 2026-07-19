@@ -29,6 +29,7 @@ Values shared across all themes:
 
 Header links:
 - Rationale → /rationale
+- Theory → /theory
 - Journal → /journal
 - GitHub → https://github.com/CodeFromSpec (external)
 

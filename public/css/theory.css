@@ -1,0 +1,120 @@
+/* code-from-spec: SPEC/design/theory/stylesheet */
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+header {
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px 0;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-name {
+  font-weight: bold;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-name:hover {
+  text-decoration: none;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  display: inline;
+  vertical-align: middle;
+}
+
+header nav {
+  display: flex;
+  gap: 24px;
+}
+
+footer {
+  border-top: 1px solid var(--color-border);
+  padding: 32px 0;
+  font-size: 0.875em;
+  color: var(--color-muted);
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+main {
+  padding: 20px 0;
+}
+
+.container > img {
+  float: right;
+  margin: 0 0 1em 1.5em;
+  max-width: 40%;
+  border-radius: 4px;
+}
+
+section:nth-of-type(odd) img {
+  float: right;
+  margin: 0 0 1em 1.5em;
+  max-width: 40%;
+  border-radius: 4px;
+}
+
+section:nth-of-type(even) img {
+  float: left;
+  margin: 0 1.5em 1em 0;
+  max-width: 40%;
+  border-radius: 4px;
+}
+
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+main .container > p:last-child {
+  text-align: center;
+  color: var(--color-muted);
+  margin-top: 2em;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  header .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  header nav {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  main {
+    padding: 20px 0;
+  }
+
+  .container > img,
+  section:nth-of-type(odd) img,
+  section:nth-of-type(even) img {
+    float: none;
+    max-width: 100%;
+    margin: 0 auto 1em auto;
+    display: block;
+  }
+}

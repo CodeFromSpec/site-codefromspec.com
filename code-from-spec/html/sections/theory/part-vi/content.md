@@ -1,0 +1,205 @@
+---
+title: "Part VI — The case for decomposition"
+description: "Why decomposition matters more, not less, under spec-driven development."
+date: 2026-07-18
+---
+
+# Part VI — The case for decomposition
+
+## The project was never one thing
+
+![Part VI — The case for decomposition](/images/theory/20260718_image_part_VI.png)
+
+The essay has asked its questions of "a project" as though one answer covered it: is the intent settled, does
+it fight the prior, does it live at the spec level or the source level, are its verdicts cheap or expensive. No
+real system answers uniformly. A business core still discovering what it owes shares a repository with a date
+formatter whose intent stopped moving years ago; an unconventional kernel that fights the prior on every
+clause links against glue code the prior writes for free. Every axis the earlier parts uncovered cuts through
+the system, and a system is heterogeneous on all of them at once.
+
+Held as one region, a system has to be treated as one: its description answers to a single stopping rule, its
+oracle is driven to a single density, its artifact is resampled or preserved as a unit. Forced into one
+treatment, the whole is managed at the most expensive economics any part of it demands — the settled
+formatter carrying the moving core's uncertainty, the conventional glue paying the unconventional kernel's
+price.
+
+Decomposition dissolves that. Draw a real boundary between two pieces and each becomes answerable on its own
+terms. A boundary buys two distinct things, worth separating from the start. The first: each piece sits at its
+own optimum on the axes, instead of the whole inheriting one piece's worst case. The second, narrower and
+treated further down: a move inside one piece can reach less of the system than the same move in a monolith
+could.
+
+## A component is the apparatus, nested
+
+What makes answering per piece coherent is that a component is not a metaphor for a smaller version of the
+system; it is a smaller instance of the exact same structure: its own intent, its own description, its own
+generator, its own oracle, its own artifact accumulating its own survivor evidence, nested inside a larger
+one. Every question the previous parts asked of a project is asked again of each component, and answered
+independently. The primitives apply recursively, which is the whole reason a boundary can hold two pieces
+to different answers at all.
+
+## The axes of the cut
+
+Where to draw a boundary is a question this essay has been answering in pieces since Part II. Each part
+uncovered an axis on which components differ, and every axis is read per component, never per project:
+
+- **Settled or moving intent.** The oldest axis, and the first question of any cut. A piece whose intent
+  stopped moving can have its description finished and its oracle driven dense; a piece still being discovered
+  cannot. A component that straddles the line has no coherent economics: half of it wants a finishable
+  description, half is still discovering what it is for.
+
+- **Conventional or unconventional intent.** Where intent matches what the prior already resolves, the spec
+  stays short and silence is safe; where intent fights the prior, every clause is expensive and load-bearing.
+  A boundary that groups the conventional together costs almost nothing to describe; unconventional intent
+  hidden inside a conventional component leaves its clauses competing with silence everywhere.
+
+- **Cheap or expensive verdicts.** Components differ in what confirming a draw costs: a pure function with
+  an exhaustive test suite on one side, behavior judged by human eyes on the other. Separated, the cheap side's
+  draws are confirmed at the cheap side's price; mixed, the expensive verdict is obligated whenever a draw
+  might have touched what it watches.
+
+The rule the axes share: a boundary is well drawn when each side is homogeneous on the axes that matter,
+because every axis is a difference in economics, and a component that mixes two economics is managed at the
+more expensive one.
+
+The three axes are independent. Two of them price the two halves of the apparatus: conventionality is the cost
+of the aim (does the prior do the work), verdict cost the cost of the confirmation (is there a mechanical
+oracle to run), and aiming and confirming were independent from the start. The third, settledness, is temporal
+— whether the referent holds still — and answers to neither cost. So the axes cross freely. A cryptographic
+primitive is unconventional yet cheap to verify, fighting the prior on every clause but pinned by test vectors;
+the visual polish of a UI is settled yet expensive, its intent fixed for years and its only oracle a human eye;
+a tax table that changes every quarter is moving yet cheap, each version a pure function with exact outputs. No
+one axis predicts another.
+
+That independence is an instruction, not a curiosity. Homogeneity has to be read on every axis at once: a cut
+that makes both sides settled can still strand a mechanically verifiable core in the same component as a
+perceptual one, and the component is then confirmed at the perceptual price on every draw. A single boundary
+can satisfy one axis and violate another; only reading all three says which.
+
+## The interaction surface
+
+The second gain is the easier one to overstate, so start with what decomposition does not buy.
+Componentization does not shrink the total dimensionality of a problem. The decisions a system has to make do
+not disappear by being split across files, and drawing a boundary between two components typically adds a few
+new ones at the seam: what the contract says, how a failure crosses it, what either side may assume about the
+other. The union of dimensions across every component is not smaller than the monolith's, and is sometimes
+slightly larger.
+
+What shrinks is not the count. It is the **interaction surface**: how many other dimensions any given
+dimension can combinatorially entangle with. A monolith holds every dimension in one region, where a local
+move can, in principle, reach any of them. Partition the same dimensions into components with a real boundary
+between them, and a local move inside one component can only ever reach the dimensions inside it. The
+reachable set per move drops from the whole system to one component's share of it, even though nothing about
+the system's total complexity changed. Fewer dimensions to entangle with per box, not fewer dimensions
+overall.
+
+## What makes a boundary real
+
+The instinct that a change confined to one component should only affect that component is correct exactly as often
+as the boundary drawn in the file structure is the boundary that actually governs the dimensions. When it fails
+(a change to interest calculation somehow breaks authentication), the failure always traces to the same thing: the
+two were never the same boundary. And the leak costs both gains at once — the containment the instinct assumed,
+and the separate economics the cut was drawn for: a dimension that crosses the seam ties the two pieces back
+into one region, and the cheaper side is dragged to the more expensive side's price.
+
+A boundary is real to the extent that four things hold. No dimension crosses it through shared mutable state. A
+global variable, a shared table, an ambient config object read by both sides is a dimension that belongs to neither
+component alone, and a move that looks confined to one file can still reach it. The interface crossing it is
+narrow: few dimensions actually pass through. The failure domains are isolated: one side crashing or exhausting
+a shared resource cannot take the other down, which is a property of the runtime and deployment, not of the source
+tree. And the oracle covers both sides regardless of which one changed. Re-running only the "affected"
+tests, guessed from an incomplete dependency graph, can let a leak through the seam and report green. That is
+not evidence the boundary held, only evidence nobody looked.
+
+Every one of the first three is a claim about where dimensions actually live, which the file structure asserts but
+does not enforce. None of this is a reason to distrust decomposition. It is the reason decomposition is a design
+decision with a real answer, not a free assumption. Draw the interface narrow, keep state unshared, isolate the
+runtime, verify both sides on every change that touches the seam. The instinct holds exactly as strongly as
+those four things do, no more and no less.
+
+## The classic levers, reread
+
+Reuse, encapsulation, and the single-responsibility principle are usually taught as hygiene: don't repeat
+code, hide what callers should not see, give each unit one job. Under this theory each is a decision about a
+boundary, priced by the same economics as everything else.
+
+**Reuse** is a decision about how many independent draws a subproblem gets. Partitioning decides
+how dimensions are grouped; reuse decides how many times a group gets drawn. Solve a subproblem once and
+reference the single result from every call site, and there is one artifact, one description, one oracle to
+ratify fixes into, and one accumulating record of survival. Solve it independently at each site (copy the
+logic, or re-derive it from scratch) and each copy is its own draw from the space, carrying its own defect
+set: the cost of resampling, triggered here by duplication instead of by time.
+
+The copies' defects are not even uncorrelated: independent authors fail on the same hard inputs — the
+classic N-version programming result — and models trained on overlapping data correlate harder still.
+The same latent defect sits in every copy, and a fix ratified in one of them fixes exactly one of them.
+Cheap generation changes the shape of this cost without removing it: propagating the fix across N copies is
+now a cheap draw, but confirming N local moves and accumulating N records of survival is not. A draw is only
+as cheap as the confirming it obligates, and duplication multiplies the confirming.
+
+Reuse also accelerates maturity. Every call site's traffic funnels through the same point, so the shared
+component faces the environment's verdicts far more often, per unit of time, than any one duplicate
+would alone. Solved once and shared, a subproblem matures at the rate of the whole system's use of it. Solved
+N times, it matures N times more slowly, with N different defect sets to eventually discover. At market scale
+the same funnel applies: a decades-old database has met more of the world than a fresh alternative will meet
+in a decade of your traffic, and adoption buys that record wholesale.
+
+The cost that is genuinely reuse's own: a shared component answers to every caller's intent. When another
+caller's intent moves, the component moves for reasons this use case never had. That is drift imported through
+a dependency instead of discovered by the project itself. And where the component is the moving core itself —
+its intent proprietary and still being discovered — reuse inverts into a trap. A shared component encodes the
+market's intent, and adopting it resolves your silences toward everyone else's conventions. Adoption also
+forecloses ratification: a discovery about your own intent cannot be ratified into a component you do not own.
+
+**Encapsulation** (hiding a component's internals behind a public contract) is a defense against Hyrum's Law,
+drawn structurally rather than promised by convention. Hyrum's Law says that with enough users, every
+observable behavior becomes something somebody depends on, whatever the contract says, and it bites on
+whatever is observable. A caller cannot grow a dependency on a resolution it cannot see. This buys something
+the other levers do not: internals can be resampled or restructured freely, accumulating none of the lock-in
+Hyrum's Law would otherwise impose, while the public contract keeps maturing on its own, its survivor
+evidence undisturbed. Internal churn and external stability are decoupled by the same wall that keeps a caller
+from seeing what it should not.
+
+**Single Responsibility** narrows the component itself rather than just its visibility. A component that owns
+one concern has fewer behaviorally load-bearing dimensions bundled into one region, which moves three things
+in its favor. Diminishing returns on its spec arrive sooner and cheaper. Drift is contained: when the
+stakeholder concern behind one responsibility moves, only the component that owns it needs to change, and the
+survivor evidence accumulated by every unrelated component stays untouched. And the odds that a local move
+damages something unrelated drop as well: fewer nearby load-bearing dimensions to possibly touch.
+
+## The cycle cuts both ways
+
+Read separately, each lever lowers the price of aiming, of confirming, or of both. Read together, under cheap
+generation, they compound into a cycle — and which direction it runs is decided by the boundaries.
+
+Where the boundaries are real, it runs in the project's favor. Small, single-purpose, encapsulated components
+are cheap to describe (the delta is short and coherent), cheap to confirm (a dense mechanical oracle fits a
+small homogeneous piece), and — the part that matters most under generation — safe to resample one at a time,
+because a contract pins what a caller may depend on and a narrow seam caps what a fresh draw can disturb. That
+is exactly what a generation workflow needs: the expensive operation, the resample, made affordable at the
+grain of a component. And the cycle closes. What used to discourage fine decomposition was the human cost
+of one more module, one more contract, one more test suite on the seam — and, deeper, the cost of moving them.
+The right cut is learned by contact with the problem, not known at the start, so early boundaries are bets;
+when re-drawing one by hand cost everything the boundary had cost the first time, a wrong bet was close to
+permanent.
+
+Cheap generation collapses both prices: the boundary gets cheap to build, and cheap to move once
+the problem teaches where it should have been. So the discipline that makes SDD safe is the same discipline
+SDD makes affordable: good boundaries let the generator work, and the generator pays for more good
+boundaries.
+
+One term in the cycle does not collapse. What generation cheapens is implementing a boundary: the module, the
+contract, the suite on the seam are text, and text is what got cheap. Deciding where the boundary goes —
+reading the axes per piece, telling a real seam from one merely drawn — is the deciding share of authoring,
+the share no draw supplies and no oracle checks. And here it does not amortize: every boundary the generator
+makes affordable is one more placement somebody has to judge, so the cycle multiplies demand for the one input
+it does not cheapen. Choosing the boundaries is what decides which way the cycle runs.
+
+Where the boundaries are false, the same machinery runs backward. A dimension leaking across a seam ties two
+components into one region again: every resample of one reopens the other, every cheap verdict is dragged to
+the expensive side's price, and cheap generation, far from helping, only finds the leak faster and ships
+defects through it. SDD does not reward good architecture and forgive bad; it amplifies whichever it is handed. Which
+is why decades of decomposition wisdom are not made quaint by a generator that writes the code — they are made
+load-bearing.
+
+[← Part V](/theory/part-v) · [Table of contents](/theory) · [Conclusion →](/theory/conclusion)

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- code-from-spec: SPEC/html/sections/theory/part-v -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="What a test suite buys when generation is cheap.">
+  <meta name="author" content="Gustavo Silveira Neto">
+  <title>Part V — The test suite — Code from Spec</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <link rel="stylesheet" href="/css/baseline.css">
+  <link rel="stylesheet" href="/css/theory.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="site-name"><img src="/images/code_from_spec_logo.png" alt="" class="logo"> Code from Spec</a>
+      <nav>
+        <a href="/rationale">Rationale</a>
+        <a href="/theory">Theory</a>
+        <a href="/journal">Journal</a>
+        <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <h1>Part V — The test suite</h1>
+      <section>
+        <h2>The case for the test suite</h2>
+        <img src="/images/theory/20260718_image_part_V.png" alt="Part V — The test suite">
+        <p>Every oracle available to a project has limits. The type system confirms shape on every build, for free, but no behavioral property crosses it. Review takes human time per candidate, and when candidates are nearly free they arrive faster than anyone can read them. The stakeholder sees the software only in demos. Production answers to intent directly, but its 'no' arrives late and costs an incident. Formal proof closes conformance entirely, but works only where a checker can cover the whole domain.</p>
+        <p>What none of these covers is confirmation that is behavioral, mechanical, cheap per verdict, specific to this project, and available on every draw. The test suite is the one oracle that fills that gap. Under cheap generation the case for writing one is stronger than it has ever been.</p>
+        <p>Tests decide what a candidate does, not what it looks like, so they cover the behavioral side that the type system leaves open. They are mechanical and nearly free once written, firing on every draw the way the type checker does. And the project writes them, so they can cover exactly the dimensions this project cares about, which no inherited checker reaches.</p>
+        <p>But the decisive property is not coverage. It is memory. When a project discovers a defect and fixes it, the fix needs to survive the artifact that currently embodies it. A clause in the description can aim future draws away from the defect, but aim is statistical and guarantees nothing. A test pins the lesson mechanically: the specific failure that was discovered can never pass unnoticed again, for as long as the test stands. Without tests, every lesson the project learns stays true only of the current artifact, and rewriting any part of it re-exposes every lesson that was never pinned.</p>
+        <p>The pin's value is not uniform across the space. It is highest for the current artifact and for local moves over it, where a diff operates on the same representation, often near the very lines that caused the defect the first time. It is lower, but not zero, for an independent draw from the same generator, whose shared failure habits can reproduce the defect. It approaches zero only when the mechanism that produced the defect has been redesigned away — not because the test is wrong, but because what it was built to detect no longer exists.</p>
+        <p>Cheap generation tightens the case from both sides. When drawing is nearly free, the project's bill is mostly checking, and the scarce resource is exactly the cheap mechanical verdict a test suite provides. At the same time, the main argument against a dense test suite was always the cost of writing it, and a generator now writes the tests too. That bargain has a caveat: a generated test suite is itself a generated artifact, no firmer than the process that produced it. The next sections deal with it. The near-universality is a conclusion about price, not a commandment: the test suite is the one oracle whose economics cheap generation improves instead of eroding.</p>
+      </section>
+      <section>
+        <h2>Where tests are not worth writing</h2>
+        <p>Three cases keep the claim at "almost." A throwaway prototype needs no test suite, because nothing is meant to survive; the prototype exists to provoke a reaction, not to accumulate a record. A piece whose entire behavior can be closed by a checker or a proof needs fewer tests, because there is little left on the tested side worth writing by hand. And where the cost of writing and maintaining tests exceeds what defects cost, no test suite pays for itself; the team writes what it can afford and accepts the rest as incidents.</p>
+      </section>
+      <section>
+        <h2>The test suite is generated too</h2>
+        <p>A test is not a fixture; it is generated code, produced the same way the software is: someone writes a description of what the test should check, a generator turns it into an executable assertion. Generating a test can fail in every way generating the software can. The generator can miss what the test description said, or fill in what it left unsaid in a way nobody intended. A fix pinned into a test holds against changes to the software, but not against errors in the test itself. And the pin lives in the test description, not in the executable assert. The assert is a generated artifact, as replaceable as the code it checks; regenerate it and the pin holds, because the description still says what to check. Rewrite the description and the lesson is gone. The chain of trust has no bedrock; it ends at a test whose description someone examined carefully enough to close — the same closure the compiler earned and a fresh assertion has not.</p>
+        <p>How much a test suite can catch depends on how much independence it has from the software it tests. When one spec produces both the software and the tests, the two outputs are two readings of one source. If both readings agree, the build is green. If they disagree, one of them missed something the spec said, or (the more interesting case) the spec was silent on some point and the two generators resolved the silence differently. That is underspecification, caught at build time while it is still cheap — but only the slice where the two draws happened to diverge. Silences that both generators resolve the same way, because the convention is the same in both priors, pass as agreement. Independence of noise is not independence of blind spots. Two readings of one source can only catch errors in each other, never in the source. If the spec is wrong, both outputs will be wrong the same way.</p>
+        <p>More independence catches more. Write the test description separately from the software spec, and the two accounts can catch errors in each other's sources. Use a different generator for the tests, and the overlap in how the two resolve silences shrinks (though generators trained on similar data still share most of their habits). A human writing the test suite by hand is the strongest form of that separation available: a human prior and a model prior overlap less than any two models trained on much the same code.</p>
+        <p>What the test description is written from also matters. Written from the software's spec, the tests police the spec faithfully and inherit its errors just as faithfully. Compatibility suites work this way on purpose, testing implementations against a standard, the standard's mistakes included. Written from the interface's contract instead, the tests can catch errors in the spec.</p>
+        <p>Written from the current artifact's specific shape, worst of all, a test freezes an accident as if it were a requirement — dead weight the moment the artifact changes, and worse while it lasts, because a pinned accident can veto a better resolution of an ambiguity a future draw would otherwise be free to answer. A test written from the contract keeps its value under any artifact that intent still governs; a test about the accident only ever had value under the one artifact where the accident occurred.</p>
+        <p>Test-first practice captured part of this separation through timing: a test written before the implementation exists cannot inherit the implementation's mistakes. What timing cannot separate is the mind: the same person still writes both. Have the test description written by a different person, and one person's misunderstanding stops appearing on both sides. Separate as much as the budget allows. The one thing no amount of separation can reach: both accounts still answer to the same intent, and a misunderstanding that lives there has no second account to disagree with it.</p>
+      </section>
+      <section>
+        <h2>The test suite under a generator swap</h2>
+        <p>When a project changes its generator, the tests themselves do not change. No test is rewritten, and every verdict the test suite ever delivered remains valid, because a test does not depend on how the code was produced. What changes is whether the tests are guarding the right things.</p>
+        <p>A test is valuable when the failure it guards against would actually happen. The old test suite was built up over time, adding tests wherever the old generator tended to fail. A new generator may fail in different places, so the test suite can end up dense where the new generator is already safe and sparse where it is not. Generators trained on similar data share most of their habits, so the misalignment may be small, but whatever misalignment exists is silent: no test breaks, and no test announces that it is now guarding a door nobody walks through.</p>
+        <p>How much this matters depends on how much the project regenerates. Tests guarding specific lines that failed before keep their value under any generator, because they watch this code, not the generator's habits. The tests that need re-evaluating are the ones written to guard against a tendency the old generator had. That is one more thing to review when the generator changes.</p>
+      </section>
+      <section>
+        <h2>Test, spec, or both</h2>
+        <p>When a project discovers a defect and fixes it, the fix has to be recorded somewhere. There are two places: a clause in the description, or a test. A clause tells every future generator what to avoid, including a completely fresh rewrite that starts from the spec alone, but it cannot guarantee anything. A generator can still miss what the clause says. A test guarantees that one specific failure will be caught mechanically, but it says nothing about failures outside its scope. The trade is broad and probabilistic against narrow and certain. The choice is made per discovery, not per ideology.</p>
+        <p>The bug taxonomy helps. If the generator drew outside the region and the description already covered that dimension, the fix is a test; the redraw that follows replaces the defective sample, now under a check that can confirm it. If the same miss keeps recurring despite clear wording, the problem is how the clause is written, not that a test is missing. If the description itself was wrong, neither a new clause nor a new test helps; the description needs to be corrected. If the description was silent on the dimension that failed, the fix is usually both: a clause to tell the next reader and the next generator why, and a test to guarantee the specific failure is caught.</p>
+        <p>Tests come in different strengths. An example tests one specific input; a property tests an invariant across many inputs, spot-checked at random. Write the strongest test the known intent supports.</p>
+        <p>The overall balance between clauses and tests depends on the generator. A generator that already handles a domain well makes most clauses redundant; the failures that slip through are the unpredictable kind only tests catch, so effort drifts toward testing. A generator that fights the intent on a domain makes the clauses that push back the most valuable text in the project. How often the project rewrites its code pushes the same way: a project that patches its existing code is protected mostly by tests, which fire on every edit; a project that regenerates from the spec needs the clauses, which condition every fresh draw. The two also age differently: a clause that the current generator already follows buys nothing today, but a test that the current generator never trips still fires on every future edit, earning its keep the day the generator changes. There is no fixed optimum, only a balance, repriced whenever the generator changes. The only arrangements that fail outright are the extremes. All clauses and no tests loses the mechanical guarantee; all tests and no clauses loses the explanation of why.</p>
+      </section>
+      <p><a href="/theory/part-iv">← Part IV</a> · <a href="/theory">Table of contents</a> · <a href="/theory/part-vi">Part VI →</a></p>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <span><a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
+      <span>Licensed under <a href="/license">CC BY 4.0</a></span>
+    </div>
+  </footer>
+</body>
+</html>

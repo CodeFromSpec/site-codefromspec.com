@@ -6,11 +6,9 @@ date: 2026-04-15
 
 ![Rationale](/images/banner_rationale.png)
 
-# Rationale
+<div class="notice">April 2026. This is the argument that launched the project, the rationale as it stood before the <a href="/theory">theory</a> was written. It is preserved here as published.</div>
 
-April 2026. This is the argument that launched the project —
-the rationale as it stood before the [theory](/theory) was
-written. It is preserved here as published.
+# Rationale
 
 > The change is not in how code is written. It is in
 > whose knowledge reaches the software, and by what

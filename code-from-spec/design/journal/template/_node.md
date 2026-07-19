@@ -18,6 +18,13 @@ parts vary.
   <meta name="description" content="{page-specific description}">
   <meta name="author" content="Gustavo Silveira Neto">
   <title>{Page Title} — Code from Spec</title>
+  <meta property="og:title" content="{Page Title} — Code from Spec">
+  <meta property="og:description" content="{page-specific description}">
+  <meta property="og:image" content="https://codefromspec.com{page-image-path}">
+  <meta property="og:url" content="{canonical-url}">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Code from Spec">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
@@ -58,6 +65,13 @@ Variable parts:
 - `{page-specific description}` — meta description
 - `{Page Title}` — "{Name} — Code from Spec"
 - `{page content here}` — the page's main content
+- `{page-image-path}` — the path of the first image in
+  the content (e.g. `/images/journal/20260608_image_1.png`).
+  Combined with `https://codefromspec.com` to form the
+  absolute OG image URL.
+- `{canonical-url}` — the full canonical URL of the page
+  (e.g. `https://codefromspec.com/journal/confinement/`).
+  Use a trailing slash.
 
 Use `rel="noopener"` on external links. Do not add
 `noreferrer`.

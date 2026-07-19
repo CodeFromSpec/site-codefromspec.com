@@ -1,6 +1,6 @@
 ---
 title: "Part I — The primitives"
-description: "The six primitives and the four operations that act on them."
+description: "Intent, description, generator, oracle, artifact — the six primitives of spec-driven development, and the four operations that act on them."
 date: 2026-07-18
 ---
 

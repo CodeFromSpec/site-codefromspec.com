@@ -1,6 +1,6 @@
 ---
 title: Journal
-description: Notes on building with Code from Spec — progress reports, lessons learned, roadblocks, and future directions.
+description: Notes on building Code from Spec.
 ---
 
 ![Journal](/images/banner_journal.png)

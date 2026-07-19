@@ -1,6 +1,6 @@
 ---
 title: "Part V — The test suite"
-description: "What a test suite buys when generation is cheap."
+description: "Under cheap generation, the test suite is the one oracle whose economics improve instead of eroding. What it buys and where it breaks."
 date: 2026-07-18
 ---
 

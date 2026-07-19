@@ -1,6 +1,6 @@
 ---
 title: "Part VI — The case for decomposition"
-description: "Why decomposition matters more, not less, under spec-driven development."
+description: "Good boundaries make spec-driven development safe, and spec-driven development makes boundaries affordable. Why decomposition matters more, not less."
 date: 2026-07-18
 ---
 

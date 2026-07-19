@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Páginas principais -->
+  <url>
+    <loc>https://codefromspec.com/</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/rationale/</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/license/</loc>
+  </url>
+
+  <!-- Theory -->
+  <url>
+    <loc>https://codefromspec.com/theory/</loc>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/theory/part-i/</loc>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/theory/part-ii/</loc>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/theory/part-iii/</loc>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/theory/part-iv/</loc>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/theory/part-v/</loc>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/theory/part-vi/</loc>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/theory/conclusion/</loc>
+    <lastmod>2026-07-18</lastmod>
+  </url>
+
+  <!-- Journal -->
+  <url>
+    <loc>https://codefromspec.com/journal/</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/journal/growing-pains/</loc>
+    <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/journal/telling-the-agent-what-changed/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/journal/anchoring-on-old-code/</loc>
+    <lastmod>2026-06-16</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/journal/confinement/</loc>
+    <lastmod>2026-06-10</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/journal/context-management/</loc>
+    <lastmod>2026-06-08</lastmod>
+  </url>
+
+</urlset>

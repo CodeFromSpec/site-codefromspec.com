@@ -40,11 +40,12 @@ The stylesheet must cover:
 
 4. **Main** — 20px vertical padding.
 
-5. **Images** — float right, max-width 40% of the
-   container, margin: 0 0 1em 1.5em (no top margin,
-   right margin 0, bottom margin 1em, left margin
-   1.5em to create space between text and image).
-   Border-radius 4px.
+5. **Images** — alternate float direction by section.
+   Odd sections (`section:nth-of-type(odd) img`):
+   float right, margin: 0 0 1em 1.5em. Even sections
+   (`section:nth-of-type(even) img`): float left,
+   margin: 0 1.5em 1em 0. Both: max-width 40% of
+   the container, border-radius 4px.
 
 6. **Clearfix** — sections clear floats:
    `section::after` with `content: ""`, `display: table`,

@@ -2,7 +2,6 @@ code-from-spec: v5
 ARTIFACT/design/baseline;path:public/css/baseline.css;checksum:ydmHzducyUbWcXP4PtXGYcUhKEk;chain:JCJyVoRj8dborgTDzv7u_YPFmrM
 ARTIFACT/design/default/stylesheet;path:public/css/default.css;checksum:qMitBPGfLqGAcyK3Ks3ZLUJLXg0;chain:1jx9aRGztz1LFNwdu1CITLfHkws
 ARTIFACT/design/journal/stylesheet;path:public/css/journal.css;checksum:2nX_MFCEDos4ISWpeR1EC1gbLfU;chain:9BgmyB3Xk_IK82HRBTogKVvZajE
-ARTIFACT/design/theory-index/stylesheet;path:public/css/theory-index.css;checksum:IpJmdo75KqTwGTpGF19kArTqcjs;chain:UC1xG3vfQDUJ_BpYqx4IJVIHBs0
 ARTIFACT/design/theory/stylesheet;path:public/css/theory.css;checksum:a8f9YMA_ukMVjHqq8FOhWZiLY9M;chain:DzjaWI5nrnL3O3ccc5G4xWF521M
 ARTIFACT/html/home;path:public/index.html;checksum:48N9A4kb4mFRkIbMEFSMW42c9u4;chain:9m7RSmsuDi8chlRRgw0mtbrIwxY
 ARTIFACT/html/sections/journal/entries/anchoring-on-old-code;path:public/journal/anchoring-on-old-code/index.html;checksum:V1WISJBJvCPdnWjFsXPcbcVPB3M;chain:MpQiOkk0b4GazqkTH73oUfoGaYM
@@ -12,5 +11,11 @@ ARTIFACT/html/sections/journal/entries/telling-the-agent-what-changed;path:publi
 ARTIFACT/html/sections/journal/index;path:public/journal/index.html;checksum:WilN1InCb0dQLR5vGuHCbZME0YM;chain:_fxVrVlomBC6kieTbYmro91Zd00
 ARTIFACT/html/sections/license;path:public/license/index.html;checksum:RYGhfBdqhCK9afCTBH5BJtVroLk;chain:Zcb5Bogy6kulU9QecHcFLpckmDg
 ARTIFACT/html/sections/rationale;path:public/rationale/index.html;checksum:7ooP7cVoUkxSnfF7pyYE2sXE0TU;chain:QEXpI_KpRjO772rVbWflTZX0S9s
-ARTIFACT/html/sections/theory/entries/a-peculiar-theory-of-sdd;path:public/theory/a-peculiar-theory-of-sdd/index.html;checksum:tDp8C-NqfUzLU-izPxOD4Xt3qus;chain:lKPuQ64aOR6W8HU91JkfvTM_5A0
-ARTIFACT/html/sections/theory/index;path:public/theory/index.html;checksum:7wuCnekwYu44_mrXVBYC25YuEF0;chain:dTGtfVGkqjediG96V1ydFT9PSUE
+ARTIFACT/html/sections/theory/conclusion;path:public/theory/conclusion/index.html;checksum:RLG5PWyumIrebdsePD4i2n_izh8;chain:qjmDSf4D-yR-RXHekWQT9tb25HY
+ARTIFACT/html/sections/theory/index;path:public/theory/index.html;checksum:grZoFYIRT-_F0b8aKZMpK7TcJl8;chain:fQEl4POAr_PXtHAyJaql8PineXM
+ARTIFACT/html/sections/theory/part-i;path:public/theory/part-i/index.html;checksum:Ts0BCRa8jjQlx4y7VzxOOt2h2Cs;chain:2r3GpQWD1pFEtAyQswH-03Ysi74
+ARTIFACT/html/sections/theory/part-ii;path:public/theory/part-ii/index.html;checksum:KZ3UCXdZpoU23bkGpTO_7mzD62w;chain:RgMhE_Vcng7iAAV7DS8cLafR-aM
+ARTIFACT/html/sections/theory/part-iii;path:public/theory/part-iii/index.html;checksum:msI221WtC3wZcunBfkXqytKKfK0;chain:YWmYOtrU-G6YkLTJWAxv8Y_j3Eg
+ARTIFACT/html/sections/theory/part-iv;path:public/theory/part-iv/index.html;checksum:4PXb4Pzi8uUi9k13Y2MKWCtJFnA;chain:4pRKATNcL-jUVl46zNtRonlvKnI
+ARTIFACT/html/sections/theory/part-v;path:public/theory/part-v/index.html;checksum:ctFu7nSvbBBhge3PxWbKTqQFax0;chain:kwDzKgVcVYX27-ZncQp3P-25wMY
+ARTIFACT/html/sections/theory/part-vi;path:public/theory/part-vi/index.html;checksum:8bq0ydt3E2kpqAsXaojY7N0RaIg;chain:QpoWJOF6wO1o3nZzvNhlAbZLu_c

@@ -1,0 +1,293 @@
+---
+title: "Part I — The primitives"
+description: "The six primitives — space, intent, description, generator, oracle, artifact — and the four operations that act on them."
+date: 2026-07-18
+---
+
+![Part I — The primitives](/images/theory/20260718_image_part_I.png)
+
+# Part I — The primitives
+
+The apparatus has six parts.
+
+- A **space of texts**: every text that could be written. Programs live here, along with the broken attempts
+  at them (the space has no admission test) and a project's other writings, its tests and specs included.
+  What makes a text a program is conformance to a language's rules, and the apparatus treats that conformance
+  like any other property: something a verdict decides, not something the space guarantees.
+
+- An **intent**: what the system is actually supposed to do, held by the people who need it, known incompletely
+  even to them, revised on contact with reality.
+
+- A **description**: anything that narrows the space to a region of acceptable programs — a spec,
+  a type system, a ticket, a convention nobody wrote down but everybody enforces in review. A description does
+  not have to be written down to count; it only has to constrain. Each one is an encoding of intent, finite and
+  authored, so the region it defines and the region intent would accept are two objects that are meant to
+  coincide but never quite do.
+
+- A **generator**: any process that, given a description and a context, produces a text. Context here means
+  the rest of what conditions the draw: the existing artifact, a failed candidate, whatever the generator happens
+  to see. The generator is a distribution over the space, sampled once per invocation. Even before any
+  description narrows it, that distribution is nowhere near even: a generator's training already concentrates
+  almost everything it will ever produce in a vanishingly small, highly conventional corner of an otherwise
+  limitless space. That concentration — what the generator is inclined to write before any description says a
+  word — is its **prior**. Pre-training rewards predicting what a vast body of real code made likely;
+  post-training laid over it rewards following instructions — that is why a description can steer it at all.
+
+- An **oracle**: any procedure that decides, on whichever dimensions it covers, whether a point
+  belongs to a region. The region may be the one the description defines or the one intent would accept; an
+  oracle can answer to either.
+
+- The **artifact**: the program you actually have, one point in the space, carrying whatever
+  evidence of survival it has accumulated — tests it has passed, traffic it has served, incidents it has not
+  caused.
+
+The description's job is **aiming**. It conditions the distribution the generator samples from, shifting
+draws toward the region it describes. Aiming is statistical: a good description makes landing
+outside the region unlikely, not impossible, and the generator remains free to miss on any single draw. A
+clause saying withdrawal amounts must be positive makes drawing a program that accepts a negative one rare,
+but cannot make it impossible.
+
+The oracle's job is **confirming**. Confirming is bounded rather than statistical: it decides membership by
+checking specific properties. The test built from that clause fails the negative-amount program every
+time, and says nothing about any dimension it does not assert. Passing every check an oracle can run is not
+the same as belonging to the region; it is the narrower claim of conforming on the dimensions the oracle
+happens to check.
+
+The two jobs also differ in what they can reach. Generation produces text, and nothing executes during a
+draw. Yet most regions are defined by behavior — by what a program does when run — and behavior enters the
+apparatus only through an oracle.
+
+Four operations act on these parts.
+
+- **Sampling**: produces a fresh point from the generator.
+
+- **Local move** (a diff or patch): a draw conditioned on the existing point — some dimensions re-decided,
+  the rest meant to be inherited as they are. The inheritance is an aim like any other, not a guarantee.
+
+- **Resampling**: sampling with something to discard. A fresh draw, independent of the last, that throws away the
+  existing point and whatever survivor evidence it carried. The draw is the same operation as sampling; the
+  discard is where the cost lives.
+
+- **Ratifying**: moves a discovery from the environment into the description or the oracle, so that future
+  samples are constrained by it rather than left to get it right by luck.
+
+Nothing about the operations enforces the description's presence. A draw is conditioned on
+whatever happens to be in its context, and the description aims only when it is there.
+
+Local move and resample are ends of one scale rather than different kinds of thing. Every change to software is
+a draw, and what varies is how much of the existing point conditions it. That amount of conditioning is also the
+apparatus's working measure of relatedness: what two points share is what one inherited from the other, defects
+included.
+
+Underneath all four operations sit two prices and a tendency, and together they decide which operation is
+rational at any moment. The prices are the cost of generating a candidate and the cost of checking it against the
+oracle. The tendency is **anchoring**. A local move is conditioned on the existing point, and the point does
+not merely provide context; it captures the draw, pulling resolutions toward what already exists rather than
+what the description asks for. Ratifying runs on a price of its own: authoring an encoding, and carrying it
+afterward.
+
+The checking price deserves a note: it is not flat across the scale of operations. A draw obligates
+confirmation of whatever it re-decided, so a local move prices its check by the size of the change, while a
+resample re-opens every dimension at once. Wherever the verdict comes from an expensive oracle (a human
+reading the candidate is the common case), that difference is most of what the operation costs.
+
+That is the whole apparatus.
+
+A small example to illustrate. The intent: display dates readably for Brazilian
+users. The description: "format dates as DD/MM/YYYY." A generator produces a function that does so, and
+zero-pads single-digit days, because that is what date-formatting code in its training data overwhelmingly
+does. Nobody stated zero-padding; the prior resolved the silence. The oracle (a test checking that June 5th
+renders as "05/06/2025") confirms the dimension it covers and says nothing about what happens at midnight, at
+locale boundaries, or with invalid input. The artifact is the function that exists, carrying those resolutions
+and that one piece of evidence.
+
+### The dimensions that do and do not matter
+
+The space of texts has far more dimensions than intuition expects. Moving along most of them does not
+change program behavior at all (a renamed variable, two independent statements reordered), while a few
+carry outsized, catastrophic sensitivity: flip a comparison operator, shift a loop bound by one, and a
+single-token edit lands the artifact in a different region entirely. Behavior is one axis; cost is another, and
+they are independent. A dimension can be **behaviorally free** (it never changes which programs conform) and
+still **cost-relevant**: it moves the price a human pays to confirm a candidate, the price a future editor
+pays to understand the artifact well enough to aim the next change, and the odds of a local move touching a
+dimension that does matter. Naming is the standing example: it is behaviorally free (reflection, serialization
+keys, and a public API's own symbols are the exceptions) and expensive everywhere else.
+
+### What a bug is
+
+Given these primitives, a bug has a precise shape, and it comes in three kinds worth telling apart, because the
+remedies differ.
+
+The first kind is **nonconformance**. The description ruled on the dimension in question, and the sample still
+landed outside the region it defined. This is a plain generation error: the aim was adequate, the draw missed
+anyway. A faithful oracle catches it whenever it covers that dimension, and the catch is mechanical, not
+statistical. When it slips through regardless, the gap is in the oracle's coverage, not in the description.
+
+The second kind is **underspecification**. The description never ruled on the dimension at all, and the generator
+resolved it however its own prior favored. Most such resolutions are harmless: the behaviors compatible with the
+silence mostly overlap with what the stakeholders would have accepted, had anyone thought to ask. A bug, on this
+reading, is the case where the prior resolved a silence against intent: the sample is fully conforming to everything
+the description said, and still wrong, because the description never said enough to rule the outcome out.
+
+The third kind breaks an assumption the first two share: that where the description ruled, it ruled for intent.
+**Mis-specification** is the case where it did not. The description ruled on the dimension and ruled wrong, so
+the sample conforms exactly and is a bug anyway. No oracle built from the description can catch it, since
+the two agree by construction. The verdict has to come from something that answers to intent directly: a
+stakeholder seeing the behavior, perhaps production itself. From inside a single incident this is indistinguishable
+from the case where intent has moved since the description was written: the same report, "the spec is wrong,"
+with only the history deciding whether the description was wrong from the start or the target moved after it was
+written.
+
+One scenario holds all three kinds. A description says an invoice is due thirty days after issue, and the generator
+writes thirty *calendar* days — while the business, had anyone asked, counted business days. Every check derived
+from the description passes; the sample conforms to everything the text said; the bug is real anyway. That is
+underspecification in one line. Had the description said business days and the sample added calendar days
+regardless, the same wrong program would be nonconformance; had the description itself said calendar days
+because its author misread the policy, mis-specification. One diff, three different repairs.
+
+The three kinds determine the fix. A nonconformance the oracle catches at the draw needs no repair: the loop
+redraws, and the apparatus is working as built. The nonconformance that constitutes an incident is the one
+that slipped through, and its repair is extending the oracle to catch the violation mechanically. The
+defective artifact still has to be replaced — a redraw, since the miss was bad luck, not bad aim — but the
+redraw is remediation, not the fix: without the extended oracle, whether the new draw conforms on that
+dimension cannot even be confirmed.
+
+Underspecification is repaired by narrowing the description along the dimension the incident just revealed,
+and in the same motion teaching the oracle to check it, so the fix holds even after the code that currently
+embodies it is gone. This is the operational meaning behind "the fix goes into the spec and a test pins it": one
+clause narrows the aim, the other closes the oracle's blind spot on that one dimension. Only doing both makes
+the correction durable across a resample instead of true only of the current point.
+
+Mis-specification is repaired by neither: not another draw, not a narrower region, but re-authoring —
+correcting what the description says.
+
+This also splits **ratifying** in two, showing it was never merely the recording of a decision after the
+fact. Ratified into the description, a discovery narrows the region retroactively:
+the point a sample just proved reachable and unwanted no longer conforms, so the discovery is intent folded back
+into the text that was supposed to have contained it from the start. The exclusion is certain only as a matter of membership. Whether
+future draws respect it is aim, and aim is probability: a draw can still miss the narrowed region, and only a
+check can say whether it did. That is what the second destination is for: ratified
+into the oracle, the same discovery widens what can be confirmed. A cheap check now covers the dimension an
+expensive incident just visited, and that verdict never has to be bought at that price again.
+
+### Oracles and descriptions
+
+Mis-specification exposed a divide that deserves its own name, because it classifies oracles as much as it classifies bugs. An
+oracle is either **description-facing** or **intent-facing**, depending on which object its verdict answers to. A test
+built from the spec faces the description; a stakeholder reacting to behavior faces intent, and so does
+production itself. Which one an oracle is decides what it can ever catch: a description-facing oracle catches
+nonconformance and passes the other two kinds through certified (it agrees, by construction, with the
+description it was derived from), while underspecification and mis-specification are judged only by a
+verdict that answers to intent directly.
+
+The divide also contains an equivalence, a lossy one: a description and a description-facing oracle are the
+same kind of object — a finite, authored encoding of the region — in two different modalities. The
+description is the encoding stated, so it can aim a draw before it happens; the oracle is the encoding made
+executable, so it can decide a candidate after it exists.
+
+Each form can be derived from the other, imperfectly. A test gets written from the description, but the why does not
+survive the translation: the clause that forbids negative withdrawals because a negative withdrawal would
+credit the account — a deposit dodging the audit trail — arrives as an assertion that `withdraw(-50)` must
+be rejected, the rule intact and the reason gone. A test can be read back as a statement, and only the
+checked slice comes out: of everything the description said, or meant by staying silent, the reading
+recovers just the dimensions some assertion touched. The mutual derivability is what lets a discovery enter
+ratification through either form; the loss in each direction is why it should enter through both.
+
+The oracle's definition hides something the equivalence brings out. As defined it is a black box (artifact in,
+verdict out) and a bare pass/fail says almost nothing about the region's shape: one bit per point checked. In
+practice, no oracle anyone writes stays that opaque. A test is authored from a named property and read as one; when it
+fails it does not return *no*, it returns *withdrawal amounts must be positive, and this one was not*. That is a
+description clause, stated in the act of confirming. A real oracle leaks description whenever it is written or
+read, because it was a description the whole time, in executable form.
+
+This is what "tests, not specs" leaves out. A test suite offered as the whole account, with no spec beside it, is not free
+of description; it is description fused to its oracle and passed off as only the oracle. Every assertion is a clause;
+the why each clause carries is left unsaid. Much of what follows still treats the oracle as the pure decider its
+definition names, because confirming is the role the theory needs from it. But the oracles of real projects are
+descriptions too, and carry what any description carries: the silences, the lost why, and the aim exerted on
+whatever draw later reads them.
+
+Intent-facing oracles sit outside the equivalence: no authored encoding can stand in for the stakeholder.
+But their purity is a limit, not a state: the verdict's source is intent; the channel it arrives through is
+authored. Production speaks through monitoring, thresholds, and whoever files the report; a stakeholder reacts
+to the slice of behavior a demo chose to show, against expectations the last description planted. An intent-facing
+verdict is consumed through description-facing instruments, and the instruments carry everything an encoding carries:
+blind spots, silences, the possibility of measuring the wrong thing. The purest verdicts are the unfiled ones,
+which is why they so rarely arrive.
+
+### Anchoring
+
+Anchoring is not a property of the artifact alone; it takes three participants. The point provides the
+attractor: it is what sits in the context, available to be mimicked. The generator determines the strength of
+the pull, how readily it reproduces what it sees over what it is told. And the description determines the
+counter-force, how explicitly and forcefully it demands departure from what exists. Anchoring is the outcome
+when the attractor wins, and it shows up in one observable comparison: the description says one thing, the
+draw delivers the neighborhood of the current point instead. When anchoring is weak, the description governs
+and local moves land where it aims; when anchoring is strong, the artifact governs regardless of what the
+description asked for.
+
+The three participants meet in one place: the context. To the generator there is no privileged channel — the
+description, the existing point, a failing test all arrive as one body of text — and whatever authority the
+description is supposed to hold over the artifact is not intrinsic to the draw. It has to be carried by the
+presentation. What order the two arrive in, whether a changed clause is marked as changed or left for the
+generator to discover, whether the old point is framed as the thing to rewrite or reads as the latest word:
+each of those choices moves where the draw lands. Anchoring is a property of the assembly as much as of the
+parts: the same description and the same artifact, presented differently, anchor differently.
+
+The subtlest channel of capture runs through the silences. The description leaves dimensions open; the
+artifact, by existing, has resolved every one of them. Present both, and the generator does not meet an open
+question with one candidate answer beside it — it meets no open question at all. The silence arrives
+pre-answered, and nothing in the context marks the answer as provisional. A resolution made under a spec that
+has since moved, or wrong from the start, reads exactly like a decision. This is anchoring at its most
+defensible-looking: resolving uncertainty from available evidence is what a good generator should do, and
+that is what makes it hard to catch.
+
+None of this is specific to models. A human maintainer holding a spec and an artifact defers the same way:
+where the code answers a question the spec left open, the resolution is presumed deliberate. The
+presumption is trained, not lazy. Engineering culture codified it as prudence: follow the existing
+conventions, do not rewrite what works, do not remove the fence until you know why it stands. A model trained
+on human code and human instruction-following inherits the same deference, and it would be strange if it did
+not. Which is also why the counter-force is not a new invention: the diff, the changelog, the migration guide
+are the presentation problem solved for human generators — tell the next reader what changed, so that nothing
+has to be discovered against the pull of what already exists.
+
+That the pull has three sources is what makes it workable. The point cannot be argued with; it is whatever
+the project currently is. The generator's habits arrive fixed with the generator. The counter-force is
+the description, the one participant that is authored, which makes it the first lever to reach for when a draw comes back
+captured: say what changed, mark what moved, demand the departure explicitly. Only when a re-armed description
+still loses does the point itself have to go.
+
+One route around all of this presents itself immediately: never show the generator the old point. Regenerate
+from scratch on every change, always greenfield, and anchoring cannot occur, because the attractor was never
+in the context. The price of that route is the one the operations' costs already named: every draw pays the
+resample's bill. A methodology that takes it has not solved the presentation problem; it has arranged
+never to face it. How description and artifact are best presented together, so that the point informs the
+draw without capturing it, is an open question, and one of the hardest an honest spec-driven practice owns.
+
+### Comments
+
+Under human maintenance, comments were a dimension like naming: behaviorally free, cost-relevant, priced
+entirely at reading time. A generation loop changes their status. The next draw reads them as context, and a
+comment aims it the way a clause in the description would — a fragment of description embedded in the
+artifact. Nothing that polices the description polices the fragment: no oracle checks a comment, no test
+fails when it goes stale, and the loop that visibly punishes a broken clause ignores a broken explanation. A
+stale comment keeps aiming after it has stopped being true.
+
+A generated artifact holds two kinds of comment. The first kind is authored: it restates a decision the
+description already holds, transported into the artifact so it is read at the point of use, re-emitted
+on every draw, and mechanically checkable the way a license header or a required safety notice is checked.
+The second kind is generated: the generator resolves a silence and adds a justification for its own resolution.
+
+To the next draw the two kinds arrive indistinguishable, because to a generator no channel is privileged.
+Yet the second kind records no decision — its resolution is whatever the prior favored on that draw, and its
+justification is written after the fact — and it aims every draw that reads it all the same. Anchoring
+names the danger: the subtlest capture was the silence arriving pre-answered, and a generated justification
+goes a step further and marks the answer as deliberate.
+
+This resolves an old maxim. "Comments explain why, not what" got the content right and the location by
+necessity: with no durable description, the artifact was the only place a why could be recorded. The
+apparatus removes that constraint: a reason worth keeping is ratified into the description, where every
+future draw is aimed by it on purpose. What survives in the artifact shares the comment's syntax without
+being one — a description clause in transit, or generated text with no authority of its own. The comment
+properly so called, discretionary prose whose only record is the artifact, is the one kind a sound workflow
+does not keep: it is a ratification still pending, stored in the one place a resample erases.

@@ -4,15 +4,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Theoretical foundations for Code from Spec — essays on the principles, models, and reasoning behind the methodology.">
+  <meta name="description" content="A vocabulary for naming the parts of spec-driven development — what follows once a stochastic generator exists, where each part reaches its limits, and grounds for design decisions.">
   <meta name="author" content="Gustavo Silveira Neto">
-  <title>Theory — Code from Spec</title>
+  <title>A (peculiar) theory of spec-driven development — Code from Spec</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
   <link rel="stylesheet" href="/css/baseline.css">
-  <link rel="stylesheet" href="/css/theory-index.css">
+  <link rel="stylesheet" href="/css/default.css">
 </head>
 <body>
   <header>
@@ -28,11 +28,23 @@
   </header>
   <main>
     <div class="container">
-      <img src="/images/banner_theory.png" alt="Theory">
-<h1>Theory</h1>
-<p>Theoretical foundations for Code from Spec — essays on the principles, models, and reasoning behind the methodology.</p>
+      <img src="/images/banner_theory.png" alt="A (peculiar) theory of spec-driven development">
+<h1>A (peculiar) theory of spec-driven development</h1>
+<p>July 18, 2026</p>
+<p>Start with two observations about generating code with a stochastic model:</p>
 <ul>
-  <li><a href="/theory/a-peculiar-theory-of-sdd">A (peculiar) theory of spec-driven development</a> — July 18, 2026 — A vocabulary for naming the parts of spec-driven development — what follows once a stochastic generator exists, where each part reaches its limits, and grounds for design decisions.</li>
+  <li>A spec run through a non-deterministic generator defines a space of programs, not one single program; and</li>
+  <li>the generated artifact is the point in that space you landed on.</li>
+</ul>
+<p>This essay is about what follows once such a generator exists. It was written in the course of designing a spec-driven development methodology, and it serves that work as an instrument: a vocabulary for naming the parts, a map of where each part reaches its limits, and grounds for design decisions.</p>
+<ul>
+  <li><a href="/theory/part-i">Part I — The primitives</a> — The six primitives — space, intent, description, generator, oracle, artifact — and the four operations that act on them.</li>
+  <li><a href="/theory/part-ii">Part II — The apparatus at its limits</a> — What happens when each primitive is pushed to its limit, and the corner where current practice already sits.</li>
+  <li><a href="/theory/part-iii">Part III — The description</a> — What the description should be: a delta against the prior, not an ordinary specification.</li>
+  <li><a href="/theory/part-iv">Part IV — The oracle</a> — Where verdicts come from, what each costs, and how far each can be trusted.</li>
+  <li><a href="/theory/part-v">Part V — The test suite</a> — The case for the test suite under cheap generation: memory, not coverage, is the decisive property.</li>
+  <li><a href="/theory/part-vi">Part VI — The case for decomposition</a> — Why decomposition matters more, not less, when a generator writes the code.</li>
+  <li><a href="/theory/conclusion">Conclusion</a> — The vocabulary, the bet, and what is left for the person.</li>
 </ul>
     </div>
   </main>

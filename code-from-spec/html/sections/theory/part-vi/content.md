@@ -1,6 +1,6 @@
 ---
 title: "Part VI — The case for decomposition"
-description: "Why decomposition matters more, not less, under SDD."
+description: "Why decomposition matters more, not less, under spec-driven development."
 date: 2026-07-18
 ---
 

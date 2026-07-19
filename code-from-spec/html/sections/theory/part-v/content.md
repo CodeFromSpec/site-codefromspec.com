@@ -1,6 +1,6 @@
 ---
 title: "Part V — The test suite"
-description: "The case for the test suite under cheap generation."
+description: "What a test suite buys when generation is cheap."
 date: 2026-07-18
 ---
 

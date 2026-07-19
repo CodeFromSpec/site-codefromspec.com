@@ -40,21 +40,25 @@ The stylesheet must cover:
 
 4. **Main** — 20px vertical padding.
 
-5. **Images** — alternate float direction by section.
-   Odd sections (`section:nth-of-type(odd) img`):
-   float right, margin: 0 0 1em 1.5em. Even sections
+5. **Images** — all images: max-width 40% of the
+   container, border-radius 4px. Images directly in the
+   container (outside sections, e.g. after the h1):
+   float right, margin: 0 0 1em 1.5em. Images inside
+   sections alternate float direction: odd sections
+   (`section:nth-of-type(odd) img`): float right,
+   margin: 0 0 1em 1.5em. Even sections
    (`section:nth-of-type(even) img`): float left,
-   margin: 0 1.5em 1em 0. Both: max-width 40% of
-   the container, border-radius 4px.
+   margin: 0 1.5em 1em 0.
 
 6. **Clearfix** — sections clear floats:
    `section::after` with `content: ""`, `display: table`,
    `clear: both`. This prevents floated images from
    bleeding into the next section.
 
-7. **Navigation** — the last `<p>` inside `main .container`
-   is centered (`text-align: center`), muted color,
-   margin-top 2em.
+7. **Navigation** — `main .container > p:last-child`
+   (a direct child `<p>` of the container, and the last
+   child) is centered (`text-align: center`), muted
+   color, margin-top 2em.
 
 8. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically

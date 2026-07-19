@@ -56,6 +56,13 @@ main {
   padding: 20px 0;
 }
 
+.container > img {
+  float: right;
+  margin: 0 0 1em 1.5em;
+  max-width: 40%;
+  border-radius: 4px;
+}
+
 section:nth-of-type(odd) img {
   float: right;
   margin: 0 0 1em 1.5em;
@@ -76,7 +83,7 @@ section::after {
   clear: both;
 }
 
-main .container p:last-of-type {
+main .container > p:last-child {
   text-align: center;
   color: var(--color-muted);
   margin-top: 2em;
@@ -102,6 +109,7 @@ main .container p:last-of-type {
     padding: 20px 0;
   }
 
+  .container > img,
   section:nth-of-type(odd) img,
   section:nth-of-type(even) img {
     float: none;

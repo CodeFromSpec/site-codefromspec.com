@@ -2,7 +2,7 @@ code-from-spec: v5
 ARTIFACT/design/baseline;path:public/css/baseline.css;checksum:ydmHzducyUbWcXP4PtXGYcUhKEk;chain:JCJyVoRj8dborgTDzv7u_YPFmrM
 ARTIFACT/design/default/stylesheet;path:public/css/default.css;checksum:qMitBPGfLqGAcyK3Ks3ZLUJLXg0;chain:1jx9aRGztz1LFNwdu1CITLfHkws
 ARTIFACT/design/journal/stylesheet;path:public/css/journal.css;checksum:2nX_MFCEDos4ISWpeR1EC1gbLfU;chain:9BgmyB3Xk_IK82HRBTogKVvZajE
-ARTIFACT/design/theory/stylesheet;path:public/css/theory.css;checksum:UNIZXoQMyE8rLg44wm6nMN9xA6s;chain:4UVsqTTLx_1noXMnDZQhYc80D80
+ARTIFACT/design/theory/stylesheet;path:public/css/theory.css;checksum:Hj6ejqkrhODiScil8Q9huXdOg3I;chain:CA1fkwnCeys2RmfnquyB8pTj99Y
 ARTIFACT/html/home;path:public/index.html;checksum:48N9A4kb4mFRkIbMEFSMW42c9u4;chain:9m7RSmsuDi8chlRRgw0mtbrIwxY
 ARTIFACT/html/sections/journal/entries/anchoring-on-old-code;path:public/journal/anchoring-on-old-code/index.html;checksum:V1WISJBJvCPdnWjFsXPcbcVPB3M;chain:MpQiOkk0b4GazqkTH73oUfoGaYM
 ARTIFACT/html/sections/journal/entries/confinement;path:public/journal/confinement/index.html;checksum:Wcy_9O5lQXtvQnCkAGwsLM7krS4;chain:KjtSnUMPg1f0sq4elBz3g0M4oaA
@@ -12,10 +12,10 @@ ARTIFACT/html/sections/journal/index;path:public/journal/index.html;checksum:Wil
 ARTIFACT/html/sections/license;path:public/license/index.html;checksum:RYGhfBdqhCK9afCTBH5BJtVroLk;chain:Zcb5Bogy6kulU9QecHcFLpckmDg
 ARTIFACT/html/sections/rationale;path:public/rationale/index.html;checksum:7ooP7cVoUkxSnfF7pyYE2sXE0TU;chain:QEXpI_KpRjO772rVbWflTZX0S9s
 ARTIFACT/html/sections/theory/conclusion;path:public/theory/conclusion/index.html;checksum:ASvPz5xfy6VhtKLVR7cF7WWzgxE;chain:hK2Z6qtamh0pRg-NY6yOVicbXEA
-ARTIFACT/html/sections/theory/index;path:public/theory/index.html;checksum:RizF8TMoQUnH4YESMZbmGWam5oY;chain:XDTtWXLCA1bdU6gQQ1oDcoCP_8Q
+ARTIFACT/html/sections/theory/index;path:public/theory/index.html;checksum:iJoa-z3AD7Jm9jgsMaC3MNpiTnY;chain:bWKKnRHlatKn8KqzMvUutU94VzU
 ARTIFACT/html/sections/theory/part-i;path:public/theory/part-i/index.html;checksum:gfCKWxMur26u8DGUhnFFBBXRUw8;chain:fe0PkSDPrOdK83ep6IuL9-u21dA
 ARTIFACT/html/sections/theory/part-ii;path:public/theory/part-ii/index.html;checksum:cJHxRprsuQdHCiKGxdCjRRY9eAg;chain:qDXaqVgwJQQjlcWZVR8ffCC9kpk
 ARTIFACT/html/sections/theory/part-iii;path:public/theory/part-iii/index.html;checksum:CVyR2Btp-9dgH_1xVKFztFrSh_o;chain:8-9Og4MY1z6KY0g6XEnDTBVMzgQ
 ARTIFACT/html/sections/theory/part-iv;path:public/theory/part-iv/index.html;checksum:5Fg7o-0Tvtv5lk8OfraabkUw4S8;chain:m0fAL1utesr893UlWXg83wRdP3w
-ARTIFACT/html/sections/theory/part-v;path:public/theory/part-v/index.html;checksum:1-YwxqvX6ReF4iifEygw2Ag9JqA;chain:2QKDdR5WQTzmN4BLT9onmk7xHFA
-ARTIFACT/html/sections/theory/part-vi;path:public/theory/part-vi/index.html;checksum:j0E5s7pA0Erzl7lcZ9X-qerjf_A;chain:ilVk2w3sCyyVlDsWQX0glY3fbQg
+ARTIFACT/html/sections/theory/part-v;path:public/theory/part-v/index.html;checksum:FJ5DNBfkhZZubY_lL8GrVZVSgFw;chain:Oj29_RDi2gDTcaNgZgn8BElBcBs
+ARTIFACT/html/sections/theory/part-vi;path:public/theory/part-vi/index.html;checksum:xNtnKDrt_DM5qJeSri2W1Zj7AiY;chain:wXJISfI4mAEXPAWrSbHGFogI3Bs

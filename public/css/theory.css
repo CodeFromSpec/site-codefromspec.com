@@ -83,8 +83,7 @@ section::after {
   clear: both;
 }
 
-main .container > p:last-child,
-main .container section:last-of-type > p:last-child {
+main .container > p:last-child {
   text-align: center;
   color: var(--color-muted);
   margin-top: 2em;

@@ -55,12 +55,10 @@ The stylesheet must cover:
    `clear: both`. This prevents floated images from
    bleeding into the next section.
 
-7. **Navigation** — the navigation paragraph at the end
-   of the content. Target with both
-   `main .container > p:last-child` and
-   `main .container section:last-of-type > p:last-child`.
-   Both selectors: `text-align: center`, muted color,
-   margin-top 2em.
+7. **Navigation** — `main .container > p:last-child`
+   (a direct child `<p>` of the container, and the last
+   child) is centered (`text-align: center`), muted
+   color, margin-top 2em.
 
 8. **Responsive** — at max-width 768px: container
    padding 16px, header stacks vertically

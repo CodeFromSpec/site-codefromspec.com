@@ -1,4 +1,4 @@
-# SPEC/design/journal/template
+# SPEC/design/theory-index/template
 
 # Public
 
@@ -23,7 +23,7 @@ parts vary.
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
   <link rel="stylesheet" href="/css/baseline.css">
-  <link rel="stylesheet" href="/css/journal.css">
+  <link rel="stylesheet" href="/css/theory-index.css">
 </head>
 <body>
   <header>

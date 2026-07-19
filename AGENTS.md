@@ -293,7 +293,25 @@ Each entry is a leaf node with a `content.md` alongside its `_node.md`.
    - [Title](/journal/<slug>) — <Month Day, Year> — <description>
    ```
 
-5. Run `/cfs-status` to confirm staleness. Expect at least
+5. Update `public/sitemap.xml` — add the new URL with
+   `<lastmod>` date. Also update `<lastmod>` for the
+   journal index entry (it will change too).
+
+6. Run `/cfs-status` to confirm staleness. Expect at least
    the new entry (missing) and the index (stale).
 
-6. Generate with `/cfs-generate`.
+7. Generate with `/cfs-generate`.
+
+---
+
+## Static files
+
+`public/robots.txt` and `public/sitemap.xml` are static
+files, not generated artifacts. They live outside the spec
+tree and must be updated manually.
+
+- **`robots.txt`** — rarely changes. Points crawlers to
+  the sitemap.
+- **`sitemap.xml`** — must be updated whenever a page is
+  added, removed, or has its content substantially revised
+  (update `<lastmod>` dates accordingly).

@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A software engineering methodology where specifications are the source of truth and code materializes it.">
+  <meta name="description" content="A software development methodology where specifications drive the code — developed in public on real projects, failures included.">
   <meta name="author" content="Gustavo Silveira Neto">
   <title>Code from Spec</title>
   <meta property="og:title" content="Code from Spec">
-  <meta property="og:description" content="A software engineering methodology where specifications are the source of truth and code materializes it.">
+  <meta property="og:description" content="A software development methodology where specifications drive the code — developed in public on real projects, failures included.">
   <meta property="og:image" content="https://codefromspec.com/images/banner.png">
   <meta property="og:url" content="https://codefromspec.com/">
   <meta property="og:type" content="website">
@@ -37,14 +37,19 @@
     <div class="container">
       <img src="/images/banner.png" alt="Code from Spec">
 <h1>Code from Spec</h1>
-<p>A software engineering methodology for the age of AI — developed on real projects, documented in public as it is discovered and consolidated.</p>
-<p><strong>Specifications are the source of authority; code materializes them.</strong></p>
-<p>This is how I build software now. I write specifications; an agent generates the code from them. When a specification changes, the tooling detects which code is stale, and that code is regenerated. The specification is the thing I author, review, and version; the code is its output. I still read that output — in diffs that minimal regeneration keeps small — and the more a project matures, the less of it I read. What I no longer do is write it.</p>
+<p>A software engineering methodology for the age of AI, where specifications drive the code — developed on real projects, documented in public as it is discovered and consolidated.</p>
+<p><em>Last updated July 20, 2026.</em></p>
+<p>This is how I build software now. I write specifications; an agent generates the code from them. When a specification changes, the tooling detects which code is stale, and that code is regenerated. The specification is the thing I author, review, and version; the code follows from it, generated when new, minimally updated when the spec moves. I still read that output, in diffs that minimal regeneration keeps small. The more a project matures, the less of it I read. What I no longer do is write it.</p>
 <p>The methodology is on its fifth version, developed by using it to build its own tooling and in professional work on real projects, under real deadlines. It has no users other than me (well, perhaps a few unwilling coworkers), and no comparison against a disciplined baseline. What it has is a working mechanism, a growing set of ideas that survived contact with practice, and a public record of both, failures included. If parts of it are useful to you, take them.</p>
-<p>Staleness is detected by hash. Generation is confined by the tooling. A hand edit to a generated file is flagged the moment it appears. Trust goes to the structure, not to anyone's good behavior — and where the enforcement has a known gap, the gap is documented, not passed off as a guarantee. The sections below describe how that enforcement works.</p>
 <section>
-<h2>The specification tree</h2>
-<p>Specifications are organized as a tree of nodes. Each node is a directory with a <code>_node.md</code> file, and its position in the filesystem is its position in the hierarchy. High-level intent sits at the root; implementation detail sits at the leaves. Only leaf nodes generate artifacts.</p>
+<h2>The theory</h2>
+<p>Behind the methodology sits a <a href="/theory">theory of spec-driven development</a>, a vocabulary for naming its parts: intent, description, generator, oracle, artifact. It was written to ground design decisions this project had been making by instinct, and it is probably the most insightful thing on this site. The sections below describe the mechanism, and the theory explains it: why a specification defines a region of programs rather than one program, why the artifact is not disposable, why regeneration must show the agent what changed.</p>
+</section>
+<section>
+<h2>The methodology</h2>
+<p>Staleness is detected by hash. Generation is confined by the tooling. A hand edit to a generated file is flagged the moment it appears. As a methodology, it runs on a human following a process, but the tooling takes over every rule it can enforce; where it cannot, the dependence on judgment is made explicit, not passed off as a guarantee.</p>
+<h3>The specification tree</h3>
+<p>Specifications are organized as a tree of nodes. Each node is a directory with a <code>_node.md</code> file, and its position in the filesystem is its position in the hierarchy. High-level decisions sit at the root; implementation detail sits at the leaves. Only leaf nodes generate artifacts.</p>
 <p>A leaf node, in its entirety, can be this small:</p>
 <pre><code>---
 output: internal/fees/calculation.go
@@ -60,32 +65,26 @@ Fees are computed in integer cents — no floating point.
 The standard fee is 2% of the amount, rounded down;
 premium accounts pay half.
 Reject non-positive amounts with a validation error.</code></pre>
-<p>A node inherits the public content of every ancestor, automatically. A constraint written once at an ancestor node — an error-handling rule, a convention, a type — governs every leaf beneath it, including leaves added months later. What a node needs from elsewhere in the tree, it declares. The context for any generation is the path from the root to the node plus what the node declares — not searched for, not guessed. The structure decides what the agent sees.</p>
-<p>Specifications are structured natural language — readable and reviewable without leaving the domain's vocabulary. Specs live in git, reviewed in pull requests, diffed, and blamed, with the same machinery a team already uses for code. The aim, still untested, is that someone who knows the domain but not programming could sit on that review — a reviewer on the pull request, saying "this is wrong" in one artifact they can actually evaluate.</p>
-</section>
-<section>
-<h2>Confinement</h2>
+<p>A node inherits the public content of every ancestor, automatically. A constraint written once at an ancestor node (an error-handling rule, a convention, a type) governs every leaf beneath it, including leaves added months later. What a node needs from elsewhere in the tree, it declares. The context for any generation is the path from the root to the node plus what the node declares. Nothing is searched for, nothing guessed; the structure decides what the agent sees.</p>
+<p>Specifications are structured natural language, readable and reviewable without leaving the domain's vocabulary. Specs live in git, reviewed in pull requests, diffed, and blamed, with the same machinery a team already uses for code. The aim, still untested, is that someone who knows the domain but not programming could sit on that review: a reviewer on the pull request, saying "this is wrong" in one artifact they can actually evaluate.</p>
+<h3>Confinement</h3>
 <p>The agent that generates a file sees only that node's chain — the inherited constraints, the declared dependencies, the node's own specification — and writes one declared output file. It does not browse the repository, read neighboring code, or fetch anything else. If the chain is not enough to generate the artifact, the correct output is not code. It is a report of exactly what is missing.</p>
-<p>Confinement is enforced by the tooling, not requested of the agent: the generation agent's tools are restricted to reading its chain and writing its output. An unconfined agent facing an ambiguous spec compensates: it reads other files, infers patterns, and builds output that satisfies a model it assembled from context nobody chose. The result looks diligent but is subtly wrong in ways that are hard to trace. A confined agent has two options instead — generate from what it has, or report the gap. The third option, inventing context that looks like research, is the one confinement removes.</p>
-</section>
-<section>
-<h2>Staleness, by hash</h2>
+<p>Confinement is enforced by the tooling, not requested of the agent: the generation agent's tools are restricted to reading its chain and writing its output. An unconfined agent facing an ambiguous spec compensates. It reads other files, infers patterns, and builds output that satisfies a model it assembled from context nobody chose. The result looks diligent but is subtly wrong in ways that are hard to trace. A confined agent has two options instead: generate from what it has, or report the gap. The third option, inventing context that looks like research, is the one confinement removes.</p>
+<h3>Staleness, by hash</h3>
 <p>Each generated artifact records the hash of the chain that produced it. Change a specification, and the hash of every artifact that inherited or depended on it no longer matches. Those artifacts are stale, and stale is the signal to regenerate. The bookkeeping lives in a single manifest; generated files carry no framework metadata and no comments, so a regeneration that produces identical code produces no diff at all.</p>
 <p>Divergence is caught in both directions: a spec that moved ahead of its artifact marks the artifact stale, and a generated file edited by hand is flagged as modified. Either way, the pair fell out of agreement, and the tooling says so.</p>
 <p>The hash answers one question: was this artifact produced from this specification. Whether the code is correct is a separate question, for a separate layer.</p>
-</section>
-<section>
-<h2>Verification</h2>
-<p>The methodology assumes an imperfect agent, because that is the agent that exists. An agent can hallucinate, omit a required step, misread an unambiguous spec, or preserve old behavior the spec has changed — and the code will compile and the manifest will read clean. Tests catch these. Tests are specifications too: authored, reviewed, and versioned alongside the rest. The hash checks where the code came from; the tests check what it does.</p>
-<p>A green suite is evidence only if the tests are an independent opinion — a generated implementation and a generated test could otherwise share the same misreading and agree on it. The structure works against that: a test spec is its own account of expected behavior, and the agent that generates a test receives the component's public contract, not its implementation — every node's internals stay out of the rest of the tree's chains. Implementation and test become two independent readings of the same intent.</p>
-<p>In practice, the tests are where the confidence comes from. The hash and the confinement bound where an error can originate; the tests are what say the code does what the spec meant — they are the layer I actually trust when I ship. And they are the least codified part of the methodology: the structure of a test spec is settled, but deciding what to test, and how much, is still judgment exercised case by case — instinct, not yet rules. Extracting it into rules a tree can enforce is open work.</p>
+<h3>Verification</h3>
+<p>The methodology assumes an imperfect agent, because that is the agent that exists. An agent can hallucinate, omit a required step, misread an unambiguous spec, or preserve old behavior the spec has changed, and the code will compile and the manifest will read clean. Tests catch these. Tests are specifications too: authored, reviewed, and versioned alongside the rest. The hash checks where the code came from; the tests check what it does.</p>
+<p>In a methodology that regenerates its code, tests do more than catch errors: they remember. A lesson that lives only in the code is erased by the next regeneration; a lesson pinned in a test spec survives every one, because the pin is the spec of what to check, not the generated assert. The assert is an artifact like any other, regenerated freely. What stays fixed is the account of the behavior it must verify.</p>
+<p>A green suite is evidence only if the tests are an independent opinion: a generated implementation and a generated test could otherwise share the same misreading and agree on it. The structure works against that. A test spec is its own account of expected behavior, and the agent that generates a test receives the component's public contract, not its implementation; every node's internals stay out of the rest of the tree's chains. Implementation and test become two independent readings of the same intent.</p>
+<p>In practice, the tests are where the confidence comes from. The hash and the confinement bound where an error can originate; the tests are what say the code does what the spec meant. They are the layer I actually trust when I ship. And they are the least codified part of the methodology. Deciding what to test, and how much, is still judgment exercised case by case: instinct, not yet rules. Extracting it into rules a tree can enforce is open work.</p>
 </section>
 <section>
 <h2>Where things stand</h2>
-<p>The spec tree format — how specifications are structured, how context is assembled, how staleness is detected — is approaching a definitive form. The newest piece is the regeneration mechanism: telling the agent exactly which parts of a spec changed, so it updates the code without re-deciding everything that did not. It is built, and early results are promising. The <a href="/journal">journal</a> reports this work as it happens, including the hypotheses that failed.</p>
-<p>Open problems remain. Natural language is ambiguous; the working answer is convergence, with test specs anchoring meaning mechanically — whether it converges fast enough for complex domains is unproven. Generation is non-deterministic; the guarantees are about behavior, verified by tests, not about the generated code itself. Authorship by someone with no software background is the north star, not a current capability — the <a href="/rationale">rationale</a> describes that destination, and the precedent it stands on. The tooling targets Claude Code; the spec format is client-agnostic, the orchestration is not.</p>
+<p>The spec tree format — how specifications are structured, how context is assembled, how staleness is detected — is approaching a definitive form. The regeneration mechanism tells the agent exactly which parts of a spec changed, so it updates the code without re-deciding everything that did not. It is built, and early results are promising. The newest piece is the <a href="/theory">theory</a>, and its lessons are still being absorbed into the framework. The <a href="/journal">journal</a> reports this work as it happens, including the hypotheses that failed.</p>
+<p>Open problems remain. Natural language is ambiguous; the working answer is convergence, with test specs anchoring meaning mechanically. Whether it converges fast enough for complex domains is unproven. Generation is non-deterministic; the guarantees are about behavior, verified by tests, not about the generated code itself. Authorship by someone with no software background is the north star, not a current capability. The <a href="/rationale">rationale</a> describes that destination as originally argued, and the <a href="/theory">theory</a> now gives the vocabulary to analyze how far it is. The tooling targets Claude Code; the spec format is client-agnostic, the orchestration is not.</p>
 <p><a href="https://github.com/CodeFromSpec/framework" target="_blank" rel="noopener">Explore the framework on GitHub</a></p>
-<p><em>Last updated July 3, 2026.</em></p>
 </section>
     </div>
   </main>

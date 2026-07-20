@@ -23,7 +23,7 @@ specification is the thing I author, review, and
 version; the code follows from it, generated when new,
 minimally updated when the spec moves. I still read that
 output, in diffs that minimal regeneration keeps
-small; and the more a project matures, the less of it
+small. The more a project matures, the less of it
 I read. What I no longer do is write it.
 
 The methodology is on its fifth version, developed by
@@ -45,7 +45,7 @@ generator, oracle, artifact. It was written to ground
 design decisions this project had been making by
 instinct, and it is probably the most insightful thing
 on this site. The sections below describe the mechanism,
-and the theory says why it is built this way: why a
+and the theory explains it: why a
 specification defines a region of programs rather than
 one program, why the artifact is not disposable, why
 regeneration must show the agent what changed.
@@ -57,8 +57,8 @@ by the tooling. A hand edit to a generated file is
 flagged the moment it appears. As a methodology, it
 runs on a human following a process, but the tooling
 takes over every rule it can enforce; where it cannot,
-the dependence on judgment is documented, not passed
-off as a guarantee.
+the dependence on judgment is made explicit, not
+passed off as a guarantee.
 
 ### The specification tree
 
@@ -165,6 +165,16 @@ specifications too: authored, reviewed, and versioned
 alongside the rest. The hash checks where the code came
 from; the tests check what it does.
 
+In a methodology that regenerates its code, tests do
+more than catch errors: they remember. A lesson that
+lives only in the code is erased by the next
+regeneration; a lesson pinned in a test spec survives
+every one, because the pin is the spec of what to
+check, not the generated assert. The assert is an
+artifact like any other, regenerated freely. What
+stays fixed is the account of the behavior it must
+verify.
+
 A green suite is evidence only if the tests are an
 independent opinion: a generated implementation and a
 generated test could otherwise share the same
@@ -181,10 +191,9 @@ from. The hash and the confinement bound where an error
 can originate; the tests are what say the code does
 what the spec meant. They are the layer I actually
 trust when I ship. And they are the least codified part
-of the methodology. The structure of a test spec is
-settled, but deciding what to test, and how much, is
-still judgment exercised case by case: instinct, not
-yet rules. Extracting it into rules a tree can enforce
+of the methodology. Deciding what to test, and how
+much, is still judgment exercised case by case:
+instinct, not yet rules. Extracting it into rules a tree can enforce
 is open work.
 
 ## Where things stand

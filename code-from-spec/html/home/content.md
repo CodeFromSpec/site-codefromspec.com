@@ -8,11 +8,12 @@ updated: 2026-07-20
 
 # Code from Spec
 
-A software engineering methodology for the age of AI —
-developed on real projects, documented in public as it
-is discovered and consolidated.
+A software engineering methodology for the age of AI,
+where specifications drive the code — developed on real
+projects, documented in public as it is discovered and
+consolidated.
 
-**Specifications drive the code.**
+*Last updated July 20, 2026.*
 
 This is how I build software now. I write
 specifications; an agent generates the code from them.
@@ -35,15 +36,6 @@ mechanism, a growing set of ideas that survived contact
 with practice, and a public record of both, failures
 included. If parts of it are useful to you, take them.
 
-Staleness is detected
-by hash. Generation is confined by the tooling. A hand
-edit to a generated file is flagged the moment it
-appears. Trust goes to the structure, not to anyone's
-good behavior — and where the enforcement has a known
-gap, the gap is documented, not passed off as a
-guarantee. The sections below describe how that
-enforcement works.
-
 ## The theory
 
 Behind the methodology sits a
@@ -58,7 +50,18 @@ specification defines a region of programs rather than
 one program, why the artifact is not disposable, why
 regeneration must show the agent what changed.
 
-## The specification tree
+## The methodology
+
+Staleness is detected by hash. Generation is confined
+by the tooling. A hand edit to a generated file is
+flagged the moment it appears. This is a methodology —
+it runs on a human following a process — but the
+tooling takes over every rule it can enforce; where it
+cannot, the dependence on judgment is documented, not
+passed off as a guarantee. The subsections below
+describe how that enforcement works.
+
+### The specification tree
 
 Specifications are organized as a tree of nodes. Each
 node is a directory with a `_node.md` file, and its
@@ -106,7 +109,7 @@ could sit on that review — a reviewer on the pull
 request, saying "this is wrong" in one artifact
 they can actually evaluate.
 
-## Confinement
+### Confinement
 
 The agent that generates a file sees only that node's
 chain — the inherited constraints, the declared
@@ -130,7 +133,7 @@ has, or report the gap. The third option, inventing
 context that looks like research, is the one
 confinement removes.
 
-## Staleness, by hash
+### Staleness, by hash
 
 Each generated artifact records the hash of the chain
 that produced it. Change a specification, and the hash
@@ -151,7 +154,7 @@ The hash answers one question: was this artifact
 produced from this specification. Whether the code is
 correct is a separate question, for a separate layer.
 
-## Verification
+### Verification
 
 The methodology assumes an imperfect agent, because
 that is the agent that exists. An agent can
@@ -189,13 +192,15 @@ is open work.
 
 The spec tree format — how specifications are
 structured, how context is assembled, how staleness is
-detected — is approaching a definitive form. The newest
-piece is the regeneration mechanism: telling the agent
-exactly which parts of a spec changed, so it updates
-the code without re-deciding everything that did not.
-It is built, and early results are promising. The
-[journal](/journal) reports this work as it happens,
-including the hypotheses that failed.
+detected — is approaching a definitive form. The
+regeneration mechanism — telling the agent exactly
+which parts of a spec changed, so it updates the code
+without re-deciding everything that did not — is built,
+and early results are promising. The newest piece is
+the [theory](/theory), and its lessons are still being
+folded back into the framework. The [journal](/journal)
+reports this work as it happens, including the
+hypotheses that failed.
 
 Open problems remain. Natural language is ambiguous;
 the working answer is convergence, with test specs
@@ -213,5 +218,3 @@ tooling targets Claude Code; the spec format is
 client-agnostic, the orchestration is not.
 
 [Explore the framework on GitHub](https://github.com/CodeFromSpec/framework)
-
-*Last updated July 20, 2026.*

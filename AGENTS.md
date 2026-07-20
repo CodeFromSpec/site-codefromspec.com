@@ -20,17 +20,21 @@ Content lives in `content.md` files alongside each leaf node's
 
 - **File**: `code-from-spec/html/home/content.md`
 - **Last updated**: July 20, 2026
-- **What it says**: Introduces Code from Spec — tagline
-  "Specifications drive the code" (aligned with the framework
-  README after the theory). Sections: the theory (own section,
-  presented as the most insightful thing on the site), the
-  spec tree (inheritance, declarations), confinement (agents
-  see only the chain), staleness by hash, and verification
-  (tests as independent opinion). Reports current status: spec
-  format approaching definitive form, disposition-guided
-  regeneration built and promising. Links to theory, journal
-  and rationale (the latter as the destination as originally
-  argued, with the theory as the tool to analyze it).
+- **What it says**: Introduces Code from Spec — subtitle
+  "A software engineering methodology for the age of AI,
+  where specifications drive the code" (aligned with the
+  framework README after the theory). Structure: intro with
+  last-updated date near the top; "The theory" (own section,
+  presented as the most insightful thing on the site); "The
+  methodology" (opens with the human-in-the-process framing —
+  tooling takes over every rule it can enforce — and holds
+  four subsections: the spec tree, confinement, staleness by
+  hash, verification); "Where things stand" (spec format
+  approaching definitive form, regeneration built, theory as
+  the newest piece with lessons still being folded back).
+  Links to theory, journal and rationale (the latter as the
+  destination as originally argued, with the theory as the
+  tool to analyze it).
 
 ### Rationale (`/rationale`)
 

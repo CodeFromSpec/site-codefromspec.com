@@ -1,7 +1,7 @@
 ---
 title: Code from Spec
-description: A software engineering methodology where specifications are the source of truth and code materializes it.
-updated: 2026-07-03
+description: A software development methodology where specifications drive the code — developed in public on real projects, failures included.
+updated: 2026-07-20
 ---
 
 ![Code from Spec](/images/banner.png)
@@ -12,15 +12,15 @@ A software engineering methodology for the age of AI —
 developed on real projects, documented in public as it
 is discovered and consolidated.
 
-**Specifications are the source of authority; code
-materializes them.**
+**Specifications drive the code.**
 
 This is how I build software now. I write
 specifications; an agent generates the code from them.
 When a specification changes, the tooling detects which
 code is stale, and that code is regenerated. The
 specification is the thing I author, review, and
-version; the code is its output. I still read that
+version; the code follows from it — generated when new,
+minimally updated when the spec moves. I still read that
 output — in diffs that minimal regeneration keeps
 small — and the more a project matures, the less of it
 I read. What I no longer do is write it.
@@ -43,6 +43,20 @@ good behavior — and where the enforcement has a known
 gap, the gap is documented, not passed off as a
 guarantee. The sections below describe how that
 enforcement works.
+
+## The theory
+
+Behind the methodology sits a
+[theory of spec-driven development](/theory) — a
+vocabulary for naming its parts: intent, description,
+generator, oracle, artifact. It was written to ground
+design decisions this project had been making by
+instinct, and it is probably the most insightful thing
+on this site. The sections below describe the mechanism;
+the theory says why it is built this way — why a
+specification defines a region of programs rather than
+one program, why the artifact is not disposable, why
+regeneration must show the agent what changed.
 
 ## The specification tree
 
@@ -192,10 +206,12 @@ behavior, verified by tests, not about the generated
 code itself. Authorship by someone with no software
 background is the north star, not a current
 capability — the [rationale](/rationale) describes that
-destination, and the precedent it stands on. The
+destination as originally argued, and the
+[theory](/theory) now gives the vocabulary to analyze
+how far it is. The
 tooling targets Claude Code; the spec format is
 client-agnostic, the orchestration is not.
 
 [Explore the framework on GitHub](https://github.com/CodeFromSpec/framework)
 
-*Last updated July 3, 2026.*
+*Last updated July 20, 2026.*

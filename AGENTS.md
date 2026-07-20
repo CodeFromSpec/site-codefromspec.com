@@ -19,15 +19,18 @@ Content lives in `content.md` files alongside each leaf node's
 ### Home (`/`)
 
 - **File**: `code-from-spec/html/home/content.md`
-- **Last updated**: July 3, 2026
-- **What it says**: Introduces Code from Spec — specs are the
-  source of truth, code is a derived artifact. Describes the
+- **Last updated**: July 20, 2026
+- **What it says**: Introduces Code from Spec — tagline
+  "Specifications drive the code" (aligned with the framework
+  README after the theory). Sections: the theory (own section,
+  presented as the most insightful thing on the site), the
   spec tree (inheritance, declarations), confinement (agents
   see only the chain), staleness by hash, and verification
   (tests as independent opinion). Reports current status: spec
   format approaching definitive form, disposition-guided
-  regeneration built and promising. Links to journal and
-  rationale.
+  regeneration built and promising. Links to theory, journal
+  and rationale (the latter as the destination as originally
+  argued, with the theory as the tool to analyze it).
 
 ### Rationale (`/rationale`)
 

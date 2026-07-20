@@ -22,8 +22,8 @@ code is stale, and that code is regenerated. The
 specification is the thing I author, review, and
 version; the code follows from it, generated when new,
 minimally updated when the spec moves. I still read that
-output — in diffs that minimal regeneration keeps
-small — and the more a project matures, the less of it
+output, in diffs that minimal regeneration keeps
+small; and the more a project matures, the less of it
 I read. What I no longer do is write it.
 
 The methodology is on its fifth version, developed by
@@ -39,7 +39,7 @@ included. If parts of it are useful to you, take them.
 ## The theory
 
 Behind the methodology sits a
-[theory of spec-driven development](/theory) — a
+[theory of spec-driven development](/theory), a
 vocabulary for naming its parts: intent, description,
 generator, oracle, artifact. It was written to ground
 design decisions this project had been making by
@@ -54,11 +54,11 @@ regeneration must show the agent what changed.
 
 Staleness is detected by hash. Generation is confined
 by the tooling. A hand edit to a generated file is
-flagged the moment it appears. This is a methodology —
-it runs on a human following a process — but the
-tooling takes over every rule it can enforce; where it
-cannot, the dependence on judgment is documented, not
-passed off as a guarantee.
+flagged the moment it appears. As a methodology, it
+runs on a human following a process, but the tooling
+takes over every rule it can enforce; where it cannot,
+the dependence on judgment is documented, not passed
+off as a guarantee.
 
 ### The specification tree
 
@@ -90,21 +90,21 @@ Reject non-positive amounts with a validation error.
 
 A node inherits the public content of every ancestor,
 automatically. A constraint written once at an ancestor
-node — an error-handling rule, a convention, a type —
+node (an error-handling rule, a convention, a type)
 governs every leaf beneath it, including leaves added
 months later. What a node needs from elsewhere in the
 tree, it declares. The context for any generation is
 the path from the root to the node plus what the node
-declares — not searched for, not guessed. The structure
-decides what the agent sees.
+declares. Nothing is searched for, nothing guessed; the
+structure decides what the agent sees.
 
-Specifications are structured natural language —
+Specifications are structured natural language,
 readable and reviewable without leaving the domain's
 vocabulary. Specs live in git, reviewed in pull
 requests, diffed, and blamed, with the same machinery a
 team already uses for code. The aim, still untested, is
 that someone who knows the domain but not programming
-could sit on that review — a reviewer on the pull
+could sit on that review: a reviewer on the pull
 request, saying "this is wrong" in one artifact
 they can actually evaluate.
 
@@ -123,11 +123,11 @@ Confinement is enforced by the tooling, not requested
 of the agent: the generation agent's tools are
 restricted to reading its chain and writing its output.
 An unconfined agent facing an ambiguous spec
-compensates: it reads other files, infers patterns, and
+compensates. It reads other files, infers patterns, and
 builds output that satisfies a model it assembled from
 context nobody chose. The result looks diligent but is
 subtly wrong in ways that are hard to trace. A confined
-agent has two options instead — generate from what it
+agent has two options instead: generate from what it
 has, or report the gap. The third option, inventing
 context that looks like research, is the one
 confinement removes.
@@ -159,31 +159,31 @@ The methodology assumes an imperfect agent, because
 that is the agent that exists. An agent can
 hallucinate, omit a required step, misread an
 unambiguous spec, or preserve old behavior the spec has
-changed — and the code will compile and the manifest
+changed, and the code will compile and the manifest
 will read clean. Tests catch these. Tests are
 specifications too: authored, reviewed, and versioned
 alongside the rest. The hash checks where the code came
 from; the tests check what it does.
 
 A green suite is evidence only if the tests are an
-independent opinion — a generated implementation and a
+independent opinion: a generated implementation and a
 generated test could otherwise share the same
 misreading and agree on it. The structure works against
-that: a test spec is its own account of expected
+that. A test spec is its own account of expected
 behavior, and the agent that generates a test receives
 the component's public contract, not its
-implementation — every node's internals stay out of the
+implementation; every node's internals stay out of the
 rest of the tree's chains. Implementation and test
 become two independent readings of the same intent.
 
 In practice, the tests are where the confidence comes
 from. The hash and the confinement bound where an error
 can originate; the tests are what say the code does
-what the spec meant — they are the layer I actually
+what the spec meant. They are the layer I actually
 trust when I ship. And they are the least codified part
-of the methodology: the structure of a test spec is
+of the methodology. The structure of a test spec is
 settled, but deciding what to test, and how much, is
-still judgment exercised case by case — instinct, not
+still judgment exercised case by case: instinct, not
 yet rules. Extracting it into rules a tree can enforce
 is open work.
 
@@ -192,24 +192,24 @@ is open work.
 The spec tree format — how specifications are
 structured, how context is assembled, how staleness is
 detected — is approaching a definitive form. The
-regeneration mechanism — telling the agent exactly
-which parts of a spec changed, so it updates the code
-without re-deciding everything that did not — is built,
-and early results are promising. The newest piece is
+regeneration mechanism tells the agent exactly which
+parts of a spec changed, so it updates the code without
+re-deciding everything that did not. It is built, and
+early results are promising. The newest piece is
 the [theory](/theory), and its lessons are still being
-folded back into the framework. The [journal](/journal)
+absorbed into the framework. The [journal](/journal)
 reports this work as it happens, including the
 hypotheses that failed.
 
 Open problems remain. Natural language is ambiguous;
 the working answer is convergence, with test specs
-anchoring meaning mechanically — whether it converges
+anchoring meaning mechanically. Whether it converges
 fast enough for complex domains is unproven. Generation
 is non-deterministic; the guarantees are about
 behavior, verified by tests, not about the generated
 code itself. Authorship by someone with no software
 background is the north star, not a current
-capability — the [rationale](/rationale) describes that
+capability. The [rationale](/rationale) describes that
 destination as originally argued, and the
 [theory](/theory) now gives the vocabulary to analyze
 how far it is. The

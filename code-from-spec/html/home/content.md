@@ -20,7 +20,7 @@ specifications; an agent generates the code from them.
 When a specification changes, the tooling detects which
 code is stale, and that code is regenerated. The
 specification is the thing I author, review, and
-version; the code follows from it — generated when new,
+version; the code follows from it, generated when new,
 minimally updated when the spec moves. I still read that
 output — in diffs that minimal regeneration keeps
 small — and the more a project matures, the less of it
@@ -44,8 +44,8 @@ vocabulary for naming its parts: intent, description,
 generator, oracle, artifact. It was written to ground
 design decisions this project had been making by
 instinct, and it is probably the most insightful thing
-on this site. The sections below describe the mechanism;
-the theory says why it is built this way — why a
+on this site. The sections below describe the mechanism,
+and the theory says why it is built this way: why a
 specification defines a region of programs rather than
 one program, why the artifact is not disposable, why
 regeneration must show the agent what changed.
@@ -58,15 +58,14 @@ flagged the moment it appears. This is a methodology —
 it runs on a human following a process — but the
 tooling takes over every rule it can enforce; where it
 cannot, the dependence on judgment is documented, not
-passed off as a guarantee. The subsections below
-describe how that enforcement works.
+passed off as a guarantee.
 
 ### The specification tree
 
 Specifications are organized as a tree of nodes. Each
 node is a directory with a `_node.md` file, and its
 position in the filesystem is its position in the
-hierarchy. High-level intent sits at the root;
+hierarchy. High-level decisions sit at the root;
 implementation detail sits at the leaves. Only leaf
 nodes generate artifacts.
 

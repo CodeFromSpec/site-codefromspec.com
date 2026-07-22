@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- code-from-spec: SPEC/feed -->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code from Spec — Journal</title>
+    <link>https://codefromspec.com/journal/</link>
+    <atom:link href="https://codefromspec.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Notes on building with Code from Spec — progress reports, lessons learned, roadblocks, and future directions.</description>
+    <language>en</language>
+    <lastBuildDate>19 Jul 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Growing pains</title>
+      <link>https://codefromspec.com/journal/growing-pains/</link>
+      <guid isPermaLink="true">https://codefromspec.com/journal/growing-pains/</guid>
+      <pubDate>19 Jul 2026 00:00:00 GMT</pubDate>
+      <description>The theory essay gave the project a vocabulary for analyzing its own promises — and the first thing it analyzed was how incomplete they were.</description>
+    </item>
+    <item>
+      <title>Telling the agent what changed</title>
+      <link>https://codefromspec.com/journal/telling-the-agent-what-changed/</link>
+      <guid isPermaLink="true">https://codefromspec.com/journal/telling-the-agent-what-changed/</guid>
+      <pubDate>01 Jul 2026 00:00:00 GMT</pubDate>
+      <description>The fix for anchoring: a cache, a hash comparison, and a one-word disposition per spec position. What worked, and the elegant hypothesis that didn't.</description>
+    </item>
+    <item>
+      <title>Anchoring on old code</title>
+      <link>https://codefromspec.com/journal/anchoring-on-old-code/</link>
+      <guid isPermaLink="true">https://codefromspec.com/journal/anchoring-on-old-code/</guid>
+      <pubDate>16 Jun 2026 00:00:00 GMT</pubDate>
+      <description>When regenerating code from specs, should the agent see its previous output? On the tension between codebase stability and silent anchoring.</description>
+    </item>
+    <item>
+      <title>Confinement</title>
+      <link>https://codefromspec.com/journal/confinement/</link>
+      <guid isPermaLink="true">https://codefromspec.com/journal/confinement/</guid>
+      <pubDate>10 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Why Code from Spec's generation agents see only the spec chain — and why taking context away from an AI makes its output trustworthy.</description>
+    </item>
+    <item>
+      <title>Context management by construction</title>
+      <link>https://codefromspec.com/journal/context-management/</link>
+      <guid isPermaLink="true">https://codefromspec.com/journal/context-management/</guid>
+      <pubDate>08 Jun 2026 00:00:00 GMT</pubDate>
+      <description>How Code from Spec gives AI agents exactly the context they need — no more, no less.</description>
+    </item>
+  </channel>
+</rss>

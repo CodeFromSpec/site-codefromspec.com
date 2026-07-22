@@ -6,7 +6,9 @@
 > substantially revised (new entries, updated descriptions, changed
 > structure), update this section to match. This summary is the
 > starting point for every new session — it must reflect the
-> current state of the site.
+> current state of the site. The same rule extends to `README.md`:
+> its page table must be updated whenever pages are added, removed,
+> or renamed.
 
 This is the website for **codefromspec.com** — a static site
 (HTML + CSS, no JS, no build step) presenting the Code from Spec
@@ -244,6 +246,18 @@ Content lives in `content.md` files alongside each leaf node's
   both poles and you get a loop optimizing conformance to
   encodings nobody checks against intent.
 
+### RSS feed (`/feed.xml`)
+
+- **Spec**: `code-from-spec/feed/_node.md` — a root leaf node
+  outside the `html` tree (it produces XML, and must not
+  inherit the HTML rendering rules).
+- **What it is**: RSS 2.0 summary feed of the journal,
+  generated from the journal index `content.md` (its `input`).
+  Because publishing an entry always updates the index, the
+  feed goes stale automatically — no per-entry maintenance.
+  All page templates link to it via
+  `<link rel="alternate" type="application/rss+xml">`.
+
 ### License (`/license`)
 
 - **File**: `code-from-spec/html/sections/license/content.md`
@@ -305,7 +319,8 @@ Each entry is a leaf node with a `content.md` alongside its `_node.md`.
    journal index entry (it will change too).
 
 6. Run `/cfs-status` to confirm staleness. Expect at least
-   the new entry (missing) and the index (stale).
+   the new entry (missing), the index (stale), and the RSS
+   feed (stale — its input is the index content file).
 
 7. Generate with `/cfs-generate`.
 

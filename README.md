@@ -26,12 +26,16 @@ Generated HTML is output to `public/`, which is the deploy directory.
 | URL | Description |
 |---|---|
 | `/` | Landing page — overview of the methodology |
-| `/rationale` | Full rationale — why Code from Spec exists |
-| `/articles` | Article index |
-| `/articles/anchoring-on-old-code` | Article: Anchoring on old code |
-| `/articles/confinement` | Article: Confinement |
-| `/articles/context-management` | Article: Context management by construction |
+| `/rationale` | Full rationale — why Code from Spec exists (frozen, April 2026) |
+| `/theory` | Theory essay index — Parts I–VI and conclusion under `/theory/part-*` and `/theory/conclusion` |
+| `/journal` | Journal index |
+| `/journal/context-management` | Journal: Context management by construction |
+| `/journal/confinement` | Journal: Confinement |
+| `/journal/anchoring-on-old-code` | Journal: Anchoring on old code |
+| `/journal/telling-the-agent-what-changed` | Journal: Telling the agent what changed |
+| `/journal/growing-pains` | Journal: Growing pains |
 | `/license` | CC BY 4.0 license |
+| `/feed.xml` | RSS feed of the journal |
 
 ## Hosting
 

@@ -9,8 +9,6 @@ and domain experts, not only programmers.
 
 # Private
 
-## Decisions
-
 ## Architecture: three layers
 
 The site uses three layers inspired by static site
@@ -29,7 +27,7 @@ every page spec.
 
 ## Content files live alongside their spec nodes
 
-Each content file (`content.input.md`) lives in the
+Each content file (`content.md`) lives in the
 same directory as the `_node.md` that references it.
 This keeps everything related to one piece of content
 in one folder: the spec, the source file, and the

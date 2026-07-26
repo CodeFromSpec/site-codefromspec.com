@@ -70,9 +70,12 @@ main .container {
 }
 
 main img {
+  display: block;
   max-width: 480px;
   width: 100%;
   height: auto;
+  margin-left: auto;
+  margin-right: auto;
   position: static;
   left: auto;
   transform: none;

@@ -155,62 +155,60 @@ watched, on production's schedule.
 The original [rationale](/rationale) promised a destination:
 domain experts contributing specifications inside engineering
 guardrails, the way product developers ship on a platform
-team's golden paths. The domain expert does not read code, so
-which half of review can they carry?
+team's golden paths. But the domain expert does not read code; so
+what can they actually do?
 
-There are two relations to audit. The first is between the
-intent and the spec: did we ask for the right thing? The spec
-can be wrong, and no check derived from the spec catches that,
-because the check and the spec agree by construction. Only
-somebody holding the intent can catch it, and the expert is the
-one holding the intent. A test description states expected
-behavior in the domain's own language, so that verdict can be
-bought by reading. The second relation is between the spec and
-the code: did the generator do what the spec says? That one
-needs somebody who reads code. Two jobs, not one job split
-between two people. The expert taking the first does not shrink
-the second.
+Review has two jobs, not one. The first is checking whether
+we asked for the right thing. The spec can be wrong, and
+nothing derived from the spec catches that, because the checks
+agree with the spec by construction. Only somebody holding the
+intent can catch it. The expert is the one holding the intent,
+and a test description states expected behavior in the domain's
+own language, so they can do this job by reading. That is what
+the expert is for.
 
-The first job is real and narrow. Reading scenarios does not
-catch the generator ignoring what the spec said, because that
-failure exists only in the code. And it does not catch what the
-spec failed to say, because the scenario nobody wrote is not
-there to be objected to. It covers what is
-written, and it goes stale as intent moves, so it has to recur.
-There is also a trap in the arithmetic: a green suite plus
-expert-approved scenarios reads as *verified*, while the risk
-that remains is the scenarios nobody wrote.
+The second job is checking whether the generator did what the
+spec says. That one needs somebody who reads code. The expert
+taking the first job does not shrink the second.
 
-It also reprices the spec. Every clause added for the expert's
-benefit buys a dimension they can rule on, even one the
-generator never needed. So expert participation is bought with
-spec length, and that is a real purchase: a longer spec in the
+The first job is real and narrow. It does not catch the
+generator ignoring what the spec said, because that failure
+exists only in the code. It does not catch what the spec failed
+to say, because the scenario nobody wrote is not there to be
+objected to. It covers what is written, it goes stale as intent
+moves, and it has to recur. There is also a trap: a green suite
+plus expert-approved scenarios reads as *verified*, while the
+actual risk is the scenarios nobody wrote.
+
+The expert's reading also reprices the spec. Every clause added
+for their benefit buys a dimension they can rule on, even one
+the generator never needed. Expert participation is bought with
+spec length, and that is a real purchase — a longer spec in the
 domain's language is readable in exactly the way source code
 never is.
 
-One correction to the rationale follows. The rationale compares
-the destination to a platform team: the engineer builds the
-guardrails, the domain expert ships inside them. A product
-developer deploys unattended because the pipeline decides
-everything that matters on its own. In spec-driven development,
-the mechanical checks — staleness, confinement, types, tests —
-do not cover everything that matters. The silences are still
-resolved in the code, and the cheapest way to catch a silence
-resolved wrong is a human reading. So
-an engineer stays inside the loop, reading the generated code,
-in a role the analogy implied would be automated away.
+The rationale compares this to a platform team. A product
+developer deploys without anyone watching because the pipeline
+covers everything. In spec-driven development, the pipeline
+does not cover everything. Staleness, confinement, types, tests
+— those work. But the silences are resolved in the code, and
+catching one resolved wrong requires that a person read the code. An
+engineer must stay in the loop, doing work the platform analogy
+said would go away.
 
-The destination that survives is narrower than the original.
-Components pinned tightly enough that the checks decide
-everything, like a quarterly tax table or a pure function under
-exact outputs, are where expert authorship costs least. The
-expert contributes there, and an engineer reads the code
-everywhere else.
+That makes the destination narrower than the rationale
+described. The expert can contribute where the checks cover
+everything — a quarterly tax table, a pure function with exact
+outputs. Outside that, an engineer reads the code, and there is
+no version of this methodology where that stops being true.
+
+## The bottom line
 
 Reviewing the spec tells you what you asked for. Reading the
-code tells you what you got. You need both. And if the reading stays, it is 
-the constraint. The change a project can absorb is bounded by how much its 
-people can read, not by how much the model can generate. That turns minimal
-regeneration from a stability convenience into the mechanism
-that funds the reading: a small diff is a cheap reading.
+code tells you what you got. You need both. And if the reading
+stays, it is the constraint. The change a project can absorb is
+bounded by how much its people can read, not by how much the
+model can generate. Minimal regeneration is not a stability
+convenience, it is the mechanism that funds the reading: a
+small diff is a cheap reading.
 

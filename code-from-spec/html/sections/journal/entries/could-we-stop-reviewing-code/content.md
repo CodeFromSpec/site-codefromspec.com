@@ -89,7 +89,7 @@ None of this makes the suite less valuable, quite the opposite.
 It is probably the most valuable thing an engineer maintains
 here. It is behavioral, mechanical, cheap to run, specific to
 this project, and it fires on every draw. No other check is all
-five of those at once. It is also the only part that remembers.
+five of those at once. It is also the only part that remembers mechanically.
 A lesson that lives in the code is erased by the next draw,
 while a lesson pinned in a test spec survives every one as the
 instruction of what to check. The check itself is
@@ -103,7 +103,7 @@ reading.
 ## What only the human reading brings
 
 While no human reads the code, legibility has no consumer and
-dropping it costs nothing, legitimately. The generator resolves
+dropping it costs nothing immediately. The generator resolves
 naming and structure from its prior, without pressure, and
 nobody is doing anything wrong. But whether the checks cover
 everything that matters is not something a project can verify
@@ -118,8 +118,8 @@ output shares the habits that produced it. A human reader was
 trained differently and fails differently, and that difference
 is where the catches come from.
 
-One caveat. A reader faces intent only on the intent they hold
-themselves. An engineer holds the engineering intent (cost,
+One caveat. A reader can only judge intent they personally
+hold. An engineer holds the engineering intent (cost,
 structure, failure modes) and reads the business intent as an
 encoding, like everybody else. A domain expert holds the
 business intent and cannot read the code at all. It is rare
@@ -136,13 +136,14 @@ stake.
 
 Now make a substantive change to that component. The spec
 moves, the test specs move with it, and the asserts get
-regenerated — fresh draws. The
-protection was earned against the old behavior, and the change
-re-manufactures it exactly where the change is. What stays safe
-to skip is the part that did not move, and that part was never
-the question.
-
-So the reading stays. Removing it does not eliminate the cost
+regenerated, re-drawn where the change is. The protection was
+earned against the old behavior, and the change re-manufactures
+it exactly where the change is. If the new test vectors are
+authored by hand (exact input/output pairs, not generated
+assertions) the corner holds: the draws have nothing left to
+resolve, and reviewing the vector diff is reviewing the spec.
+Outside that narrow case, what the change reopened is decided by
+a draw, and the reading stays. Removing it does not eliminate the cost
 of the human verdict. It defers it, paid as an incident, on the
 exact dimension nobody watched, on production's schedule.
 
@@ -191,7 +192,8 @@ developer deploys unattended because the pipeline decides
 everything that matters on its own. In spec-driven development,
 the mechanical checks — staleness, confinement, types, tests —
 do not cover everything that matters. The silences are still
-resolved in the code, and only a human reading catches that. So
+resolved in the code, and the cheapest way to catch a silence
+resolved wrong is a human reading. So
 an engineer stays inside the loop, reading the generated code,
 in a role the analogy implied would be automated away.
 

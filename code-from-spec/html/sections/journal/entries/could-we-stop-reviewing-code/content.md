@@ -106,15 +106,15 @@ reading.
 
 ## What only the human reading brings
 
-When no human reads the code, legibility has no consumer and
-dropping it costs nothing immediately. The generator resolves
-naming and structure from its prior, without pressure, and
-nobody is doing anything wrong. But the need for a human 
-to enter the code cannot be ruled out. The subtle incident 
-that behavioral diagnosis cannot crack will bring an engineer 
-to an artifact nothing ever optimized for reading. 
-The workflow did not eliminate human reading — 
-it concentrated all of it on the worst possible day.
+When no human reads the code, legibility stops mattering.
+The generator resolves naming and structure from its prior,
+nobody pushes back, and the cost of that is zero — until
+somebody has to enter the code. That day comes when the
+subtle incident arrives, the one that behavioral diagnosis
+cannot crack. The engineer who walks in finds an artifact
+that nothing ever optimized for reading. Not reading the
+code did not remove the need to read it; it moved all of
+the reading to the worst possible day.
 
 There is also a simpler point. A model reviewing generated
 output shares the habits that produced it. A human reader was
@@ -134,7 +134,7 @@ Take a component whose behavior is fully covered by tests. A
 small enough domain, a test vector for every input, nothing
 left to judgment. There, approving the spec diff without
 reading the generated code is legitimate. Whatever the draw
-resolved, the vectors decide it, and nothing unwritten is at
+resolved, the test vectors confirm it, and nothing unwritten is at
 stake.
 
 Now make a substantive change to that component. The spec

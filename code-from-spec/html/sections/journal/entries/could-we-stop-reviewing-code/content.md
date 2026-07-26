@@ -50,8 +50,9 @@ quiet. The quiet is intentional, not accidental, but every silence is
 a delegation, and the delegation gets resolved by
 the draw, in the code, and nowhere else. To review it from the
 spec alone you would have to know how the prior resolves it,
-and nobody does. You cannot even list the silences. No
-procedure takes a spec and returns everything it failed to say.
+and nobody does. You cannot even list the silences: there is no
+procedure that takes a spec and returns everything it failed to
+say.
 
 Finally, anchoring. In
 [Anchoring on old code](/journal/anchoring-on-old-code) I
@@ -102,7 +103,7 @@ reading.
 
 ## What only the human reading brings
 
-While no human reads the code, legibility has no consumer and
+When no human reads the code, legibility has no consumer and
 dropping it costs nothing immediately. The generator resolves
 naming and structure from its prior, without pressure, and
 nobody is doing anything wrong. But whether the checks cover

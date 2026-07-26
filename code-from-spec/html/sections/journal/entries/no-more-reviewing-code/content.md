@@ -243,7 +243,7 @@ it. Reading the code is where the point gets checked against
 the region, and it is the only look anyone takes at what was
 actually chosen.
 
-## What keeps happening
+## Could I *be* more wrong?
 
 The results I find most interesting in this project are the
 ones that go against what I thought I would be building. The

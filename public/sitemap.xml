@@ -51,7 +51,11 @@
   <!-- Journal -->
   <url>
     <loc>https://codefromspec.com/journal/</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://codefromspec.com/journal/could-we-stop-reviewing-code/</loc>
+    <lastmod>2026-07-26</lastmod>
   </url>
   <url>
     <loc>https://codefromspec.com/journal/growing-pains/</loc>

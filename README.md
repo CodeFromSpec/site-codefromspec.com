@@ -34,6 +34,7 @@ Generated HTML is output to `public/`, which is the deploy directory.
 | `/journal/anchoring-on-old-code` | Journal: Anchoring on old code |
 | `/journal/telling-the-agent-what-changed` | Journal: Telling the agent what changed |
 | `/journal/growing-pains` | Journal: Growing pains |
+| `/journal/could-we-stop-reviewing-code` | Journal: Could we stop reviewing code? |
 | `/license` | CC BY 4.0 license |
 | `/feed.xml` | RSS feed of the journal |
 

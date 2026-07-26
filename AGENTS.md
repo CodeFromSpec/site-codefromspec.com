@@ -69,7 +69,30 @@ Content lives in `content.md` files alongside each leaf node's
 ### Journal (`/journal`)
 
 - **Index file**: `code-from-spec/html/sections/journal/index/content.md`
-- Five entries (newest first):
+- Six entries (newest first):
+
+#### Could we stop reviewing code? (July 26, 2026)
+
+- **File**: `code-from-spec/html/sections/journal/entries/could-we-stop-reviewing-code/content.md`
+- **What it says**: The founding wish — review only spec diffs,
+  perhaps keep generated code out of the repo entirely — run
+  through the theory's vocabulary, and refuted. A spec aims but
+  does not bind (nonconformance); silences are delegations
+  resolved only in the code, and no procedure lists them all;
+  anchoring is visible only in the relation between spec diff
+  and code diff. The test suite cannot close it: it is a second
+  artifact drawn by the same process (same prior), moving with
+  every change. What only human reading brings: accountability
+  (first and foremost), the dimensions no test asserts, a
+  different prior. Spec-only review holds only where oracles
+  close mechanically — and a spec diff reopens them exactly
+  where it matters. Rereading the rationale: it already knew
+  ("delegation with extra steps"); the expert fully audits one
+  of two relations (intent↔description); the engineer audits
+  the other (description↔artifact). Reading capacity, not
+  generation, is the throughput ceiling; minimal regeneration
+  funds the irreducible reading. Retires the claim in
+  "Anchoring on old code" that review would become unnecessary.
 
 #### Growing pains (July 19, 2026)
 

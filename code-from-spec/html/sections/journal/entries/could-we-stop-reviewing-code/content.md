@@ -25,6 +25,12 @@ this against a vocabulary instead of arguing by feel.
 
 ## It does not hold up
 
+The point of reading what gets deployed — whether by the author
+or by someone else — is knowing what you are shipping.
+Approving a spec is knowing what you asked for. They are not
+the same thing, and the distance between the two is the whole
+argument.
+
 A spec does not describe one program. It describes a region:
 every program it would accept. The generator picks one point in
 that region, and picking is a draw, not a calculation.
@@ -48,7 +54,7 @@ would have to know how the prior resolves it, and nobody does. You cannot even l
 silences: no procedure takes a spec and returns everything it
 failed to say.
 
-Then anchoring, which is the worst of the three. In
+Finally, anchoring. In
 [Anchoring on old code](/journal/anchoring-on-old-code) I
 described it: the spec changes, the agent preserves the old
 behavior. Anchored code is a valid file. It compiles, it looks right, it was the
@@ -79,23 +85,6 @@ for exactly the reasons the implementation agent preserves the
 old behavior. When both anchor, the suite goes green on the old
 behavior and reports success.
 
-The right discipline buys some distance here. Independence is
-the lever: the
-more separate the two accounts are, the more errors they can
-catch in each other. So tests get their own test specs, never
-the spec that produced the code, and the agent writing a test
-sees the component's public contract rather than the
-implementation. Done that way, the code and the suite are two
-independent readings of the same intent, and that does real
-work.
-
-But what it separates is the sources, not the priors. Both
-readings still come out of the same model, with the same
-habits, so a silence they resolve the same way passes as
-agreement. Separating the priors as well would mean generating
-the tests with a different model, or writing them by hand —
-further steps, and not free ones.
-
 None of this makes the suite less valuable. The opposite. It is
 probably the most valuable thing an engineer maintains here. It
 is behavioral, mechanical, cheap to run, specific to this
@@ -114,35 +103,33 @@ reading.
 
 ## What only the human reading brings
 
-First and foremost, accountability. When the software fails,
-somebody answers for it — to the customer, to the auditor, to a
-court. Responsibility attaches to people and to companies; not
-to a LLM, and a better model next year does not change what a
-signature is. Human review is where responsibility for
-generated code actually changes hands: the moment a person
-turns a draw nobody owns into a change somebody answers for.
+While no human reads the code, legibility has no consumer —
+and dropping it costs nothing, legitimately. The generator
+resolves naming and structure from its prior, without pressure,
+and nobody is doing anything wrong. But whether the checks
+cover everything that matters is not something a project can
+verify from inside — the entry already said so — so the day a
+human needs to enter the code cannot be ruled out: the subtle
+incident that behavioral diagnosis cannot crack. That engineer
+arrives in an artifact nothing ever optimized for reading. The
+workflow did not eliminate human reading. It concentrated all of
+it on the worst possible day.
 
-Second, the dimensions no test asserts. Naming, structure, the
-shape of an abstraction — none of them change behavior, and all
-of them govern what every future change costs.
+And a genuinely different prior. A model reviewing generated output
+shares the habits that produced it. A human reader was trained
+differently and fails differently, and that difference is where
+the catches come from.
 
-Third, a genuinely different prior. A model reviewing generated
-output shares the habits that produced it. A human reader was
-trained differently and fails differently, and that difference
-is where the catches come from.
-
-One caveat on all three. A reader faces intent only on the
-intent they hold themselves. An engineer holds the engineering
-intent — cost, structure, failure modes — and reads the
-business intent as an encoding, like everybody else. A domain
-expert holds the business intent, and cannot read the code at
-all. Nobody reads from both sides at once — short of the person
-who needs the software building it themselves, which does not
-scale past them.
+One caveat. A reader faces intent only on the intent they hold
+themselves. An engineer holds the engineering intent — cost,
+structure, failure modes — and reads the business intent as an
+encoding, like everybody else. A domain expert holds the
+business intent, and cannot read the code at all. It is rare
+that someone holds both.
 
 ## Where it would actually work
 
-The wish is not wrong everywhere. Take a component whose
+Take a component whose
 behavior is pinned wall to wall — a small enough domain, a test
 vector for every input, nothing left to judgment. There,
 approving the spec diff without reading the generated code is
@@ -151,30 +138,15 @@ and nothing unwritten is at stake.
 
 Now make a substantive change to that component. The spec
 moves, the test specs move with it, and the asserts get
-regenerated — fresh draws, from the section above. The
+regenerated — fresh draws. The
 protection was earned against the old behavior, and the change
 re-manufactures it exactly where the change is. What stays safe
 to skip is the part that did not move, and that part was never
 the question.
 
-One narrow form survives: the vectors edited by hand. Then
-updating the checks is authoring, not drawing — reviewing the
-vector diff is reviewing spec — and an assert that just
-compares output to vector is trivial to trust again. That
-corner is real. It is also small, and a project cannot tell
-from the inside whether it is standing in it.
-
-The bolder version does not even get this far. A repo that
-keeps only the specs throws away the one copy of every
-resolution the silences delegated, and re-decides all of them
-on every build.
-
-So the reading stays — and if it stays, it is the constraint.
-The change a project can absorb is bounded by how much its
-people can read, not by how much the model can generate. That
-turns minimal regeneration from a stability convenience into
-the mechanism that funds the reading: a small diff is a cheap
-reading.
+So the reading stays. Removing it does not eliminate the cost
+of the human verdict — it defers it, paid as an incident, on
+the exact dimension nobody watched, on production's schedule.
 
 ## What is left of the rationale
 
@@ -209,27 +181,20 @@ that remains is the scenarios nobody wrote.
 It also reprices the spec. Every clause added for the expert's
 benefit buys a dimension they can rule on, even one the
 generator never needed — so expert participation is bought with
-spec length, and length has a ceiling: a spec that keeps
-growing is turning into source code written in markdown. The
-same reading pushes back on a drift the theory called endemic:
-a spec tends toward an excellent prompt, because the generation
-loop polices what the generator needs and nothing polices what
-human readers need. A spec a domain expert has to understand on
-every change has a check on legibility that nothing else
-provides. BDD found this form twenty years ago and promised
-authorship; it got Gherkin written by engineers. Review is the
-weaker version of the same bet, with one economic change: the
-glue between scenario and assertion used to be hand-written and
-drifting, and is now a draw — cheaper, and less trustworthy.
+spec length — and that is a real purchase, not a degeneration:
+a longer spec in the domain's language is readable in exactly
+the way source code never is.
 
-Two corrections to the page follow. The platform analogy breaks
-at one joint: a product developer deploys unattended because
-the pipeline decides everything that matters on its own; these
-guardrails do not, exactly where it counts — so an engineer
-stays inside a loop the analogy implied would be automated
-away. And "test specs anchoring meaning mechanically" loses a
-word: the anchor is statistical — the instruction of what to
-check survives every regeneration, the check itself is redrawn.
+One correction to the rationale follows. The rationale compares
+the destination to a platform team: the engineer builds the
+guardrails, the domain expert ships inside them. A product
+developer deploys unattended because the pipeline decides
+everything that matters on its own. In spec-driven development,
+the mechanical checks — staleness, confinement, types, tests —
+do not cover everything that matters. The silences are still
+resolved in the code, and only a human reading catches that. So
+an engineer stays inside the loop, reading the decompressions,
+in a role the analogy implied would be automated away.
 
 The destination that survives: components pinned tightly enough
 that the checks decide everything — the quarterly tax table,
@@ -239,20 +204,23 @@ everywhere else. The code is where the spec's silences come out
 resolved; it is the half only somebody who reads code can
 audit.
 
-Review does not have one object. The spec was only ever half of
-it. Reading the code is where the point gets checked against
-the region, and it is the only look anyone takes at what was
-actually chosen.
+Reviewing the spec tells you what you asked for. Reading the
+code tells you what you got. You need both.
 
 ## Could I *be* more wrong?
 
+If the reading stays, it is the constraint. The change a
+project can absorb is bounded by how much its people can read,
+not by how much the model can generate. That turns minimal
+regeneration from a stability convenience into the mechanism
+that funds the reading: a small diff is a cheap reading.
+
 The results I find most interesting (and frustrating) in this
 project are the ones that go against what I thought I would be
-building. The
-theory produced several of them inside its own text. This entry
-is another: I went in expecting to find out how far review
-could shrink, and found out which part of it cannot — retiring,
-along the way, the claim in
+building. The theory produced several of them inside its own
+text. This entry is another: I went in expecting to find out
+how far review could shrink, and found out which part of it
+cannot — retiring, along the way, the claim in
 [Anchoring on old code](/journal/anchoring-on-old-code) that
 accumulated confidence would eventually make human review
 unnecessary.

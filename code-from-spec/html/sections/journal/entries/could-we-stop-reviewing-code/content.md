@@ -25,42 +25,42 @@ this against a vocabulary instead of arguing by feel.
 
 ## It does not hold up
 
-The point of reading what gets deployed — whether by the author
-or by someone else — is knowing what you are shipping.
-Approving a spec is knowing what you asked for. They are not
-the same thing, and the distance between the two is the whole
-argument.
+The point of reading what gets deployed is knowing what you are
+shipping. Approving a spec is knowing what you asked for. They
+are not the same thing, and the distance between the two is the
+whole argument.
 
-A spec does not describe one program. It describes a region:
-every program it would accept. The generator picks one point in
-that region, and picking is a draw, not a calculation.
+A spec does not describe one program. It describes a region,
+the set of every program it would accept. The generator picks
+one point in that region, and picking is a draw, not a
+calculation.
 
-So the spec aims. It does not bind. The generator can be told
-exactly what to do and still do something else — the theory
+So the spec aims but does not bind. The generator can be told
+exactly what to do and still do something else. The theory
 calls that nonconformance, and it survives even a perfect spec.
 The spec diff shows the aim. Where the draw landed is a
 different fact, recorded in a different place.
 
-Then there are the silences, and those are worse, because they
+Then there are the silences, and those are worse because they
 are not a failure mode. They are how specs work. A spec only
-has to state what the generator's prior — what a model tends to
-write before the spec says anything — would otherwise resolve
+has to state what the generator's prior, what a model tends to
+write before the spec says anything, would otherwise resolve
 against this project's intent. Everything else it can leave
-quiet, and the quiet is
-compression, not omission. But every silence is a delegation,
-and the delegation gets resolved by the draw, in the code, and
-nowhere else. To review it from the spec alone, you
-would have to know how the prior resolves it, and nobody does. You cannot even list the
-silences: no procedure takes a spec and returns everything it
-failed to say.
+quiet. The quiet is intentional, not accidental, but every silence is
+a delegation, and the delegation gets resolved by
+the draw, in the code, and nowhere else. To review it from the
+spec alone you would have to know how the prior resolves it,
+and nobody does. You cannot even list the silences. No
+procedure takes a spec and returns everything it failed to say.
 
 Finally, anchoring. In
 [Anchoring on old code](/journal/anchoring-on-old-code) I
-described it: the spec changes, the agent preserves the old
-behavior. Anchored code is a valid file. It compiles, it looks right, it was the
-correct answer yesterday. Nothing is wrong with the artifact by
-itself. The failure is in a relation — the spec asked for
-movement and the code did not move.
+described it. The spec changes, the agent preserves the old
+behavior. Anchored code is a valid file that compiles and looks
+right, because it was the correct answer yesterday. Nothing is
+wrong with the artifact by itself. The failure is in a
+relation. The spec asked for movement and the code did not
+move.
 
 ## What about the test suite?
 
@@ -78,63 +78,61 @@ So everything above applies to it again.
 
 The test spec aims, and the generated assert can miss what it
 says. The test spec has silences, and the assert resolves them
-out of the same prior, which means what actually gets checked
-is partly a draw and not a decision. And the test agent sees
-the previous test file, so it can preserve the old assertion
-for exactly the reasons the implementation agent preserves the
-old behavior. When both anchor, the suite goes green on the old
+out of the same prior, so what actually gets checked is partly
+a draw and not a decision. The test agent also sees the
+previous test file, so it can preserve the old assertion for
+the same reasons the implementation agent preserves the old
+behavior. When both anchor, the suite goes green on the old
 behavior and reports success.
 
-None of this makes the suite less valuable. The opposite. It is
-probably the most valuable thing an engineer maintains here. It
-is behavioral, mechanical, cheap to run, specific to this
-project, and it fires on every draw, and no other oracle is all
-five of those at once. It is also the only part that remembers:
-a lesson that lives in the code is erased by the next draw,
-while a lesson pinned in a test spec survives every one — as
-the instruction of what to check. The check itself is
-remanufactured when regenerated, which is the previous
-paragraph again. Cheap generation makes the case for a dense
+None of this makes the suite less valuable, quite the opposite.
+It is probably the most valuable thing an engineer maintains
+here. It is behavioral, mechanical, cheap to run, specific to
+this project, and it fires on every draw. No other check is all
+five of those at once. It is also the only part that remembers.
+A lesson that lives in the code is erased by the next draw,
+while a lesson pinned in a test spec survives every one as the
+instruction of what to check. The check itself is
+remanufactured when regenerated. Cheap generation makes the case for a dense
 suite stronger than it has ever been, not weaker.
 
-It is just not a check from outside. It is one more thing the
-same process drew, which is why it cannot stand in for the
+It is just not a check from outside, it is one more thing the
+same process drew, and that is why it cannot stand in for the
 reading.
 
 ## What only the human reading brings
 
-While no human reads the code, legibility has no consumer —
-and dropping it costs nothing, legitimately. The generator
-resolves naming and structure from its prior, without pressure,
-and nobody is doing anything wrong. But whether the checks
-cover everything that matters is not something a project can
-verify from inside — the entry already said so — so the day a
-human needs to enter the code cannot be ruled out: the subtle
-incident that behavioral diagnosis cannot crack. That engineer
-arrives in an artifact nothing ever optimized for reading. The
-workflow did not eliminate human reading. It concentrated all of
-it on the worst possible day.
+While no human reads the code, legibility has no consumer and
+dropping it costs nothing, legitimately. The generator resolves
+naming and structure from its prior, without pressure, and
+nobody is doing anything wrong. But whether the checks cover
+everything that matters is not something a project can verify
+from inside. The day a human needs to enter the code cannot be
+ruled out. The subtle incident that behavioral diagnosis cannot
+crack will bring an engineer to an artifact nothing ever
+optimized for reading. The workflow did not eliminate human
+reading. It concentrated all of it on the worst possible day.
 
-And a genuinely different prior. A model reviewing generated output
-shares the habits that produced it. A human reader was trained
-differently and fails differently, and that difference is where
-the catches come from.
+There is also a simpler point. A model reviewing generated
+output shares the habits that produced it. A human reader was
+trained differently and fails differently, and that difference
+is where the catches come from.
 
 One caveat. A reader faces intent only on the intent they hold
-themselves. An engineer holds the engineering intent — cost,
-structure, failure modes — and reads the business intent as an
+themselves. An engineer holds the engineering intent (cost,
+structure, failure modes) and reads the business intent as an
 encoding, like everybody else. A domain expert holds the
-business intent, and cannot read the code at all. It is rare
+business intent and cannot read the code at all. It is rare
 that someone holds both.
 
 ## Where it would actually work
 
-Take a component whose
-behavior is pinned wall to wall — a small enough domain, a test
-vector for every input, nothing left to judgment. There,
-approving the spec diff without reading the generated code is
-legitimate: whatever the draw resolved, the vectors decide it,
-and nothing unwritten is at stake.
+Take a component whose behavior is fully covered by tests. A
+small enough domain, a test vector for every input, nothing
+left to judgment. There, approving the spec diff without
+reading the generated code is legitimate. Whatever the draw
+resolved, the vectors decide it, and nothing unwritten is at
+stake.
 
 Now make a substantive change to that component. The spec
 moves, the test specs move with it, and the asserts get
@@ -145,34 +143,35 @@ to skip is the part that did not move, and that part was never
 the question.
 
 So the reading stays. Removing it does not eliminate the cost
-of the human verdict — it defers it, paid as an incident, on
-the exact dimension nobody watched, on production's schedule.
+of the human verdict. It defers it, paid as an incident, on the
+exact dimension nobody watched, on production's schedule.
 
 ## What is left of the rationale
 
-The original [rationale](/rationale) promised a destination:
-domain experts contributing specifications inside engineering
+The original [rationale](/rationale) promised a destination.
+Domain experts contributing specifications inside engineering
 guardrails, the way product developers ship on a platform
-team's golden paths. The domain expert does not read code — so
+team's golden paths. The domain expert does not read code, so
 which half of review can they carry?
 
-There are two relations to audit. Between intent and the
-description: is this the right region? Between the description
-and the artifact: did the draw land inside it? The first is
-where mis-specification lives — the spec itself being wrong —
-and no check derived from the spec can reach it, because the
-check and the spec agree by construction. It takes a verdict
-that answers to intent, and the expert is the one holding the
-intent. A test description states expected behavior in the
-domain's own language, so that verdict can be bought by
-reading. The second relation needs somebody who reads code. Two
-jobs, not one job split between two people; the expert taking
-the first does not shrink the second.
+There are two relations to audit. The first is between the
+intent and the spec: did we ask for the right thing? The spec
+can be wrong, and no check derived from the spec catches that,
+because the check and the spec agree by construction. Only
+somebody holding the intent can catch it, and the expert is the
+one holding the intent. A test description states expected
+behavior in the domain's own language, so that verdict can be
+bought by reading. The second relation is between the spec and
+the code: did the generator do what the spec says? That one
+needs somebody who reads code. Two jobs, not one job split
+between two people. The expert taking the first does not shrink
+the second.
 
 The first job is real and narrow. Reading scenarios does not
-catch nonconformance, which exists only in the artifact, and it
-does not catch underspecification, because the scenario nobody
-wrote is not there to be objected to. It covers what is
+catch the generator ignoring what the spec said, because that
+failure exists only in the code. And it does not catch what the
+spec failed to say, because the scenario nobody wrote is not
+there to be objected to. It covers what is
 written, and it goes stale as intent moves, so it has to recur.
 There is also a trap in the arithmetic: a green suite plus
 expert-approved scenarios reads as *verified*, while the risk
@@ -180,10 +179,10 @@ that remains is the scenarios nobody wrote.
 
 It also reprices the spec. Every clause added for the expert's
 benefit buys a dimension they can rule on, even one the
-generator never needed — so expert participation is bought with
-spec length — and that is a real purchase, not a degeneration:
-a longer spec in the domain's language is readable in exactly
-the way source code never is.
+generator never needed. So expert participation is bought with
+spec length, and that is a real purchase: a longer spec in the
+domain's language is readable in exactly the way source code
+never is.
 
 One correction to the rationale follows. The rationale compares
 the destination to a platform team: the engineer builds the
@@ -193,16 +192,15 @@ everything that matters on its own. In spec-driven development,
 the mechanical checks — staleness, confinement, types, tests —
 do not cover everything that matters. The silences are still
 resolved in the code, and only a human reading catches that. So
-an engineer stays inside the loop, reading the decompressions,
+an engineer stays inside the loop, reading the generated code,
 in a role the analogy implied would be automated away.
 
-The destination that survives: components pinned tightly enough
-that the checks decide everything — the quarterly tax table,
-the pure function under exact outputs — with the expert
-contributing there, and an engineer reading the decompressions
-everywhere else. The code is where the spec's silences come out
-resolved; it is the half only somebody who reads code can
-audit.
+The destination that survives is narrower than the original.
+Components pinned tightly enough that the checks decide
+everything, like a quarterly tax table or a pure function under
+exact outputs, are where expert authorship costs least. The
+expert contributes there, and an engineer reads the code
+everywhere else.
 
 Reviewing the spec tells you what you asked for. Reading the
 code tells you what you got. You need both.

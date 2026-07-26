@@ -28,8 +28,9 @@ Requirements:
    `flex-direction: column`, `align-items: center`,
    `justify-content: center`.
 
-2. **Container** — `max-width: 720px`, centered with
-   `margin: 0 auto`, `padding: 0 24px`, `text-align: center`.
+2. **Container** — `width: 100%`, `max-width: 720px`,
+   centered with `margin: 0 auto`, `padding: 0 24px`,
+   `text-align: center`.
 
 3. **Image** — `max-width: 480px`, `width: 100%`,
    `height: auto`. No breakout (unlike the default

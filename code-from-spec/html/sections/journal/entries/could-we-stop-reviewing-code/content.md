@@ -35,14 +35,14 @@ the set of every program it would accept. The generator picks
 one point in that region, and picking is a draw, not a
 calculation.
 
-So the spec aims but does not bind. The generator can be told
+So the spec aims but does not bind — the generator can be told
 exactly what to do and still do something else. The theory
 calls that nonconformance, and it survives even a perfect spec.
 The spec diff shows the aim. Where the draw landed is a
 different fact, recorded in a different place.
 
 Then there are the silences, and those are worse because they
-are not a failure mode. They are how specs work. A spec only
+are not a failure mode. They are how specs work: a spec only
 has to state what the generator's prior, what a model tends to
 write before the spec says anything, would otherwise resolve
 against this project's intent. Everything else it can leave
@@ -59,9 +59,9 @@ Finally, anchoring. In
 described it: the spec changes, the agent preserves the old
 behavior. Anchored code is a valid file that compiles and looks
 right, because it was the correct answer yesterday. Nothing is
-wrong with the artifact by itself. The failure is in a
-relation. The spec asked for movement and the code did not
-move.
+wrong with the artifact by itself. The failure is in the
+relation between the two: the spec asked for movement and the
+code did not move.
 
 ## What about the test suite?
 
@@ -71,9 +71,9 @@ and the reading is redundant.
 
 But look at what a real change does. The spec moves, and the
 test spec moves with it, because the new behavior is supposed
-to be verified. Both get regenerated. The suite is not a fixed
-instrument watching a moving artifact. It is a second artifact,
-moving alongside the first, drawn the same way.
+to be verified. Both get regenerated. The suite is not a fixed instrument watching a moving artifact,
+it is a second artifact moving alongside the first, drawn the
+same way.
 
 So everything above applies to it again.
 
@@ -89,8 +89,8 @@ behavior and reports success.
 None of this makes the suite less valuable, quite the opposite.
 It is probably the most valuable thing an engineer maintains
 here. It is behavioral, mechanical, cheap to run, specific to
-this project, and it fires on every draw. No other check is all
-five of those at once. It is also the only part that remembers mechanically.
+this project, and it fires on every draw. No other check is all five of those at once, and it is also the
+only part that remembers mechanically.
 A lesson that lives in the code is erased by the next draw,
 while a lesson pinned in a test spec survives every one as the
 instruction of what to check. The check itself is
@@ -108,11 +108,11 @@ dropping it costs nothing immediately. The generator resolves
 naming and structure from its prior, without pressure, and
 nobody is doing anything wrong. But whether the checks cover
 everything that matters is not something a project can verify
-from inside. The day a human needs to enter the code cannot be
-ruled out. The subtle incident that behavioral diagnosis cannot
+from inside, so the day a human needs to enter the code cannot
+be ruled out. The subtle incident that behavioral diagnosis cannot
 crack will bring an engineer to an artifact nothing ever
-optimized for reading. The workflow did not eliminate human
-reading. It concentrated all of it on the worst possible day.
+optimized for reading. The workflow did not eliminate human reading — it concentrated
+all of it on the worst possible day.
 
 There is also a simpler point. A model reviewing generated
 output shares the habits that produced it. A human reader was
@@ -144,14 +144,14 @@ authored by hand (exact input/output pairs, not generated
 assertions) the corner holds: the draws have nothing left to
 resolve, and reviewing the vector diff is reviewing the spec.
 Outside that narrow case, what the change reopened is decided by
-a draw, and the reading stays. Removing it does not eliminate the cost
-of the human verdict. It defers it, paid as an incident, on the
-exact dimension nobody watched, on production's schedule.
+a draw, and the reading stays. Removing it does not eliminate the cost of the human verdict, it
+defers it — paid as an incident, on the exact dimension nobody
+watched, on production's schedule.
 
 ## What is left of the rationale
 
-The original [rationale](/rationale) promised a destination.
-Domain experts contributing specifications inside engineering
+The original [rationale](/rationale) promised a destination:
+domain experts contributing specifications inside engineering
 guardrails, the way product developers ship on a platform
 team's golden paths. The domain expert does not read code, so
 which half of review can they carry?

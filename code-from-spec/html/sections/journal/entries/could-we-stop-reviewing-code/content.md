@@ -56,7 +56,7 @@ say.
 
 Finally, anchoring. In
 [Anchoring on old code](/journal/anchoring-on-old-code) I
-described it. The spec changes, the agent preserves the old
+described it: the spec changes, the agent preserves the old
 behavior. Anchored code is a valid file that compiles and looks
 right, because it was the correct answer yesterday. Nothing is
 wrong with the artifact by itself. The failure is in a

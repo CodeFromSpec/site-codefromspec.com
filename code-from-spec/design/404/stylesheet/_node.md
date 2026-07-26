@@ -28,7 +28,8 @@ Requirements:
    `flex-direction: column`, `align-items: center`,
    `justify-content: center`.
 
-2. **Container** — `text-align: center`.
+2. **Container** — `max-width: 720px`, centered with
+   `margin: 0 auto`, `padding: 0 24px`, `text-align: center`.
 
 3. **Image** — `max-width: 480px`, `width: 100%`,
    `height: auto`. No breakout (unlike the default
@@ -42,10 +43,20 @@ Requirements:
    `margin-top: 1em`, accent color, no underline,
    underline on hover.
 
-6. **Header/footer** — same as the default theme
-   (bottom/top border, flexbox layout, site name, nav).
-   Copy the relevant rules from the default stylesheet
-   spec so the page is self-contained.
+6. **Header/footer** — must match the default theme
+   exactly. Container inside header and footer uses
+   the same `max-width: 720px`, `margin: 0 auto`,
+   `padding: 0 24px`. Header: bottom border using
+   `var(--color-border)`, 16px vertical padding,
+   container uses flexbox with site name left and nav
+   right, vertically centered. `.site-name` is bold,
+   text color, no underline on hover. `.logo` has
+   height 36px, width auto, display inline,
+   vertical-align middle. Nav links have 24px gap.
+   Footer: top border using `var(--color-border)`,
+   32px vertical padding, 0.875em font size, muted
+   color. Container is flex with
+   `justify-content: space-between`, wrap.
 
 7. **Responsive** — at max-width 768px: image
    `max-width: 320px`, container padding 16px, header

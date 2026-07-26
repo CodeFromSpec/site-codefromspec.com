@@ -9,6 +9,9 @@ main {
 }
 
 main .container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px;
   text-align: center;
 }
 
@@ -42,29 +45,34 @@ header {
 }
 
 header .container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
 }
 
 header .site-name {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   font-weight: 600;
   color: var(--color-text);
   text-decoration: none;
 }
 
+header .site-name:hover {
+  text-decoration: none;
+}
+
 header .site-name .logo {
-  height: 1.5em;
+  display: inline;
+  vertical-align: middle;
+  height: 36px;
   width: auto;
 }
 
 header nav {
   display: flex;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 header nav a {
@@ -81,10 +89,12 @@ footer {
 }
 
 footer .container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 24px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  flex-wrap: wrap;
   font-size: 0.875em;
   color: var(--color-muted);
 }

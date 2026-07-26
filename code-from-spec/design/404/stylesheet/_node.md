@@ -1,67 +1,58 @@
 ---
 depends_on:
   - SPEC/design/default/template
+  - ARTIFACT/design/default/stylesheet
 output: public/css/404.css
 ---
 
 # SPEC/design/404/stylesheet
 
 Theme stylesheet for the 404 error page. Loaded after
-baseline.css.
+baseline.css, instead of default.css.
 
 # Agent
 
 Generate a CSS stylesheet for the 404 page.
 
-The page content is a single image, a heading, and a
-link, inside the standard template's `<main>` container.
-The goal is to center everything vertically and
-horizontally in the viewport (minus the header and
-footer).
+The header and footer must look identical to every other
+page on the site. To achieve this, copy every rule from
+the default stylesheet (provided as a dependency) that
+applies to `.container`, `header`, `footer`, `.site-name`,
+`.logo`, `header nav`, and the responsive media query for
+those elements. Copy them exactly, do not rewrite or
+reinterpret them.
 
-Requirements:
+Then add the following rules specific to the 404 page.
+These must not conflict with the copied rules above.
 
-1. **Main** — uses flexbox to center its container
-   vertically in the available space. Set `min-height`
-   to fill the viewport minus header and footer (use
-   `calc(100vh - 200px)` as a reasonable estimate).
-   `flex-direction: column`, `align-items: center`,
-   `justify-content: center`.
+1. **Main** — `display: flex`, `flex-direction: column`,
+   `align-items: center`, `justify-content: center`,
+   `min-height: calc(100vh - 200px)`.
 
-2. **Container** — `width: 100%`, `max-width: 720px`,
-   centered with `margin: 0 auto`, `padding: 0 24px`,
-   `text-align: center`.
+2. **Main container** — `main .container` gets
+   `width: 100%` and `text-align: center`. It inherits
+   `max-width` and padding from the global `.container`
+   rule copied above.
 
-3. **Image** — `max-width: 480px`, `width: 100%`,
-   `height: auto`. No breakout (unlike the default
-   theme, the image stays inside the container).
+3. **Image** — `main img` gets `max-width: 480px`,
+   `width: 100%`, `height: auto`, `position: static`,
+   `left: auto`, `transform: none`. The position/left/
+   transform overrides cancel the default theme's
+   breakout behavior so the image stays centered inside
+   the container.
 
-4. **Heading (h1)** — `margin-top: 1.5em`,
-   `font-size: 1.5em`, uppercase, letter-spacing 0.1em,
-   color `var(--color-muted)`.
+4. **Heading (h1)** — `main h1` gets `margin-top: 1.5em`,
+   `font-size: 1.5em`, `text-transform: uppercase`,
+   `letter-spacing: 0.1em`, `color: var(--color-muted)`.
 
-5. **Link** — `display: inline-block`,
-   `margin-top: 1em`, accent color, no underline,
-   underline on hover.
+5. **Link** — `main a` gets `display: inline-block`,
+   `margin-top: 1em`, `color: var(--color-accent)`,
+   `text-decoration: none`. On hover, `text-decoration:
+   underline`.
 
-6. **Header/footer** — must match the default theme
-   exactly. Container inside header and footer uses
-   the same `max-width: 720px`, `margin: 0 auto`,
-   `padding: 0 24px`. Header: bottom border using
-   `var(--color-border)`, 16px vertical padding,
-   container uses flexbox with site name left and nav
-   right, vertically centered. `.site-name` is bold,
-   text color, no underline on hover. `.logo` has
-   height 36px, width auto, display inline,
-   vertical-align middle. Nav links have 24px gap.
-   Footer: top border using `var(--color-border)`,
-   32px vertical padding, 0.875em font size, muted
-   color. Container is flex with
-   `justify-content: space-between`, wrap.
-
-7. **Responsive** — at max-width 768px: image
-   `max-width: 320px`, container padding 16px, header
-   stacks vertically.
+6. **Responsive** — inside the existing `@media
+   (max-width: 768px)` block (from the copied rules),
+   add: `main img { max-width: 320px; }`.
 
 Place the artifact tag as a CSS comment on the first
 line.

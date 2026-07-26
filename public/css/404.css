@@ -1,5 +1,61 @@
 /* code-from-spec: SPEC/design/404/stylesheet */
 
+.container {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+header {
+  border-bottom: 1px solid var(--color-border);
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-name {
+  font-weight: bold;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-name:hover {
+  text-decoration: none;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  display: inline;
+  vertical-align: middle;
+}
+
+header nav {
+  display: flex;
+  gap: 24px;
+}
+
+footer {
+  border-top: 1px solid var(--color-border);
+  padding-top: 32px;
+  padding-bottom: 32px;
+  font-size: 0.875em;
+  color: var(--color-muted);
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -10,19 +66,19 @@ main {
 
 main .container {
   width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 24px;
   text-align: center;
 }
 
-main .container img {
+main img {
   max-width: 480px;
   width: 100%;
   height: auto;
+  position: static;
+  left: auto;
+  transform: none;
 }
 
-main .container h1 {
+main h1 {
   margin-top: 1.5em;
   font-size: 1.5em;
   text-transform: uppercase;
@@ -30,97 +86,35 @@ main .container h1 {
   color: var(--color-muted);
 }
 
-main .container a {
+main a {
   display: inline-block;
   margin-top: 1em;
   color: var(--color-accent);
   text-decoration: none;
 }
 
-main .container a:hover {
-  text-decoration: underline;
-}
-
-header {
-  border-bottom: 1px solid var(--color-border);
-}
-
-header .container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-header .site-name {
-  font-weight: 600;
-  color: var(--color-text);
-  text-decoration: none;
-}
-
-header .site-name:hover {
-  text-decoration: none;
-}
-
-header .site-name .logo {
-  display: inline;
-  vertical-align: middle;
-  height: 36px;
-  width: auto;
-}
-
-header nav {
-  display: flex;
-  gap: 24px;
-}
-
-header nav a {
-  color: var(--color-text);
-  text-decoration: none;
-}
-
-header nav a:hover {
-  color: var(--color-accent);
-}
-
-footer {
-  border-top: 1px solid var(--color-border);
-}
-
-footer .container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 32px 24px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  font-size: 0.875em;
-  color: var(--color-muted);
-}
-
-footer a {
-  color: var(--color-muted);
-  text-decoration: none;
-}
-
-footer a:hover {
+main a:hover {
   text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-  main .container img {
-    max-width: 320px;
-  }
-
-  main .container {
-    padding: 0 16px;
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   header .container {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 12px;
+  }
+
+  header nav {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  main img {
+    max-width: 320px;
   }
 }

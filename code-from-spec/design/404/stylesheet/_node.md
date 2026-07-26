@@ -34,12 +34,13 @@ These must not conflict with the copied rules above.
    `max-width` and padding from the global `.container`
    rule copied above.
 
-3. **Image** — `main img` gets `max-width: 480px`,
-   `width: 100%`, `height: auto`, `position: static`,
-   `left: auto`, `transform: none`. The position/left/
-   transform overrides cancel the default theme's
-   breakout behavior so the image stays centered inside
-   the container.
+3. **Image** — `main img` gets `display: block`,
+   `max-width: 480px`, `width: 100%`, `height: auto`,
+   `margin-left: auto`, `margin-right: auto`,
+   `position: static`, `left: auto`, `transform: none`.
+   The display/margin centers the image as a block
+   element. The position/left/transform overrides cancel
+   the default theme's breakout behavior.
 
 4. **Heading (h1)** — `main h1` gets `margin-top: 1.5em`,
    `font-size: 1.5em`, `text-transform: uppercase`,

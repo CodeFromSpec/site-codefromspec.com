@@ -1,5 +1,9 @@
 /* code-from-spec: SPEC/design/404/stylesheet */
 
+html {
+  overflow-y: scroll;
+}
+
 .container {
   max-width: 720px;
   margin-left: auto;

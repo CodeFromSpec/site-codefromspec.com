@@ -43,8 +43,8 @@ against this project's intent. Everything else it can leave
 quiet, and the quiet is
 compression, not omission. But every silence is a delegation,
 and the delegation gets resolved by the draw, in the code, and
-nowhere else. To review it you would have to know how the prior
-resolves it, and nobody does. You cannot even list the
+nowhere else. To review it from the spec alone, you
+would have to know how the prior resolves it, and nobody does. You cannot even list the
 silences: no procedure takes a spec and returns everything it
 failed to say.
 
@@ -116,24 +116,15 @@ reading.
 
 First and foremost, accountability. When the software fails,
 somebody answers for it — to the customer, to the auditor, to a
-court. Responsibility attaches to people and to companies; no
-one has ever attached it to a generator, and a better model
-next year does not change what a signature is. Approving
-a change is saying *I looked at this, and I answer for it*. The
-generator cannot say it, the test suite cannot say it, and an
-approval over an unread diff says it falsely — the
-accountability structure keeps standing, with nothing inside.
-Human review is where responsibility for generated code
-actually changes hands: the moment a person turns a draw nobody
-owns into a change somebody answers for.
+court. Responsibility attaches to people and to companies; not
+to a LLM, and a better model next year does not change what a
+signature is. Human review is where responsibility for
+generated code actually changes hands: the moment a person
+turns a draw nobody owns into a change somebody answers for.
 
 Second, the dimensions no test asserts. Naming, structure, the
 shape of an abstraction — none of them change behavior, and all
-of them govern what every future change costs. The linter
-covers the part that has already been turned into rules. The
-rest is uncodified by definition. A model can sweep it for the
-improbable slip — that is real, and it never adds up to an
-approval — so what it leaves is exactly what a human reads for.
+of them govern what every future change costs.
 
 Third, a genuinely different prior. A model reviewing generated
 output shares the habits that produced it. A human reader was
@@ -149,75 +140,64 @@ all. Nobody reads from both sides at once — short of the person
 who needs the software building it themselves, which does not
 scale past them.
 
-## Where spec-only review holds
+## Where it would actually work
 
-Where the oracles close a component mechanically — an
-enumerable domain under exhaustive test vectors — spec-only
-review looks legitimate. Same reason regenerating from scratch
-is legitimate there: nothing unwritten is left at stake.
+The wish is not wrong everywhere. Take a component whose
+behavior is pinned wall to wall — a small enough domain, a test
+vector for every input, nothing left to judgment. There,
+approving the spec diff without reading the generated code is
+legitimate: whatever the draw resolved, the vectors decide it,
+and nothing unwritten is at stake.
 
-But closure is relative to a region, and a spec diff moves the
-region. In a substantive change the test specs move too, and
-the asserts get regenerated. A regenerated assert is a fresh
-draw with no history behind its verdicts. So the oracle arrives
-at review closed on the dimensions that did not move and open
-on the ones that did. "Safe not to read" turns out to mean
-"safe not to read what did not change", which was never in
-question.
+Now make a substantive change to that component. The spec
+moves, the test specs move with it, and the asserts get
+regenerated — fresh draws, from the section above. The
+protection was earned against the old behavior, and the change
+re-manufactures it exactly where the change is. What stays safe
+to skip is the part that did not move, and that part was never
+the question.
 
-The exception survives where the update to the oracle is itself
-authored. Exhaustive vectors edited by hand are part of the
-reviewed spec, and when the assert is just "compare output
-against vector", re-closing costs almost nothing. That corner
-is real and small, and a project cannot verify from inside that
-it is in it.
+One narrow form survives: the vectors edited by hand. Then
+updating the checks is authoring, not drawing — reviewing the
+vector diff is reviewing spec — and an assert that just
+compares output to vector is trivial to trust again. That
+corner is real. It is also small, and a project cannot tell
+from the inside whether it is standing in it.
 
 The bolder version does not even get this far. A repo that
 keeps only the specs throws away the one copy of every
 resolution the silences delegated, and re-decides all of them
 on every build.
 
-If the reading cannot be removed, then reading is the
-constraint. The change a project can absorb is bounded by how
-much its people can read, not by how much the model can
-generate. That turns minimal regeneration from a stability
-convenience into the mechanism that funds the irreducible
-reading: a small diff is a cheap reading.
+So the reading stays — and if it stays, it is the constraint.
+The change a project can absorb is bounded by how much its
+people can read, not by how much the model can generate. That
+turns minimal regeneration from a stability convenience into
+the mechanism that funds the reading: a small diff is a cheap
+reading.
 
-## The rationale, reread
+## What is left of the rationale
 
-The [rationale](/rationale) promises a destination: domain
-experts contributing specifications inside engineering
+The original [rationale](/rationale) promised a destination:
+domain experts contributing specifications inside engineering
 guardrails, the way product developers ship on a platform
-team's golden paths. I went back to that page expecting this
-entry to collect a debt from it. It does not. The page had
-already made this entry's diagnosis — participation without the
-ability to evaluate is not participation, it is delegation with
-extra steps — and it had already handed the silences to
-engineering: the compliance officer explicitly does not touch
-the constraint that makes her rule safe, it is enforced around
-her.
+team's golden paths. The domain expert does not read code — so
+which half of review can they carry?
 
-What the vocabulary adds is precision about which half is
-which. There are two relations to audit. The first is between intent and the
-description: is this the right region? That is where
-mis-specification lives — the spec itself being wrong — and no
-check derived from the spec can reach it, because the check and
-the spec agree by construction. It needs a verdict that answers
-to intent, and the expert is the one holding that intent. A
-test description states expected behavior in the domain's own
-language, so the verdict can be bought by reading. The second
-relation is between the description and the artifact: did the
-draw land inside the region? That one needs somebody who reads
-code. Two jobs, not one job split between two people. Only one
-of them was ever available to someone who does not read code,
-and the expert taking it does not shrink the other. Reading the
-spec, the expert evaluates one of the two relations in full.
-That is partial delegation with a name on it — and by the
-page's own standard, that is the opposite of delegation
-disguised as participation.
+There are two relations to audit. Between intent and the
+description: is this the right region? Between the description
+and the artifact: did the draw land inside it? The first is
+where mis-specification lives — the spec itself being wrong —
+and no check derived from the spec can reach it, because the
+check and the spec agree by construction. It takes a verdict
+that answers to intent, and the expert is the one holding the
+intent. A test description states expected behavior in the
+domain's own language, so that verdict can be bought by
+reading. The second relation needs somebody who reads code. Two
+jobs, not one job split between two people; the expert taking
+the first does not shrink the second.
 
-The expert's job is real and narrow. Reading scenarios does not
+The first job is real and narrow. Reading scenarios does not
 catch nonconformance, which exists only in the artifact, and it
 does not catch underspecification, because the scenario nobody
 wrote is not there to be objected to. It covers what is
@@ -226,46 +206,38 @@ There is also a trap in the arithmetic: a green suite plus
 expert-approved scenarios reads as *verified*, while the risk
 that remains is the scenarios nobody wrote.
 
-Which changes what a spec is for. The expert can only object to
-what is written, so every clause added for their benefit buys a
-dimension they can rule on — even a clause the generator never
-needed. And their reading fixes something the theory left
-unguarded: a spec drifts toward being an excellent prompt,
-because the generation loop polices what the generator needs
-and nothing polices what human readers need. A spec that a
-domain expert has to understand on every change has the oracle
-that drift was missing. Expert participation is bought with
-spec length, and
-length has a ceiling the theory already named: a spec that
-keeps growing is turning into source code written in markdown.
-BDD found this same form twenty years ago and promised
-authorship on top of it; what it got was Gherkin written by
-engineers. Review rather than authorship is the weaker, honest
-version of the same bet, and what changed since is only the
-economics: the glue between scenario and assertion used to be
-hand-written and drifting, and is now a draw — cheaper, and
-less trustworthy.
+It also reprices the spec. Every clause added for the expert's
+benefit buys a dimension they can rule on, even one the
+generator never needed — so expert participation is bought with
+spec length, and length has a ceiling: a spec that keeps
+growing is turning into source code written in markdown. The
+same reading pushes back on a drift the theory called endemic:
+a spec tends toward an excellent prompt, because the generation
+loop polices what the generator needs and nothing polices what
+human readers need. A spec a domain expert has to understand on
+every change has a check on legibility that nothing else
+provides. BDD found this form twenty years ago and promised
+authorship; it got Gherkin written by engineers. Review is the
+weaker version of the same bet, with one economic change: the
+glue between scenario and assertion used to be hand-written and
+drifting, and is now a draw — cheaper, and less trustworthy.
 
-So where does the destination stand? Two corrections survive
-the reread, both small. The first: the platform-team analogy
-breaks at one joint. A product developer deploys unattended
-because the pipeline is a closed oracle; the guardrails here
-are open exactly where it counts. Everything that closes
-mechanically — staleness, confinement, types, lint, vectors —
-holds, and wherever a reading is required, an engineer stays
-inside a loop the analogy implied would be automated away. The
-second is a word: the page answers natural-language ambiguity
-with test specs anchoring meaning *mechanically*, and the
-anchor is statistical — the instruction of what to check
-survives every regeneration, the check itself is redrawn.
-Decomposition is what shrinks the loop: a component whose
-oracle closes — the tax table updated every quarter, a pure
-function under exact outputs — is one where expert authorship
-costs least. The destination is not "experts write specs". It
-is components chosen so that their oracles close, and an
-engineer reading the decompressions everywhere else — the code
-being where the spec's silences come out resolved, it is the
-one half only somebody who reads code can audit.
+Two corrections to the page follow. The platform analogy breaks
+at one joint: a product developer deploys unattended because
+the pipeline decides everything that matters on its own; these
+guardrails do not, exactly where it counts — so an engineer
+stays inside a loop the analogy implied would be automated
+away. And "test specs anchoring meaning mechanically" loses a
+word: the anchor is statistical — the instruction of what to
+check survives every regeneration, the check itself is redrawn.
+
+The destination that survives: components pinned tightly enough
+that the checks decide everything — the quarterly tax table,
+the pure function under exact outputs — with the expert
+contributing there, and an engineer reading the decompressions
+everywhere else. The code is where the spec's silences come out
+resolved; it is the half only somebody who reads code can
+audit.
 
 Review does not have one object. The spec was only ever half of
 it. Reading the code is where the point gets checked against
@@ -274,8 +246,9 @@ actually chosen.
 
 ## Could I *be* more wrong?
 
-The results I find most interesting in this project are the
-ones that go against what I thought I would be building. The
+The results I find most interesting (and frustrating) in this
+project are the ones that go against what I thought I would be
+building. The
 theory produced several of them inside its own text. This entry
 is another: I went in expecting to find out how far review
 could shrink, and found out which part of it cannot — retiring,

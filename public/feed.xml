@@ -7,7 +7,14 @@
     <atom:link href="https://codefromspec.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Notes on building with Code from Spec — progress reports, lessons learned, roadblocks, and future directions.</description>
     <language>en</language>
-    <lastBuildDate>26 Jul 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>07 Aug 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Confinement, broken and repaired</title>
+      <link>https://codefromspec.com/journal/confinement-broken-and-repaired/</link>
+      <guid isPermaLink="true">https://codefromspec.com/journal/confinement-broken-and-repaired/</guid>
+      <pubDate>07 Aug 2026 00:00:00 GMT</pubDate>
+      <description>The fix for anchoring gave the agent a map of its neighbors in the spec tree — and a more capable model used that map to break confinement.</description>
+    </item>
     <item>
       <title>Could we stop reviewing code?</title>
       <link>https://codefromspec.com/journal/could-we-stop-reviewing-code/</link>

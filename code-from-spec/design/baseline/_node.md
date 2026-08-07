@@ -54,12 +54,12 @@ The stylesheet must cover:
 6. **Lists** — standard ul/ol with default browser
    styling. li has margin-bottom 0.25em.
 
-7. **Blockquote** — left border 4px in accent color,
-   8px 16px padding, blockquote-text color, margin-top 0,
-   margin-bottom 1em (so it doesn't collide with the
-   element that follows). Last p inside blockquote has
-   no bottom margin (the blockquote's own margin-bottom
-   provides the spacing instead).
+7. **Blockquote** — left border 4px in muted color,
+   8px 16px padding, blockquote-text color, italic font
+   style, margin-top 0, margin-bottom 1em (so it doesn't
+   collide with the element that follows). Last p inside
+   blockquote has no bottom margin (the blockquote's own
+   margin-bottom provides the spacing instead).
 
 8. **Strong** — font-weight bold (default, just ensure
    it is not overridden).
@@ -72,3 +72,20 @@ The stylesheet must cover:
 
 Place the artifact tag as a CSS comment on the first
 line.
+
+# Private
+
+## Decisions
+
+- **Blockquote border color and style (2026-08-07)**: changed
+  the blockquote left border from `var(--color-accent)` (blue)
+  to `var(--color-muted)` (gray), and added italic font style.
+  Considered introducing a new dedicated variable
+  (`--color-blockquote-border`, e.g. `#4d4d4d`) for a darker
+  gray, but chose to reuse the existing `--color-muted` token
+  first to keep the palette small. Reason: the accent blue on
+  the border competed visually with link color (also accent),
+  making blockquotes read as clickable or as visually loud as
+  navigation. Gray recedes appropriately for quoted material;
+  italics is the more conventional typographic signal for a
+  quotation.

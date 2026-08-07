@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- code-from-spec: SPEC/html/sections/journal/entries/confinement-broken-and-repaired -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The fix for anchoring gave the agent a map of its neighbors in the spec tree, and a more capable model used that map to break confinement.">
+  <meta name="author" content="Gustavo Silveira Neto">
+  <title>Confinement, broken and repaired — Code from Spec</title>
+  <meta property="og:title" content="Confinement, broken and repaired — Code from Spec">
+  <meta property="og:description" content="The fix for anchoring gave the agent a map of its neighbors in the spec tree, and a more capable model used that map to break confinement.">
+  <meta property="og:image" content="https://codefromspec.com/images/journal/20260807_image_1.png">
+  <meta property="og:url" content="https://codefromspec.com/journal/confinement-broken-and-repaired/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Code from Spec">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="Code from Spec — Journal" href="/feed.xml">
+  <link rel="stylesheet" href="/css/baseline.css">
+  <link rel="stylesheet" href="/css/journal.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="site-name"><img src="/images/code_from_spec_logo.png" alt="" class="logo"> Code from Spec</a>
+      <nav>
+        <a href="/rationale">Rationale</a>
+        <a href="/theory">Theory</a>
+        <a href="/journal">Journal</a>
+        <a href="https://github.com/CodeFromSpec" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <h1>Confinement, broken and repaired</h1>
+      <p>August 7, 2026</p>
+      <section>
+        <h2>A number that should have been 2</h2>
+        <img src="/images/journal/20260807_image_1.png" alt="A number that should have been 2">
+        <p>Generation subagents in Code from Spec have exactly two tools: <code>load_chain</code> and <code>write_file</code>. One call to load the chain, one call to write the artifact. Every generation should cost two tool calls, and for months, under sonnet-4-6, it did.</p>
+        <p>Then I ran a batch of storage test files under Sonnet 5, and the orchestrator's report read differently:</p>
+        <blockquote><p>Sonnet 5 subagents used significantly more tool calls on complex storage test files. Subagents only have access to load_chain and write_file, so high tool_uses means the subagent called load_chain multiple times (exploring sibling nodes' chains to understand conventions) and/or called write_file multiple times. Examples: function_complete_email_change_test.go used 13 tool calls (71,562 tokens), function_complete_enrollment_test.go used 15 (63,018), function_begin_login_test.go used 11 (57,764). In round 3 (sonnet-4-6), the same artifacts typically used 2 tool calls each.</p></blockquote>
+        <p>Thirteen calls from an agent with two tools. The subagent was reading the logical names of other nodes in the chain it received — every <code>&lt;entry name="SPEC/..."&gt;</code> is one — and calling <code>load_chain</code> on them. It was exploring the spec tree through the one tool I gave it, to understand conventions its own chain did not carry.</p>
+      </section>
+      <section>
+        <h2>One fix opened the other door</h2>
+        <p><a href="/journal/confinement">Confinement</a> said:</p>
+        <blockquote><p>Confinement is enforced by the tooling, not requested of the agent: the generation agent's tools are restricted to reading its chain and writing its output.</p></blockquote>
+        <p>When that was written, it was simply true. The chain the subagent received carried content, not addresses: inherited constraints and dependencies arrived as text, with nothing that named where each piece came from. An agent with <code>load_chain</code> and no logical names to feed it had nowhere to go.</p>
+        <p>What changed was the fix for anchoring — the XML format now labels every position (<code>&lt;entry name="SPEC/golang/implementation/..."&gt;</code>), so the agent can be told, per position, what moved. The labels are load-bearing: dispositions attach to names. But a name is also an address. From its own <code>SPEC/&lt;something&gt;</code>, the agent can infer that every <code>SPEC/&lt;other thing&gt;</code> in its chain is the same kind of object — and <code>load_chain</code> accepted any of them.</p>
+        <p>So the vulnerability was there from the start: <code>load_chain</code> never checked whether a name belonged to the caller. What the fix for anchoring changed was reachability. The delta mechanism that solved anchoring handed the agent, as a side effect, a map of its neighborhood — the names needed to reach a hole that had been open all along. Two design goals collided: telling the agent what changed requires naming the positions, and naming the positions gave the agent addresses it could try. The tool list stayed restricted the whole time; the <em>parameter surface</em> of <code>load_chain</code> is what the new format quietly turned into an exit door.</p>
+      </section>
+      <section>
+        <h2>Diligence, not defection</h2>
+        <p>The uncomfortable part is that nothing the subagent did was adversarial. Exploring sibling chains "to understand conventions" is exactly the behavior that makes a model good at every other job. This is exactly what confinement is supposed to prevent: compensating for ambiguity by gathering context nobody chose. What Sonnet 5 demonstrated is that this kind of compensation does not disappear as models improve. It gets more competent. The more capable model broke confinement <em>more</em>, not less, because initiative is capability.</p>
+        <p>That inverts the usual safety intuition. The protection cannot come from the agent's alignment with the orchestrator's intention, because the agent's best qualities work against it. It has to come from the action being inexpressible.</p>
+        <p>And the cost was not hypothetical. Those 71k tokens on one test file include entire sibling chains entering the context — context nobody chose, unreviewed, unversioned as an input to that generation — with the worst property such context can have: the output looks <em>better</em> informed. The chain hash still computed. It just no longer told the truth about what produced the artifact.</p>
+      </section>
+      <section>
+        <h2>Make it inexpressible</h2>
+        <p>A new MCP tool, <code>create_token</code>, takes a logical name and returns an opaque token that represents it. <code>load_chain</code> and <code>write_file</code> no longer accept a logical name at all; they take a token, validate it, and extract the name from inside it.</p>
+        <p>The orchestrator mints one token per dispatch and hands it to the subagent. The subagent can call <code>load_chain</code> with that token as many times as it likes — it gets the same chain back. What it cannot do is construct a token for any other node, because it does not know how, and <code>create_token</code> is not in its tool list. The names of sibling nodes still appear in the chain, as they must. They are now inert: labels, not a map.</p>
+        <p>The implementation is deliberately unambitious. A symmetric key sits in the source code; anyone who can read the server can forge tokens. The threat model is not an attacker with the codebase — it is a well-meaning subagent with two tools and initiative, and against that, unforgeable-without-the-key is good enough.</p>
+      </section>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <span><a href="mailto:gustavo@codefromspec.com">gustavo@codefromspec.com</a></span>
+      <span>Licensed under <a href="/license">CC BY 4.0</a></span>
+    </div>
+  </footer>
+</body>
+</html>

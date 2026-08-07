@@ -13,7 +13,7 @@
       <link>https://codefromspec.com/journal/confinement-broken-and-repaired/</link>
       <guid isPermaLink="true">https://codefromspec.com/journal/confinement-broken-and-repaired/</guid>
       <pubDate>07 Aug 2026 00:00:00 GMT</pubDate>
-      <description>The fix for anchoring gave the agent a map of its neighbors in the spec tree — and a more capable model used that map to break confinement.</description>
+      <description>The fix for anchoring gave the agent a map of its neighbors in the spec tree, and a more capable model used that map to break confinement.</description>
     </item>
     <item>
       <title>Could we stop reviewing code?</title>

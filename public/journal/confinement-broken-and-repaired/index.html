@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="The fix for anchoring gave the agent a map of its neighbors in the spec tree — and a more capable model used that map to break confinement.">
+  <meta name="description" content="The fix for anchoring gave the agent a map of its neighbors in the spec tree, and a more capable model used that map to break confinement.">
   <meta name="author" content="Gustavo Silveira Neto">
   <title>Confinement, broken and repaired — Code from Spec</title>
   <meta property="og:title" content="Confinement, broken and repaired — Code from Spec">
-  <meta property="og:description" content="The fix for anchoring gave the agent a map of its neighbors in the spec tree — and a more capable model used that map to break confinement.">
+  <meta property="og:description" content="The fix for anchoring gave the agent a map of its neighbors in the spec tree, and a more capable model used that map to break confinement.">
   <meta property="og:image" content="https://codefromspec.com/images/journal/20260807_image_1.png">
   <meta property="og:url" content="https://codefromspec.com/journal/confinement-broken-and-repaired/">
   <meta property="og:type" content="article">
@@ -49,23 +49,23 @@
       </section>
       <section>
         <h2>One fix opened the other door</h2>
-        <p>The <a href="/journal/confinement">Confinement</a> entry from June says:</p>
+        <p><a href="/journal/confinement">Confinement</a> said:</p>
         <blockquote><p>Confinement is enforced by the tooling, not requested of the agent: the generation agent's tools are restricted to reading its chain and writing its output.</p></blockquote>
         <p>When that was written, it was simply true. The chain the subagent received carried content, not addresses: inherited constraints and dependencies arrived as text, with nothing that named where each piece came from. An agent with <code>load_chain</code> and no logical names to feed it had nowhere to go.</p>
-        <p>What changed that was the fix for anchoring. The XML format built in <a href="/journal/telling-the-agent-what-changed">Telling the agent what changed</a> labels every position — <code>&lt;entry name="SPEC/golang/implementation/..."&gt;</code> — so the agent can be told, per position, what moved. The labels are load-bearing: dispositions attach to names. But a name is also an address. From its own <code>SPEC/&lt;something&gt;</code>, the agent can infer that every <code>SPEC/&lt;other thing&gt;</code> in its chain is the same kind of object — and <code>load_chain</code> accepted any of them.</p>
+        <p>What changed was the fix for anchoring — the XML format now labels every position (<code>&lt;entry name="SPEC/golang/implementation/..."&gt;</code>), so the agent can be told, per position, what moved. The labels are load-bearing: dispositions attach to names. But a name is also an address. From its own <code>SPEC/&lt;something&gt;</code>, the agent can infer that every <code>SPEC/&lt;other thing&gt;</code> in its chain is the same kind of object — and <code>load_chain</code> accepted any of them.</p>
         <p>So the vulnerability was not there from the start; it was introduced by a fix. The delta mechanism that solved anchoring handed the agent, as a side effect, a map of its neighborhood. Two design goals collided: telling the agent what changed requires naming the positions, and naming the positions armed the one tool it had. The tool list stayed restricted the whole time; the <em>parameter surface</em> of <code>load_chain</code> is what the new format quietly turned into an exit.</p>
       </section>
       <section>
         <h2>Diligence, not defection</h2>
-        <p>The uncomfortable part is that nothing the subagent did was adversarial. Exploring sibling chains "to understand conventions" is exactly the behavior that makes a model good at every other job. The June entry called this the third option — compensating for ambiguity by gathering context nobody chose — and claimed confinement removes it. What Sonnet 5 demonstrated is that the third option does not disappear as models improve. It gets more competent. The more capable model broke confinement <em>more</em>, not less, because initiative is capability.</p>
+        <p>The uncomfortable part is that nothing the subagent did was adversarial. Exploring sibling chains "to understand conventions" is exactly the behavior that makes a model good at every other job. This is the third option — compensating for ambiguity by gathering context nobody chose — and claimed confinement removes it. What Sonnet 5 demonstrated is that the third option does not disappear as models improve. It gets more competent. The more capable model broke confinement <em>more</em>, not less, because initiative is capability.</p>
         <p>That inverts the usual safety intuition. The protection cannot come from the agent's alignment with the orchestrator's intention, because the agent's best qualities work against it. It has to come from the action being inexpressible.</p>
         <p>And the cost was not hypothetical. Those 71k tokens on one test file include entire sibling chains entering the context — context nobody chose, unreviewed, unversioned as an input to that generation — with the worst property such context can have: the output looks <em>better</em> informed. The chain hash still computed. It just no longer told the truth about what produced the artifact.</p>
       </section>
       <section>
         <h2>The fix: make it inexpressible</h2>
-        <p>The mechanism is a token. A new MCP tool, <code>create_token</code>, takes a logical name and returns an opaque string — AES-256-GCM over the name, random nonce, key fixed in the server's source. <code>load_chain</code> and <code>write_file</code> no longer accept a logical name at all; they take the token, validate it, and extract the name from inside it.</p>
-        <p>The orchestrator mints one token per dispatch and hands it to the subagent. The subagent can call <code>load_chain</code> with that token as many times as it likes — it gets the same chain back. What it cannot do is construct a token for any other node, because it cannot produce a valid ciphertext without the key, and <code>create_token</code> is not in its tool list. The names of sibling nodes still appear in the chain, as they must. They are now inert: labels, not capabilities.</p>
-        <p>This is capability-based security, applied to agents. The old <code>load_chain</code> had what that literature calls ambient authority — any name you could write down, you could load. The token converts it to a capability: you can load exactly what you were handed. The crypto is deliberately unambitious. The key sits in the source code; anyone who can read the server can forge tokens. The threat model is not an attacker with the codebase — it is a well-meaning subagent with two tools and initiative, and against that, unforgeable-without-the-key is enough.</p>
+        <p>The mechanism is a token. A new MCP tool, <code>create_token</code>, takes a logical name and returns an opaque string. <code>load_chain</code> and <code>write_file</code> no longer accept a logical name at all; they take the token, validate it, and extract the name from inside it.</p>
+        <p>The orchestrator mints one token per dispatch and hands it to the subagent. The subagent can call <code>load_chain</code> with that token as many times as it likes — it gets the same chain back. What it cannot do is construct a token for any other node, because it does not know how, and <code>create_token</code> is not in its tool list. The names of sibling nodes still appear in the chain, as they must. They are now inert: labels, not capabilities.</p>
+        <p>The implementation is deliberately unambitious. The key sits in the source code; anyone who can read the server can forge tokens. The threat model is not an attacker with the codebase — it is a well-meaning subagent with two tools and initiative, and against that, unforgeable-without-the-key is enough.</p>
         <p>Policy became mechanism. The policy had existed since June; the prompt said "generate from the chain alone" all along. Sonnet 5 is what showed me the difference.</p>
       </section>
     </div>

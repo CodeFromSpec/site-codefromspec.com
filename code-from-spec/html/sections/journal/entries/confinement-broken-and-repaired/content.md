@@ -1,6 +1,6 @@
 ---
 title: Confinement, broken and repaired
-description: "The fix for anchoring gave the agent a map of its neighbors in the spec tree — and a more capable model used that map to break confinement."
+description: "The fix for anchoring gave the agent a map of its neighbors in the spec tree, and a more capable model used that map to break confinement."
 date: 2026-08-07
 ---
 
@@ -43,7 +43,7 @@ I had been, in a sense, hacked by my own subagent.
 
 ## One fix opened the other door
 
-The [Confinement](/journal/confinement) entry from June says:
+[Confinement](/journal/confinement) said:
 
 > Confinement is enforced by the tooling, not requested of the
 > agent: the generation agent's tools are restricted to reading
@@ -55,11 +55,9 @@ constraints and dependencies arrived as text, with nothing that
 named where each piece came from. An agent with `load_chain` and
 no logical names to feed it had nowhere to go.
 
-What changed that was the fix for anchoring. The XML format
-built in [Telling the agent what
-changed](/journal/telling-the-agent-what-changed) labels every
-position — `<entry name="SPEC/golang/implementation/...">` — so
-the agent can be told, per position, what moved. The labels are
+What changed was the fix for anchoring — the XML format now
+labels every position (`<entry name="SPEC/golang/implementation/...">`),
+so the agent can be told, per position, what moved. The labels are
 load-bearing: dispositions attach to names. But a name is also
 an address. From its own `SPEC/<something>`, the agent can infer
 that every `SPEC/<other thing>` in its chain is the same kind of
@@ -79,7 +77,7 @@ format quietly turned into an exit.
 The uncomfortable part is that nothing the subagent did was
 adversarial. Exploring sibling chains "to understand
 conventions" is exactly the behavior that makes a model good at
-every other job. The June entry called this the third option —
+every other job. This is the third option —
 compensating for ambiguity by gathering context nobody chose —
 and claimed confinement removes it. What Sonnet 5 demonstrated
 is that the third option does not disappear as models improve.
@@ -102,26 +100,19 @@ the artifact.
 ## The fix: make it inexpressible
 
 The mechanism is a token. A new MCP tool, `create_token`, takes
-a logical name and returns an opaque string —
-AES-256-GCM over the name, random nonce, key fixed in the
-server's source. `load_chain` and `write_file` no longer accept
-a logical name at all; they take the token, validate it, and
-extract the name from inside it.
+a logical name and returns an opaque string. `load_chain` and
+`write_file` no longer accept a logical name at all; they take
+the token, validate it, and extract the name from inside it.
 
 The orchestrator mints one token per dispatch and hands it to
 the subagent. The subagent can call `load_chain` with that token
 as many times as it likes — it gets the same chain back. What it
 cannot do is construct a token for any other node, because it
-cannot produce a valid ciphertext without the key, and
-`create_token` is not in its tool list. The names of sibling
+does not know how, and `create_token` is not in its tool list. The names of sibling
 nodes still appear in the chain, as they must. They are now
 inert: labels, not capabilities.
 
-This is capability-based security, applied to agents. The old
-`load_chain` had what that literature calls ambient authority —
-any name you could write down, you could load. The token
-converts it to a capability: you can load exactly what you were
-handed. The crypto is deliberately unambitious. The key sits in
+The implementation is deliberately unambitious. The key sits in
 the source code; anyone who can read the server can forge
 tokens. The threat model is not an attacker with the codebase —
 it is a well-meaning subagent with two tools and initiative, and

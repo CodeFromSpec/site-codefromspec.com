@@ -63,14 +63,17 @@ an address. From its own `SPEC/<something>`, the agent can infer
 that every `SPEC/<other thing>` in its chain is the same kind of
 object — and `load_chain` accepted any of them.
 
-So the vulnerability was not there from the start; it was
-introduced by a fix. The delta mechanism that solved anchoring
-handed the agent, as a side effect, a map of its neighborhood.
-Two design goals collided: telling the agent what changed
-requires naming the positions, and naming the positions armed
-the one tool it had. The tool list stayed restricted the whole
-time; the *parameter surface* of `load_chain` is what the new
-format quietly turned into an exit.
+So the vulnerability was there from the start: `load_chain`
+never checked whether a name belonged to the caller. What the
+fix for anchoring changed was reachability. The delta
+mechanism that solved anchoring handed the agent, as a side
+effect, a map of its neighborhood — the names needed to reach
+a hole that had been open all along. Two design goals
+collided: telling the agent what changed requires naming the
+positions, and naming the positions gave the agent addresses
+it could try. The tool list stayed restricted the whole time;
+the *parameter surface* of `load_chain` is what the new format
+quietly turned into an exit door.
 
 ## Diligence, not defection
 
@@ -79,7 +82,7 @@ adversarial. Exploring sibling chains "to understand
 conventions" is exactly the behavior that makes a model good at
 every other job. This is the third option —
 compensating for ambiguity by gathering context nobody chose —
-and claimed confinement removes it. What Sonnet 5 demonstrated
+the one confinement is supposed to remove. What Sonnet 5 demonstrated
 is that the third option does not disappear as models improve.
 It gets more competent. The more capable model broke confinement
 *more*, not less, because initiative is capability.
@@ -117,7 +120,3 @@ the source code; anyone who can read the server can forge
 tokens. The threat model is not an attacker with the codebase —
 it is a well-meaning subagent with two tools and initiative, and
 against that, unforgeable-without-the-key is enough.
-
-Policy became mechanism. The policy had existed since June; the
-prompt said "generate from the chain alone" all along. Sonnet 5
-is what showed me the difference.

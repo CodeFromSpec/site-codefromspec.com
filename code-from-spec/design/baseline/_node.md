@@ -72,3 +72,20 @@ The stylesheet must cover:
 
 Place the artifact tag as a CSS comment on the first
 line.
+
+# Private
+
+## Decisions
+
+- **Blockquote border color and style (2026-08-07)**: changed
+  the blockquote left border from `var(--color-accent)` (blue)
+  to `var(--color-muted)` (gray), and added italic font style.
+  Considered introducing a new dedicated variable
+  (`--color-blockquote-border`, e.g. `#4d4d4d`) for a darker
+  gray, but chose to reuse the existing `--color-muted` token
+  first to keep the palette small. Reason: the accent blue on
+  the border competed visually with link color (also accent),
+  making blockquotes read as clickable or as visually loud as
+  navigation. Gray recedes appropriately for quoted material;
+  italics is the more conventional typographic signal for a
+  quotation.

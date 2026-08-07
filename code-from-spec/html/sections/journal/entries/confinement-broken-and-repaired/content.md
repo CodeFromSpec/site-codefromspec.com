@@ -39,8 +39,6 @@ received — every `<entry name="SPEC/...">` is one — and calling
 one tool I gave it, to understand conventions its own chain did
 not carry.
 
-I had been, in a sense, hacked by my own subagent.
-
 ## One fix opened the other door
 
 [Confinement](/journal/confinement) said:
@@ -80,11 +78,11 @@ quietly turned into an exit door.
 The uncomfortable part is that nothing the subagent did was
 adversarial. Exploring sibling chains "to understand
 conventions" is exactly the behavior that makes a model good at
-every other job. This is the third option —
-compensating for ambiguity by gathering context nobody chose —
-the one confinement is supposed to remove. What Sonnet 5 demonstrated
-is that the third option does not disappear as models improve.
-It gets more competent. The more capable model broke confinement
+every other job. This is exactly what confinement is supposed to prevent:
+compensating for ambiguity by gathering context nobody chose.
+What Sonnet 5 demonstrated is that this kind of compensation
+does not disappear as models improve. It gets more competent.
+The more capable model broke confinement
 *more*, not less, because initiative is capability.
 
 That inverts the usual safety intuition. The protection cannot

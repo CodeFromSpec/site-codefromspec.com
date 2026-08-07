@@ -45,7 +45,6 @@
         <p>Then I ran a batch of storage test files under Sonnet 5, and the orchestrator's report read differently:</p>
         <blockquote><p>Sonnet 5 subagents used significantly more tool calls on complex storage test files. Subagents only have access to load_chain and write_file, so high tool_uses means the subagent called load_chain multiple times (exploring sibling nodes' chains to understand conventions) and/or called write_file multiple times. Examples: function_complete_email_change_test.go used 13 tool calls (71,562 tokens), function_complete_enrollment_test.go used 15 (63,018), function_begin_login_test.go used 11 (57,764). In round 3 (sonnet-4-6), the same artifacts typically used 2 tool calls each.</p></blockquote>
         <p>Thirteen calls from an agent with two tools. The subagent was reading the logical names of other nodes in the chain it received — every <code>&lt;entry name="SPEC/..."&gt;</code> is one — and calling <code>load_chain</code> on them. It was exploring the spec tree through the one tool I gave it, to understand conventions its own chain did not carry.</p>
-        <p>I had been, in a sense, hacked by my own subagent.</p>
       </section>
       <section>
         <h2>One fix opened the other door</h2>
@@ -57,7 +56,7 @@
       </section>
       <section>
         <h2>Diligence, not defection</h2>
-        <p>The uncomfortable part is that nothing the subagent did was adversarial. Exploring sibling chains "to understand conventions" is exactly the behavior that makes a model good at every other job. This is the third option — compensating for ambiguity by gathering context nobody chose — the one confinement is supposed to remove. What Sonnet 5 demonstrated is that the third option does not disappear as models improve. It gets more competent. The more capable model broke confinement <em>more</em>, not less, because initiative is capability.</p>
+        <p>The uncomfortable part is that nothing the subagent did was adversarial. Exploring sibling chains "to understand conventions" is exactly the behavior that makes a model good at every other job. This is exactly what confinement is supposed to prevent: compensating for ambiguity by gathering context nobody chose. What Sonnet 5 demonstrated is that this kind of compensation does not disappear as models improve. It gets more competent. The more capable model broke confinement <em>more</em>, not less, because initiative is capability.</p>
         <p>That inverts the usual safety intuition. The protection cannot come from the agent's alignment with the orchestrator's intention, because the agent's best qualities work against it. It has to come from the action being inexpressible.</p>
         <p>And the cost was not hypothetical. Those 71k tokens on one test file include entire sibling chains entering the context — context nobody chose, unreviewed, unversioned as an input to that generation — with the worst property such context can have: the output looks <em>better</em> informed. The chain hash still computed. It just no longer told the truth about what produced the artifact.</p>
       </section>

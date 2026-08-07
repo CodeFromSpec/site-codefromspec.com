@@ -100,12 +100,13 @@ the output looks *better* informed. The chain hash still
 computed. It just no longer told the truth about what produced
 the artifact.
 
-## The fix: make it inexpressible
+## Make it inexpressible
 
-The mechanism is a token. A new MCP tool, `create_token`, takes
-a logical name and returns an opaque string. `load_chain` and
+A new MCP tool, `create_token`, takes
+a logical name and returns an opaque token that represents it.
+`load_chain` and
 `write_file` no longer accept a logical name at all; they take
-the token, validate it, and extract the name from inside it.
+a token, validate it, and extract the name from inside it.
 
 The orchestrator mints one token per dispatch and hands it to
 the subagent. The subagent can call `load_chain` with that token
@@ -113,10 +114,10 @@ as many times as it likes — it gets the same chain back. What it
 cannot do is construct a token for any other node, because it
 does not know how, and `create_token` is not in its tool list. The names of sibling
 nodes still appear in the chain, as they must. They are now
-inert: labels, not capabilities.
+inert: labels, not a map.
 
-The implementation is deliberately unambitious. The key sits in
-the source code; anyone who can read the server can forge
+The implementation is deliberately unambitious. A symmetric key
+sits in the source code; anyone who can read the server can forge
 tokens. The threat model is not an attacker with the codebase —
 it is a well-meaning subagent with two tools and initiative, and
-against that, unforgeable-without-the-key is enough.
+against that, unforgeable-without-the-key is good enough.

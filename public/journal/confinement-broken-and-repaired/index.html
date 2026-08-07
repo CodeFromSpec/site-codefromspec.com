@@ -62,10 +62,10 @@
         <p>And the cost was not hypothetical. Those 71k tokens on one test file include entire sibling chains entering the context — context nobody chose, unreviewed, unversioned as an input to that generation — with the worst property such context can have: the output looks <em>better</em> informed. The chain hash still computed. It just no longer told the truth about what produced the artifact.</p>
       </section>
       <section>
-        <h2>The fix: make it inexpressible</h2>
-        <p>The mechanism is a token. A new MCP tool, <code>create_token</code>, takes a logical name and returns an opaque string. <code>load_chain</code> and <code>write_file</code> no longer accept a logical name at all; they take the token, validate it, and extract the name from inside it.</p>
-        <p>The orchestrator mints one token per dispatch and hands it to the subagent. The subagent can call <code>load_chain</code> with that token as many times as it likes — it gets the same chain back. What it cannot do is construct a token for any other node, because it does not know how, and <code>create_token</code> is not in its tool list. The names of sibling nodes still appear in the chain, as they must. They are now inert: labels, not capabilities.</p>
-        <p>The implementation is deliberately unambitious. The key sits in the source code; anyone who can read the server can forge tokens. The threat model is not an attacker with the codebase — it is a well-meaning subagent with two tools and initiative, and against that, unforgeable-without-the-key is enough.</p>
+        <h2>Make it inexpressible</h2>
+        <p>A new MCP tool, <code>create_token</code>, takes a logical name and returns an opaque token that represents it. <code>load_chain</code> and <code>write_file</code> no longer accept a logical name at all; they take a token, validate it, and extract the name from inside it.</p>
+        <p>The orchestrator mints one token per dispatch and hands it to the subagent. The subagent can call <code>load_chain</code> with that token as many times as it likes — it gets the same chain back. What it cannot do is construct a token for any other node, because it does not know how, and <code>create_token</code> is not in its tool list. The names of sibling nodes still appear in the chain, as they must. They are now inert: labels, not a map.</p>
+        <p>The implementation is deliberately unambitious. A symmetric key sits in the source code; anyone who can read the server can forge tokens. The threat model is not an attacker with the codebase — it is a well-meaning subagent with two tools and initiative, and against that, unforgeable-without-the-key is good enough.</p>
       </section>
     </div>
   </main>
